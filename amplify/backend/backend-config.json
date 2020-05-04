@@ -1,0 +1,10 @@
+{
+	"auth": {
+		"fizzf5f1f543": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	}
+}

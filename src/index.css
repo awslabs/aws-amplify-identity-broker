@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* See full list: https://docs.amplify.aws/ui/customization/theming/q/framework/react#supported-css-custom-properties */
+
+:root{
+
+  --amplify-primary-color: #008000;
+  --amplify-primary-tint: #0000FF; 
+  --amplify-primary-shade: #008000;
+}
