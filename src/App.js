@@ -17,7 +17,6 @@ class App extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = { lang: "en" };
-    I18n.setLanguage("en");
   }
 
   toggleLang = () => {
@@ -30,6 +29,8 @@ class App extends React.Component {
     }
   }
 
+  // Issue on translation of subfield is https://github.com/aws-amplify/amplify-js/issues/5679
+
   render = () => (
     <div>
       <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
@@ -38,6 +39,7 @@ class App extends React.Component {
           usernameAlias="email"
           headerText={I18n.get("signInHeader")}
           slot="sign-in"
+          submitButtonText={I18n.get("signInButtonText")}
           formFields={[
             {
               type: "email",
@@ -56,6 +58,7 @@ class App extends React.Component {
           usernameAlias="email"
           headerText={I18n.get("signUpHeader")}
           slot="sign-up"
+          submitButtonText={I18n.get("signUpButtonText")}
           formFields={[
             {
               type: "email",
