@@ -1,10 +1,9 @@
 {
 	"auth": {
-		"fizzf5f1f543": {
+		"fizzauth": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
-			"dependsOn": [],
-			"customAuth": false
+			"dependsOn": []
 		}
 	}
 }

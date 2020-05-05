@@ -1,6 +1,6 @@
 import React from 'react';
 import Amplify from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton } from '@aws-amplify/ui-react';
+import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifySelectMfaType } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 
@@ -9,6 +9,12 @@ import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
 
 I18n.putVocabularies(strings);
+
+const MFATypeOptions = {
+  SMS: true,
+  TOTP: true,
+  Optional: true,
+};
 
 // See doc for customization here: https://docs.amplify.aws/ui/auth/authenticator/q/framework/react#slots
 
@@ -35,6 +41,7 @@ class App extends React.Component {
     <div>
       <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
       <AmplifyAuthenticator usernameAlias="email">
+        <AmplifySelectMfaType MFATypes={MFATypeOptions}></AmplifySelectMfaType>
         <AmplifySignIn
           usernameAlias="email"
           headerText={I18n.get("signInHeader")}

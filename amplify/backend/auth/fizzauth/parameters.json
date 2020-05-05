@@ -1,24 +1,24 @@
 {
-    "identityPoolName": "fizzf5f1f543_identitypool_f5f1f543",
-    "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "fizzf5f1f543",
-    "userPoolName": "fizzf5f1f543_userpool_f5f1f543",
+    "resourceNameTruncated": "fizzaue6c0c3e3",
+    "userPoolName": "fizzuserpool",
     "autoVerifiedAttributes": [
         "email"
     ],
-    "mfaConfiguration": "OFF",
+    "mfaConfiguration": "OPTIONAL",
     "mfaTypes": [
-        "SMS Text Message"
+        "SMS Text Message",
+        "TOTP"
     ],
-    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsAuthenticationMessage": "Your Fizz login is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
+    "emailVerificationSubject": "Your Fizz verification code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+        "email",
+        "phone_number"
     ],
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
@@ -28,10 +28,19 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "fizzf5f5f1f543_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "fizzaue6c0c3e3_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "resourceName": "fizzf5f1f543",
-    "authSelections": "identityPoolAndUserPool",
+    "useDefault": "manual",
+    "authSelections": "userPoolOnly",
+    "resourceName": "fizzauth",
+    "usernameAttributes": [
+        "email, phone_number"
+    ],
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": "{}",
+    "hostedUI": false,
+    "userPoolGroupList": [],
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -44,7 +53,9 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
-    "userPoolGroupList": [],
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
     "dependsOn": []
 }
