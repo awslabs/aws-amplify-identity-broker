@@ -1,16 +1,18 @@
 {
-  "name": "fizz",
+  "name": "AmplifyBrokerDemo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aws-amplify/ui-components": "^0.4.1",
-    "@aws-amplify/ui-react": "^0.2.6",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
+    "@aws-amplify/ui-components": "^0.5.1",
+    "@aws-amplify/ui-react": "^0.2.8",
     "aws-amplify": "^3.0.16",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.9.0",
+    "@testing-library/react": "^10.2.0",
+    "@testing-library/user-event": "^11.2.1",
     "react-scripts": "3.4.1"
   },
   "scripts": {
