@@ -1,5 +1,5 @@
 {
-    "demo": {
+    "xavier": {
         "awscloudformation": {
             "AuthRoleName": "amplify-fizz-demo-124203-authRole",
             "UnauthRoleArn": "arn:aws:iam::959861384820:role/amplify-fizz-demo-124203-unauthRole",
