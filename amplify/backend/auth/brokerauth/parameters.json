@@ -38,7 +38,7 @@
     ],
     "userPoolGroups": false,
     "adminQueries": false,
-    "triggers": "{}",
+    "triggers": "{\"CustomMessage\":[\"custom\"]}",
     "hostedUI": false,
     "userPoolGroupList": [],
     "authRoleArn": {
@@ -57,5 +57,15 @@
         "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "dependsOn": []
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "brokerauthCustomMessage",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        }
+    ]
 }

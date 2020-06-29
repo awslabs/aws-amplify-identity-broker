@@ -9,6 +9,18 @@ Parameters:
     Type: String
   
   
+  
+  
+  functionbrokerauthCustomMessageArn: 
+    Type: String
+    Default: functionbrokerauthCustomMessageArn
+  
+  functionbrokerauthCustomMessageName: 
+    Type: String
+    Default: functionbrokerauthCustomMessageName
+  
+  
+  
 
     
   resourceNameTruncated:
@@ -94,7 +106,7 @@ Parameters:
                     
   userPoolGroupList:
     Type: CommaDelimitedList
-                                                
+                                    
   parentStack:
     Type: String
                 
@@ -103,7 +115,7 @@ Parameters:
               
   dependsOn:
     Type: CommaDelimitedList
-    
+                
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
@@ -115,7 +127,7 @@ Resources:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'brokeraue6c0c3e3_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, 'brokeraue6c0c3e3_sns-role', !Join ['',[ 'sns', 'undefined', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument: 
         Version: "2012-10-17"
         Statement: 
@@ -154,18 +166,26 @@ Resources:
           Name: email
           Required: true
           Mutable: true
-       
-        -
-          Name: locale
-          Required: true
-          Mutable: true
- 
+        
         -
           Name: phone_number
           Required: true
           Mutable: true
         
       
+      
+      LambdaConfig:
+        
+        
+          CustomMessage: !Ref functionbrokerauthCustomMessageArn
+        
+        
+        
+        
+        
+        
+        
+        
       
       
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
@@ -194,6 +214,15 @@ Resources:
     
   
     
+  
+  UserPoolCustomMessageLambdaInvokePermission: 
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties: 
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functionbrokerauthCustomMessageName
+      SourceArn: !GetAtt UserPool.Arn
     
   
     
@@ -231,7 +260,7 @@ Resources:
   # Created to execute Lambda which gets userpool app client config values
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',['upClientLambdaRole', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',['upClientLambdaRole', 'undefined', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
