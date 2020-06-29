@@ -1,5 +1,5 @@
 {
-    "resourceNameTruncated": "fizzaue6c0c3e3",
+    "resourceNameTruncated": "brokeraue6c0c3e3",
     "userPoolName": "brokeruserpool",
     "autoVerifiedAttributes": [
         "email"
@@ -28,7 +28,7 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "fizzaue6c0c3e3_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "brokeraue6c0c3e3_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
     "useDefault": "manual",
     "authSelections": "userPoolOnly",

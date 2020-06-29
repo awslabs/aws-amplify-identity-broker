@@ -115,7 +115,7 @@ Resources:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'fizzaue6c0c3e3_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, 'brokeraue6c0c3e3_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument: 
         Version: "2012-10-17"
         Statement: 
@@ -127,10 +127,10 @@ Resources:
               - "sts:AssumeRole"
             Condition: 
               StringEquals:
-                sts:ExternalId: fizzaue6c0c3e3_role_external_id
+                sts:ExternalId: brokeraue6c0c3e3_role_external_id
       Policies: 
         - 
-          PolicyName: fizzaue6c0c3e3-sns-policy
+          PolicyName: brokeraue6c0c3e3-sns-policy
           PolicyDocument: 
             Version: "2012-10-17"
             Statement: 
@@ -188,7 +188,7 @@ Resources:
       SmsVerificationMessage: !Ref smsVerificationMessage
       SmsConfiguration: 
         SnsCallerArn: !GetAtt SNSRole.Arn
-        ExternalId: fizzaue6c0c3e3_role_external_id
+        ExternalId: brokeraue6c0c3e3_role_external_id
           
     DependsOn: SNSRole
     
@@ -210,7 +210,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: fizzaue6c0c3e3_app_clientWeb
+      ClientName: brokeraue6c0c3e3_app_clientWeb
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -220,7 +220,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: fizzaue6c0c3e3_app_client
+      ClientName: brokeraue6c0c3e3_app_client
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
@@ -285,7 +285,7 @@ Resources:
   # Marked as depending on UserPoolClientRole for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: fizzaue6c0c3e3_userpoolclient_lambda_iam_policy
+      PolicyName: brokeraue6c0c3e3_userpoolclient_lambda_iam_policy
       Roles: 
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -302,7 +302,7 @@ Resources:
   # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: fizzaue6c0c3e3_userpoolclient_lambda_log_policy
+      PolicyName: brokeraue6c0c3e3_userpoolclient_lambda_log_policy
       Roles: 
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -339,7 +339,7 @@ Resources:
   # Created to execute Lambda which sets MFA config values
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'fizzaue6c0c3e3_totp_lambda_role', !Join ['',['fizzaue6c0c3e3_totp_lambda_role', '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, 'brokeraue6c0c3e3_totp_lambda_role', !Join ['',['brokeraue6c0c3e3_totp_lambda_role', '-', !Ref env]]]
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -350,14 +350,14 @@ Resources:
             Action:
               - 'sts:AssumeRole'
       Policies:
-      - PolicyName: fizzaue6c0c3e3_totp_pass_role_policy
+      - PolicyName: brokeraue6c0c3e3_totp_pass_role_policy
         PolicyDocument:
           Version: 2012-10-17
           Statement:
             - Effect: Allow
               Action:
                 - 'iam:PassRole'
-              Resource: !If [ShouldNotCreateEnvResources, 'arn:aws:iam:::role/fizzaue6c0c3e3_totp_lambda_role', !Join ['',['arn:aws:iam:::role/fizzaue6c0c3e3_totp_lambda_role', '-', !Ref env]]]
+              Resource: !If [ShouldNotCreateEnvResources, 'arn:aws:iam:::role/brokeraue6c0c3e3_totp_lambda_role', !Join ['',['arn:aws:iam:::role/brokeraue6c0c3e3_totp_lambda_role', '-', !Ref env]]]
   MFALambda:
   # Lambda which sets MFA config values
   # Depends on MFALambdaRole for role ARN
@@ -413,9 +413,9 @@ Resources:
   # Marked as depending on MFALambda for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: fizzaue6c0c3e3_totp_lambda_iam_policy
+      PolicyName: brokeraue6c0c3e3_totp_lambda_iam_policy
       Roles: 
-        - !If [ShouldNotCreateEnvResources, 'fizzaue6c0c3e3_totp_lambda_role', !Join ['',['fizzaue6c0c3e3_totp_lambda_role', '-', !Ref env]]]
+        - !If [ShouldNotCreateEnvResources, 'brokeraue6c0c3e3_totp_lambda_role', !Join ['',['brokeraue6c0c3e3_totp_lambda_role', '-', !Ref env]]]
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -429,9 +429,9 @@ Resources:
   # Marked as depending on MFALambdaPolicy for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: fizzaue6c0c3e3_totp_lambda_log_policy
+      PolicyName: brokeraue6c0c3e3_totp_lambda_log_policy
       Roles: 
-        - !If [ShouldNotCreateEnvResources, 'fizzaue6c0c3e3_totp_lambda_role', !Join ['',['fizzaue6c0c3e3_totp_lambda_role', '-', !Ref env]]]
+        - !If [ShouldNotCreateEnvResources, 'brokeraue6c0c3e3_totp_lambda_role', !Join ['',['brokeraue6c0c3e3_totp_lambda_role', '-', !Ref env]]]
       PolicyDocument:
         Version: 2012-10-17
         Statement:
@@ -457,7 +457,7 @@ Resources:
       totpEnabled: true
       smsConfigCaller: !GetAtt SNSRole.Arn
       smsAuthenticationMessage: !Ref smsAuthenticationMessage
-      smsConfigExternalId: fizzaue6c0c3e3_role_external_id
+      smsConfigExternalId: brokeraue6c0c3e3_role_external_id
     DependsOn: MFALogPolicy
   
     
