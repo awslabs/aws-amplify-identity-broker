@@ -6,8 +6,8 @@ export const strings = {
     en: {
         [Translations.NO_ACCOUNT_TEXT]: "No account yet?",
         [Translations.CREATE_ACCOUNT_TEXT]: "create account",
-        signInHeader: "Sign in your Fizz account",
-        signUpHeader: "Create your fizz account",
+        signInHeader: "Sign in your account",
+        signUpHeader: "Create your account",
         emailLabel: "Email",
         emailPlaceHolder: "your.email@example.com",
         passwordLabel: "Password",
@@ -20,8 +20,8 @@ export const strings = {
     fr: {
         [Translations.NO_ACCOUNT_TEXT]: "Pas encore de compte?",
         [Translations.CREATE_ACCOUNT_TEXT]: "créer un compte",
-        signInHeader: "Connexion à votre compte Fizz",
-        signUpHeader: "Créer un compte Fizz",
+        signInHeader: "Connexion à votre compte",
+        signUpHeader: "Créer un compte",
         emailLabel: "Adresse de messagerie",
         emailPlaceHolder: "votre.email@exemple.com",
         passwordLabel: "Mot de passe",
