@@ -1,6 +1,6 @@
 {
 	"auth": {
-		"fizzauth": {
+		"brokerauth": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": []

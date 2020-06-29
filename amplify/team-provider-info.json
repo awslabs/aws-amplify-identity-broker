@@ -13,7 +13,7 @@
         },
         "categories": {
             "auth": {
-                "fizzauth": {}
+                "brokerauth": {}
             }
         }
     }

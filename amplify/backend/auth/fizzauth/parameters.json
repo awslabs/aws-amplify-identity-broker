@@ -1,6 +1,6 @@
 {
     "resourceNameTruncated": "fizzaue6c0c3e3",
-    "userPoolName": "fizzuserpool",
+    "userPoolName": "brokeruserpool",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -9,9 +9,9 @@
         "SMS Text Message",
         "TOTP"
     ],
-    "smsAuthenticationMessage": "Your Fizz login is {####}",
+    "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your Fizz verification code",
+    "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
@@ -32,7 +32,7 @@
     "userpoolClientSetAttributes": false,
     "useDefault": "manual",
     "authSelections": "userPoolOnly",
-    "resourceName": "fizzauth",
+    "resourceName": "brokerauth",
     "usernameAttributes": [
         "email, phone_number"
     ],

@@ -12,7 +12,7 @@ export const strings = {
         emailPlaceHolder: "your.email@example.com",
         passwordLabel: "Password",
         passwordPlaceHolder: "xxxxxxxxx",
-        phoneNumberLabel: "Phone number",
+        phoneNumberLabel: "Phone Number",
         phoneNumberPlaceHolder: "555-555-5555",
         signUpButtonText: "SIGN UP",
         signInButtonText: "SIGN IN"
