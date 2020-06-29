@@ -20,4 +20,4 @@ Features are:
 ## PKCE
 
 ## Project Scope
-![Projet Scope Image](https://github.com/xavierraffin/fizz-demo/blob/master/Documentation/Images/Simplified%20Project%20Scope.png "Simplified Project Scope")
+![Projet Scope Image](Documentation/Images/Simplified%20Project%20Scope.png "Simplified Project Scope")

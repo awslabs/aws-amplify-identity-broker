@@ -154,7 +154,12 @@ Resources:
           Name: email
           Required: true
           Mutable: true
-        
+       
+        -
+          Name: locale
+          Required: true
+          Mutable: true
+ 
         -
           Name: phone_number
           Required: true
