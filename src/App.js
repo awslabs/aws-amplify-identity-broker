@@ -44,82 +44,88 @@ class App extends React.Component {
   render = () => (
     <div>
       <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
-      <AmplifyAuthenticator usernameAlias="email">
-        <AmplifySelectMfaType MFATypes={MFATypeOptions}></AmplifySelectMfaType>
-        <AmplifyForgotPassword
-          usernameAlias="email"
-          slot="forgot-password"
-          headerText={I18n.get("resetYourPassword")}
-          submitButtonText={I18n.get("sendCode")} //Bug?
-          formFields={[
-            {
-              type: "email",
-              label: I18n.get("emailLabel"),
-              placeholder: I18n.get("emailPlaceHolder"), //Bug?
-              required: true,
-            },
-          ]}></AmplifyForgotPassword>
-        <AmplifySignIn
-          usernameAlias="email"
-          headerText={I18n.get("signInHeader")}
-          slot="sign-in"
-          submitButtonText={I18n.get("signInButtonText")}
-          formFields={[
-            {
-              type: "email",
-              label: I18n.get("emailLabel"),
-              placeholder: I18n.get("emailPlaceHolder"),
-              required: true,
-            },
-            {
-              type: "password",
-              label: I18n.get("passwordLabel"),
-              placeholder: I18n.get("passwordPlaceHolder"),
-              required: true,
-            }
-          ]}></AmplifySignIn>
-        <AmplifySignUp
-          usernameAlias="email"
-          headerText={I18n.get("signUpHeader")}
-          slot="sign-up"
-          submitButtonText={I18n.get("signUpButtonText")}
-          formFields={[
-            {
-              type: "email",
-              label: I18n.get("emailLabel"),
-              placeholder: I18n.get("emailPlaceHolder"),
-              required: true,
-            },
-            {
-              type: "password",
-              label: I18n.get("passwordLabel"),
-              placeholder: I18n.get("passwordPlaceHolder"),
-              required: true,
-            },
-            {
-              type: "phone_number",
-              label: I18n.get("phoneNumberLabel"),
-              placeholder: I18n.get("phoneNumberPlaceHolder"),
-              required: false,
-            },
-            {
-              type: "locale",
-              label: I18n.get("Locale"),
-              placeholder: "fr-FR, en, ...",
-              //value: this.state.lang,
-              //Auto populate does not work for some reason there a bug with this.state.lang
-              //For now we have to type in the string itself and cannot be hidden, Ampilfy team is working on this solution
-              required: true,
-            }
-          ]}></AmplifySignUp>
-        <div>
-          {/* This is not really private, you should instead use the credential to load something dynamically from the backend */}
+      <div style={styles.container}>
+        <AmplifyAuthenticator usernameAlias="email">
+          <AmplifySelectMfaType MFATypes={MFATypeOptions}></AmplifySelectMfaType>
+          <AmplifyForgotPassword
+            usernameAlias="email"
+            slot="forgot-password"
+            headerText={I18n.get("resetYourPassword")}
+            submitButtonText={I18n.get("sendCode")} //Bug?
+            formFields={[
+              {
+                type: "email",
+                label: I18n.get("emailLabel"),
+                placeholder: I18n.get("emailPlaceHolder"), //Bug?
+                required: true,
+              },
+            ]}></AmplifyForgotPassword>
+          <AmplifySignIn
+            usernameAlias="email"
+            headerText={I18n.get("signInHeader")}
+            slot="sign-in"
+            submitButtonText={I18n.get("signInButtonText")}
+            formFields={[
+              {
+                type: "email",
+                label: I18n.get("emailLabel"),
+                placeholder: I18n.get("emailPlaceHolder"),
+                required: true,
+              },
+              {
+                type: "password",
+                label: I18n.get("passwordLabel"),
+                placeholder: I18n.get("passwordPlaceHolder"),
+                required: true,
+              }
+            ]}></AmplifySignIn>
+          <AmplifySignUp
+            usernameAlias="email"
+            headerText={I18n.get("signUpHeader")}
+            slot="sign-up"
+            submitButtonText={I18n.get("signUpButtonText")}
+            formFields={[
+              {
+                type: "email",
+                label: I18n.get("emailLabel"),
+                placeholder: I18n.get("emailPlaceHolder"),
+                required: true,
+              },
+              {
+                type: "password",
+                label: I18n.get("passwordLabel"),
+                placeholder: I18n.get("passwordPlaceHolder"),
+                required: true,
+              },
+              {
+                type: "phone_number",
+                label: I18n.get("phoneNumberLabel"),
+                placeholder: I18n.get("phoneNumberPlaceHolder"),
+                required: false,
+              },
+              {
+                type: "locale",
+                label: I18n.get("Locale"),
+                placeholder: "fr-FR, en, ...",
+                //value: this.state.lang,
+                //Auto populate does not work for some reason there a bug with this.state.lang
+                //For now we have to type in the string itself and cannot be hidden, Ampilfy team is working on this solution
+                required: true,
+              }
+            ]}></AmplifySignUp>
+          <div>
+            {/* This is not really private, you should instead use the credential to load something dynamically from the backend */}
             Private Content
           <AmplifySignOut />
-        </div>
-      </AmplifyAuthenticator>
+          </div>
+        </AmplifyAuthenticator>
+      </div>
     </div>
   );
+}
+
+const styles = {
+  container: { width: 400, margin: '0 auto', display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', padding: 20 },
 }
 
 export default App;

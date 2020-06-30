@@ -118,7 +118,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-xraffin-141758-deployment",
+					"S3Bucket": "amplify-amplify-identity-broker-liamdev-94624-deployment",
 					"S3Key": "amplify-builds/brokerauthCustomMessage-43596b744143396c7175-build.zip"
 				}
 			}
