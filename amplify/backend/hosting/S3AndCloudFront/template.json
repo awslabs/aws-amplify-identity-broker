@@ -179,8 +179,13 @@
                     "CacheBehaviors": [
                         {
                             "AllowedMethods": [
+                                "DELETE",
                                 "GET",
-                                "POST"
+                                "HEAD",
+                                "OPTIONS",
+                                "PATCH",
+                                "POST",
+                                "PUT"
                             ],
                             "TargetOriginId": "backendAPIGateway",
                             "ForwardedValues": {
@@ -201,8 +206,13 @@
                         },
                         {
                             "AllowedMethods": [
+                                "DELETE",
                                 "GET",
-                                "POST"
+                                "HEAD",
+                                "OPTIONS",
+                                "PATCH",
+                                "POST",
+                                "PUT"
                             ],
                             "TargetOriginId": "backendAPIGateway",
                             "ForwardedValues": {
@@ -223,8 +233,13 @@
                         },
                         {
                             "AllowedMethods": [
+                                "DELETE",
                                 "GET",
-                                "POST"
+                                "HEAD",
+                                "OPTIONS",
+                                "PATCH",
+                                "POST",
+                                "PUT"
                             ],
                             "TargetOriginId": "backendAPIGateway",
                             "ForwardedValues": {
