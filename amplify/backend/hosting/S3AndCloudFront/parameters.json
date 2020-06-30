@@ -1,3 +1,4 @@
 {
-    "bucketName": "broker-20200504180301-hostingbucket"
+    "bucketName": "broker-20200504180301-hostingbucket",
+    "backendapiRootUrl": "zoyu05szjc.execute-api.us-west-2.amazonaws.com"
 }

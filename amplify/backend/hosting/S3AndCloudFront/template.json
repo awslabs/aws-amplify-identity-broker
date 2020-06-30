@@ -156,8 +156,22 @@
                                 "Ref": "backendapiRootUrl"
                             },
                             "Id": "backendAPIGateway",
+                            "CustomOriginConfig": {
+                                "OriginSSLProtocols": [
+                                    "TLSv1.2"
+                                ],
+                                "OriginProtocolPolicy": "https-only"
+                            },
                             "OriginPath": {
-                                "Ref": "env"
+                                "Fn::Join": [
+                                    "",
+                                    [
+                                        "/",
+                                        {
+                                            "Ref": "env"
+                                        }
+                                    ]
+                                ]
                             }
                         }
                     ],
