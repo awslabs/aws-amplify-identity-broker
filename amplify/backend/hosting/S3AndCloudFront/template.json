@@ -199,31 +199,7 @@
                             "MaxTTL": 0,
                             "MinTTL": 0,
                             "Compress": false,
-                            "PathPattern": "/authorize*"
-                        },
-                        {
-                            "AllowedMethods": [
-                                "DELETE",
-                                "GET",
-                                "HEAD",
-                                "OPTIONS",
-                                "PATCH",
-                                "POST",
-                                "PUT"
-                            ],
-                            "TargetOriginId": "backendAPIGateway",
-                            "ForwardedValues": {
-                                "QueryString": "true",
-                                "Cookies": {
-                                    "Forward": "all"
-                                }
-                            },
-                            "ViewerProtocolPolicy": "https-only",
-                            "DefaultTTL": 0,
-                            "MaxTTL": 0,
-                            "MinTTL": 0,
-                            "Compress": false,
-                            "PathPattern": "/token*"
+                            "PathPattern": "/oauth2*"
                         },
                         {
                             "AllowedMethods": [

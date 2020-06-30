@@ -94,7 +94,7 @@
             "https"
           ],
           "paths": {
-            "/authorize": {
+            "/oauth2/authorize": {
               "options": {
                 "consumes": [
                   "application/json"
@@ -189,7 +189,7 @@
                 }
               }
             },
-            "/authorize/{proxy+}": {
+            "/oauth2/authorize/{proxy+}": {
               "options": {
                 "consumes": [
                   "application/json"
@@ -284,7 +284,7 @@
                 }
               }
             },
-            "/token": {
+            "/oauth2/token": {
               "options": {
                 "consumes": [
                   "application/json"
@@ -379,7 +379,7 @@
                 }
               }
             },
-            "/token/{proxy+}": {
+            "/oauth2/token/{proxy+}": {
               "options": {
                 "consumes": [
                   "application/json"
