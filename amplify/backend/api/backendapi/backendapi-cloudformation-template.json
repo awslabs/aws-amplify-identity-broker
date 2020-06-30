@@ -841,6 +841,24 @@
         ]
       }
     },
+    "ApiDomain": {
+      "Description": "Domain of the API gateway",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            {
+              "Ref": "backendapi"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".amazonaws.com"
+          ]
+        ]
+      }
+    },
     "ApiName": {
       "Description": "API Friendly name",
       "Value": "backendapi"
