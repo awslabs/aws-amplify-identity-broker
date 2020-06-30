@@ -1,1 +1,12 @@
-{}
+{
+    "permissions": {
+        "storage": {
+            "backendDynamo": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}

@@ -1,88 +1,104 @@
 {
-	"auth": {
-		"brokerauth": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [
-				{
-					"category": "function",
-					"resourceName": "brokerauthCustomMessage",
-					"triggerProvider": "Cognito",
-					"attributes": [
-						"Arn",
-						"Name"
-					]
-				}
-			]
-		}
-	},
-	"hosting": {
-		"S3AndCloudFront": {
-			"service": "S3AndCloudFront",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [
-				{
-					"category": "api",
-					"resourceName": "backendapi",
-					"attributes": [
-						"ApiDomain"
-					]
-				}
-			]
-		}
-	},
-	"function": {
-		"brokerauthCustomMessage": {
-			"build": true,
-			"providerPlugin": "awscloudformation",
-			"service": "Lambda"
-		},
-		"authorizefunction": {
-			"build": true,
-			"providerPlugin": "awscloudformation",
-			"service": "Lambda"
-		},
-		"tokenfunction": {
-			"build": true,
-			"providerPlugin": "awscloudformation",
-			"service": "Lambda"
-		},
-		"storagefunction": {
-			"build": true,
-			"providerPlugin": "awscloudformation",
-			"service": "Lambda"
-		}
-	},
-	"api": {
-		"backendapi": {
-			"service": "API Gateway",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [
-				{
-					"category": "function",
-					"resourceName": "authorizefunction",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				},
-				{
-					"category": "function",
-					"resourceName": "tokenfunction",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				},
-				{
-					"category": "function",
-					"resourceName": "storagefunction",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				}
-			]
-		}
-	}
+    "auth": {
+        "brokerauth": {
+            "service": "Cognito",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "brokerauthCustomMessage",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
+                }
+            ]
+        }
+    },
+    "hosting": {
+        "S3AndCloudFront": {
+            "service": "S3AndCloudFront",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "api",
+                    "resourceName": "backendapi",
+                    "attributes": [
+                        "ApiDomain"
+                    ]
+                }
+            ]
+        }
+    },
+    "function": {
+        "brokerauthCustomMessage": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda"
+        },
+        "authorizefunction": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda",
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "backendDynamo",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        },
+        "tokenfunction": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda"
+        },
+        "storagefunction": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda"
+        }
+    },
+    "api": {
+        "backendapi": {
+            "service": "API Gateway",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "authorizefunction",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "tokenfunction",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "storagefunction",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        }
+    },
+    "storage": {
+        "backendDynamo": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        }
+    }
 }
