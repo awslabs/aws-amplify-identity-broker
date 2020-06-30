@@ -16,7 +16,10 @@
                 "brokerauth": {}
             },
             "function": {
-                "brokerauthCustomMessage": {}
+                "brokerauthCustomMessage": {},
+                "authorizefunction": {},
+                "tokenfunction": {},
+                "storagefunction": {}
             }
         }
     },
