@@ -7,6 +7,9 @@
         },
         "bucketName": {
             "Type": "String"
+        },
+        "backendapiRootUrl": {
+            "Type": "String"
         }
     },
     "Conditions": {
@@ -146,6 +149,15 @@
                                         ]
                                     ]
                                 }
+                            }
+                        },
+                        {
+                            "DomainName": {
+                                "Ref": "backendapiRootUrl"
+                            },
+                            "Id": "backendAPIGateway",
+                            "OriginPath": {
+                                "Ref": "env"
                             }
                         }
                     ],
