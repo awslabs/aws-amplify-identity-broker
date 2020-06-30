@@ -70,5 +70,29 @@
                 "storagefunction": {}
             }
         }
+    },
+    "kevinenv": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-amplify-identity-broker-kevinenv-91427-authRole",
+            "UnauthRoleArn": "arn:aws:iam::111989064546:role/amplify-amplify-identity-broker-kevinenv-91427-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::111989064546:role/amplify-amplify-identity-broker-kevinenv-91427-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-amplify-identity-broker-kevinenv-91427-deployment",
+            "UnauthRoleName": "amplify-amplify-identity-broker-kevinenv-91427-unauthRole",
+            "StackName": "amplify-amplify-identity-broker-kevinenv-91427",
+            "StackId": "arn:aws:cloudformation:us-west-2:111989064546:stack/amplify-amplify-identity-broker-kevinenv-91427/c6e7a720-baec-11ea-9fa9-0a6ece383596",
+            "AmplifyAppId": "d1usem8fhcmegf"
+        },
+        "categories": {
+            "auth": {
+                "brokerauth": {}
+            },
+            "function": {
+                "brokerauthCustomMessage": {},
+                "authorizefunction": {},
+                "tokenfunction": {},
+                "storagefunction": {}
+            }
+        }
     }
 }
