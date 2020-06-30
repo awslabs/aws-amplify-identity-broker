@@ -1,6 +1,6 @@
 import React from 'react';
 import Amplify from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifySelectMfaType } from '@aws-amplify/ui-react';
+import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifySelectMfaType, AmplifyForgotPassword } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 
@@ -22,7 +22,11 @@ class App extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = { lang: "en" };
+    if (navigator.language === "fr" || navigator.language.startsWith("fr-")) {
+      this.state = { lang: "fr" };
+    } else {
+      this.state = { lang: "en" };
+    }
   }
 
   toggleLang = () => {
@@ -42,6 +46,19 @@ class App extends React.Component {
       <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
       <AmplifyAuthenticator usernameAlias="email">
         <AmplifySelectMfaType MFATypes={MFATypeOptions}></AmplifySelectMfaType>
+        <AmplifyForgotPassword
+          usernameAlias="email"
+          slot="forgot-password"
+          headerText={I18n.get("resetYourPassword")}
+          submitButtonText={I18n.get("sendCode")} //Bug?
+          formFields={[
+            {
+              type: "email",
+              label: I18n.get("emailLabel"),
+              placeholder: I18n.get("emailPlaceHolder"), //Bug?
+              required: true,
+            },
+          ]}></AmplifyForgotPassword>
         <AmplifySignIn
           usernameAlias="email"
           headerText={I18n.get("signInHeader")}
@@ -84,6 +101,15 @@ class App extends React.Component {
               label: I18n.get("phoneNumberLabel"),
               placeholder: I18n.get("phoneNumberPlaceHolder"),
               required: false,
+            },
+            {
+              type: "locale",
+              label: I18n.get("Locale"),
+              placeholder: "fr-FR, en, ...",
+              //value: this.state.lang,
+              //Auto populate does not work for some reason there a bug with this.state.lang
+              //For now we have to type in the string itself and cannot be hidden, Ampilfy team is working on this solution
+              required: true,
             }
           ]}></AmplifySignUp>
         <div>

@@ -15,7 +15,11 @@ export const strings = {
         phoneNumberLabel: "Phone Number",
         phoneNumberPlaceHolder: "555-555-5555",
         signUpButtonText: "SIGN UP",
-        signInButtonText: "SIGN IN"
+        signInButtonText: "SIGN IN",
+        signInText: "Sign In",
+        haveAccountText: "Have an account?",
+        resetYourPassword: "Reset your password",
+        sendCode: "Send Code"
     },
     fr: {
         [Translations.NO_ACCOUNT_TEXT]: "Pas encore de compte?",
@@ -29,6 +33,10 @@ export const strings = {
         phoneNumberLabel: "Numéro de téléphone",
         phoneNumberPlaceHolder: "555-555-5555",
         signUpButtonText: "CREER COMPTE",
-        signInButtonText: "CONNEXION"
+        signInButtonText: "CONNEXION",
+        signInText: "Se connecter",
+        haveAccountText: "Vous avez un compte?",
+        resetYourPassword: "Réinitialisez votre mot de passe",
+        sendCode: "Envoyer le code"
     },
 };
