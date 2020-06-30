@@ -67,7 +67,7 @@
 				"Runtime": "nodejs12.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-xraffin-141758-deployment",
+					"S3Bucket": "amplify-amplify-identity-broker-liamdev-94624-deployment",
 					"S3Key": "amplify-builds/storagefunction-764c3149616c706e7279-build.zip"
 				}
 			}
