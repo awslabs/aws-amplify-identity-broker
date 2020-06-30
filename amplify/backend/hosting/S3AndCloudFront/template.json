@@ -190,9 +190,6 @@
                             "TargetOriginId": "backendAPIGateway",
                             "ForwardedValues": {
                                 "QueryString": "true",
-                                "Headers": [
-                                    "*"
-                                ],
                                 "Cookies": {
                                     "Forward": "all"
                                 }
@@ -217,9 +214,6 @@
                             "TargetOriginId": "backendAPIGateway",
                             "ForwardedValues": {
                                 "QueryString": "true",
-                                "Headers": [
-                                    "*"
-                                ],
                                 "Cookies": {
                                     "Forward": "all"
                                 }
@@ -244,9 +238,6 @@
                             "TargetOriginId": "backendAPIGateway",
                             "ForwardedValues": {
                                 "QueryString": "true",
-                                "Headers": [
-                                    "*"
-                                ],
                                 "Cookies": {
                                     "Forward": "all"
                                 }
