@@ -1,3 +1,9 @@
+/* Amplify Params - DO NOT EDIT
+	ENV
+	REGION
+	STORAGE_BACKENDDYNAMO_ARN
+	STORAGE_BACKENDDYNAMO_NAME
+Amplify Params - DO NOT EDIT */
 function handlePKCE(event) {
     return {
         statusCode: 200,
@@ -19,7 +25,7 @@ function handleImplicit(event) {
     return { //redirect to login page
         statusCode: 301,
         headers: {
-            Location: '/',
+            Location: '/?client_id=' + client_id + '&redirect_url=' + redirect_url,
         }
     };
 }

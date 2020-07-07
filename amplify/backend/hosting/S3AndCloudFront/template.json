@@ -194,7 +194,7 @@
                                     "Forward": "all"
                                 }
                             },
-                            "ViewerProtocolPolicy": "https-only",
+                            "ViewerProtocolPolicy": "redirect-to-https",
                             "DefaultTTL": 0,
                             "MaxTTL": 0,
                             "MinTTL": 0,
@@ -218,7 +218,7 @@
                                     "Forward": "all"
                                 }
                             },
-                            "ViewerProtocolPolicy": "https-only",
+                            "ViewerProtocolPolicy": "redirect-to-https",
                             "DefaultTTL": 0,
                             "MaxTTL": 0,
                             "MinTTL": 0,
