@@ -33,7 +33,7 @@
                 "AttributeDefinitions": [
                   
                   {
-                      "AttributeName": "code_challenge",
+                      "AttributeName": "authorization_code",
                       "AttributeType": "S"
                   } 
                   
@@ -41,7 +41,7 @@
                 "KeySchema": [
                   
                   {
-                    "AttributeName": "code_challenge",
+                    "AttributeName": "authorization_code",
                     "KeyType": "HASH"
                   } 
                   

@@ -1,5 +1,5 @@
 {
-    "tableName": "codes",
-    "partitionKeyName": "code_challenge",
+    "tableName": "idbrokerCodes",
+    "partitionKeyName": "authorization_code",
     "partitionKeyType": "S"
 }

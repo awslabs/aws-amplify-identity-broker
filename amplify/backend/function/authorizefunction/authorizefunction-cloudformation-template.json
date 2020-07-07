@@ -81,9 +81,10 @@
 				"Runtime": "nodejs12.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-liamdev-94624-deployment",
-					"S3Key": "amplify-builds/authorizefunction-7671624e773577505a36-build.zip"
-				}
+					"S3Bucket": "amplify-amplify-identity-broker-liamawsdev-173334-deployment",
+					"S3Key": "amplify-builds/authorizefunction-636a75772f41697a4362-build.zip"
+				},
+				"Layers": []
 			}
 		},
 		"LambdaExecutionRole": {

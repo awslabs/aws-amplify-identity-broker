@@ -8,5 +8,9 @@
                 "delete"
             ]
         }
-    }
+    },
+    "mutableParametersState": {
+        "permissions": {}
+    },
+    "lambdaLayers": []
 }
