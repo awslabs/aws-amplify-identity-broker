@@ -8,12 +8,12 @@ const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
 
 var docClient = new AWS.DynamoDB.DocumentClient();
-var tableName = process.env.STORAGE_BACKENDDYNAMO_NAME
+var tableName = process.env.STORAGE_BACKENDDYNAMO_NAME;
 
 async function handlePKCE(event) {
-    var client_id = event.queryStringParameters.client_id
-    var redirect_url = event.queryStringParameters.redirect_url
-    var code_challenge = event.queryStringParameters.code_challenge
+    var client_id = event.queryStringParameters.client_id;
+    var redirect_url = event.queryStringParameters.redirect_url;
+    var code_challenge = event.queryStringParameters.code_challenge;
     if (client_id === undefined || redirect_url === undefined || code_challenge === undefined) {
         return {
             statusCode: 400,
@@ -31,10 +31,10 @@ async function handlePKCE(event) {
     };
 
     try {
-        var result = await docClient.put(params).promise()
-        console.log(JSON.stringify(result))
+        var result = await docClient.put(params).promise();
+        console.log(JSON.stringify(result));
     } catch (error) {
-        console.error(error)
+        console.error(error);
     }
 
     return {
@@ -44,8 +44,8 @@ async function handlePKCE(event) {
 }
 
 async function handleImplicit(event) {
-    var client_id = event.queryStringParameters.client_id
-    var redirect_url = event.queryStringParameters.redirect_url
+    var client_id = event.queryStringParameters.client_id;
+    var redirect_url = event.queryStringParameters.redirect_url;
     if (client_id === undefined || redirect_url === undefined) {
         return {
             statusCode: 400,
