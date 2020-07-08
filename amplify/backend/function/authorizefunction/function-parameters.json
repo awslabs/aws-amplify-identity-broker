@@ -1,16 +1,22 @@
 {
+  "permissions": {},
+  "mutableParametersState": {
     "permissions": {
-        "storage": {
-            "backendDynamo": [
-                "create",
-                "read",
-                "update",
-                "delete"
-            ]
-        }
-    },
-    "mutableParametersState": {
-        "permissions": {}
-    },
-    "lambdaLayers": []
+      "storage": {
+        "codesTable": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ],
+        "clientsTable": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  },
+  "lambdaLayers": []
 }

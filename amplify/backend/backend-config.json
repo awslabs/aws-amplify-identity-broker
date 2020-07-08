@@ -44,7 +44,15 @@
             "dependsOn": [
                 {
                     "category": "storage",
-                    "resourceName": "backendDynamo",
+                    "resourceName": "codesTable",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "storage",
+                    "resourceName": "clientsTable",
                     "attributes": [
                         "Name",
                         "Arn"
@@ -96,7 +104,11 @@
         }
     },
     "storage": {
-        "backendDynamo": {
+        "codesTable": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        },
+        "clientsTable": {
             "service": "DynamoDB",
             "providerPlugin": "awscloudformation"
         }
