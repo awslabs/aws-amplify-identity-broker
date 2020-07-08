@@ -6,6 +6,7 @@
 	STORAGE_CODESTABLE_ARN
 	STORAGE_CODESTABLE_NAME
 Amplify Params - DO NOT EDIT */
+
 const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
 const CODE_LIFE = 900000;
@@ -32,7 +33,6 @@ async function verifyClient(client_id, redirect_url) {
     }
     return false;
 }
-
 
 async function handlePKCE(event) {
     var client_id = event.queryStringParameters.client_id;
