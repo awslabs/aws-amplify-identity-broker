@@ -1,100 +1,101 @@
 {
-	"production": {
-		"awscloudformation": {
-			"AuthRoleName": "amplify-amplify-identity-broker-production-160730-authRole",
-			"UnauthRoleArn": "arn:aws:iam::711171961718:role/amplify-amplify-identity-broker-production-160730-unauthRole",
-			"AuthRoleArn": "arn:aws:iam::711171961718:role/amplify-amplify-identity-broker-production-160730-authRole",
-			"Region": "us-west-2",
-			"DeploymentBucketName": "amplify-amplify-identity-broker-production-160730-deployment",
-			"UnauthRoleName": "amplify-amplify-identity-broker-production-160730-unauthRole",
-			"StackName": "amplify-amplify-identity-broker-production-160730",
-			"StackId": "arn:aws:cloudformation:us-west-2:711171961718:stack/amplify-amplify-identity-broker-production-160730/505edae0-ba5d-11ea-afdf-069318d3f048",
-			"AmplifyAppId": "d62d2ldp0gchf"
-		},
-		"categories": {
-			"auth": {
-				"brokerauth": {}
-			},
-			"function": {
-				"brokerauthCustomMessage": {},
-				"authorizefunction": {},
-				"tokenfunction": {},
-				"storagefunction": {}
-			}
-		}
-	},
-	"kevinenv": {
-		"awscloudformation": {
-			"AuthRoleName": "amplify-amplify-identity-broker-kevinenv-91427-authRole",
-			"UnauthRoleArn": "arn:aws:iam::111989064546:role/amplify-amplify-identity-broker-kevinenv-91427-unauthRole",
-			"AuthRoleArn": "arn:aws:iam::111989064546:role/amplify-amplify-identity-broker-kevinenv-91427-authRole",
-			"Region": "us-west-2",
-			"DeploymentBucketName": "amplify-amplify-identity-broker-kevinenv-91427-deployment",
-			"UnauthRoleName": "amplify-amplify-identity-broker-kevinenv-91427-unauthRole",
-			"StackName": "amplify-amplify-identity-broker-kevinenv-91427",
-			"StackId": "arn:aws:cloudformation:us-west-2:111989064546:stack/amplify-amplify-identity-broker-kevinenv-91427/c6e7a720-baec-11ea-9fa9-0a6ece383596",
-			"AmplifyAppId": "d1usem8fhcmegf"
-		},
-		"categories": {
-			"auth": {
-				"brokerauth": {}
-			},
-			"function": {
-				"brokerauthCustomMessage": {},
-				"authorizefunction": {},
-				"tokenfunction": {},
-				"storagefunction": {}
-			}
-		}
-	},
-	"liamawsdev": {
-		"awscloudformation": {
-			"AuthRoleName": "amplify-amplify-identity-broker-liamawsdev-173334-authRole",
-			"UnauthRoleArn": "arn:aws:iam::386310383721:role/amplify-amplify-identity-broker-liamawsdev-173334-unauthRole",
-			"AuthRoleArn": "arn:aws:iam::386310383721:role/amplify-amplify-identity-broker-liamawsdev-173334-authRole",
-			"Region": "us-east-1",
-			"DeploymentBucketName": "amplify-amplify-identity-broker-liamawsdev-173334-deployment",
-			"UnauthRoleName": "amplify-amplify-identity-broker-liamawsdev-173334-unauthRole",
-			"StackName": "amplify-amplify-identity-broker-liamawsdev-173334",
-			"StackId": "arn:aws:cloudformation:us-east-1:386310383721:stack/amplify-amplify-identity-broker-liamawsdev-173334/83ee6730-c099-11ea-aee0-12c9c271ca70",
-			"AmplifyAppId": "d2bxuwebazvqxf"
-		},
-		"categories": {
-			"auth": {
-				"brokerauth": {}
-			},
-			"function": {
-				"brokerauthCustomMessage": {},
-				"authorizefunction": {},
-				"tokenfunction": {},
-				"storagefunction": {}
-			}
-		}
-	},
-	"xavierdev": {
-		"awscloudformation": {
-			"AuthRoleName": "amplify-amplify-identity-broker-xavierdev-151811-authRole",
-			"UnauthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-xavierdev-151811-unauthRole",
-			"AuthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-xavierdev-151811-authRole",
-			"Region": "us-west-2",
-			"DeploymentBucketName": "amplify-amplify-identity-broker-xavierdev-151811-deployment",
-			"UnauthRoleName": "amplify-amplify-identity-broker-xavierdev-151811-unauthRole",
-			"StackName": "amplify-amplify-identity-broker-xavierdev-151811",
-			"StackId": "arn:aws:cloudformation:us-west-2:959861384820:stack/amplify-amplify-identity-broker-xavierdev-151811/14526940-c232-11ea-8728-0a6344b8d61c",
-			"AmplifyAppId": "dgvx8t5exfw79"
-		},
-		"categories": {
-			"auth": {
-				"brokerauth": {}
-			},
-			"function": {
-				"brokerauthCustomMessage": {},
-				"authorizefunction": {},
-				"tokenfunction": {},
-				"storagefunction": {},
-				"codesTable": {},
-				"clientsTable": {}
-			}
-		}
-	}
+    "production": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-amplify-identity-broker-production-160730-authRole",
+            "UnauthRoleArn": "arn:aws:iam::711171961718:role/amplify-amplify-identity-broker-production-160730-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::711171961718:role/amplify-amplify-identity-broker-production-160730-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-amplify-identity-broker-production-160730-deployment",
+            "UnauthRoleName": "amplify-amplify-identity-broker-production-160730-unauthRole",
+            "StackName": "amplify-amplify-identity-broker-production-160730",
+            "StackId": "arn:aws:cloudformation:us-west-2:711171961718:stack/amplify-amplify-identity-broker-production-160730/505edae0-ba5d-11ea-afdf-069318d3f048",
+            "AmplifyAppId": "d62d2ldp0gchf"
+        },
+        "categories": {
+            "auth": {
+                "brokerauth": {}
+            },
+            "function": {
+                "brokerauthCustomMessage": {},
+                "authorizefunction": {},
+                "tokenfunction": {},
+                "storagefunction": {}
+            }
+        }
+    },
+    "kevinenv": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-amplify-identity-broker-kevinenv-91427-authRole",
+            "UnauthRoleArn": "arn:aws:iam::111989064546:role/amplify-amplify-identity-broker-kevinenv-91427-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::111989064546:role/amplify-amplify-identity-broker-kevinenv-91427-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-amplify-identity-broker-kevinenv-91427-deployment",
+            "UnauthRoleName": "amplify-amplify-identity-broker-kevinenv-91427-unauthRole",
+            "StackName": "amplify-amplify-identity-broker-kevinenv-91427",
+            "StackId": "arn:aws:cloudformation:us-west-2:111989064546:stack/amplify-amplify-identity-broker-kevinenv-91427/c6e7a720-baec-11ea-9fa9-0a6ece383596",
+            "AmplifyAppId": "d1usem8fhcmegf"
+        },
+        "categories": {
+            "auth": {
+                "brokerauth": {}
+            },
+            "function": {
+                "brokerauthCustomMessage": {},
+                "authorizefunction": {},
+                "tokenfunction": {},
+                "storagefunction": {}
+            }
+        }
+    },
+    "liamawsdev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-amplify-identity-broker-liamawsdev-173334-authRole",
+            "UnauthRoleArn": "arn:aws:iam::386310383721:role/amplify-amplify-identity-broker-liamawsdev-173334-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::386310383721:role/amplify-amplify-identity-broker-liamawsdev-173334-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-amplify-identity-broker-liamawsdev-173334-deployment",
+            "UnauthRoleName": "amplify-amplify-identity-broker-liamawsdev-173334-unauthRole",
+            "StackName": "amplify-amplify-identity-broker-liamawsdev-173334",
+            "StackId": "arn:aws:cloudformation:us-east-1:386310383721:stack/amplify-amplify-identity-broker-liamawsdev-173334/83ee6730-c099-11ea-aee0-12c9c271ca70",
+            "AmplifyAppId": "d2bxuwebazvqxf"
+        },
+        "categories": {
+            "auth": {
+                "brokerauth": {}
+            },
+            "function": {
+                "brokerauthCustomMessage": {},
+                "authorizefunction": {},
+                "tokenfunction": {},
+                "storagefunction": {}
+            }
+        }
+    },
+    "xavierdev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-amplify-identity-broker-xavierdev-151811-authRole",
+            "UnauthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-xavierdev-151811-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-xavierdev-151811-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-amplify-identity-broker-xavierdev-151811-deployment",
+            "UnauthRoleName": "amplify-amplify-identity-broker-xavierdev-151811-unauthRole",
+            "StackName": "amplify-amplify-identity-broker-xavierdev-151811",
+            "StackId": "arn:aws:cloudformation:us-west-2:959861384820:stack/amplify-amplify-identity-broker-xavierdev-151811/14526940-c232-11ea-8728-0a6344b8d61c",
+            "AmplifyAppId": "dgvx8t5exfw79"
+        },
+        "categories": {
+            "auth": {
+                "brokerauth": {}
+            },
+            "function": {
+                "brokerauthCustomMessage": {},
+                "authorizefunction": {},
+                "tokenfunction": {},
+                "storagefunction": {},
+                "codesTable": {},
+                "clientsTable": {},
+                "migrationfunction": {}
+            }
+        }
+    }
 }
