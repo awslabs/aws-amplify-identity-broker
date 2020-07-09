@@ -63,7 +63,17 @@
         "tokenfunction": {
             "build": true,
             "providerPlugin": "awscloudformation",
-            "service": "Lambda"
+            "service": "Lambda",
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "codesTable",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
         },
         "storagefunction": {
             "build": true,
