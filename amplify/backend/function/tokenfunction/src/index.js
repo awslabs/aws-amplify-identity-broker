@@ -23,6 +23,13 @@ function sha256(buffer) {
 }
 
 exports.handler = async (event) => {
+    if (!(event && event.queryStringParameters)) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify("Required parameters are missing")
+        };
+    }
+
     var client_id = event.queryStringParameters.client_id;
     var redirect_url = event.queryStringParameters.redirect_url;
     var authorization_code = event.queryStringParameters.authorization_code;

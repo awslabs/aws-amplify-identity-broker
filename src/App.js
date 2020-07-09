@@ -1,8 +1,9 @@
 import React from 'react';
-import Amplify from 'aws-amplify';
+import { Auth, Amplify } from 'aws-amplify';
 import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifySelectMfaType, AmplifyForgotPassword } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
+import { onAuthUIStateChange } from '@aws-amplify/ui-components';
 
 import awsconfig from './aws-exports';
 
@@ -27,6 +28,9 @@ class App extends React.Component {
     } else {
       this.state = { lang: "en" };
     }
+    onAuthUIStateChange(newAuthState => {
+      this.handleAuthUIStateChange(newAuthState)
+    })
   }
 
   toggleLang = () => {
@@ -39,6 +43,16 @@ class App extends React.Component {
     }
   }
 
+  async handleAuthUIStateChange(authState) {
+    if (authState === "signedin") {
+      let redirect_url = new URLSearchParams(window.location.search).get('redirect_url');
+      let authInfo = await Auth.currentSession();
+      let idtoken = authInfo.idToken.jwtToken;
+      if (redirect_url && idtoken) {
+        window.location.replace(redirect_url + '/?id_token=' + idtoken);
+      }
+    }
+  }
   // Issue on translation of subfield is https://github.com/aws-amplify/amplify-js/issues/5679
 
   render = () => (
