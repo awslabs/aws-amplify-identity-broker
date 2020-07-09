@@ -10,13 +10,21 @@
 		"env": {
 			"Type": "String"
 		},
-		"storagebackendDynamoName": {
+		"storagecodesTableName": {
 			"Type": "String",
-			"Default": "storagebackendDynamoName"
+			"Default": "storagecodesTableName"
 		},
-		"storagebackendDynamoArn": {
+		"storagecodesTableArn": {
 			"Type": "String",
-			"Default": "storagebackendDynamoArn"
+			"Default": "storagecodesTableArn"
+		},
+		"storageclientsTableName": {
+			"Type": "String",
+			"Default": "storageclientsTableName"
+		},
+		"storageclientsTableArn": {
+			"Type": "String",
+			"Default": "storageclientsTableArn"
 		}
 	},
 	"Conditions": {
@@ -64,11 +72,17 @@
 						"REGION": {
 							"Ref": "AWS::Region"
 						},
-						"STORAGE_BACKENDDYNAMO_NAME": {
-							"Ref": "storagebackendDynamoName"
+						"STORAGE_CODESTABLE_NAME": {
+							"Ref": "storagecodesTableName"
 						},
-						"STORAGE_BACKENDDYNAMO_ARN": {
-							"Ref": "storagebackendDynamoArn"
+						"STORAGE_CODESTABLE_ARN": {
+							"Ref": "storagecodesTableArn"
+						},
+						"STORAGE_CLIENTSTABLE_NAME": {
+							"Ref": "storageclientsTableName"
+						},
+						"STORAGE_CLIENTSTABLE_ARN": {
+							"Ref": "storageclientsTableArn"
 						}
 					}
 				},
@@ -81,9 +95,10 @@
 				"Runtime": "nodejs12.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-liamdev-94624-deployment",
-					"S3Key": "amplify-builds/authorizefunction-3943316b46674e4b7764-build.zip"
-				}
+					"S3Bucket": "amplify-amplify-identity-broker-liamawsdev-173334-deployment",
+					"S3Key": "amplify-builds/authorizefunction-4a46762b66676d6f6d71-build.zip"
+				},
+				"Layers": []
 			}
 		},
 		"LambdaExecutionRole": {
@@ -201,14 +216,47 @@
 							],
 							"Resource": [
 								{
-									"Ref": "storagebackendDynamoArn"
+									"Ref": "storagecodesTableArn"
 								},
 								{
 									"Fn::Join": [
 										"/",
 										[
 											{
-												"Ref": "storagebackendDynamoArn"
+												"Ref": "storagecodesTableArn"
+											},
+											"index/*"
+										]
+									]
+								}
+							]
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"dynamodb:Put*",
+								"dynamodb:Create*",
+								"dynamodb:BatchWriteItem",
+								"dynamodb:Get*",
+								"dynamodb:BatchGetItem",
+								"dynamodb:List*",
+								"dynamodb:Describe*",
+								"dynamodb:Scan",
+								"dynamodb:Query",
+								"dynamodb:Update*",
+								"dynamodb:RestoreTable*",
+								"dynamodb:Delete*"
+							],
+							"Resource": [
+								{
+									"Ref": "storageclientsTableArn"
+								},
+								{
+									"Fn::Join": [
+										"/",
+										[
+											{
+												"Ref": "storageclientsTableArn"
 											},
 											"index/*"
 										]

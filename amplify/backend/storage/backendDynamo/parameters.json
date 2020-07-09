@@ -1,5 +1,0 @@
-{
-    "tableName": "codes",
-    "partitionKeyName": "code_challenge",
-    "partitionKeyType": "S"
-}
