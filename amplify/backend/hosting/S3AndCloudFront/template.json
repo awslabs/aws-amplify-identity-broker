@@ -250,12 +250,6 @@
                     "CustomErrorResponses": [
                         {
                             "ErrorCachingMinTTL": 300,
-                            "ErrorCode": 400,
-                            "ResponseCode": 200,
-                            "ResponsePagePath": "/"
-                        },
-                        {
-                            "ErrorCachingMinTTL": 300,
                             "ErrorCode": 403,
                             "ResponseCode": 200,
                             "ResponsePagePath": "/"
