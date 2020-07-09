@@ -3,7 +3,7 @@ import { Auth, Amplify } from 'aws-amplify';
 import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifySelectMfaType, AmplifyForgotPassword } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
-import { onAuthUIStateChange } from '@aws-amplify/ui-components'
+import { onAuthUIStateChange } from '@aws-amplify/ui-components';
 
 import awsconfig from './aws-exports';
 
