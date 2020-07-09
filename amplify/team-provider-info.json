@@ -94,5 +94,31 @@
                 "storagefunction": {}
             }
         }
+    },
+    "xavierdev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-amplify-identity-broker-xavierdev-151811-authRole",
+            "UnauthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-xavierdev-151811-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-xavierdev-151811-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-amplify-identity-broker-xavierdev-151811-deployment",
+            "UnauthRoleName": "amplify-amplify-identity-broker-xavierdev-151811-unauthRole",
+            "StackName": "amplify-amplify-identity-broker-xavierdev-151811",
+            "StackId": "arn:aws:cloudformation:us-west-2:959861384820:stack/amplify-amplify-identity-broker-xavierdev-151811/14526940-c232-11ea-8728-0a6344b8d61c",
+            "AmplifyAppId": "dgvx8t5exfw79"
+        },
+        "categories": {
+            "auth": {
+                "brokerauth": {}
+            },
+            "function": {
+                "brokerauthCustomMessage": {},
+                "authorizefunction": {},
+                "tokenfunction": {},
+                "storagefunction": {},
+                "codesTable": {},
+                "clientsTable": {}
+            }
+        }
     }
 }
