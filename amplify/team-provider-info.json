@@ -19,7 +19,8 @@
                 "brokerauthCustomMessage": {},
                 "authorizefunction": {},
                 "tokenfunction": {},
-                "storagefunction": {}
+                "storagefunction": {},
+                "migrationfunction": {}
             }
         }
     },
