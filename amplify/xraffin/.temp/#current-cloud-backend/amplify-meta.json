@@ -1,0 +1,274 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "amplify-amplify-identity-broker-xraffin-141758-authRole",
+			"UnauthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-xraffin-141758-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-xraffin-141758-authRole",
+			"Region": "us-west-2",
+			"DeploymentBucketName": "amplify-amplify-identity-broker-xraffin-141758-deployment",
+			"UnauthRoleName": "amplify-amplify-identity-broker-xraffin-141758-unauthRole",
+			"StackName": "amplify-amplify-identity-broker-xraffin-141758",
+			"StackId": "arn:aws:cloudformation:us-west-2:959861384820:stack/amplify-amplify-identity-broker-xraffin-141758/02cdf950-ba4e-11ea-b747-0ae3e770e3b8",
+			"AmplifyAppId": "dgvx8t5exfw79"
+		},
+		"categories": {
+			"auth": {
+				"brokerauth": {}
+			},
+			"function": {
+				"brokerauthCustomMessage": {},
+				"authorizefunction": {},
+				"tokenfunction": {},
+				"storagefunction": {}
+			}
+		}
+	},
+	"auth": {
+		"brokerauth": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "brokerauthCustomMessage",
+					"triggerProvider": "Cognito",
+					"attributes": [
+						"Arn",
+						"Name"
+					]
+				}
+			],
+			"output": {
+				"CreatedSNSRole": "arn:aws:iam::959861384820:role/snsundefinedbroker-xraffin",
+				"AppClientSecret": "1t1ai54l6go7qn1fhmho3epd6ukqa68p4alkvtqf5doo6l0cq85t",
+				"UserPoolId": "us-west-2_XmXDYdjjk",
+				"AppClientIDWeb": "469vigc2a8k4slmtninjl1losh",
+				"AppClientID": "cilt02715v65v5v85i114tmq3",
+				"UserPoolName": "brokeruserpool"
+			},
+			"lastPushTimeStamp": "2020-07-09T22:14:56.224Z",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-xraffin-141758-deployment/amplify-cfn-templates/auth/brokerauth-cloudformation-template.yml",
+				"logicalId": "authbrokerauth"
+			}
+		}
+	},
+	"hosting": {
+		"S3AndCloudFront": {
+			"service": "S3AndCloudFront",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "api",
+					"resourceName": "backendapi",
+					"attributes": [
+						"ApiDomain"
+					]
+				}
+			],
+			"output": {
+				"CloudFrontSecureURL": "https://dk6qou7kqzypt.cloudfront.net",
+				"S3BucketSecureURL": "https://broker-20200504180301-hostingbucket-xraffin.s3.amazonaws.com",
+				"CloudFrontOriginAccessIdentity": "E1820BHKMTWOMR",
+				"WebsiteURL": "http://broker-20200504180301-hostingbucket-xraffin.s3-website-us-west-2.amazonaws.com",
+				"CloudFrontDistributionID": "E1NQ4VDBHFVZWJ",
+				"Region": "us-west-2",
+				"HostingBucketName": "broker-20200504180301-hostingbucket-xraffin",
+				"CloudFrontDomainName": "dk6qou7kqzypt.cloudfront.net"
+			},
+			"lastPushTimeStamp": "2020-07-09T22:14:56.249Z",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-xraffin-141758-deployment/amplify-cfn-templates/hosting/template.json",
+				"logicalId": "hostingS3AndCloudFront"
+			},
+			"lastPushDirHash": "BSpcE4HNhc+tYiIozTSEyUZQdyc="
+		}
+	},
+	"function": {
+		"brokerauthCustomMessage": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"output": {
+				"Region": "us-west-2",
+				"Arn": "arn:aws:lambda:us-west-2:959861384820:function:brokerauthCustomMessage-xraffin",
+				"Name": "brokerauthCustomMessage-xraffin",
+				"LambdaExecutionRole": "brokerauthCustomMessage-xraffin"
+			},
+			"lastPushTimeStamp": "2020-07-09T22:14:56.249Z",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-xraffin-141758-deployment/amplify-cfn-templates/function/brokerauthCustomMessage-cloudformation-template.json",
+				"logicalId": "functionbrokerauthCustomMessage"
+			},
+			"lastBuildTimeStamp": "2020-07-09T22:08:51.745Z",
+			"lastPackageTimeStamp": "2020-07-09T22:08:51.839Z",
+			"distZipFilename": "brokerauthCustomMessage-594a467647755173657a-build.zip",
+			"lastPushDirHash": "9yvSHGh/Y/CNAC3cRMTgYXXSZP8="
+		},
+		"authorizefunction": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "codesTable",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				},
+				{
+					"category": "storage",
+					"resourceName": "clientsTable",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			],
+			"output": {
+				"Region": "us-west-2",
+				"Arn": "arn:aws:lambda:us-west-2:959861384820:function:authorizefunction-xraffin",
+				"Name": "authorizefunction-xraffin",
+				"LambdaExecutionRole": "amplifyidentitybrokerLambdaRole719106f6-xraffin"
+			},
+			"lastPushTimeStamp": "2020-07-09T22:14:56.249Z",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-xraffin-141758-deployment/amplify-cfn-templates/function/authorizefunction-cloudformation-template.json",
+				"logicalId": "functionauthorizefunction"
+			},
+			"lastBuildTimeStamp": "2020-07-09T22:08:51.750Z",
+			"lastPackageTimeStamp": "2020-07-09T22:08:51.953Z",
+			"distZipFilename": "authorizefunction-4a46762b66676d6f6d71-build.zip",
+			"lastPushDirHash": "N59HNK74CffHkt4iB8VoOrHGNQA="
+		},
+		"tokenfunction": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "codesTable",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			],
+			"output": {
+				"Region": "us-west-2",
+				"Arn": "arn:aws:lambda:us-west-2:959861384820:function:tokenfunction-xraffin",
+				"Name": "tokenfunction-xraffin",
+				"LambdaExecutionRole": "amplifyidentitybrokerLambdaRole31b54ccd-xraffin"
+			},
+			"lastPushTimeStamp": "2020-07-09T22:14:56.249Z",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-xraffin-141758-deployment/amplify-cfn-templates/function/tokenfunction-cloudformation-template.json",
+				"logicalId": "functiontokenfunction"
+			},
+			"lastBuildTimeStamp": "2020-07-09T22:08:51.751Z",
+			"lastPackageTimeStamp": "2020-07-09T22:08:51.824Z",
+			"distZipFilename": "tokenfunction-714349414b5645333934-build.zip",
+			"lastPushDirHash": "dbN356ZpQ/weMhOJaVE/XLzLEdE="
+		},
+		"storagefunction": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"output": {
+				"Region": "us-west-2",
+				"Arn": "arn:aws:lambda:us-west-2:959861384820:function:storagefunction-xraffin",
+				"Name": "storagefunction-xraffin",
+				"LambdaExecutionRole": "amplifyidentitybrokerLambdaRolea53a71b5-xraffin"
+			},
+			"lastPushTimeStamp": "2020-07-09T22:14:56.237Z",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-xraffin-141758-deployment/amplify-cfn-templates/function/storagefunction-cloudformation-template.json",
+				"logicalId": "functionstoragefunction"
+			}
+		}
+	},
+	"api": {
+		"backendapi": {
+			"service": "API Gateway",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "authorizefunction",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				},
+				{
+					"category": "function",
+					"resourceName": "tokenfunction",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				},
+				{
+					"category": "function",
+					"resourceName": "storagefunction",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			],
+			"output": {
+				"ApiDomain": "zoyu05szjc.execute-api.us-west-2.amazonaws.com",
+				"ApiName": "backendapi",
+				"RootUrl": "https://zoyu05szjc.execute-api.us-west-2.amazonaws.com/xraffin",
+				"ApiId": "zoyu05szjc"
+			},
+			"lastPushTimeStamp": "2020-07-09T22:14:56.238Z",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-xraffin-141758-deployment/amplify-cfn-templates/api/backendapi-cloudformation-template.json",
+				"logicalId": "apibackendapi"
+			}
+		}
+	},
+	"storage": {
+		"codesTable": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-xraffin-141758-deployment/amplify-cfn-templates/storage/codesTable-cloudformation-template.json",
+				"logicalId": "storagecodesTable"
+			},
+			"lastPushTimeStamp": "2020-07-09T22:14:56.249Z",
+			"output": {
+				"PartitionKeyName": "authorization_code",
+				"Region": "us-west-2",
+				"Arn": "arn:aws:dynamodb:us-west-2:959861384820:table/idbrokerCodes-xraffin",
+				"StreamArn": "arn:aws:dynamodb:us-west-2:959861384820:table/idbrokerCodes-xraffin/stream/2020-07-09T22:09:03.901",
+				"PartitionKeyType": "S",
+				"Name": "idbrokerCodes-xraffin"
+			},
+			"lastPushDirHash": "tNeGQut+XJEukhFdHWtxi/9L2Wk="
+		},
+		"clientsTable": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-xraffin-141758-deployment/amplify-cfn-templates/storage/clientsTable-cloudformation-template.json",
+				"logicalId": "storageclientsTable"
+			},
+			"lastPushTimeStamp": "2020-07-09T22:14:56.249Z",
+			"output": {
+				"PartitionKeyName": "client_id",
+				"Region": "us-west-2",
+				"Arn": "arn:aws:dynamodb:us-west-2:959861384820:table/idbrokerClients-xraffin",
+				"StreamArn": "arn:aws:dynamodb:us-west-2:959861384820:table/idbrokerClients-xraffin/stream/2020-07-09T22:09:03.373",
+				"PartitionKeyType": "S",
+				"Name": "idbrokerClients-xraffin"
+			},
+			"lastPushDirHash": "7N+kTCxf1ItSYIC5253nzVgZmzs="
+		}
+	}
+}

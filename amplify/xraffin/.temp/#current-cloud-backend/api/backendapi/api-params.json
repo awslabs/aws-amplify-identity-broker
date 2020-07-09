@@ -1,0 +1,70 @@
+{
+    "paths": [
+        {
+            "name": "/oauth2/authorize",
+            "lambdaFunction": "authorizefunction",
+            "privacy": {
+                "open": true
+            }
+        },
+        {
+            "name": "/oauth2/token",
+            "lambdaFunction": "tokenfunction",
+            "privacy": {
+                "open": true
+            }
+        },
+        {
+            "name": "/storage",
+            "lambdaFunction": "storagefunction",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "backendapi",
+    "apiName": "backendapi",
+    "functionArns": [
+        {
+            "lambdaFunction": "authorizefunction"
+        },
+        {
+            "lambdaFunction": "tokenfunction"
+        },
+        {
+            "lambdaFunction": "storagefunction"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-amplify-identity-broker-xraffin-141758-authRole",
+        "unAuthRoleName": "amplify-amplify-identity-broker-xraffin-141758-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "authorizefunction",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "tokenfunction",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "storagefunction",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
