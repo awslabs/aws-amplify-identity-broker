@@ -20,7 +20,8 @@
                 "authorizefunction": {},
                 "tokenfunction": {},
                 "storagefunction": {},
-                "migrationfunction": {}
+                "migrationfunction": {},
+                "brokerauth": {}
             }
         }
     },
