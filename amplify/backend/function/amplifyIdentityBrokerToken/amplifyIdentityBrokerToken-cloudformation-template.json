@@ -17,14 +17,6 @@
 		"storageamplifyIdentityBrokerCodesTableArn": {
 			"Type": "String",
 			"Default": "storageamplifyIdentityBrokerCodesTableArn"
-		},
-		"storageamplifyIdentityBrokerClientsTableName": {
-			"Type": "String",
-			"Default": "storageamplifyIdentityBrokerClientsTableName"
-		},
-		"storageamplifyIdentityBrokerClientsTableArn": {
-			"Type": "String",
-			"Default": "storageamplifyIdentityBrokerClientsTableArn"
 		}
 	},
 	"Conditions": {
@@ -49,12 +41,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyIdentityBrokerAuthorize",
+						"amplifyIdentityBrokerToken",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyIdentityBrokerAuthorize",
+									"amplifyIdentityBrokerToken",
 									"-",
 									{
 										"Ref": "env"
@@ -77,12 +69,6 @@
 						},
 						"STORAGE_amplifyIdentityBrokerCodesTable_ARN": {
 							"Ref": "storageamplifyIdentityBrokerCodesTableArn"
-						},
-						"STORAGE_amplifyIdentityBrokerClientsTable_NAME": {
-							"Ref": "storageamplifyIdentityBrokerClientsTableName"
-						},
-						"STORAGE_amplifyIdentityBrokerClientsTable_ARN": {
-							"Ref": "storageamplifyIdentityBrokerClientsTableArn"
 						}
 					}
 				},
@@ -95,8 +81,8 @@
 				"Runtime": "nodejs12.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-xraffin-141758-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerAuthorize-4a46762b66676d6f6d71-build.zip"
+					"S3Bucket": "amplify-amplify-identity-broker-devliamaws-91833-deployment",
+					"S3Key": "amplify-builds/amplifyIdentityBrokerToken-42366e366c5633756d70-build.zip"
 				},
 				"Layers": []
 			}
@@ -107,12 +93,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyidentitybrokerLambdaRole719106f6",
+						"amplifyidentitybrokerLambdaRole31b54ccd",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyidentitybrokerLambdaRole719106f6",
+									"amplifyidentitybrokerLambdaRole31b54ccd",
 									"-",
 									{
 										"Ref": "env"
@@ -224,39 +210,6 @@
 										[
 											{
 												"Ref": "storageamplifyIdentityBrokerCodesTableArn"
-											},
-											"index/*"
-										]
-									]
-								}
-							]
-						},
-						{
-							"Effect": "Allow",
-							"Action": [
-								"dynamodb:Put*",
-								"dynamodb:Create*",
-								"dynamodb:BatchWriteItem",
-								"dynamodb:Get*",
-								"dynamodb:BatchGetItem",
-								"dynamodb:List*",
-								"dynamodb:Describe*",
-								"dynamodb:Scan",
-								"dynamodb:Query",
-								"dynamodb:Update*",
-								"dynamodb:RestoreTable*",
-								"dynamodb:Delete*"
-							],
-							"Resource": [
-								{
-									"Ref": "storageamplifyIdentityBrokerClientsTableArn"
-								},
-								{
-									"Fn::Join": [
-										"/",
-										[
-											{
-												"Ref": "storageamplifyIdentityBrokerClientsTableArn"
 											},
 											"index/*"
 										]

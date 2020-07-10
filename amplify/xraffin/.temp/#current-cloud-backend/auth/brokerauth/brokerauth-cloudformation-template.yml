@@ -11,13 +11,13 @@ Parameters:
   
   
   
-  functionbrokerauthCustomMessageArn: 
+  functionamplifyIdentityBrokerCustomMessageArn: 
     Type: String
-    Default: functionbrokerauthCustomMessageArn
+    Default: functionamplifyIdentityBrokerCustomMessageArn
   
-  functionbrokerauthCustomMessageName: 
+  functionamplifyIdentityBrokerCustomMessageName: 
     Type: String
-    Default: functionbrokerauthCustomMessageName
+    Default: functionamplifyIdentityBrokerCustomMessageName
   
   
   
@@ -177,7 +177,7 @@ Resources:
       LambdaConfig:
         
         
-          CustomMessage: !Ref functionbrokerauthCustomMessageArn
+          CustomMessage: !Ref functionamplifyIdentityBrokerCustomMessageArn
         
         
         
@@ -221,7 +221,7 @@ Resources:
     Properties: 
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
-      FunctionName: !Ref functionbrokerauthCustomMessageName
+      FunctionName: !Ref functionamplifyIdentityBrokerCustomMessageName
       SourceArn: !GetAtt UserPool.Arn
     
   

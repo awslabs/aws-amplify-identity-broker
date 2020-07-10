@@ -1,12 +1,12 @@
 {
     "auth": {
-        "brokerauth": {
+        "amplifyIdentityBrokerAuth": {
             "service": "Cognito",
             "providerPlugin": "awscloudformation",
             "dependsOn": [
                 {
                     "category": "function",
-                    "resourceName": "brokerauthCustomMessage",
+                    "resourceName": "amplifyIdentityBrokerCustomMessage",
                     "triggerProvider": "Cognito",
                     "attributes": [
                         "Arn",
@@ -23,7 +23,7 @@
             "dependsOn": [
                 {
                     "category": "api",
-                    "resourceName": "backendapi",
+                    "resourceName": "amplifyIdentityBrokerApi",
                     "attributes": [
                         "ApiDomain"
                     ]
@@ -32,19 +32,19 @@
         }
     },
     "function": {
-        "brokerauthCustomMessage": {
+        "amplifyIdentityBrokerCustomMessage": {
             "build": true,
             "providerPlugin": "awscloudformation",
             "service": "Lambda"
         },
-        "authorizefunction": {
+        "amplifyIdentityBrokerAuthorize": {
             "build": true,
             "providerPlugin": "awscloudformation",
             "service": "Lambda",
             "dependsOn": [
                 {
                     "category": "storage",
-                    "resourceName": "codesTable",
+                    "resourceName": "amplifyIdentityBrokerCodesTable",
                     "attributes": [
                         "Name",
                         "Arn"
@@ -52,7 +52,7 @@
                 },
                 {
                     "category": "storage",
-                    "resourceName": "clientsTable",
+                    "resourceName": "amplifyIdentityBrokerClientsTable",
                     "attributes": [
                         "Name",
                         "Arn"
@@ -60,14 +60,14 @@
                 }
             ]
         },
-        "tokenfunction": {
+        "amplifyIdentityBrokerToken": {
             "build": true,
             "providerPlugin": "awscloudformation",
             "service": "Lambda",
             "dependsOn": [
                 {
                     "category": "storage",
-                    "resourceName": "codesTable",
+                    "resourceName": "amplifyIdentityBrokerCodesTable",
                     "attributes": [
                         "Name",
                         "Arn"
@@ -75,20 +75,20 @@
                 }
             ]
         },
-        "storagefunction": {
+        "amplifyIdentityBrokerStorage": {
             "build": true,
             "providerPlugin": "awscloudformation",
             "service": "Lambda"
         }
     },
     "api": {
-        "backendapi": {
+        "amplifyIdentityBrokerApi": {
             "service": "API Gateway",
             "providerPlugin": "awscloudformation",
             "dependsOn": [
                 {
                     "category": "function",
-                    "resourceName": "authorizefunction",
+                    "resourceName": "amplifyIdentityBrokerAuthorize",
                     "attributes": [
                         "Name",
                         "Arn"
@@ -96,7 +96,7 @@
                 },
                 {
                     "category": "function",
-                    "resourceName": "tokenfunction",
+                    "resourceName": "amplifyIdentityBrokerToken",
                     "attributes": [
                         "Name",
                         "Arn"
@@ -104,7 +104,7 @@
                 },
                 {
                     "category": "function",
-                    "resourceName": "storagefunction",
+                    "resourceName": "amplifyIdentityBrokerStorage",
                     "attributes": [
                         "Name",
                         "Arn"
@@ -114,11 +114,11 @@
         }
     },
     "storage": {
-        "codesTable": {
+        "amplifyIdentityBrokerCodesTable": {
             "service": "DynamoDB",
             "providerPlugin": "awscloudformation"
         },
-        "clientsTable": {
+        "amplifyIdentityBrokerClientsTable": {
             "service": "DynamoDB",
             "providerPlugin": "awscloudformation"
         }

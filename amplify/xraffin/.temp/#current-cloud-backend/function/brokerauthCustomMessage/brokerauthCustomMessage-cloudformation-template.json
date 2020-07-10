@@ -69,12 +69,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"brokerauthCustomMessage",
+						"amplifyIdentityBrokerCustomMessage",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"brokerauthCustomMessage",
+									"amplifyIdentityBrokerCustomMessage",
 									"-",
 									{
 										"Ref": "env"
@@ -119,7 +119,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-amplify-identity-broker-xraffin-141758-deployment",
-					"S3Key": "amplify-builds/brokerauthCustomMessage-594a467647755173657a-build.zip"
+					"S3Key": "amplify-builds/amplifyIdentityBrokerCustomMessage-594a467647755173657a-build.zip"
 				}
 			}
 		},
@@ -129,12 +129,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"brokerauthCustomMessage",
+						"amplifyIdentityBrokerCustomMessage",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"brokerauthCustomMessage",
+									"amplifyIdentityBrokerCustomMessage",
 									"-",
 									{
 										"Ref": "env"

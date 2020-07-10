@@ -1,0 +1,11 @@
+{
+    "permissions": {
+        "auth": {
+            "amplifyIdentityBrokerAuth": [
+                "create",
+                "read",
+                "update"
+            ]
+        }
+    }
+}

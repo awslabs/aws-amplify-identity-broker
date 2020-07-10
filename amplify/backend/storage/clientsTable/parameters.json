@@ -1,5 +1,0 @@
-{
-    "tableName": "idbrokerClients",
-    "partitionKeyName": "client_id",
-    "partitionKeyType": "S"
-}

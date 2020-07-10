@@ -2,21 +2,49 @@
 	"AWSTemplateFormatVersion": "2010-09-09",
 	"Description": "Lambda resource stack creation using Amplify CLI",
 	"Parameters": {
-		"CloudWatchRule": {
+		"REDIRECTURL": {
 			"Type": "String",
-			"Default": "NONE",
-			"Description": " Schedule Expression"
+			"Default": ""
+		},
+		"EMAILMESSAGE": {
+			"Type": "String",
+			"Default": ""
+		},
+		"EMAILSUBJECT": {
+			"Type": "String",
+			"Default": ""
+		},
+		"modules": {
+			"Type": "String",
+			"Default": "",
+			"Description": "Comma-delimmited list of modules to be executed by a lambda trigger. Sent to resource as an env variable."
+		},
+		"resourceName": {
+			"Type": "String",
+			"Default": ""
+		},
+		"trigger": {
+			"Type": "String",
+			"Default": "true"
+		},
+		"functionName": {
+			"Type": "String",
+			"Default": ""
+		},
+		"roleName": {
+			"Type": "String",
+			"Default": ""
+		},
+		"parentResource": {
+			"Type": "String",
+			"Default": ""
+		},
+		"parentStack": {
+			"Type": "String",
+			"Default": ""
 		},
 		"env": {
 			"Type": "String"
-		},
-		"storageamplifyIdentityBrokerCodesTableName": {
-			"Type": "String",
-			"Default": "storageamplifyIdentityBrokerCodesTableName"
-		},
-		"storageamplifyIdentityBrokerCodesTableArn": {
-			"Type": "String",
-			"Default": "storageamplifyIdentityBrokerCodesTableArn"
 		}
 	},
 	"Conditions": {
@@ -41,12 +69,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyIdentityBrokerToken",
+						"amplifyIdentityBrokerCustomMessage",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyIdentityBrokerToken",
+									"amplifyIdentityBrokerCustomMessage",
 									"-",
 									{
 										"Ref": "env"
@@ -61,14 +89,23 @@
 						"ENV": {
 							"Ref": "env"
 						},
+						"MODULES": {
+							"Ref": "modules"
+						},
 						"REGION": {
 							"Ref": "AWS::Region"
 						},
-						"STORAGE_amplifyIdentityBrokerCodesTable_NAME": {
-							"Ref": "storageamplifyIdentityBrokerCodesTableName"
+						"REDIRECTURL": {
+							"Ref": "REDIRECTURL"
 						},
-						"STORAGE_amplifyIdentityBrokerCodesTable_ARN": {
-							"Ref": "storageamplifyIdentityBrokerCodesTableArn"
+						"EMAILSUBJECT": {
+							"Ref": "EMAILSUBJECT"
+						},
+						"EMAILMESSAGE": {
+							"Ref": "EMAILMESSAGE"
+						},
+						"RESOURCENAME": {
+							"Ref": "resourceName"
 						}
 					}
 				},
@@ -78,13 +115,12 @@
 						"Arn"
 					]
 				},
-				"Runtime": "nodejs12.x",
+				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-xraffin-141758-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerToken-714349414b5645333934-build.zip"
-				},
-				"Layers": []
+					"S3Bucket": "amplify-amplify-identity-broker-devliamaws-91833-deployment",
+					"S3Key": "amplify-builds/amplifyIdentityBrokerCustomMessage-45534f74426d53575452-build.zip"
+				}
 			}
 		},
 		"LambdaExecutionRole": {
@@ -93,12 +129,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyidentitybrokerLambdaRole31b54ccd",
+						"amplifyIdentityBrokerCustomMessage",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyidentitybrokerLambdaRole31b54ccd",
+									"amplifyIdentityBrokerCustomMessage",
 									"-",
 									{
 										"Ref": "env"
@@ -168,58 +204,6 @@
 					]
 				}
 			}
-		},
-		"AmplifyResourcesPolicy": {
-			"DependsOn": [
-				"LambdaExecutionRole"
-			],
-			"Type": "AWS::IAM::Policy",
-			"Properties": {
-				"PolicyName": "amplify-lambda-execution-policy",
-				"Roles": [
-					{
-						"Ref": "LambdaExecutionRole"
-					}
-				],
-				"PolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [
-						{
-							"Effect": "Allow",
-							"Action": [
-								"dynamodb:Put*",
-								"dynamodb:Create*",
-								"dynamodb:BatchWriteItem",
-								"dynamodb:Get*",
-								"dynamodb:BatchGetItem",
-								"dynamodb:List*",
-								"dynamodb:Describe*",
-								"dynamodb:Scan",
-								"dynamodb:Query",
-								"dynamodb:Update*",
-								"dynamodb:RestoreTable*",
-								"dynamodb:Delete*"
-							],
-							"Resource": [
-								{
-									"Ref": "storageamplifyIdentityBrokerCodesTableArn"
-								},
-								{
-									"Fn::Join": [
-										"/",
-										[
-											{
-												"Ref": "storageamplifyIdentityBrokerCodesTableArn"
-											},
-											"index/*"
-										]
-									]
-								}
-							]
-						}
-					]
-				}
-			}
 		}
 	},
 	"Outputs": {
@@ -236,14 +220,14 @@
 				]
 			}
 		},
-		"Region": {
-			"Value": {
-				"Ref": "AWS::Region"
-			}
-		},
 		"LambdaExecutionRole": {
 			"Value": {
 				"Ref": "LambdaExecutionRole"
+			}
+		},
+		"Region": {
+			"Value": {
+				"Ref": "AWS::Region"
 			}
 		}
 	}
