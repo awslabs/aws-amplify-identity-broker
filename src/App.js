@@ -119,12 +119,10 @@ class App extends React.Component {
               },
               {
                 type: "locale",
-                label: I18n.get("Locale"),
-                placeholder: "fr-FR, en, ...",
-                //value: this.state.lang,
-                //Auto populate does not work for some reason there a bug with this.state.lang
-                //For now we have to type in the string itself and cannot be hidden, Ampilfy team is working on this solution
-                required: true,
+                value: this.state.lang,
+                inputProps: {
+                  type: 'hidden',
+                }
               }
             ]}></AmplifySignUp>
           <div>
