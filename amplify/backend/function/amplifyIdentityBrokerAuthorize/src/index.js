@@ -78,7 +78,7 @@ async function handlePKCE(event) {
     return { //redirect to login page
         statusCode: 301,
         headers: {
-            Location: '/?client_id=' + client_id + '&redirect_url=' + redirect_url + '&code_challenge=' + code_challenge,
+            Location: '/?client_id=' + client_id + '&redirect_url=' + redirect_url + '&authorization_code=' + authorizationCode,
         }
     };
 }
