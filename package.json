@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aws-amplify/ui-react": "^0.2.8",
-    "aws-amplify": "^3.0.16",
+    "@aws-amplify/ui-react": "^0.2.11",
+    "aws-amplify": "^3.0.20",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.9.0",
-    "@testing-library/react": "^10.2.0",
-    "@testing-library/user-event": "^11.2.1",
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.5",
+    "@testing-library/user-event": "^11.4.2",
     "react-scripts": "3.4.1"
   },
   "scripts": {
