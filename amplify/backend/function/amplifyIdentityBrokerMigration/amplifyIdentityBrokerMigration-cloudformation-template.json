@@ -67,7 +67,7 @@
 						"AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID": {
 							"Ref": "authamplifyIdentityBrokerAuthUserPoolId"
 						},
-						"AUTH_amplifyIdentityBrokerAuth_APPCLIENTID": {
+						"AUTH_AMPLIFYIDENTITYBROKERAUTH_APPCLIENTID": {
 							"Ref": "authamplifyIdentityBrokerAuthAppClientID"
 						}
 					}
