@@ -33,12 +33,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"storagefunction",
+						"amplifyIdentityBrokerStorage",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"storagefunction",
+									"amplifyIdentityBrokerStorage",
 									"-",
 									{
 										"Ref": "env"
@@ -68,7 +68,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-amplify-identity-broker-xraffin-141758-deployment",
-					"S3Key": "amplify-builds/storagefunction-764c3149616c706e7279-build.zip"
+					"S3Key": "amplify-builds/amplifyIdentityBrokerStorage-764c3149616c706e7279-build.zip"
 				}
 			}
 		},

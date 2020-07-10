@@ -8,7 +8,7 @@
         "bucketName": {
             "Type": "String"
         },
-        "apibackendapiApiDomain": {
+        "apiamplifyIdentityBrokerApiApiDomain": {
             "Type": "String"
         }
     },
@@ -153,9 +153,9 @@
                         },
                         {
                             "DomainName": {
-                                "Ref": "apibackendapiApiDomain"
+                                "Ref": "apiamplifyIdentityBrokerApiApiDomain"
                             },
-                            "Id": "backendAPIGateway",
+                            "Id": "amplifyIdentityBrokerApiGateway",
                             "CustomOriginConfig": {
                                 "OriginSSLProtocols": [
                                     "TLSv1.2"
@@ -187,7 +187,7 @@
                                 "POST",
                                 "PUT"
                             ],
-                            "TargetOriginId": "backendAPIGateway",
+                            "TargetOriginId": "amplifyIdentityBrokerApiGateway",
                             "ForwardedValues": {
                                 "QueryString": "true",
                                 "Cookies": {
@@ -211,7 +211,7 @@
                                 "POST",
                                 "PUT"
                             ],
-                            "TargetOriginId": "backendAPIGateway",
+                            "TargetOriginId": "amplifyIdentityBrokerApiGateway",
                             "ForwardedValues": {
                                 "QueryString": "true",
                                 "Cookies": {
