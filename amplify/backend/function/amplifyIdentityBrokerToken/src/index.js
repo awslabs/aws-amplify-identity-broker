@@ -1,15 +1,15 @@
 /* Amplify Params - DO NOT EDIT
 	ENV
 	REGION
-	STORAGE_amplifyIdentityBrokerCodesTable_ARN
-	STORAGE_amplifyIdentityBrokerCodesTable_NAME
+	STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_ARN
+	STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME
 Amplify Params - DO NOT EDIT */
 
 const AWS = require('aws-sdk');
 const crypto = require('crypto');
 
 var docClient = new AWS.DynamoDB.DocumentClient();
-var amplifyIdentityBrokerCodesTableName = process.env.STORAGE_amplifyIdentityBrokerCodesTable_NAME
+var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME
 
 function base64URLEncode(str) {
     return str.toString('base64')
@@ -43,7 +43,7 @@ exports.handler = async (event) => {
 
     var data;
     var params = {
-        TableName: amplifyIdentityBrokerCodesTableName,
+        TableName: codesTableName,
         Key: {
             authorization_code: authorization_code
         }

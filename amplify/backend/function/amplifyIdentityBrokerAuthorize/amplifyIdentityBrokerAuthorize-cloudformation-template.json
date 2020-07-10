@@ -72,16 +72,16 @@
 						"REGION": {
 							"Ref": "AWS::Region"
 						},
-						"STORAGE_amplifyIdentityBrokerCodesTable_NAME": {
+						"STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME": {
 							"Ref": "storageamplifyIdentityBrokerCodesTableName"
 						},
-						"STORAGE_amplifyIdentityBrokerCodesTable_ARN": {
+						"STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_ARN": {
 							"Ref": "storageamplifyIdentityBrokerCodesTableArn"
 						},
-						"STORAGE_amplifyIdentityBrokerClientsTable_NAME": {
+						"STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME": {
 							"Ref": "storageamplifyIdentityBrokerClientsTableName"
 						},
-						"STORAGE_amplifyIdentityBrokerClientsTable_ARN": {
+						"STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_ARN": {
 							"Ref": "storageamplifyIdentityBrokerClientsTableArn"
 						}
 					}

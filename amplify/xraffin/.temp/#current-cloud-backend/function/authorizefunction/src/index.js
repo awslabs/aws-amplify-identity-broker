@@ -3,8 +3,8 @@
 	REGION
 	STORAGE_amplifyIdentityBrokerClientsTable_ARN
 	STORAGE_amplifyIdentityBrokerClientsTable_NAME
-	STORAGE_amplifyIdentityBrokerCodesTable_ARN
-	STORAGE_amplifyIdentityBrokerCodesTable_NAME
+	STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_ARN
+	STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME
 Amplify Params - DO NOT EDIT */
 
 const AWS = require('aws-sdk');
@@ -12,13 +12,13 @@ const { v4: uuidv4 } = require('uuid');
 const CODE_LIFE = 900000;
 
 var docClient = new AWS.DynamoDB.DocumentClient();
-var amplifyIdentityBrokerCodesTableName = process.env.STORAGE_amplifyIdentityBrokerCodesTable_NAME
-var amplifyIdentityBrokerClientsTableName = process.env.STORAGE_amplifyIdentityBrokerClientsTable_NAME
+var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME
+var clientsTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME
 
 async function verifyClient(client_id, redirect_url) {
     var data;
     var params = {
-        TableName: amplifyIdentityBrokerClientsTableName,
+        TableName: clientsTableName,
         Key: {
             client_id: client_id
         }
@@ -58,7 +58,7 @@ async function handlePKCE(event) {
     const authorizationCode = uuidv4();
     const codeExpiry = Date.now() + CODE_LIFE;
     var params = {
-        TableName: amplifyIdentityBrokerCodesTableName,
+        TableName: codesTableName,
         Item: {
             authorization_code: authorizationCode,
             code_challenge: code_challenge,

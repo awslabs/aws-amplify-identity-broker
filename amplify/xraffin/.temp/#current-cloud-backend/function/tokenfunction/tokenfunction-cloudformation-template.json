@@ -64,10 +64,10 @@
 						"REGION": {
 							"Ref": "AWS::Region"
 						},
-						"STORAGE_amplifyIdentityBrokerCodesTable_NAME": {
+						"STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME": {
 							"Ref": "storageamplifyIdentityBrokerCodesTableName"
 						},
-						"STORAGE_amplifyIdentityBrokerCodesTable_ARN": {
+						"STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_ARN": {
 							"Ref": "storageamplifyIdentityBrokerCodesTableArn"
 						}
 					}
