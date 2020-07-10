@@ -64,7 +64,7 @@
 						"REGION": {
 							"Ref": "AWS::Region"
 						},
-						"AUTH_amplifyIdentityBrokerAuth_USERPOOLID": {
+						"AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID": {
 							"Ref": "authamplifyIdentityBrokerAuthUserPoolId"
 						},
 						"AUTH_amplifyIdentityBrokerAuth_APPCLIENTID": {
