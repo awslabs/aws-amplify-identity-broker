@@ -4,6 +4,7 @@ import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, Amp
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange } from '@aws-amplify/ui-components';
+import axios from 'axios';
 
 import awsconfig from './aws-exports';
 
@@ -45,11 +46,31 @@ class App extends React.Component {
 
   async handleAuthUIStateChange(authState) {
     if (authState === "signedin") {
-      let redirect_url = new URLSearchParams(window.location.search).get('redirect_url');
+      let queryStringParams = new URLSearchParams(window.location.search);
+      let redirect_url = queryStringParams.get('redirect_url');
+      let authorization_code = queryStringParams.get('authorization_code');
       let authInfo = await Auth.currentSession();
-      let idtoken = authInfo.idToken.jwtToken;
-      if (redirect_url && idtoken) {
-        window.location.replace(redirect_url + '/?id_token=' + idtoken);
+      let idToken = authInfo.idToken.jwtToken;
+
+      if (authorization_code && redirect_url) { // PKCE Flow
+        let accessToken = authInfo.accessToken.jwtToken;
+        if (idToken && accessToken) {
+          const response = await axios.post( // Store tokens in dynamodb using storage endpoint
+            '/storage',
+            {
+              authorization_code: authorization_code,
+              id_token: idToken,
+              access_token: accessToken
+            },
+            { headers: { 'Content-Type': 'application/json' } }
+          )
+          if (response.status === 200) {
+            window.location.replace(redirect_url + '/?code=' + authorization_code);
+          }
+        }
+      }
+      else if (redirect_url && idToken) { // Implicit Flow
+        window.location.replace(redirect_url + '/?id_token=' + idToken);
       }
     }
   }
