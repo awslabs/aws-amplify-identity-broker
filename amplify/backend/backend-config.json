@@ -78,7 +78,17 @@
         "amplifyIdentityBrokerStorage": {
             "build": true,
             "providerPlugin": "awscloudformation",
-            "service": "Lambda"
+            "service": "Lambda",
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "amplifyIdentityBrokerCodesTable",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
         },
         "amplifyIdentityBrokerMigration": {
             "build": true,
