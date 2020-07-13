@@ -24,11 +24,14 @@ The project is based on [AWS Amplify](https://aws.amazon.com/amplify/) and [Amaz
 
 For this demo scenario, the company domain is __cloudfront.net__. Here are the link and domain of each components:
 
-* Identity broker URL: https://d23vbzcww6xd16.cloudfront.net (you will host that on __login.yourcompany.com__)
-* Implicit client demo website1: https://der67454cxirc.cloudfront.net (this will be one of your website like: __www.yourcompany.com__)
-* Implicit client demo website2: https://dwobepigaxqb2.cloudfront.net (this will be anothed one like __portal.yourcompany.com__)
-* PKCE client demo website1: https://d38mxcuegzvvhm.cloudfront.net (this one can be on another domain for example __www.yoursubsidiary.com__)
-* PKCE client demo website2: https://d3vhzww584gn9m.cloudfront.net (You can also federate a partner website like __mypartner.net__)
+* Implicit client1: https://der67454cxirc.cloudfront.net _(this will be one of your website like: __www.yourcompany.com__)_
+* Implicit client2: https://dwobepigaxqb2.cloudfront.net _(this will be anothed one like __portal.yourcompany.com__)_
+* PKCE client1: https://d38mxcuegzvvhm.cloudfront.net _(this one can be on another domain for example __www.yoursubsidiary.com__)_
+* PKCE client2: https://d3vhzww584gn9m.cloudfront.net _(You can also federate a partner website like __mypartner.net__)_
+
+In a real use case, your user will only go to the broker from a client website or app, but for reference the Broker demo url itself is: 
+
+* https://d23vbzcww6xd16.cloudfront.net _(you will host that on __login.yourcompany.com__)_
 
 Client demo code repository are:
 
