@@ -9,7 +9,7 @@ const AWS = require('aws-sdk');
 const crypto = require('crypto');
 
 var docClient = new AWS.DynamoDB.DocumentClient();
-var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME
+var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
 
 function base64URLEncode(str) {
     return str.toString('base64')
@@ -53,7 +53,6 @@ exports.handler = async (event) => {
     } catch (error) {
         console.error(error);
     }
-    console.log(data);
 
     if (data.Item === undefined) {
         return {
@@ -64,7 +63,7 @@ exports.handler = async (event) => {
     if (data.Item.client_id != client_id) {
         return {
             statusCode: 400,
-            body: JSON.stringify('Client Id does not match authorization code'),
+            body: JSON.stringify('Client ID does not match authorization code'),
         };
     }
     if (data.Item.redirect_url != redirect_url) {
@@ -89,10 +88,22 @@ exports.handler = async (event) => {
         };
     }
 
-    // return jwt from dynamodb
+    var access_token = data.Item.access_token;
+    var id_token = data.Item.id_token;
+
+    if (access_token === undefined || id_token === undefined) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify('Could not find tokens'),
+        };
+    }
 
     return {
         statusCode: 200,
-        body: JSON.stringify('Hello from Lambda amplify/backend/function/amplifyIdentityBrokerToken/src/index.js!'),
+        body: JSON.stringify({
+            "access_token": access_token,
+            "id_token": id_token,
+            "token_type": "Bearer"
+        }),
     };
 };
