@@ -55,7 +55,7 @@ class App extends React.Component {
       if (authorization_code && redirect_url) { // PKCE Flow
         let accessToken = authInfo.accessToken.jwtToken;
         let refreshToken = authInfo.refreshToken.token;
-        if (idToken && accessToken) {
+        if (idToken && accessToken && refreshToken) {
           const response = await axios.post( // Store tokens in dynamodb using storage endpoint
             '/storage',
             {
