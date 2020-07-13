@@ -45,6 +45,8 @@ amplify init
 
 3. 
 
+__Setup your own domain__
+
 ## CSS & UI components customization instruction
 
 ## MFA customization
