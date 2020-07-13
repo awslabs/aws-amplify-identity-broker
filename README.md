@@ -28,6 +28,11 @@ The project is based on [AWS Amplify](https://aws.amazon.com/amplify/) and [Amaz
 * PKCE client demo website1: https://d38mxcuegzvvhm.cloudfront.net
 * PKCE client demo website2: https://d3vhzww584gn9m.cloudfront.net
 
+Client demo code repository are:
+
+* [Implict web client](https://github.com/xavierraffin/amplify-identity-broker-implicit-client)
+* [PKCE web client](https://github.com/xavierraffin/amplify-identity-broker-pkce-client)
+
 ## Documentation
 
 - __[User Documentation](Documentation/UserDocumentation.md)__ : Explains, how to deploy, how to customize the broker, how to migrate from your existing user pool system.
