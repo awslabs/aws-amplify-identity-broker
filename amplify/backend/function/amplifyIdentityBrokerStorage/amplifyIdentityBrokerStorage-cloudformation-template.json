@@ -9,6 +9,14 @@
 		},
 		"env": {
 			"Type": "String"
+		},
+		"storageamplifyIdentityBrokerCodesTableName": {
+			"Type": "String",
+			"Default": "storageamplifyIdentityBrokerCodesTableName"
+		},
+		"storageamplifyIdentityBrokerCodesTableArn": {
+			"Type": "String",
+			"Default": "storageamplifyIdentityBrokerCodesTableArn"
 		}
 	},
 	"Conditions": {
@@ -55,6 +63,12 @@
 						},
 						"REGION": {
 							"Ref": "AWS::Region"
+						},
+						"STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME": {
+							"Ref": "storageamplifyIdentityBrokerCodesTableName"
+						},
+						"STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_ARN": {
+							"Ref": "storageamplifyIdentityBrokerCodesTableArn"
 						}
 					}
 				},
@@ -67,9 +81,10 @@
 				"Runtime": "nodejs12.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-production-124105-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerStorage-454f4d6e6b536f315533-build.zip"
-				}
+					"S3Bucket": "amplify-amplify-identity-broker-liamaws-94737-deployment",
+					"S3Key": "amplify-builds/amplifyIdentityBrokerStorage-497652504f59486c3162-build.zip"
+				},
+				"Layers": []
 			}
 		},
 		"LambdaExecutionRole": {
@@ -149,6 +164,48 @@
 									}
 								]
 							}
+						}
+					]
+				}
+			}
+		},
+		"AmplifyResourcesPolicy": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "amplify-lambda-execution-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"dynamodb:Update*",
+								"dynamodb:RestoreTable*"
+							],
+							"Resource": [
+								{
+									"Ref": "storageamplifyIdentityBrokerCodesTableArn"
+								},
+								{
+									"Fn::Join": [
+										"/",
+										[
+											{
+												"Ref": "storageamplifyIdentityBrokerCodesTableArn"
+											},
+											"index/*"
+										]
+									]
+								}
+							]
 						}
 					]
 				}

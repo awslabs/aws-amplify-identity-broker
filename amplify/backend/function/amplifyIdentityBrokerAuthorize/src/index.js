@@ -12,8 +12,8 @@ const { v4: uuidv4 } = require('uuid');
 const CODE_LIFE = 900000;
 
 var docClient = new AWS.DynamoDB.DocumentClient();
-var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME
-var clientsTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME
+var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
+var clientsTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME;
 
 async function verifyClient(client_id, redirect_url) {
     var data;
@@ -70,7 +70,6 @@ async function handlePKCE(event) {
 
     try {
         var result = await docClient.put(params).promise();
-        console.log(JSON.stringify(result));
     } catch (error) {
         console.error(error);
     }
@@ -78,7 +77,7 @@ async function handlePKCE(event) {
     return { //redirect to login page
         statusCode: 301,
         headers: {
-            Location: '/?client_id=' + client_id + '&redirect_url=' + redirect_url + '&code_challenge=' + code_challenge,
+            Location: '/?client_id=' + client_id + '&redirect_url=' + redirect_url + '&authorization_code=' + authorizationCode,
         }
     };
 }

@@ -23,30 +23,6 @@
             }
         }
     },
-    "liamawsdev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-amplify-identity-broker-liamawsdev-173334-authRole",
-            "UnauthRoleArn": "arn:aws:iam::386310383721:role/amplify-amplify-identity-broker-liamawsdev-173334-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::386310383721:role/amplify-amplify-identity-broker-liamawsdev-173334-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-amplify-identity-broker-liamawsdev-173334-deployment",
-            "UnauthRoleName": "amplify-amplify-identity-broker-liamawsdev-173334-unauthRole",
-            "StackName": "amplify-amplify-identity-broker-liamawsdev-173334",
-            "StackId": "arn:aws:cloudformation:us-east-1:386310383721:stack/amplify-amplify-identity-broker-liamawsdev-173334/83ee6730-c099-11ea-aee0-12c9c271ca70",
-            "AmplifyAppId": "d2bxuwebazvqxf"
-        },
-        "categories": {
-            "auth": {
-                "amplifyIdentityBrokerAuth": {}
-            },
-            "function": {
-                "amplifyIdentityBrokerCustomMessage": {},
-                "amplifyIdentityBrokerAuthorize": {},
-                "amplifyIdentityBrokerToken": {},
-                "amplifyIdentityBrokerStorage": {}
-            }
-        }
-    },
     "liamaws": {
         "awscloudformation": {
             "AuthRoleName": "amplify-amplify-identity-broker-liamaws-94737-authRole",
