@@ -7,6 +7,7 @@ Amplify Params - DO NOT EDIT */
 
 const AWS = require('aws-sdk');
 const crypto = require('crypto');
+const qs = require('querystring');
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
@@ -23,17 +24,18 @@ function sha256(buffer) {
 }
 
 exports.handler = async (event) => {
-    if (!(event && event.queryStringParameters)) {
+    if (!(event && event.body)) {
         return {
             statusCode: 400,
             body: JSON.stringify("Required parameters are missing")
         };
     }
 
-    var client_id = event.queryStringParameters.client_id;
-    var redirect_url = event.queryStringParameters.redirect_url;
-    var authorization_code = event.queryStringParameters.authorization_code;
-    var code_verifier = event.queryStringParameters.code_verifier;
+    var jsonBody = qs.parse(event.body);
+    var client_id = jsonBody.client_id;
+    var authorization_code = jsonBody.authorization_code;
+    var redirect_url = jsonBody.redirect_url;
+    var code_verifier = jsonBody.code_verifier;
     if (client_id === undefined || redirect_url === undefined || authorization_code === undefined || code_verifier == undefined) {
         return {
             statusCode: 400,
