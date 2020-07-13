@@ -4,15 +4,10 @@
       "storage": {
         "amplifyIdentityBrokerCodesTable": [
           "create",
-          "read",
-          "update",
-          "delete"
+          "update"
         ],
         "amplifyIdentityBrokerClientsTable": [
-          "create",
-          "read",
-          "update",
-          "delete"
+          "read"
         ]
       }
     }
