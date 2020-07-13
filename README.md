@@ -62,6 +62,14 @@ __Differences__
 * This project comes with some missing feature of the Hosted UI: i18n, full CSS, JS customization, consent approbation
 * This project diverge a bit here and there of standard OAuth flows (because of some current restrictions). The limitation is in the way Oauth scope are injected in tokens (see [User Documentation](Documentation/UserDocumentation.md)). _We are working on it to fill the gap._
 
+## Architecture
+
+The project architecture is the following:
+
+![Projet Architecture Image](Documentation/Images/DeployedArchitecture.png "Projet Architecture")
+
+__COST__ The project architecture is Serverless, you only pay when there is user activity plus a small amount of storage (website static assets, dynamodb tables). Overall the solution is very cost effective. Amazon Cognito will be the primary source of cost, see [Amazon Cognito pricing](https://aws.amazon.com/cognito/pricing/) to estimate your costs.
+
 ## License
 
 This project is licensed under the Apache-2.0 License.
