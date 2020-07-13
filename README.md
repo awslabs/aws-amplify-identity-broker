@@ -22,7 +22,7 @@ The project is based on [AWS Amplify](https://aws.amazon.com/amplify/) and [Amaz
 
 ## Live demo
 
-* Identity broker URL: https://d3rkl303gsmrx3.cloudfront.net
+* Identity broker URL: https://d23vbzcww6xd16.cloudfront.net
 * Implicit client demo website1: TBD
 * Implicit client demo website2: TBD
 * PKCE client demo website1: TBD
