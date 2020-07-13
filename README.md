@@ -68,7 +68,7 @@ The project architecture is the following:
 
 ![Projet Architecture Image](Documentation/Images/DeployedArchitecture.png "Projet Architecture")
 
-__COST__ The project architecture is Serverless, you only pay when there is user activity plus a small amount of storage (website static assets, dynamodb tables). Overall the solution is very cost effective. Amazon Cognito will be the primary source of cost, see [Amazon Cognito pricing](https://aws.amazon.com/cognito/pricing/) to estimate your costs.
+See __[Developer Documentation](Documentation/DeveloperDocumentation.md)__ to see more detailed information on every component. 
 
 ## License
 
