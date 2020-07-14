@@ -86,7 +86,7 @@
             "UnauthRoleName": "amplify-amplify-identity-broker-production-124105-unauthRole",
             "StackName": "amplify-amplify-identity-broker-production-124105",
             "StackId": "arn:aws:cloudformation:us-west-2:711171961718:stack/amplify-amplify-identity-broker-production-124105/4ebdeab0-c2e5-11ea-af27-0288276eb0d6",
-            "AmplifyAppId": "d1xlah4e2hmnkb"
+            "AmplifyAppId": "dl9xco4ykmtj1"
         },
         "categories": {
             "auth": {
