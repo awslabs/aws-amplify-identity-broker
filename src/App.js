@@ -87,57 +87,39 @@ class App extends React.Component {
           <AmplifyForgotPassword
             usernameAlias="email"
             slot="forgot-password"
-            headerText={I18n.get("resetYourPassword")}
-            submitButtonText={I18n.get("sendCode")} //Bug?
             formFields={[
               {
                 type: "email",
-                label: I18n.get("emailLabel"),
-                placeholder: I18n.get("emailPlaceHolder"), //Bug?
                 required: true,
               },
             ]}></AmplifyForgotPassword>
           <AmplifySignIn
             usernameAlias="email"
-            headerText={I18n.get("signInHeader")}
             slot="sign-in"
-            submitButtonText={I18n.get("signInButtonText")}
             formFields={[
               {
                 type: "email",
-                label: I18n.get("emailLabel"),
-                placeholder: I18n.get("emailPlaceHolder"),
                 required: true,
               },
               {
                 type: "password",
-                label: I18n.get("passwordLabel"),
-                placeholder: I18n.get("passwordPlaceHolder"),
                 required: true,
               }
             ]}></AmplifySignIn>
           <AmplifySignUp
             usernameAlias="email"
-            headerText={I18n.get("signUpHeader")}
             slot="sign-up"
-            submitButtonText={I18n.get("signUpButtonText")}
             formFields={[
               {
                 type: "email",
-                label: I18n.get("emailLabel"),
-                placeholder: I18n.get("emailPlaceHolder"),
                 required: true,
               },
               {
                 type: "password",
-                label: I18n.get("passwordLabel"),
-                placeholder: I18n.get("passwordPlaceHolder"),
                 required: true,
               },
               {
                 type: "phone_number",
-                label: I18n.get("phoneNumberLabel"),
-                placeholder: I18n.get("phoneNumberPlaceHolder"),
                 required: false,
               },
               {

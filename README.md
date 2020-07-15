@@ -22,11 +22,21 @@ The project is based on [AWS Amplify](https://aws.amazon.com/amplify/) and [Amaz
 
 ## Live demo
 
-* Identity broker URL: https://d23vbzcww6xd16.cloudfront.net
-* Implicit client demo website1: TBD
-* Implicit client demo website2: TBD
-* PKCE client demo website1: TBD
-* PKCE client demo website2: TBD
+You can sign-up, sign-in, try SSO from any of these client application demos:
+
+* Website 1 (Implict flow) : https://der67454cxirc.cloudfront.net _(this could be __yourcompany.com__)_
+* Website 2 (Implict flow) : https://dwobepigaxqb2.cloudfront.net _(this could be __portal.yourcompany.com__)_
+* Website 3 (PKCE flow) : https://d38mxcuegzvvhm.cloudfront.net _(this could be __www.yoursubsidiary.com__)_
+* Website 4 (PKCE flow) : https://d3vhzww584gn9m.cloudfront.net _(this could be __mypartner.net__)_
+
+In a real use case, your user will only go to the broker from a client website or app, but for reference the Broker demo url itself is: 
+
+* https://d23vbzcww6xd16.cloudfront.net _(this could be __login.yourcompany.com__)_
+
+Client demo code repository are:
+
+* [Implict web client](https://github.com/xavierraffin/amplify-identity-broker-implicit-client)
+* [PKCE web client](https://github.com/xavierraffin/amplify-identity-broker-pkce-client)
 
 ## Documentation
 
@@ -51,6 +61,14 @@ __Differences__
 * This project can be customized deeply. UI, languages, specific behaviors (depending on IP address, link, ...). Again since you have access to the code you can do whatever you want with it
 * This project comes with some missing feature of the Hosted UI: i18n, full CSS, JS customization, consent approbation
 * This project diverge a bit here and there of standard OAuth flows (because of some current restrictions). The limitation is in the way Oauth scope are injected in tokens (see [User Documentation](Documentation/UserDocumentation.md)). _We are working on it to fill the gap._
+
+## Architecture
+
+The project architecture is the following:
+
+![Projet Architecture Image](Documentation/Images/DeployedArchitecture.png "Projet Architecture")
+
+See __[Developer Documentation](Documentation/DeveloperDocumentation.md)__ to see more detailed information on every component. 
 
 ## License
 
