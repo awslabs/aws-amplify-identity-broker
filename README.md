@@ -24,10 +24,10 @@ The project is based on [AWS Amplify](https://aws.amazon.com/amplify/) and [Amaz
 
 You can sign-up, sign-in, try SSO from any of these client application demos:
 
-* Website 1 (Implict flow) : https://der67454cxirc.cloudfront.net _(this could be __yourcompany.com__)_
-* Website 2 (Implict flow) : https://dwobepigaxqb2.cloudfront.net _(this could be __portal.yourcompany.com__)_
-* Website 3 (PKCE flow) : https://d38mxcuegzvvhm.cloudfront.net _(this could be __www.yoursubsidiary.com__)_
-* Website 4 (PKCE flow) : https://d3vhzww584gn9m.cloudfront.net _(this could be __mypartner.net__)_
+* Website 1 (Implict flow) : https://master.d1ev0x70q8av4i.amplifyapp.com _(this could be __yourcompany.com__)_
+* Website 2 (Implict flow) : https://master.d2lemesdag90ze.amplifyapp.com _(this could be __portal.yourcompany.com__)_
+* Website 3 (PKCE flow) : https://master.dv7odw7xb73ou.amplifyapp.com _(this could be __www.yoursubsidiary.com__)_
+* Website 4 (PKCE flow) : https://master.dvj34ijv8eg6m.amplifyapp.com _(this could be __mypartner.net__)_
 
 In a real use case, your user will only go to the broker from a client website or app, but for reference the Broker demo url itself is: 
 
