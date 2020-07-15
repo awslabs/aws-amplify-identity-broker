@@ -16,7 +16,7 @@ __Features are:__
 
 This is a simplified view of the scope of the project (what this repository is about):
 
-![Projet Scope Image](Documentation/Images/Simplified%20Project%20Scope.png "Simplified Project Scope")
+![Projet Scope Image](Documentation/Images/SimplifiedProjectScope.png "Simplified Project Scope")
 
 The project is based on [AWS Amplify](https://aws.amazon.com/amplify/) and [Amazon Cognito](https://aws.amazon.com/cognito/). Authentication is based on standard JWT token.
 

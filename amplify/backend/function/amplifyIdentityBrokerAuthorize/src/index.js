@@ -46,14 +46,14 @@ async function handlePKCE(event) {
         };
     }
 
-    // Code to verify client. Leaving commented for now
-    // var validClient = await verifyClient(client_id, redirect_url);
-    // if (!validClient) {
-    //     return {
-    //         statusCode: 400,
-    //         body: JSON.stringify("Invalid Client"),
-    //     };
-    // }
+    // Verify client and redirect_url against clients table
+    var validClient = await verifyClient(client_id, redirect_url);
+    if (!validClient) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify("Invalid Client"),
+        };
+    }
 
     const authorizationCode = uuidv4();
     const codeExpiry = Date.now() + CODE_LIFE;
@@ -75,7 +75,7 @@ async function handlePKCE(event) {
     }
 
     return { //redirect to login page
-        statusCode: 301,
+        statusCode: 302,
         headers: {
             Location: '/?client_id=' + client_id + '&redirect_url=' + redirect_url + '&authorization_code=' + authorizationCode,
         }
@@ -92,17 +92,17 @@ async function handleImplicit(event) {
         };
     }
 
-    // Code to verify client. Leaving commented for now
-    // var validClient = await verifyClient(client_id, redirect_url);
-    // if (!validClient) {
-    //     return {
-    //         statusCode: 400,
-    //         body: JSON.stringify("Invalid Client"),
-    //     };
-    // }
+    // Verify client and redirect_url against clients table
+    var validClient = await verifyClient(client_id, redirect_url);
+    if (!validClient) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify("Invalid Client"),
+        };
+    }
 
     return { //redirect to login page
-        statusCode: 301,
+        statusCode: 302,
         headers: {
             Location: '/?client_id=' + client_id + '&redirect_url=' + redirect_url,
         }
