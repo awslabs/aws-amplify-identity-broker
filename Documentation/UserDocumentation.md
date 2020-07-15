@@ -38,11 +38,11 @@ To use the indentity broker you must register a client_id and redirect_url with 
 
 To register your client, create an item in the `amplifyIdentityBrokerClients` DynamoDB with a client_id and the redirect_url of your client application. 
 
-![Create Client Entry Example](Documentation/Images/CreateClientEntryExample.png "Create Client Entry Example")
+![Create Client Entry Example](Images/CreateClientEntryExample.png "Create Client Entry Example")
 
 The table should look like this after you are done.
 
-![Clients Table Example](Documentation/Images/ClientsTableExample.png "Clients Table Example")
+![Clients Table Example](Images/ClientsTableExample.png "Clients Table Example")
 
 ## CSS & UI components customization instruction
 
