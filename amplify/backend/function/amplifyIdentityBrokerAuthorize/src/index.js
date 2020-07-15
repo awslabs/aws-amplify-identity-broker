@@ -75,7 +75,7 @@ async function handlePKCE(event) {
     }
 
     return { //redirect to login page
-        statusCode: 301,
+        statusCode: 302,
         headers: {
             Location: '/?client_id=' + client_id + '&redirect_url=' + redirect_url + '&authorization_code=' + authorizationCode,
         }
@@ -102,7 +102,7 @@ async function handleImplicit(event) {
     }
 
     return { //redirect to login page
-        statusCode: 301,
+        statusCode: 302,
         headers: {
             Location: '/?client_id=' + client_id + '&redirect_url=' + redirect_url,
         }
