@@ -1,5 +1,0 @@
-{
-    "tableName": "amplifyIdentityBrokerCodes",
-    "partitionKeyName": "authorization_code",
-    "partitionKeyType": "S"
-}
