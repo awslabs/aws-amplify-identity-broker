@@ -47,12 +47,12 @@ class App extends React.Component {
   async handleAuthUIStateChange(authState) {
     if (authState === "signedin") {
       let queryStringParams = new URLSearchParams(window.location.search);
-      let redirect_url = queryStringParams.get('redirect_url');
+      let redirect_uri = queryStringParams.get('redirect_uri');
       let authorization_code = queryStringParams.get('authorization_code');
       let authInfo = await Auth.currentSession();
       let idToken = authInfo.idToken.jwtToken;
 
-      if (authorization_code && redirect_url) { // PKCE Flow
+      if (authorization_code && redirect_uri) { // PKCE Flow
         let accessToken = authInfo.accessToken.jwtToken;
         let refreshToken = authInfo.refreshToken.token;
         if (idToken && accessToken && refreshToken) {
@@ -67,12 +67,12 @@ class App extends React.Component {
             { headers: { 'Content-Type': 'application/json' } }
           )
           if (response.status === 200) {
-            window.location.replace(redirect_url + '/?code=' + authorization_code);
+            window.location.replace(redirect_uri + '/?code=' + authorization_code);
           }
         }
       }
-      else if (redirect_url && idToken) { // Implicit Flow
-        window.location.replace(redirect_url + '/?id_token=' + idToken);
+      else if (redirect_uri && idToken) { // Implicit Flow
+        window.location.replace(redirect_uri + '/?id_token=' + idToken);
       }
     }
   }
