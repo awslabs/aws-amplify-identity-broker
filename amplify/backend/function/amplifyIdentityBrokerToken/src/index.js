@@ -34,9 +34,9 @@ exports.handler = async (event) => {
     var jsonBody = qs.parse(event.body);
     var client_id = jsonBody.client_id;
     var authorization_code = jsonBody.authorization_code;
-    var redirect_url = jsonBody.redirect_url;
+    var redirect_uri = jsonBody.redirect_uri;
     var code_verifier = jsonBody.code_verifier;
-    if (client_id === undefined || redirect_url === undefined || authorization_code === undefined || code_verifier == undefined) {
+    if (client_id === undefined || redirect_uri === undefined || authorization_code === undefined || code_verifier == undefined) {
         return {
             statusCode: 400,
             body: JSON.stringify("Required parameters are missing"),
@@ -68,10 +68,10 @@ exports.handler = async (event) => {
             body: JSON.stringify('Client ID does not match authorization code'),
         };
     }
-    if (data.Item.redirect_url != redirect_url) {
+    if (data.Item.redirect_uri != redirect_uri) {
         return {
             statusCode: 400,
-            body: JSON.stringify('Redirect url does not match authorization code'),
+            body: JSON.stringify('Redirect uri does not match authorization code'),
         };
     }
     if (Date.now() > data.Item.code_expiry) {
@@ -102,6 +102,9 @@ exports.handler = async (event) => {
 
     return {
         statusCode: 200,
+        headers: {
+            "Access-Control-Allow-Origin": "*" // Required for CORS support to work
+        },
         body: JSON.stringify({
             "access_token": access_token,
             "id_token": id_token,

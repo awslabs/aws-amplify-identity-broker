@@ -15,7 +15,7 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
 var clientsTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME;
 
-async function verifyClient(client_id, redirect_url) {
+async function verifyClient(client_id, redirect_uri) {
     var data;
     var params = {
         TableName: clientsTableName,
@@ -28,7 +28,7 @@ async function verifyClient(client_id, redirect_url) {
     } catch (error) {
         console.error(error);
     }
-    if (data.Item && (data.Item.redirect_url === redirect_url)) {
+    if (data.Item && (data.Item.redirect_uri === redirect_uri)) {
         return true;
     }
     return false;
@@ -36,18 +36,18 @@ async function verifyClient(client_id, redirect_url) {
 
 async function handlePKCE(event) {
     var client_id = event.queryStringParameters.client_id;
-    var redirect_url = event.queryStringParameters.redirect_url;
+    var redirect_uri = event.queryStringParameters.redirect_uri;
     var code_challenge = event.queryStringParameters.code_challenge;
     var code_challenge_method = event.queryStringParameters.code_challenge_method;
-    if (client_id === undefined || redirect_url === undefined || code_challenge === undefined || code_challenge_method === undefined) {
+    if (client_id === undefined || redirect_uri === undefined || code_challenge === undefined || code_challenge_method === undefined) {
         return {
             statusCode: 400,
             body: JSON.stringify("Required parameters are missing"),
         };
     }
 
-    // Verify client and redirect_url against clients table
-    var validClient = await verifyClient(client_id, redirect_url);
+    // Verify client and redirect_uri against clients table
+    var validClient = await verifyClient(client_id, redirect_uri);
     if (!validClient) {
         return {
             statusCode: 400,
@@ -63,7 +63,7 @@ async function handlePKCE(event) {
             authorization_code: authorizationCode,
             code_challenge: code_challenge,
             client_id: client_id,
-            redirect_url: redirect_url,
+            redirect_uri: redirect_uri,
             code_expiry: codeExpiry
         }
     };
@@ -77,23 +77,23 @@ async function handlePKCE(event) {
     return { //redirect to login page
         statusCode: 302,
         headers: {
-            Location: '/?client_id=' + client_id + '&redirect_url=' + redirect_url + '&authorization_code=' + authorizationCode,
+            Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&authorization_code=' + authorizationCode,
         }
     };
 }
 
 async function handleImplicit(event) {
     var client_id = event.queryStringParameters.client_id;
-    var redirect_url = event.queryStringParameters.redirect_url;
-    if (client_id === undefined || redirect_url === undefined) {
+    var redirect_uri = event.queryStringParameters.redirect_uri;
+    if (client_id === undefined || redirect_uri === undefined) {
         return {
             statusCode: 400,
             body: JSON.stringify("Required parameters are missing"),
         };
     }
 
-    // Verify client and redirect_url against clients table
-    var validClient = await verifyClient(client_id, redirect_url);
+    // Verify client and redirect_uri against clients table
+    var validClient = await verifyClient(client_id, redirect_uri);
     if (!validClient) {
         return {
             statusCode: 400,
@@ -104,7 +104,7 @@ async function handleImplicit(event) {
     return { //redirect to login page
         statusCode: 302,
         headers: {
-            Location: '/?client_id=' + client_id + '&redirect_url=' + redirect_url,
+            Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri,
         }
     };
 }
