@@ -1,10 +1,26 @@
-
+const AWS = require('aws-sdk');
+var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
 exports.handler = async (event) => {
-    // TODO implement
-    const response = {
+    // Reference here https://docs.aws.amazon.com/cognito/latest/developerguide/userinfo-endpoint.html
+    // Getting access token from access_token header which is not standard. 
+    // Should get from Authorization header but that is not passed in the event through lambda proxy integration
+    var accessToken = event.headers.access_token;
+    if (accessToken === undefined) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify("Missing access token"),
+        };
+    }
+
+    var params = {
+        AccessToken: accessToken
+    }
+    var userInfo = await cognitoidentityserviceprovider.getUser(params).promise();
+
+    // Need to change return format to match reference
+    return {
         statusCode: 200,
-        body: JSON.stringify('Hello from Lambda!'),
+        body: JSON.stringify(userInfo.UserAttributes),
     };
-    return response;
 };
