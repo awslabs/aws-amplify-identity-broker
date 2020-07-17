@@ -1,47 +1,11 @@
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "Lambda resource stack creation using Amplify CLI",
+	"Description": "Lambda Function resource stack creation using Amplify CLI",
 	"Parameters": {
-		"REDIRECTURL": {
+		"CloudWatchRule": {
 			"Type": "String",
-			"Default": ""
-		},
-		"EMAILMESSAGE": {
-			"Type": "String",
-			"Default": ""
-		},
-		"EMAILSUBJECT": {
-			"Type": "String",
-			"Default": ""
-		},
-		"modules": {
-			"Type": "String",
-			"Default": "",
-			"Description": "Comma-delimmited list of modules to be executed by a lambda trigger. Sent to resource as an env variable."
-		},
-		"resourceName": {
-			"Type": "String",
-			"Default": ""
-		},
-		"trigger": {
-			"Type": "String",
-			"Default": "true"
-		},
-		"functionName": {
-			"Type": "String",
-			"Default": ""
-		},
-		"roleName": {
-			"Type": "String",
-			"Default": ""
-		},
-		"parentResource": {
-			"Type": "String",
-			"Default": ""
-		},
-		"parentStack": {
-			"Type": "String",
-			"Default": ""
+			"Default": "NONE",
+			"Description": " Schedule Expression"
 		},
 		"env": {
 			"Type": "String"
@@ -69,12 +33,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyIdentityBrokerCustomMessage",
+						"amplifyIdentityBrokerUserInfo",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyIdentityBrokerCustomMessage",
+									"amplifyIdentityBrokerUserInfo",
 									"-",
 									{
 										"Ref": "env"
@@ -89,23 +53,8 @@
 						"ENV": {
 							"Ref": "env"
 						},
-						"MODULES": {
-							"Ref": "modules"
-						},
 						"REGION": {
 							"Ref": "AWS::Region"
-						},
-						"REDIRECTURL": {
-							"Ref": "REDIRECTURL"
-						},
-						"EMAILSUBJECT": {
-							"Ref": "EMAILSUBJECT"
-						},
-						"EMAILMESSAGE": {
-							"Ref": "EMAILMESSAGE"
-						},
-						"RESOURCENAME": {
-							"Ref": "resourceName"
 						}
 					}
 				},
@@ -115,11 +64,12 @@
 						"Arn"
 					]
 				},
-				"Runtime": "nodejs10.x",
+				"Runtime": "nodejs12.x",
+				"Layers": [],
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-amplify-identity-broker-liamwalker-130900-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerCustomMessage-524e5a6e774e654f7641-build.zip"
+					"S3Key": "amplify-builds/amplifyIdentityBrokerUserInfo-4e756b6f3273574a6c72-build.zip"
 				}
 			}
 		},
@@ -129,12 +79,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyIdentityBrokerCustomMessage",
+						"amplifyidentitybrokerLambdaRolecddc03a6",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyIdentityBrokerCustomMessage",
+									"amplifyidentitybrokerLambdaRolecddc03a6",
 									"-",
 									{
 										"Ref": "env"
@@ -220,14 +170,14 @@
 				]
 			}
 		},
-		"LambdaExecutionRole": {
-			"Value": {
-				"Ref": "LambdaExecutionRole"
-			}
-		},
 		"Region": {
 			"Value": {
 				"Ref": "AWS::Region"
+			}
+		},
+		"LambdaExecutionRole": {
+			"Value": {
+				"Ref": "LambdaExecutionRole"
 			}
 		}
 	}

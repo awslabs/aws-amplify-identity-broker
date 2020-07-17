@@ -1,6 +1,7 @@
 {
   "name": "AmplifyBrokerDemo",
   "version": "0.1.0",
+  "license": "Apache-2.0",
   "private": true,
   "dependencies": {
     "@aws-amplify/ui-react": "^0.2.11",
