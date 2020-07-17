@@ -12,7 +12,7 @@ express or implied. See the License for the specific language governing
 permissions and limitations under the License. */
 
 const AWS = require('aws-sdk');
-var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider(); // Investigate further to see how this works
+var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider(); // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html
 
 exports.handler = async (event) => {
     // Reference here https://docs.aws.amazon.com/cognito/latest/developerguide/userinfo-endpoint.html
