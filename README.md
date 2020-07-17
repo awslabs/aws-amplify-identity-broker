@@ -24,19 +24,16 @@ The project is based on [AWS Amplify](https://aws.amazon.com/amplify/) and [Amaz
 
 You can sign-up, sign-in, try SSO from any of these client application demos:
 
-* Website 1 (Implict flow) : https://master.d1ev0x70q8av4i.amplifyapp.com _(this could be __yourcompany.com__)_
-* Website 2 (Implict flow) : https://master.d2lemesdag90ze.amplifyapp.com _(this could be __portal.yourcompany.com__)_
-* Website 3 (PKCE flow) : https://master.dv7odw7xb73ou.amplifyapp.com _(this could be __www.yoursubsidiary.com__)_
-* Website 4 (PKCE flow) : https://master.dvj34ijv8eg6m.amplifyapp.com _(this could be __mypartner.net__)_
+* Website 1 (Implict flow) : https://master.dv7odw7xb73ou.amplifyapp.com _(this could be __yourcompany.com__)_
+* Website 2 (Implict flow) : https://master.dvj34ijv8eg6m.amplifyapp.com _(this could be __portal.yourcompany.com__)_
+* Website 3 (PKCE flow) :  https://master.dgt79y8acfq6b.amplifyapp.com _(this could be __www.yoursubsidiary.com__)_
+* Website 4 (PKCE flow) :  https://master.d3uilst39vffn1.amplifyapp.com _(this could be __mypartner.net__)_
 
 In a real use case, your user will only go to the broker from a client website or app, but for reference the Broker demo url itself is: 
 
 * https://d23vbzcww6xd16.cloudfront.net _(this could be __login.yourcompany.com__)_
 
-Client demo code repository are:
-
-* [Implict web client](https://github.com/xavierraffin/amplify-identity-broker-implicit-client)
-* [PKCE web client](https://github.com/xavierraffin/amplify-identity-broker-pkce-client)
+See [client demo code repository](https://github.com/xavierraffin/amplify-identity-broker-pkce-client)
 
 ## Documentation
 
