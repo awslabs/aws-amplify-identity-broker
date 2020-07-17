@@ -1,6 +1,6 @@
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "Lambda resource stack creation using Amplify CLI",
+	"Description": "Lambda Function resource stack creation using Amplify CLI",
 	"Parameters": {
 		"CloudWatchRule": {
 			"Type": "String",
@@ -9,14 +9,6 @@
 		},
 		"env": {
 			"Type": "String"
-		},
-		"storageamplifyIdentityBrokerCodesTableName": {
-			"Type": "String",
-			"Default": "storageamplifyIdentityBrokerCodesTableName"
-		},
-		"storageamplifyIdentityBrokerCodesTableArn": {
-			"Type": "String",
-			"Default": "storageamplifyIdentityBrokerCodesTableArn"
 		}
 	},
 	"Conditions": {
@@ -41,12 +33,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyIdentityBrokerToken",
+						"amplifyIdentityBrokerUserInfo",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyIdentityBrokerToken",
+									"amplifyIdentityBrokerUserInfo",
 									"-",
 									{
 										"Ref": "env"
@@ -63,12 +55,6 @@
 						},
 						"REGION": {
 							"Ref": "AWS::Region"
-						},
-						"STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME": {
-							"Ref": "storageamplifyIdentityBrokerCodesTableName"
-						},
-						"STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_ARN": {
-							"Ref": "storageamplifyIdentityBrokerCodesTableArn"
 						}
 					}
 				},
@@ -79,12 +65,12 @@
 					]
 				},
 				"Runtime": "nodejs12.x",
+				"Layers": [],
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-amplify-identity-broker-liamwalker-130900-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerToken-6846746e70562b5a5475-build.zip"
-				},
-				"Layers": []
+					"S3Key": "amplify-builds/amplifyIdentityBrokerUserInfo-612f4759725a30735530-build.zip"
+				}
 			}
 		},
 		"LambdaExecutionRole": {
@@ -93,12 +79,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyidentitybrokerLambdaRole31b54ccd",
+						"amplifyidentitybrokerLambdaRolecddc03a6",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyidentitybrokerLambdaRole31b54ccd",
+									"amplifyidentitybrokerLambdaRolecddc03a6",
 									"-",
 									{
 										"Ref": "env"
@@ -164,52 +150,6 @@
 									}
 								]
 							}
-						}
-					]
-				}
-			}
-		},
-		"AmplifyResourcesPolicy": {
-			"DependsOn": [
-				"LambdaExecutionRole"
-			],
-			"Type": "AWS::IAM::Policy",
-			"Properties": {
-				"PolicyName": "amplify-lambda-execution-policy",
-				"Roles": [
-					{
-						"Ref": "LambdaExecutionRole"
-					}
-				],
-				"PolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [
-						{
-							"Effect": "Allow",
-							"Action": [
-								"dynamodb:Get*",
-								"dynamodb:BatchGetItem",
-								"dynamodb:List*",
-								"dynamodb:Describe*",
-								"dynamodb:Scan",
-								"dynamodb:Query"
-							],
-							"Resource": [
-								{
-									"Ref": "storageamplifyIdentityBrokerCodesTableArn"
-								},
-								{
-									"Fn::Join": [
-										"/",
-										[
-											{
-												"Ref": "storageamplifyIdentityBrokerCodesTableArn"
-											},
-											"index/*"
-										]
-									]
-								}
-							]
 						}
 					]
 				}

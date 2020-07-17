@@ -20,6 +20,13 @@
             "privacy": {
                 "open": true
             }
+        },
+        {
+            "name": "/oauth2/userInfo",
+            "lambdaFunction": "amplifyIdentityBrokerUserInfo",
+            "privacy": {
+                "open": true
+            }
         }
     ],
     "resourceName": "amplifyIdentityBrokerApi",
@@ -33,13 +40,16 @@
         },
         {
             "lambdaFunction": "amplifyIdentityBrokerStorage"
+        },
+        {
+            "lambdaFunction": "amplifyIdentityBrokerUserInfo"
         }
     ],
     "privacy": {
         "auth": 0,
         "unauth": 0,
-        "authRoleName": "amplify-amplify-identity-broker-xraffin-141758-authRole",
-        "unAuthRoleName": "amplify-amplify-identity-broker-xraffin-141758-unauthRole"
+        "authRoleName": "amplify-amplify-identity-broker-liamwalker-130900-authRole",
+        "unAuthRoleName": "amplify-amplify-identity-broker-liamwalker-130900-unauthRole"
     },
     "dependsOn": [
         {
@@ -65,6 +75,15 @@
                 "Name",
                 "Arn"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerUserInfo",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
         }
-    ]
+    ],
+    "uuid": "8e8d7a79"
 }
