@@ -4,7 +4,7 @@ This project demonstrates how to build a login application to authenticate sever
 
 __Features are:__
 
-* login, forgot password, ...
+* login, forgot password ...
 * MFA : _SMS, OTP_
 * style customization
 * i18n : _languages in this demo: English and French_
