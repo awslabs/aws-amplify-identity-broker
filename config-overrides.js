@@ -31,25 +31,19 @@ console.log("AMPLIFY_ENV is " + AMPLIFY_ENV);
 module.exports = function override(config, env) {
     console.log("Build env is " + env);
     let localConfig = {};
-    if (env !== "development") {
-        console.log("This is an AWS build");
-        switch (AMPLIFY_ENV) {
-            case "production": localConfig = {
-                "providers": []
-            };
-                break;
-            case "xraffin": localConfig = {
-                "providers": ["Facebook", "Google", "LoginWithAmazon", "dev1"]
-            };
-                break;
-            default:
-                console.error("Trying to build an unknown Amplify env config");
-                process.exit();
-        }
-    } else { // Local developement settings
-        localConfig = {
+    switch (AMPLIFY_ENV) {
+        case "production": localConfig = {
             "providers": []
         };
+            break;
+        case "xraffin": localConfig = {
+            "providers": ["Facebook", "Google", "LoginWithAmazon", "dev1"]
+        };
+            break;
+        default:
+            localConfig = {
+                "providers": []
+            };
     }
 
     if (!config.externals) {
