@@ -25,12 +25,6 @@ Amplify.configure(awsconfig);
 
 I18n.putVocabularies(strings);
 
-const MFATypeOptions = {
-  SMS: true,
-  TOTP: true,
-  Optional: true,
-};
-
 // See doc for customization here: https://docs.amplify.aws/ui/auth/authenticator/q/framework/react#slots
 
 class App extends React.Component {
@@ -96,7 +90,6 @@ class App extends React.Component {
       <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
       <div style={styles.container}>
         <AmplifyAuthenticator usernameAlias="email">
-          <AmplifySelectMfaType MFATypes={MFATypeOptions}></AmplifySelectMfaType>
           <AmplifyForgotPassword
             usernameAlias="email"
             slot="forgot-password"
@@ -144,8 +137,7 @@ class App extends React.Component {
               }
             ]}></AmplifySignUp>
           <div>
-            {/* This is not really private, you should instead use the credential to load something dynamically from the backend */}
-            Private Content
+            You have successfully logged in, please wait while redirecting...
           <AmplifySignOut />
           </div>
         </AmplifyAuthenticator>
