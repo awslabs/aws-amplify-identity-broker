@@ -25,12 +25,6 @@ Amplify.configure(awsconfig);
 
 I18n.putVocabularies(strings);
 
-// const MFATypeOptions = {
-//   SMS: true,
-//   TOTP: true,
-//   Optional: true,
-// };
-
 // See doc for customization here: https://docs.amplify.aws/ui/auth/authenticator/q/framework/react#slots
 
 class App extends React.Component {
