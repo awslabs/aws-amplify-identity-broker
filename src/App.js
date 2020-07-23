@@ -18,8 +18,8 @@ import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange } from '@aws-amplify/ui-components';
 import axios from 'axios';
-
 import awsconfig from './aws-exports';
+var Config = require("Config");
 
 Amplify.configure(awsconfig);
 
@@ -49,6 +49,40 @@ class App extends React.Component {
       I18n.setLanguage("en");
       this.setState({ lang: "en" });
     }
+  }
+
+  async handleSSO() {
+    let queryStringParams = new URLSearchParams(window.location.search);
+    let redirect_uri = queryStringParams.get('redirect_uri');
+    if (!redirect_uri) {
+      console.error("No redirect_uri");
+      return;
+    }
+    const hostedUIEndpoint = new URL(Config.hostedUIUrl + '/oauth2/authorize');
+    hostedUIEndpoint.search = new URLSearchParams({
+      response_type: "token",
+      client_id: awsconfig.aws_user_pools_web_client_id,
+      redirect_uri: redirect_uri,
+      identity_provider: "AWSSSO"
+    });
+    window.location.assign(hostedUIEndpoint.href);
+  }
+
+  handleAmazon() {
+    let queryStringParams = new URLSearchParams(window.location.search);
+    let redirect_uri = queryStringParams.get('redirect_uri');
+    if (!redirect_uri) {
+      console.error("No redirect_uri");
+      return;
+    }
+    const hostedUIEndpoint = new URL(Config.hostedUIUrl + '/oauth2/authorize');
+    hostedUIEndpoint.search = new URLSearchParams({
+      response_type: "token",
+      client_id: awsconfig.aws_user_pools_web_client_id,
+      redirect_uri: redirect_uri,
+      identity_provider: "LoginWithAmazon"
+    });
+    window.location.assign(hostedUIEndpoint.href);
   }
 
   async handleAuthUIStateChange(authState) {
@@ -141,6 +175,8 @@ class App extends React.Component {
           <AmplifySignOut />
           </div>
         </AmplifyAuthenticator>
+        <AmplifyButton onClick={this.handleSSO}>Sign In with SAML</AmplifyButton>
+        <AmplifyButton onClick={this.handleAmazon}>Sign In with Amazon</AmplifyButton>
       </div>
     </div>
   );
