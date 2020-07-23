@@ -174,11 +174,11 @@ Resources:
           Mutable: true
 
         - Name: locale
-          Required: true
+          Required: false
           Mutable: true
 
         - Name: phone_number
-          Required: true
+          Required: false
           Mutable: true
 
       LambdaConfig:
