@@ -80,31 +80,6 @@
             }
         }
     },
-    "liamwalker": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-amplify-identity-broker-liamwalker-130900-authRole",
-            "UnauthRoleArn": "arn:aws:iam::386310383721:role/amplify-amplify-identity-broker-liamwalker-130900-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::386310383721:role/amplify-amplify-identity-broker-liamwalker-130900-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-amplify-identity-broker-liamwalker-130900-deployment",
-            "UnauthRoleName": "amplify-amplify-identity-broker-liamwalker-130900-unauthRole",
-            "StackName": "amplify-amplify-identity-broker-liamwalker-130900",
-            "StackId": "arn:aws:cloudformation:us-east-1:386310383721:stack/amplify-amplify-identity-broker-liamwalker-130900/36900b10-c850-11ea-99ab-0e403b617781",
-            "AmplifyAppId": "d2bxuwebazvqxf"
-        },
-        "categories": {
-            "auth": {
-                "amplifyIdentityBrokerAuth": {}
-            },
-            "function": {
-                "amplifyIdentityBrokerCustomMessage": {},
-                "amplifyIdentityBrokerAuthorize": {},
-                "amplifyIdentityBrokerToken": {},
-                "amplifyIdentityBrokerStorage": {},
-                "amplifyIdentityBrokerMigration": {}
-            }
-        }
-    },
     "liamsaml": {
         "awscloudformation": {
             "AuthRoleName": "amplify-amplify-identity-broker-liamsaml-93442-authRole",
