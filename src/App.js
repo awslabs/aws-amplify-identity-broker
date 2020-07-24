@@ -13,7 +13,7 @@ permissions and limitations under the License. */
 
 import React from 'react';
 import { Auth, Amplify } from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifySelectMfaType, AmplifyForgotPassword } from '@aws-amplify/ui-react';
+import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifyForgotPassword } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange } from '@aws-amplify/ui-components';
@@ -39,6 +39,17 @@ class App extends React.Component {
     onAuthUIStateChange(newAuthState => {
       this.handleAuthUIStateChange(newAuthState)
     })
+
+    this.handleIDP = this.handleIDP.bind(this);
+    this.handleSSO = this.handleSSO.bind(this);
+    this.handleAmazon = this.handleAmazon.bind(this);
+    this.handleFacebook = this.handleFacebook.bind(this);
+    this.handleGoogle = this.handleGoogle.bind(this);
+
+    this.amazonLogin = Config.providers.includes("LoginWithAmazon");
+    this.SSOLogin = Config.providers.includes("AWSSSO");
+    this.facebookLogin = Config.providers.includes("Facebook");
+    this.googleLogin = Config.providers.includes("Google");
   }
 
   toggleLang = () => {
@@ -51,7 +62,7 @@ class App extends React.Component {
     }
   }
 
-  async handleSSO() {
+  handleIDP(identity_provider) {
     let queryStringParams = new URLSearchParams(window.location.search);
     let redirect_uri = queryStringParams.get('redirect_uri');
     if (!redirect_uri) {
@@ -63,26 +74,25 @@ class App extends React.Component {
       response_type: "token",
       client_id: awsconfig.aws_user_pools_web_client_id,
       redirect_uri: redirect_uri,
-      identity_provider: "AWSSSO"
+      identity_provider: identity_provider
     });
     window.location.assign(hostedUIEndpoint.href);
   }
 
+  handleGoogle() {
+    this.handleIDP("Google")
+  }
+
+  handleFacebook() {
+    this.handleIDP("Facebook");
+  }
+
+  handleSSO() {
+    this.handleIDP("AWSSSO");
+  }
+
   handleAmazon() {
-    let queryStringParams = new URLSearchParams(window.location.search);
-    let redirect_uri = queryStringParams.get('redirect_uri');
-    if (!redirect_uri) {
-      console.error("No redirect_uri");
-      return;
-    }
-    const hostedUIEndpoint = new URL(Config.hostedUIUrl + '/oauth2/authorize');
-    hostedUIEndpoint.search = new URLSearchParams({
-      response_type: "token",
-      client_id: awsconfig.aws_user_pools_web_client_id,
-      redirect_uri: redirect_uri,
-      identity_provider: "LoginWithAmazon"
-    });
-    window.location.assign(hostedUIEndpoint.href);
+    this.handleIDP("LoginWithAmazon");
   }
 
   async handleAuthUIStateChange(authState) {
@@ -175,8 +185,22 @@ class App extends React.Component {
           <AmplifySignOut />
           </div>
         </AmplifyAuthenticator>
-        <AmplifyButton onClick={this.handleSSO}>Sign In with SAML</AmplifyButton>
-        <AmplifyButton onClick={this.handleAmazon}>Sign In with Amazon</AmplifyButton>
+        {
+          this.SSOLogin &&
+          <AmplifyButton onClick={this.handleSSO}>Sign In with SAML</AmplifyButton>
+        }
+        {
+          this.amazonLogin &&
+          <AmplifyButton onClick={this.handleAmazon}>Sign In with Amazon</AmplifyButton>
+        }
+        {
+          this.facebookLogin &&
+          <AmplifyButton onClick={this.handleFacebook}>Sign In with Facebook</AmplifyButton>
+        }
+        {
+          this.googleLogin &&
+          <AmplifyButton onClick={this.handleGoogle}>Sign In with Google</AmplifyButton>
+        }
       </div>
     </div>
   );
