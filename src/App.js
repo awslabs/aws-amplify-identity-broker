@@ -40,12 +40,7 @@ class App extends React.Component {
       this.handleAuthUIStateChange(newAuthState)
     })
 
-    this.handleIDP = this.handleIDP.bind(this);
-    this.handleSSO = this.handleSSO.bind(this);
-    this.handleAmazon = this.handleAmazon.bind(this);
-    this.handleFacebook = this.handleFacebook.bind(this);
-    this.handleGoogle = this.handleGoogle.bind(this);
-
+    this.handleIDPLogin = this.handleIDPLogin.bind(this);
     this.amazonLogin = Config.providers.includes("LoginWithAmazon");
     this.SSOLogin = Config.providers.includes("AWSSSO");
     this.facebookLogin = Config.providers.includes("Facebook");
@@ -62,7 +57,7 @@ class App extends React.Component {
     }
   }
 
-  handleIDP(identity_provider) {
+  handleIDPLogin(identity_provider) {
     let queryStringParams = new URLSearchParams(window.location.search);
     let redirect_uri = queryStringParams.get('redirect_uri');
     if (!redirect_uri) {
@@ -77,22 +72,6 @@ class App extends React.Component {
       identity_provider: identity_provider
     });
     window.location.assign(hostedUIEndpoint.href);
-  }
-
-  handleGoogle() {
-    this.handleIDP("Google")
-  }
-
-  handleFacebook() {
-    this.handleIDP("Facebook");
-  }
-
-  handleSSO() {
-    this.handleIDP("AWSSSO");
-  }
-
-  handleAmazon() {
-    this.handleIDP("LoginWithAmazon");
   }
 
   async handleAuthUIStateChange(authState) {
@@ -127,7 +106,6 @@ class App extends React.Component {
       }
     }
   }
-  // Issue on translation of subfield is https://github.com/aws-amplify/amplify-js/issues/5679
 
   render = () => (
     <div>
@@ -187,19 +165,19 @@ class App extends React.Component {
         </AmplifyAuthenticator>
         {
           this.SSOLogin &&
-          <AmplifyButton onClick={this.handleSSO}>Sign In with SAML</AmplifyButton>
+          <AmplifyButton onClick={() => this.handleIDPLogin('AWSSSO')}>Sign In with SAML</AmplifyButton>
         }
         {
           this.amazonLogin &&
-          <AmplifyButton onClick={this.handleAmazon}>Sign In with Amazon</AmplifyButton>
+          <AmplifyButton onClick={() => this.handleIDPLogin('LoginWithAmazon')}>Sign In with Amazon</AmplifyButton>
         }
         {
           this.facebookLogin &&
-          <AmplifyButton onClick={this.handleFacebook}>Sign In with Facebook</AmplifyButton>
+          <AmplifyButton onClick={() => this.handleIDPLogin('Facebook')}>Sign In with Facebook</AmplifyButton>
         }
         {
           this.googleLogin &&
-          <AmplifyButton onClick={this.handleGoogle}>Sign In with Google</AmplifyButton>
+          <AmplifyButton onClick={() => this.handleIDPLogin('Google')}>Sign In with Google</AmplifyButton>
         }
       </div>
     </div>
