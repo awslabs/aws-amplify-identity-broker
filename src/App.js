@@ -165,19 +165,19 @@ class App extends React.Component {
         </AmplifyAuthenticator>
         {
           this.SSOLogin &&
-          <AmplifyButton onClick={() => this.handleIDPLogin('AWSSSO')}>Sign In with SAML</AmplifyButton>
+          <button class="sso btn" onClick={() => this.handleIDPLogin('AWSSSO')}> Sign In with SAML</button>
         }
         {
           this.amazonLogin &&
-          <AmplifyButton onClick={() => this.handleIDPLogin('LoginWithAmazon')}>Sign In with Amazon</AmplifyButton>
+          <button class="amazon btn" onClick={() => this.handleIDPLogin('LoginWithAmazon')}> <i class="fa fa-amazon fa-fw"></i> Sign In with Amazon</button>
         }
         {
           this.facebookLogin &&
-          <AmplifyButton onClick={() => this.handleIDPLogin('Facebook')}>Sign In with Facebook</AmplifyButton>
+          <button class="fb btn" onClick={() => this.handleIDPLogin('Facebook')}> <i class="fa fa-facebook fa-fw"></i> Sign In with Facebook</button>
         }
         {
           this.googleLogin &&
-          <AmplifyButton onClick={() => this.handleIDPLogin('Google')}>Sign In with Google</AmplifyButton>
+          <button class="google btn" onClick={() => this.handleIDPLogin('Google')}> <i class="fa fa-google fa-fw"></i> Sign In with Google</button>
         }
       </div>
     </div>
