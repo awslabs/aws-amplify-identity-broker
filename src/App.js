@@ -110,8 +110,8 @@ class App extends React.Component {
   render = () => (
     <div>
       <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
-      <div style={styles.container}>
-        <AmplifyAuthenticator usernameAlias="email">
+      <div class="container">
+        <AmplifyAuthenticator usernameAlias=" email" style={{ textAlign: 'center' }}>
           <AmplifyForgotPassword
             usernameAlias="email"
             slot="forgot-password"
@@ -163,6 +163,7 @@ class App extends React.Component {
           <AmplifySignOut />
           </div>
         </AmplifyAuthenticator>
+        <div class="hr-sect">OR</div>
         {
           this.SSOLogin &&
           <button class="sso btn" onClick={() => this.handleIDPLogin('AWSSSO')}> Sign In with SAML</button>
@@ -182,10 +183,6 @@ class App extends React.Component {
       </div>
     </div>
   );
-}
-
-const styles = {
-  container: { width: 400, margin: '0 auto', display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', padding: 20 },
 }
 
 export default App;

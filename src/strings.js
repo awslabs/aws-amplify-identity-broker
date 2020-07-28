@@ -17,7 +17,6 @@ import { Translations } from "@aws-amplify/ui-components"
 // See official Amplify UI labels: https://github.com/aws-amplify/amplify-js/blob/master/packages/amplify-ui-components/src/common/Translations.ts
 export const strings = {
     en: {
-        [Translations.NO_ACCOUNT_TEXT]: "No account yet?",
         [Translations.SIGN_UP_EMAIL_PLACEHOLDER]: "your.adress@example.com",
         [Translations.PHONE_PLACEHOLDER]: "(555) 555-1234"
     },
