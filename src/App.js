@@ -111,7 +111,7 @@ class App extends React.Component {
     <div>
       <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
       <div class="container">
-        <AmplifyAuthenticator usernameAlias=" email" style={{ textAlign: 'center' }}>
+        <AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
           <AmplifyForgotPassword
             usernameAlias="email"
             slot="forgot-password"
@@ -166,19 +166,19 @@ class App extends React.Component {
         <div class="hr-sect">OR</div>
         {
           this.SSOLogin &&
-          <button class="sso btn" onClick={() => this.handleIDPLogin('AWSSSO')}> Sign In with SAML</button>
+          <button class="sso btn" onClick={() => this.handleIDPLogin('AWSSSO')}> Sign In with AWS SSO</button>
         }
         {
           this.amazonLogin &&
           <button class="amazon btn" onClick={() => this.handleIDPLogin('LoginWithAmazon')}> <i class="fa fa-amazon fa-fw"></i> Sign In with Amazon</button>
         }
         {
-          this.facebookLogin &&
-          <button class="fb btn" onClick={() => this.handleIDPLogin('Facebook')}> <i class="fa fa-facebook fa-fw"></i> Sign In with Facebook</button>
-        }
-        {
           this.googleLogin &&
           <button class="google btn" onClick={() => this.handleIDPLogin('Google')}> <i class="fa fa-google fa-fw"></i> Sign In with Google</button>
+        }
+        {
+          this.facebookLogin &&
+          <button class="fb btn" onClick={() => this.handleIDPLogin('Facebook')}> <i class="fa fa-facebook fa-fw"></i> Sign In with Facebook</button>
         }
       </div>
     </div>
