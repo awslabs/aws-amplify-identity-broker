@@ -166,19 +166,19 @@ class App extends React.Component {
         <div class="hr-sect">OR</div>
         {
           this.SSOLogin &&
-          <button class="sso btn" onClick={() => this.handleIDPLogin('AWSSSO')}> Sign In with AWS SSO</button>
+          <button class="sso btn" onClick={() => this.handleIDPLogin('AWSSSO')}>{I18n.get("SSO_SIGNIN")}</button>
         }
         {
           this.amazonLogin &&
-          <button class="amazon btn" onClick={() => this.handleIDPLogin('LoginWithAmazon')}> <i class="fa fa-amazon fa-fw"></i> Sign In with Amazon</button>
+          <button class="amazon btn" onClick={() => this.handleIDPLogin('LoginWithAmazon')}> <i class="fa fa-amazon fa-fw"></i>{I18n.get("AMAZON_SIGNIN")}</button>
         }
         {
           this.googleLogin &&
-          <button class="google btn" onClick={() => this.handleIDPLogin('Google')}> <i class="fa fa-google fa-fw"></i> Sign In with Google</button>
+          <button class="google btn" onClick={() => this.handleIDPLogin('Google')}> <i class="fa fa-google fa-fw"></i>{I18n.get("GOOGLE_SIGNIN")}</button>
         }
         {
           this.facebookLogin &&
-          <button class="fb btn" onClick={() => this.handleIDPLogin('Facebook')}> <i class="fa fa-facebook fa-fw"></i> Sign In with Facebook</button>
+          <button class="fb btn" onClick={() => this.handleIDPLogin('Facebook')}> <i class="fa fa-facebook fa-fw"></i>{I18n.get("FACEBOOK_SIGNIN")}</button>
         }
       </div>
     </div>
