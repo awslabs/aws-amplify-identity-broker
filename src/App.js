@@ -163,7 +163,10 @@ class App extends React.Component {
           <AmplifySignOut />
           </div>
         </AmplifyAuthenticator>
-        <div class="hr-sect">OR</div>
+        {
+          this.SSOLogin || this.amazonLogin || this.googleLogin || this.facebookLogin &&
+          <div class="hr-sect">OR</div>
+        }
         {
           this.SSOLogin &&
           <button class="sso btn" onClick={() => this.handleIDPLogin('AWSSSO')}>{I18n.get("SSO_SIGNIN")}</button>
