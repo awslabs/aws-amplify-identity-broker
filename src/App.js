@@ -13,13 +13,13 @@ permissions and limitations under the License. */
 
 import React from 'react';
 import { Auth, Amplify } from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifySelectMfaType, AmplifyForgotPassword } from '@aws-amplify/ui-react';
+import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifyForgotPassword } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange } from '@aws-amplify/ui-components';
 import axios from 'axios';
-
 import awsconfig from './aws-exports';
+var Config = require("Config");
 
 Amplify.configure(awsconfig);
 
@@ -39,6 +39,12 @@ class App extends React.Component {
     onAuthUIStateChange(newAuthState => {
       this.handleAuthUIStateChange(newAuthState)
     })
+
+    this.handleIDPLogin = this.handleIDPLogin.bind(this);
+    this.amazonLogin = Config.providers.includes("LoginWithAmazon");
+    this.SSOLogin = Config.providers.includes("AWSSSO");
+    this.facebookLogin = Config.providers.includes("Facebook");
+    this.googleLogin = Config.providers.includes("Google");
   }
 
   toggleLang = () => {
@@ -49,6 +55,23 @@ class App extends React.Component {
       I18n.setLanguage("en");
       this.setState({ lang: "en" });
     }
+  }
+
+  handleIDPLogin(identity_provider) {
+    let queryStringParams = new URLSearchParams(window.location.search);
+    let redirect_uri = queryStringParams.get('redirect_uri');
+    if (!redirect_uri) {
+      console.error("No redirect_uri");
+      return;
+    }
+    const hostedUIEndpoint = new URL(Config.hostedUIUrl + '/oauth2/authorize');
+    hostedUIEndpoint.search = new URLSearchParams({
+      response_type: "token",
+      client_id: awsconfig.aws_user_pools_web_client_id,
+      redirect_uri: redirect_uri,
+      identity_provider: identity_provider
+    });
+    window.location.assign(hostedUIEndpoint.href);
   }
 
   async handleAuthUIStateChange(authState) {
@@ -83,13 +106,12 @@ class App extends React.Component {
       }
     }
   }
-  // Issue on translation of subfield is https://github.com/aws-amplify/amplify-js/issues/5679
 
   render = () => (
     <div>
       <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
-      <div style={styles.container}>
-        <AmplifyAuthenticator usernameAlias="email">
+      <div class="container">
+        <AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
           <AmplifyForgotPassword
             usernameAlias="email"
             slot="forgot-password"
@@ -141,13 +163,26 @@ class App extends React.Component {
           <AmplifySignOut />
           </div>
         </AmplifyAuthenticator>
+        <div class="hr-sect">OR</div>
+        {
+          this.SSOLogin &&
+          <button class="sso btn" onClick={() => this.handleIDPLogin('AWSSSO')}>{I18n.get("SSO_SIGNIN")}</button>
+        }
+        {
+          this.amazonLogin &&
+          <button class="amazon btn" onClick={() => this.handleIDPLogin('LoginWithAmazon')}> <i class="fa fa-amazon fa-fw"></i>{I18n.get("AMAZON_SIGNIN")}</button>
+        }
+        {
+          this.googleLogin &&
+          <button class="google btn" onClick={() => this.handleIDPLogin('Google')}> <i class="fa fa-google fa-fw"></i>{I18n.get("GOOGLE_SIGNIN")}</button>
+        }
+        {
+          this.facebookLogin &&
+          <button class="fb btn" onClick={() => this.handleIDPLogin('Facebook')}> <i class="fa fa-facebook fa-fw"></i>{I18n.get("FACEBOOK_SIGNIN")}</button>
+        }
       </div>
     </div>
   );
-}
-
-const styles = {
-  container: { width: 400, margin: '0 auto', display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', padding: 20 },
 }
 
 export default App;

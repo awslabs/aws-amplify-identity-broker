@@ -80,16 +80,16 @@
             }
         }
     },
-    "liamwalker": {
+    "liamsaml": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-amplify-identity-broker-liamwalker-130900-authRole",
-            "UnauthRoleArn": "arn:aws:iam::386310383721:role/amplify-amplify-identity-broker-liamwalker-130900-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::386310383721:role/amplify-amplify-identity-broker-liamwalker-130900-authRole",
+            "AuthRoleName": "amplify-amplify-identity-broker-liamsaml-93442-authRole",
+            "UnauthRoleArn": "arn:aws:iam::386310383721:role/amplify-amplify-identity-broker-liamsaml-93442-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::386310383721:role/amplify-amplify-identity-broker-liamsaml-93442-authRole",
             "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-amplify-identity-broker-liamwalker-130900-deployment",
-            "UnauthRoleName": "amplify-amplify-identity-broker-liamwalker-130900-unauthRole",
-            "StackName": "amplify-amplify-identity-broker-liamwalker-130900",
-            "StackId": "arn:aws:cloudformation:us-east-1:386310383721:stack/amplify-amplify-identity-broker-liamwalker-130900/36900b10-c850-11ea-99ab-0e403b617781",
+            "DeploymentBucketName": "amplify-amplify-identity-broker-liamsaml-93442-deployment",
+            "UnauthRoleName": "amplify-amplify-identity-broker-liamsaml-93442-unauthRole",
+            "StackName": "amplify-amplify-identity-broker-liamsaml-93442",
+            "StackId": "arn:aws:cloudformation:us-east-1:386310383721:stack/amplify-amplify-identity-broker-liamsaml-93442/44f93350-cce9-11ea-b763-0e3edd8361ed",
             "AmplifyAppId": "d2bxuwebazvqxf"
         },
         "categories": {
@@ -101,7 +101,8 @@
                 "amplifyIdentityBrokerAuthorize": {},
                 "amplifyIdentityBrokerToken": {},
                 "amplifyIdentityBrokerStorage": {},
-                "amplifyIdentityBrokerMigration": {}
+                "amplifyIdentityBrokerMigration": {},
+                "amplifyIdentityBrokerUserInfo": {}
             }
         }
     }

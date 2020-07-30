@@ -17,9 +17,12 @@ import { Translations } from "@aws-amplify/ui-components"
 // See official Amplify UI labels: https://github.com/aws-amplify/amplify-js/blob/master/packages/amplify-ui-components/src/common/Translations.ts
 export const strings = {
     en: {
-        [Translations.NO_ACCOUNT_TEXT]: "No account yet?",
         [Translations.SIGN_UP_EMAIL_PLACEHOLDER]: "your.adress@example.com",
-        [Translations.PHONE_PLACEHOLDER]: "(555) 555-1234"
+        [Translations.PHONE_PLACEHOLDER]: "(555) 555-1234",
+        SSO_SIGNIN: "Sign In with SAML",
+        AMAZON_SIGNIN: "Sign In with Amazon",
+        GOOGLE_SIGNIN: "Sign In with Google",
+        FACEBOOK_SIGNIN: "Sign In with Facebook",
     },
     fr: {
         [Translations.NO_ACCOUNT_TEXT]: "Pas encore de compte ?",
@@ -43,5 +46,9 @@ export const strings = {
         [Translations.PASSWORD_PLACEHOLDER]: "Entrez votre mot de passe",
         [Translations.PHONE_LABEL]: "Numéro de téléphone *",
         [Translations.PHONE_PLACEHOLDER]: "(555) 555-1234",
+        SSO_SIGNIN: "Connectez-vous avec SAML",
+        AMAZON_SIGNIN: "Connectez-vous avec Amazon",
+        GOOGLE_SIGNIN: "Connectez-vous avec Google",
+        FACEBOOK_SIGNIN: "Connectez-vous avec Facebook",
     },
 };

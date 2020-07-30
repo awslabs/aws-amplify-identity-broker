@@ -42,7 +42,8 @@ module.exports = function override(config, env) {
             break;
         default:
             localConfig = {
-                "providers": []
+                "providers": ["AWSSSO", "LoginWithAmazon", "Facebook", "Google"],
+                "hostedUIUrl": "https://liamsaml.auth.us-east-1.amazoncognito.com",
             };
     }
 
