@@ -112,7 +112,7 @@ class App extends React.Component {
   }
 
   render() {
-    var SAMLLoginButtons = this.SAMLIdPs.map(IdP => <button className="saml btn" onClick={() => this.handleIdPLogin(IdP)}>{I18n.get(IdP)}</button>);
+    var SAMLLoginButtons = this.SAMLIdPs.map(IdP => <button className="saml btn" key={IdP} onClick={() => this.handleIdPLogin(IdP)}>{I18n.get(IdP)}</button>);
     return (
       <div>
         <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
