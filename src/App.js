@@ -91,11 +91,9 @@ class App extends React.Component {
   handleIdPLogin(identity_provider) {
     let queryStringParams = new URLSearchParams(window.location.search);
     let redirect_uri = queryStringParams.get('redirect_uri');
-    if (!redirect_uri) {
-      console.error("No redirect_uri");
-      return;
+    if (redirect_uri) {
+      localStorage.setItem(`client-redirect-uri`, redirect_uri);
     }
-    localStorage.setItem(`client-redirect-uri`, redirect_uri);
 
     const hostedUIEndpoint = new URL(Config.hostedUIUrl + '/oauth2/authorize');
     hostedUIEndpoint.search = new URLSearchParams({
