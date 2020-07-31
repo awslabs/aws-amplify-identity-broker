@@ -5,6 +5,7 @@ This project demonstrates how to build a login application to authenticate sever
 __Current features are:__
 
 * login, forgot password ...
+* is an OIDC standard Identity Provider ([with few exceptions](Documentation/UserDocumentation.md#OIDCstandard))
 * style customization
 * i18n : _languages in this demo: English and French_
 * PKCE and Implicit Oauth2 flows : _for secured web and mobile application login_
@@ -56,7 +57,7 @@ This project is similar to the [Amazon Cognito hosted UI](https://docs.aws.amazo
 
 __Similarities__
 
-* both expose similar APIs
+* both expose similar APIs : they are standard OIDC identity provider (with [few exceptions for the current project](Documentation/UserDocumentation.md#OIDCstandard))
 * feature scope is similar (but this project has more features)
 * both require very low effort to deploy
 * both are managed within the AWS account of the customer
