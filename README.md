@@ -40,6 +40,8 @@ In a real use case, your user will only go to the broker from a client website o
 
 * https://d2zxvlukxu4lhp.cloudfront.net _(this could be __login.yourcompany.com__)_
 
+AWS SSO Demo User Credentials: __Username:__ publicdemouser __Password:__ &7P4X^rd5fJVfd&h5h
+
 See [client demo code repository](https://github.com/xavierraffin/amplify-identity-broker-pkce-client)
 
 ## Documentation
