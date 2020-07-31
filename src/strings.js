@@ -19,7 +19,7 @@ export const strings = {
     en: {
         [Translations.SIGN_UP_EMAIL_PLACEHOLDER]: "your.adress@example.com",
         [Translations.PHONE_PLACEHOLDER]: "(555) 555-1234",
-        SSO_SIGNIN: "Sign In with SAML",
+        AWSSSO: "Sign In with AWS SSO (SAML)",
         AMAZON_SIGNIN: "Sign In with Amazon",
         GOOGLE_SIGNIN: "Sign In with Google",
         FACEBOOK_SIGNIN: "Sign In with Facebook",
@@ -46,7 +46,7 @@ export const strings = {
         [Translations.PASSWORD_PLACEHOLDER]: "Entrez votre mot de passe",
         [Translations.PHONE_LABEL]: "Numéro de téléphone *",
         [Translations.PHONE_PLACEHOLDER]: "(555) 555-1234",
-        SSO_SIGNIN: "Connectez-vous avec SAML",
+        AWSSSO: "Connectez-vous avec AWS SSO (SAML)",
         AMAZON_SIGNIN: "Connectez-vous avec Amazon",
         GOOGLE_SIGNIN: "Connectez-vous avec Google",
         FACEBOOK_SIGNIN: "Connectez-vous avec Facebook",

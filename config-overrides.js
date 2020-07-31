@@ -33,8 +33,8 @@ module.exports = function override(config, env) {
     let localConfig = {};
     switch (AMPLIFY_ENV) {
         case "production": localConfig = {
-            "providers": [],
-            "hostedUIUrl": "https://amplify-identity-broker.auth.us-east-1.amazoncognito.com",
+            "providers": ["AWSSSO", "LoginWithAmazon", "Facebook", "Google"],
+            "hostedUIUrl": "https://amplify-identity-broker.auth.us-west-2.amazoncognito.com",
         };
             break;
         case "xraffin": localConfig = {
@@ -42,10 +42,14 @@ module.exports = function override(config, env) {
             "hostedUIUrl": "https://xraffin.auth.us-east-1.amazoncognito.com",
         };
             break;
+        case "liamsaml": localConfig = {
+            "providers": ["AWSSSO", "LoginWithAmazon", "Facebook", "Google"],
+            "hostedUIUrl": "https://liamsaml.auth.us-east-1.amazoncognito.com",
+        };
+            break;
         default:
             localConfig = {
-                "providers": ["AWSSSO", "LoginWithAmazon", "Facebook", "Google"],
-                "hostedUIUrl": "https://liamsaml.auth.us-east-1.amazoncognito.com",
+                "providers": [],
             };
     }
 
