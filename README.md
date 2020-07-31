@@ -2,17 +2,24 @@
 
 This project demonstrates how to build a login application to authenticate several websites and mobile apps.
 
-__Features are:__
+__Current features are:__
 
 * login, forgot password ...
-* MFA : _SMS, OTP_
 * style customization
 * i18n : _languages in this demo: English and French_
 * PKCE and Implicit Oauth2 flows : _for secured web and mobile application login_
-* consent approbation
 * deep customization of flows and UIs
 * Social login federation: _Facebook, Twitter, Amazon, Google logins_
-* Corporate federation: _SAML, OIDC (JWT token)_
+* Corporate federation: _SAML_
+
+__Coming soon features:__
+
+* MFA : _SMS, OTP_
+* consent approbation
+* Corporate federation: _OIDC (JWT token)_
+* account setting page
+* SSO dashboard (listing apps)
+* Migration helper
 
 This is a simplified view of the scope of the project (what this repository is about):
 
