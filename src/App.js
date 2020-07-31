@@ -51,6 +51,33 @@ class App extends React.Component {
     this.handleIdPLogin = this.handleIdPLogin.bind(this);
   }
 
+  componentDidMount() {
+    const clientRedirectUri = localStorage.getItem(`client-redirect-uri`);
+    if (!clientRedirectUri) {
+      return;
+    }
+
+    let urlValues = window.location.hash.substr(1);
+    let urlKeyPairs = urlValues.split('&');
+    let tokens = {};
+    urlKeyPairs.forEach(function (item, index) {
+      let pair = item.split('=');
+      tokens[pair[0]] = pair[1];
+    });
+
+    if (!(tokens['id_token'] && tokens['access_token'])) {
+      return;
+    }
+    var idToken = tokens['id_token'];
+
+    const clientURL = new URL(clientRedirectUri);
+    clientURL.search = new URLSearchParams({
+      id_token: idToken
+    });
+    localStorage.removeItem('client-redirect-uri');
+    window.location.assign(clientURL.href);
+  }
+
   toggleLang = () => {
     if (this.state.lang === "en") {
       I18n.setLanguage("fr");
@@ -68,11 +95,13 @@ class App extends React.Component {
       console.error("No redirect_uri");
       return;
     }
+    localStorage.setItem(`client-redirect-uri`, redirect_uri);
+
     const hostedUIEndpoint = new URL(Config.hostedUIUrl + '/oauth2/authorize');
     hostedUIEndpoint.search = new URLSearchParams({
       response_type: "token",
       client_id: awsconfig.aws_user_pools_web_client_id,
-      redirect_uri: redirect_uri,
+      redirect_uri: window.location.origin,
       identity_provider: identity_provider
     });
     window.location.assign(hostedUIEndpoint.href);
