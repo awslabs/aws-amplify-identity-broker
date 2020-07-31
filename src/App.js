@@ -117,6 +117,28 @@ class App extends React.Component {
       <div>
         <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
         <div className="container">
+          {
+            this.SAMLLogin &&
+            <div>
+              {SAMLLoginButtons}
+            </div>
+          }
+          {
+            this.amazonLogin &&
+            <button className="amazon btn" onClick={() => this.handleIdPLogin('LoginWithAmazon')}> <i className="fa fa-amazon fa-fw"></i>{I18n.get("AMAZON_SIGNIN")}</button>
+          }
+          {
+            this.googleLogin &&
+            <button className="google btn" onClick={() => this.handleIdPLogin('Google')}> <i className="fa fa-google fa-fw"></i>{I18n.get("GOOGLE_SIGNIN")}</button>
+          }
+          {
+            this.facebookLogin &&
+            <button className="fb btn" onClick={() => this.handleIdPLogin('Facebook')}> <i className="fa fa-facebook fa-fw"></i>{I18n.get("FACEBOOK_SIGNIN")}</button>
+          }
+          {
+            this.IdPLogin &&
+            <div className="hr-sect">{I18n.get("OR")}</div>
+          }
           <AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
             <AmplifyForgotPassword
               usernameAlias="email"
@@ -169,28 +191,6 @@ class App extends React.Component {
           <AmplifySignOut />
             </div>
           </AmplifyAuthenticator>
-          {
-            this.IdPLogin &&
-            <div className="hr-sect">OR</div>
-          }
-          {
-            this.SAMLLogin &&
-            <div>
-              {SAMLLoginButtons}
-            </div>
-          }
-          {
-            this.amazonLogin &&
-            <button className="amazon btn" onClick={() => this.handleIdPLogin('LoginWithAmazon')}> <i className="fa fa-amazon fa-fw"></i>{I18n.get("AMAZON_SIGNIN")}</button>
-          }
-          {
-            this.googleLogin &&
-            <button className="google btn" onClick={() => this.handleIdPLogin('Google')}> <i className="fa fa-google fa-fw"></i>{I18n.get("GOOGLE_SIGNIN")}</button>
-          }
-          {
-            this.facebookLogin &&
-            <button className="fb btn" onClick={() => this.handleIdPLogin('Facebook')}> <i className="fa fa-facebook fa-fw"></i>{I18n.get("FACEBOOK_SIGNIN")}</button>
-          }
         </div>
       </div>
     );

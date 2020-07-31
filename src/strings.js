@@ -23,6 +23,7 @@ export const strings = {
         AMAZON_SIGNIN: "Sign In with Amazon",
         GOOGLE_SIGNIN: "Sign In with Google",
         FACEBOOK_SIGNIN: "Sign In with Facebook",
+        OR: "OR"
     },
     fr: {
         [Translations.NO_ACCOUNT_TEXT]: "Pas encore de compte ?",
@@ -50,5 +51,6 @@ export const strings = {
         AMAZON_SIGNIN: "Connectez-vous avec Amazon",
         GOOGLE_SIGNIN: "Connectez-vous avec Google",
         FACEBOOK_SIGNIN: "Connectez-vous avec Facebook",
+        OR: "OU"
     },
 };
