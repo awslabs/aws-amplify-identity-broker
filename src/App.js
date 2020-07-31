@@ -53,9 +53,6 @@ class App extends React.Component {
 
   componentDidMount() {
     const clientRedirectUri = localStorage.getItem(`client-redirect-uri`);
-    if (!clientRedirectUri) {
-      return;
-    }
 
     let urlValues = window.location.hash.substr(1);
     let urlKeyPairs = urlValues.split('&');
@@ -70,6 +67,13 @@ class App extends React.Component {
     }
     var idToken = tokens['id_token'];
 
+    // TODO: set cookie + fill the auth amplify object (we are logged in now)
+    // You probably need to open the token and read what is inside No need to validate token signature (the app itself cannot do anything if token is unvalid)
+
+    if (!clientRedirectUri) {
+      // TODO: display dashboard ()
+      return;
+    }
     const clientURL = new URL(clientRedirectUri);
     clientURL.search = new URLSearchParams({
       id_token: idToken
