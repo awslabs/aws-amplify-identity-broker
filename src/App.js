@@ -22,8 +22,9 @@ import awsconfig from './aws-exports';
 var Config = require("Config");
 
 Amplify.configure(awsconfig);
-
 I18n.putVocabularies(strings);
+
+const socialIdPs = ["LoginWithAmazon", "Facebook", "Google"];
 
 // See doc for customization here: https://docs.amplify.aws/ui/auth/authenticator/q/framework/react#slots
 
@@ -40,12 +41,14 @@ class App extends React.Component {
       this.handleAuthUIStateChange(newAuthState)
     })
 
-    this.handleIDPLogin = this.handleIDPLogin.bind(this);
+    this.IdPLogin = Config.providers.length !== 0 ? true : false;
     this.amazonLogin = Config.providers.includes("LoginWithAmazon");
-    this.SSOLogin = Config.providers.includes("AWSSSO");
     this.facebookLogin = Config.providers.includes("Facebook");
     this.googleLogin = Config.providers.includes("Google");
-    this.IDPLogin = Config.providers.length !== 0 ? true : false;
+    this.SAMLIdPs = Config.providers.filter(value => !socialIdPs.includes(value));
+    this.SAMLLogin = this.SAMLIdPs.length !== 0 ? true : false;
+
+    this.handleIdPLogin = this.handleIdPLogin.bind(this);
   }
 
   toggleLang = () => {
@@ -58,7 +61,7 @@ class App extends React.Component {
     }
   }
 
-  handleIDPLogin(identity_provider) {
+  handleIdPLogin(identity_provider) {
     let queryStringParams = new URLSearchParams(window.location.search);
     let redirect_uri = queryStringParams.get('redirect_uri');
     if (!redirect_uri) {
@@ -108,85 +111,90 @@ class App extends React.Component {
     }
   }
 
-  render = () => (
-    <div>
-      <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
-      <div className="container">
-        <AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
-          <AmplifyForgotPassword
-            usernameAlias="email"
-            slot="forgot-password"
-            formFields={[
-              {
-                type: "email",
-                required: true,
-              },
-            ]}></AmplifyForgotPassword>
-          <AmplifySignIn
-            usernameAlias="email"
-            slot="sign-in"
-            formFields={[
-              {
-                type: "email",
-                required: true,
-              },
-              {
-                type: "password",
-                required: true,
-              }
-            ]}></AmplifySignIn>
-          <AmplifySignUp
-            usernameAlias="email"
-            slot="sign-up"
-            formFields={[
-              {
-                type: "email",
-                required: true,
-              },
-              {
-                type: "password",
-                required: true,
-              },
-              {
-                type: "phone_number",
-                required: false,
-              },
-              {
-                type: "locale",
-                value: this.state.lang,
-                inputProps: {
-                  type: 'hidden',
+  render() {
+    var SAMLLoginButtons = this.SAMLIdPs.map(IdP => <button className="saml btn" onClick={() => this.handleIdPLogin(IdP)}>{I18n.get(IdP)}</button>);
+    return (
+      <div>
+        <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
+        <div className="container">
+          <AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
+            <AmplifyForgotPassword
+              usernameAlias="email"
+              slot="forgot-password"
+              formFields={[
+                {
+                  type: "email",
+                  required: true,
+                },
+              ]}></AmplifyForgotPassword>
+            <AmplifySignIn
+              usernameAlias="email"
+              slot="sign-in"
+              formFields={[
+                {
+                  type: "email",
+                  required: true,
+                },
+                {
+                  type: "password",
+                  required: true,
                 }
-              }
-            ]}></AmplifySignUp>
-          <div>
-            You have successfully logged in, please wait while redirecting...
+              ]}></AmplifySignIn>
+            <AmplifySignUp
+              usernameAlias="email"
+              slot="sign-up"
+              formFields={[
+                {
+                  type: "email",
+                  required: true,
+                },
+                {
+                  type: "password",
+                  required: true,
+                },
+                {
+                  type: "phone_number",
+                  required: false,
+                },
+                {
+                  type: "locale",
+                  value: this.state.lang,
+                  inputProps: {
+                    type: 'hidden',
+                  }
+                }
+              ]}></AmplifySignUp>
+            <div>
+              You have successfully logged in, please wait while redirecting...
           <AmplifySignOut />
-          </div>
-        </AmplifyAuthenticator>
-        {
-          this.IDPLogin &&
-          <div className="hr-sect">OR</div>
-        }
-        {
-          this.SSOLogin &&
-          <button className="sso btn" onClick={() => this.handleIDPLogin('AWSSSO')}>{I18n.get("SSO_SIGNIN")}</button>
-        }
-        {
-          this.amazonLogin &&
-          <button className="amazon btn" onClick={() => this.handleIDPLogin('LoginWithAmazon')}> <i className="fa fa-amazon fa-fw"></i>{I18n.get("AMAZON_SIGNIN")}</button>
-        }
-        {
-          this.googleLogin &&
-          <button className="google btn" onClick={() => this.handleIDPLogin('Google')}> <i className="fa fa-google fa-fw"></i>{I18n.get("GOOGLE_SIGNIN")}</button>
-        }
-        {
-          this.facebookLogin &&
-          <button className="fb btn" onClick={() => this.handleIDPLogin('Facebook')}> <i className="fa fa-facebook fa-fw"></i>{I18n.get("FACEBOOK_SIGNIN")}</button>
-        }
+            </div>
+          </AmplifyAuthenticator>
+          {
+            this.IdPLogin &&
+            <div className="hr-sect">OR</div>
+          }
+          {
+            this.SAMLLogin &&
+            <div>
+              {SAMLLoginButtons}
+            </div>
+          }
+          {
+            this.amazonLogin &&
+            <button className="amazon btn" onClick={() => this.handleIdPLogin('LoginWithAmazon')}> <i className="fa fa-amazon fa-fw"></i>{I18n.get("AMAZON_SIGNIN")}</button>
+          }
+          {
+            this.googleLogin &&
+            <button className="google btn" onClick={() => this.handleIdPLogin('Google')}> <i className="fa fa-google fa-fw"></i>{I18n.get("GOOGLE_SIGNIN")}</button>
+          }
+          {
+            this.facebookLogin &&
+            <button className="fb btn" onClick={() => this.handleIdPLogin('Facebook')}> <i className="fa fa-facebook fa-fw"></i>{I18n.get("FACEBOOK_SIGNIN")}</button>
+          }
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;
