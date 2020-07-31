@@ -187,7 +187,7 @@ class App extends React.Component {
                 }
               ]}></AmplifySignUp>
             <div>
-              You have successfully logged in, please wait while redirecting...
+              {I18n.get("WAIT_REDIRECTION")}
           <AmplifySignOut />
             </div>
           </AmplifyAuthenticator>
