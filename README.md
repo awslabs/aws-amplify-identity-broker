@@ -41,7 +41,12 @@ In a real use case, your user will only go to the broker from a client website o
 
 * https://d2zxvlukxu4lhp.cloudfront.net _(this could be __login.yourcompany.com__)_
 
-AWS SSO Demo User Credentials: __Username:__ publicdemouser __Password:__ &7P4X^rd5fJVfd&h5h
+> __Demo Credentials__
+> 
+> For the main app you can sign-up to create your own account (_we don't use emails and phone numbers for anything else than the demo_)
+> - AWS SSO SAML Demo User Credentials: __Username:__ publicdemouser __Password:__ &7P4X^rd5fJVfd&h5h
+> - OIDC Demo User Credentials: __Username:__ demo __Password:__ P@ssw0rd
+> - Social login: use an account of your own
 
 See [client demo code repository](https://github.com/xavierraffin/amplify-identity-broker-pkce-client)
 
