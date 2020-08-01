@@ -79,6 +79,8 @@ To register your client, create an item in the `amplifyIdentityBrokerClients` Dy
 
 ![Clients Table Example](Images/ClientsTableExample.png "Clients Table Example")
 
+__IMPORTANT__ The client ids have to match what you use in the clientId parameter on your client applications.
+
 
 ## CSS & UI components customization instruction
 
