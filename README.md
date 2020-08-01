@@ -48,7 +48,7 @@ In a real use case, your user will only go to the broker from a client website o
 > - OIDC Demo User Credentials: __Username:__ demo __Password:__ P@ssw0rd
 > - Social login: use an account of your own
 
-See [client demo code repository](https://github.com/xavierraffin/amplify-identity-broker-pkce-client)
+See [client demo code repository](https://github.com/awslabs/amplify-identity-broker-client)
 
 ## Documentation
 
