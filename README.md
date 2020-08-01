@@ -56,6 +56,14 @@ See [client demo code repository](https://github.com/xavierraffin/amplify-identi
 - __[Client Developer Documentation](Documentation/ClientDeveloperDocumentation.md)__ : Explains how to integrate the broker in your website or mobile application.
 - __[Developer Documentation](Documentation/DeveloperDocumentation.md)__ : Documentation for the contributor of this project: _PR are welcome !_
 
+## Architecture
+
+The project architecture is the following:
+
+![Projet Architecture Image](Documentation/Images/DeployedArchitecture.png "Projet Architecture")
+
+See __[Developer Documentation](Documentation/DeveloperDocumentation.md)__ to see more detailed information on every component. 
+
 ### Comparison with the Amazon Cognito Hosted UI
 
 This project is similar to the [Amazon Cognito hosted UI](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-app-integration.html) by many aspects. Here is the list of similarities and differences.
@@ -72,15 +80,7 @@ __Differences__
 * The Hosted UI is managed, you don’t have access to the code or deployment infrastructure. This project is a code project with an simplified deployment system into a Serverless infrastructure you control.
 * This project can be customized deeply. UI, languages, specific behaviors (depending on IP address, link, ...). Again since you have access to the code you can do whatever you want with it
 * This project comes with some missing feature of the Hosted UI: i18n, full CSS, JS customization, consent approbation
-* This project diverge a bit here and there of standard OAuth flows (because of some current restrictions). The limitation is in the way Oauth scope are injected in tokens (see [User Documentation](Documentation/UserDocumentation.md)). _We are working on it to fill the gap._
-
-## Architecture
-
-The project architecture is the following:
-
-![Projet Architecture Image](Documentation/Images/DeployedArchitecture.png "Projet Architecture")
-
-See __[Developer Documentation](Documentation/DeveloperDocumentation.md)__ to see more detailed information on every component. 
+* This project diverge a bit here and there of standard OAuth flows (because of some current restrictions). The limitation is in the way Oauth scope are injected in tokens and some oauth2 API are handled (see [User Documentation](Documentation/UserDocumentation.md#OIDCstandard)). _We are working on it to fill the gap._
 
 ## License
 
