@@ -85,7 +85,7 @@ See [client demo code repository](https://github.com/awslabs/amplify-identity-br
 
   with Hosted UI only:
 
-  ![With Hosted UI](Documentation/Images/HostedUIByClassic.png "With Hosted UI")
+  ![With Hosted UI](Documentation/Images/HostedUIClassic.png "With Hosted UI")
 
 </details>
 
