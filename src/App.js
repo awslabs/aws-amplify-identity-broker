@@ -18,6 +18,7 @@ import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange } from '@aws-amplify/ui-components';
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 import awsconfig from './aws-exports';
 var Config = require("Config");
 
@@ -25,6 +26,30 @@ Amplify.configure(awsconfig);
 I18n.putVocabularies(strings);
 
 const socialIdPs = ["LoginWithAmazon", "Facebook", "Google"];
+
+function setCookie(name, value, expiry) {
+  var expires = "";
+  if (expiry) {
+    var date = new Date(expiry * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+}
+
+function eraseCookie(name) {
+  document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
 
 // See doc for customization here: https://docs.amplify.aws/ui/auth/authenticator/q/framework/react#slots
 
@@ -65,7 +90,11 @@ class App extends React.Component {
     if (!(tokens['id_token'] && tokens['access_token'])) {
       return;
     }
+
     var idToken = tokens['id_token'];
+    var idTokenDecoded = jwt_decode(idToken);
+    var tokenExpiry = idTokenDecoded['exp'];
+    setCookie("id_token", idToken, tokenExpiry);
 
     // TODO: set cookie + fill the auth amplify object (we are logged in now)
     // You probably need to open the token and read what is inside No need to validate token signature (the app itself cannot do anything if token is unvalid)
@@ -219,7 +248,7 @@ class App extends React.Component {
               ]}></AmplifySignUp>
             <div>
               {I18n.get("WAIT_REDIRECTION")}
-          <AmplifySignOut />
+              <AmplifySignOut />
             </div>
           </AmplifyAuthenticator>
         </div>

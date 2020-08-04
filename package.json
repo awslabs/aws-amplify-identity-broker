@@ -7,6 +7,7 @@
     "@aws-amplify/ui-react": "^0.2.13",
     "aws-amplify": "^3.0.22",
     "axios": "^0.19.2",
+    "jwt-decode": "^2.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
