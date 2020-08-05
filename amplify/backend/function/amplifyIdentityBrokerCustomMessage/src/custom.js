@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-var providerName = "Unamed Service";
+var providerName = "Amplify Identity Broker";
 exports.handler = (event, context, callback) => {
   console.log(event);
   // Identify why was this function invoked
