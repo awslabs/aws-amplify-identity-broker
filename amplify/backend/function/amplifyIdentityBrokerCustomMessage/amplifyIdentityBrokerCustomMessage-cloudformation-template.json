@@ -119,7 +119,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-amplify-identity-broker-liamsaml-93442-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerCustomMessage-524e5a6e774e654f7641-build.zip"
+					"S3Key": "amplify-builds/amplifyIdentityBrokerCustomMessage-475163334137726b2b50-build.zip"
 				}
 			}
 		},
