@@ -55,6 +55,7 @@ export const strings = {
         [Translations.CONFIRM_SIGN_UP_LOST_CODE]: 'Vous avez perdu votre code?',
         [Translations.CONFIRM_SIGN_UP_RESEND_CODE]: 'Renvoyer le code',
         [Translations.CONFIRM_SIGN_UP_SUBMIT_BUTTON_TEXT]: 'Confirmer',
+        [Translations.SIGN_OUT]: 'Déconnexion',
         AWSSSO: "Connectez-vous avec AWS SSO (SAML)",
         OIDCIdentityProvider: "Connectez-vous avec Demo OIDC (oauth2)",
         AMAZON_SIGNIN: "Connectez-vous avec Amazon",

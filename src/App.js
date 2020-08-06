@@ -17,7 +17,9 @@ import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, Amp
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange } from '@aws-amplify/ui-components';
+import { setCookie, getCookie } from './helpers'
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 import awsconfig from './aws-exports';
 var Config = require("Config");
 
@@ -52,8 +54,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const clientRedirectUri = localStorage.getItem(`client-redirect-uri`);
+    var clientRedirectUri = null;
+    var idToken = null;
 
+    // Check if the page was loaded from a redirect from idp. It will have id_token and access_token in the url
     let urlValues = window.location.hash.substr(1);
     let urlKeyPairs = urlValues.split('&');
     let tokens = {};
@@ -62,23 +66,40 @@ class App extends React.Component {
       tokens[pair[0]] = pair[1];
     });
 
-    if (!(tokens['id_token'] && tokens['access_token'])) {
-      return;
-    }
-    var idToken = tokens['id_token'];
+    if (tokens['id_token'] && tokens['access_token']) { // If the page was loaded from a redirect from idp 
+      idToken = tokens['id_token'];
+      var idTokenDecoded = jwt_decode(idToken);
+      var tokenExpiry = idTokenDecoded['exp'];
+      setCookie("id_token", idToken, tokenExpiry);
+      // TODO: Fill the amplify auth object
 
-    // TODO: set cookie + fill the auth amplify object (we are logged in now)
-    // You probably need to open the token and read what is inside No need to validate token signature (the app itself cannot do anything if token is unvalid)
-
-    if (!clientRedirectUri) {
-      // TODO: display dashboard ()
-      return;
+      clientRedirectUri = localStorage.getItem(`client-redirect-uri`);
+      if (!clientRedirectUri) {
+        return;
+      }
+      localStorage.removeItem('client-redirect-uri');
     }
+    else {
+      // Check if the page was loaded from a redirct from a client
+      // To redirect back there needs to be a redirect_uri and an existing id_token cookie
+      let queryStringParams = new URLSearchParams(window.location.search);
+      let redirect_uri = queryStringParams.get('redirect_uri');
+      if (!redirect_uri) {
+        return;
+      }
+      var idTokenCookie = getCookie("id_token");
+      if (!idTokenCookie) {
+        return;
+      }
+      idToken = idTokenCookie;
+      clientRedirectUri = redirect_uri;
+    }
+
+    // If we have both an id_token and a redirect_uri then we can redirect to the client
     const clientURL = new URL(clientRedirectUri);
     clientURL.search = new URLSearchParams({
       id_token: idToken
     });
-    localStorage.removeItem('client-redirect-uri');
     window.location.assign(clientURL.href);
   }
 
@@ -219,7 +240,7 @@ class App extends React.Component {
               ]}></AmplifySignUp>
             <div>
               {I18n.get("WAIT_REDIRECTION")}
-          <AmplifySignOut />
+              <AmplifySignOut />
             </div>
           </AmplifyAuthenticator>
         </div>
