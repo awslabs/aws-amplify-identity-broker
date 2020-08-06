@@ -1,6 +1,6 @@
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "Lambda resource stack creation using Amplify CLI",
+	"Description": "Lambda Function resource stack creation using Amplify CLI",
 	"Parameters": {
 		"CloudWatchRule": {
 			"Type": "String",
@@ -10,13 +10,9 @@
 		"env": {
 			"Type": "String"
 		},
-		"storageamplifyIdentityBrokerCodesTableName": {
+		"authamplifyIdentityBrokerAuthUserPoolId": {
 			"Type": "String",
-			"Default": "storageamplifyIdentityBrokerCodesTableName"
-		},
-		"storageamplifyIdentityBrokerCodesTableArn": {
-			"Type": "String",
-			"Default": "storageamplifyIdentityBrokerCodesTableArn"
+			"Default": "authamplifyIdentityBrokerAuthUserPoolId"
 		}
 	},
 	"Conditions": {
@@ -41,12 +37,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyIdentityBrokerStorage",
+						"amplifyIdentityBrokerCustomJWT",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyIdentityBrokerStorage",
+									"amplifyIdentityBrokerCustomJWT",
 									"-",
 									{
 										"Ref": "env"
@@ -64,11 +60,8 @@
 						"REGION": {
 							"Ref": "AWS::Region"
 						},
-						"STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME": {
-							"Ref": "storageamplifyIdentityBrokerCodesTableName"
-						},
-						"STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_ARN": {
-							"Ref": "storageamplifyIdentityBrokerCodesTableArn"
+						"AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID": {
+							"Ref": "authamplifyIdentityBrokerAuthUserPoolId"
 						}
 					}
 				},
@@ -79,12 +72,12 @@
 					]
 				},
 				"Runtime": "nodejs12.x",
+				"Layers": [],
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-amplify-identity-broker-kevnvoaws-133750-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerStorage-4b2f553855674f474a33-build.zip"
-				},
-				"Layers": []
+					"S3Key": "amplify-builds/amplifyIdentityBrokerCustomJWT-446e4a4c314a566e4464-build.zip"
+				}
 			}
 		},
 		"LambdaExecutionRole": {
@@ -93,12 +86,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyidentitybrokerLambdaRolea53a71b5",
+						"amplifyidentitybrokerLambdaRolefbdaf15d",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyidentitybrokerLambdaRolea53a71b5",
+									"amplifyidentitybrokerLambdaRolefbdaf15d",
 									"-",
 									{
 										"Ref": "env"
@@ -187,21 +180,50 @@
 						{
 							"Effect": "Allow",
 							"Action": [
-								"dynamodb:Update*",
-								"dynamodb:RestoreTable*"
+								"cognito-identity:Describe*",
+								"cognito-identity:Get*",
+								"cognito-identity:List*",
+								"cognito-idp:Describe*",
+								"cognito-idp:AdminGetDevice",
+								"cognito-idp:AdminGetUser",
+								"cognito-idp:AdminList*",
+								"cognito-idp:List*",
+								"cognito-sync:Describe*",
+								"cognito-sync:Get*",
+								"cognito-sync:List*",
+								"iam:ListOpenIdConnectProviders",
+								"iam:ListRoles",
+								"sns:ListPlatformApplications",
+								"cognito-idp:ForgotPassword",
+								"cognito-idp:UpdateAuthEventFeedback",
+								"cognito-idp:UpdateResourceServer",
+								"cognito-idp:UpdateUserPoolClient",
+								"cognito-idp:AdminUpdateUserAttributes",
+								"cognito-idp:UpdateUserAttributes",
+								"cognito-idp:UpdateUserPoolDomain",
+								"cognito-idp:UpdateIdentityProvider",
+								"cognito-idp:UpdateGroup",
+								"cognito-idp:AdminUpdateAuthEventFeedback",
+								"cognito-idp:UpdateDeviceStatus",
+								"cognito-idp:UpdateUserPool"
 							],
 							"Resource": [
 								{
-									"Ref": "storageamplifyIdentityBrokerCodesTableArn"
-								},
-								{
 									"Fn::Join": [
-										"/",
+										"",
 										[
+											"arn:aws:cognito-idp:",
 											{
-												"Ref": "storageamplifyIdentityBrokerCodesTableArn"
+												"Ref": "AWS::Region"
 											},
-											"index/*"
+											":",
+											{
+												"Ref": "AWS::AccountId"
+											},
+											":userpool/",
+											{
+												"Ref": "authamplifyIdentityBrokerAuthUserPoolId"
+											}
 										]
 									]
 								}

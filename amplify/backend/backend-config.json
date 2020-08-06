@@ -1,171 +1,207 @@
 {
-    "auth": {
-        "amplifyIdentityBrokerAuth": {
-            "service": "Cognito",
-            "providerPlugin": "awscloudformation",
-            "dependsOn": [
-                {
-                    "category": "function",
-                    "resourceName": "amplifyIdentityBrokerCustomMessage",
-                    "triggerProvider": "Cognito",
-                    "attributes": [
-                        "Arn",
-                        "Name"
-                    ]
-                }
-            ]
-        }
-    },
-    "hosting": {
-        "S3AndCloudFront": {
-            "service": "S3AndCloudFront",
-            "providerPlugin": "awscloudformation",
-            "dependsOn": [
-                {
-                    "category": "api",
-                    "resourceName": "amplifyIdentityBrokerApi",
-                    "attributes": [
-                        "ApiDomain"
-                    ]
-                }
-            ]
-        }
-    },
-    "function": {
-        "amplifyIdentityBrokerCustomMessage": {
-            "build": true,
-            "providerPlugin": "awscloudformation",
-            "service": "Lambda"
-        },
-        "amplifyIdentityBrokerAuthorize": {
-            "build": true,
-            "providerPlugin": "awscloudformation",
-            "service": "Lambda",
-            "dependsOn": [
-                {
-                    "category": "storage",
-                    "resourceName": "amplifyIdentityBrokerCodesTable",
-                    "attributes": [
-                        "Name",
-                        "Arn"
-                    ]
-                },
-                {
-                    "category": "storage",
-                    "resourceName": "amplifyIdentityBrokerClientsTable",
-                    "attributes": [
-                        "Name",
-                        "Arn"
-                    ]
-                }
-            ]
-        },
-        "amplifyIdentityBrokerToken": {
-            "build": true,
-            "providerPlugin": "awscloudformation",
-            "service": "Lambda",
-            "dependsOn": [
-                {
-                    "category": "storage",
-                    "resourceName": "amplifyIdentityBrokerCodesTable",
-                    "attributes": [
-                        "Name",
-                        "Arn"
-                    ]
-                }
-            ]
-        },
-        "amplifyIdentityBrokerStorage": {
-            "build": true,
-            "providerPlugin": "awscloudformation",
-            "service": "Lambda",
-            "dependsOn": [
-                {
-                    "category": "storage",
-                    "resourceName": "amplifyIdentityBrokerCodesTable",
-                    "attributes": [
-                        "Name",
-                        "Arn"
-                    ]
-                }
-            ]
-        },
-        "amplifyIdentityBrokerMigration": {
-            "build": true,
-            "providerPlugin": "awscloudformation",
-            "service": "Lambda",
-            "dependsOn": [
-                {
-                    "category": "auth",
-                    "resourceName": "amplifyIdentityBrokerAuth",
-                    "attributes": [
-                        "UserPoolId"
-                    ]
-                },
-                {
-                    "category": "auth",
-                    "resourceName": "amplifyIdentityBrokerAuth",
-                    "attributes": [
-                        "AppClientID"
-                    ]
-                }
-            ]
-        },
-        "amplifyIdentityBrokerUserInfo": {
-            "build": true,
-            "providerPlugin": "awscloudformation",
-            "service": "Lambda",
-            "dependsOn": []
-        }
-    },
-    "api": {
-        "amplifyIdentityBrokerApi": {
-            "service": "API Gateway",
-            "providerPlugin": "awscloudformation",
-            "dependsOn": [
-                {
-                    "category": "function",
-                    "resourceName": "amplifyIdentityBrokerAuthorize",
-                    "attributes": [
-                        "Name",
-                        "Arn"
-                    ]
-                },
-                {
-                    "category": "function",
-                    "resourceName": "amplifyIdentityBrokerToken",
-                    "attributes": [
-                        "Name",
-                        "Arn"
-                    ]
-                },
-                {
-                    "category": "function",
-                    "resourceName": "amplifyIdentityBrokerStorage",
-                    "attributes": [
-                        "Name",
-                        "Arn"
-                    ]
-                },
-                {
-                    "category": "function",
-                    "resourceName": "amplifyIdentityBrokerUserInfo",
-                    "attributes": [
-                        "Name",
-                        "Arn"
-                    ]
-                }
-            ]
-        }
-    },
-    "storage": {
-        "amplifyIdentityBrokerCodesTable": {
-            "service": "DynamoDB",
-            "providerPlugin": "awscloudformation"
-        },
-        "amplifyIdentityBrokerClientsTable": {
-            "service": "DynamoDB",
-            "providerPlugin": "awscloudformation"
-        }
-    }
+	"auth": {
+		"amplifyIdentityBrokerAuth": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "amplifyIdentityBrokerCustomMessage",
+					"triggerProvider": "Cognito",
+					"attributes": [
+						"Arn",
+						"Name"
+					]
+				}
+			]
+		}
+	},
+	"hosting": {
+		"S3AndCloudFront": {
+			"service": "S3AndCloudFront",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "api",
+					"resourceName": "amplifyIdentityBrokerApi",
+					"attributes": [
+						"ApiDomain"
+					]
+				}
+			]
+		}
+	},
+	"function": {
+		"amplifyIdentityBrokerCustomMessage": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda"
+		},
+		"amplifyIdentityBrokerAuthorize": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "amplifyIdentityBrokerCodesTable",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				},
+				{
+					"category": "storage",
+					"resourceName": "amplifyIdentityBrokerClientsTable",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			]
+		},
+		"amplifyIdentityBrokerToken": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "amplifyIdentityBrokerCodesTable",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			]
+		},
+		"amplifyIdentityBrokerStorage": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "amplifyIdentityBrokerCodesTable",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			]
+		},
+		"amplifyIdentityBrokerMigration": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "auth",
+					"resourceName": "amplifyIdentityBrokerAuth",
+					"attributes": [
+						"UserPoolId"
+					]
+				},
+				{
+					"category": "auth",
+					"resourceName": "amplifyIdentityBrokerAuth",
+					"attributes": [
+						"AppClientID"
+					]
+				}
+			]
+		},
+		"amplifyIdentityBrokerUserInfo": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": []
+		},
+		"amplifyIdentityBrokerExposeJWKS": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "auth",
+					"resourceName": "amplifyIdentityBrokerAuth",
+					"attributes": [
+						"UserPoolId"
+					]
+				}
+			]
+		},
+		"amplifyIdentityBrokerCustomJWT": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "auth",
+					"resourceName": "amplifyIdentityBrokerAuth",
+					"attributes": [
+						"UserPoolId"
+					]
+				}
+			]
+		}
+	},
+	"api": {
+		"amplifyIdentityBrokerApi": {
+			"service": "API Gateway",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "amplifyIdentityBrokerAuthorize",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				},
+				{
+					"category": "function",
+					"resourceName": "amplifyIdentityBrokerToken",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				},
+				{
+					"category": "function",
+					"resourceName": "amplifyIdentityBrokerStorage",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				},
+				{
+					"category": "function",
+					"resourceName": "amplifyIdentityBrokerUserInfo",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				},
+				{
+					"category": "function",
+					"resourceName": "amplifyIdentityBrokerExposeJWKS",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			]
+		}
+	},
+	"storage": {
+		"amplifyIdentityBrokerCodesTable": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation"
+		},
+		"amplifyIdentityBrokerClientsTable": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation"
+		}
+	}
 }

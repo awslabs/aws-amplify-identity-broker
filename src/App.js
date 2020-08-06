@@ -24,6 +24,14 @@ import awsconfig from './aws-exports';
 var Config = require("Config");
 
 Amplify.configure(awsconfig);
+/*
+  Still only looking for a way to intergate this with the config-overrides.js, this way I will not mess with othe ENV
+  Amplify.configure({...awsconfig, 
+	Auth: {
+		// OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
+		authenticationFlowType: 'USER_PASSWORD_AUTH',
+	},
+});*/
 I18n.putVocabularies(strings);
 
 const socialIdPs = ["LoginWithAmazon", "Facebook", "Google"];

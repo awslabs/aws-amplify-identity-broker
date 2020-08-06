@@ -47,6 +47,19 @@ module.exports = function override(config, env) {
             "hostedUIUrl": "https://liamsaml.auth.us-east-1.amazoncognito.com",
         };
             break;
+        case "kevnvoaws": localConfig = {
+            "providers": ["AWSSSO", "LoginWithAmazon", "Facebook", "Google"],
+            "hostedUIUrl": "https://kevnvo.auth.us-west-2.amazoncognito.com",
+            /*
+            I want to have it here so our env don`t get mess up, I am still looking on how to do this.
+            Amplify.configure({...awsconfig, 
+                Auth: {
+                    // OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
+                    authenticationFlowType: 'USER_PASSWORD_AUTH',
+                },
+            })*/
+        };
+            break;
         default:
             localConfig = {
                 "providers": [],
