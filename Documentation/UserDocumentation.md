@@ -148,11 +148,13 @@ See next sections for specific provider steps.
 
 ### Social Providers
 
-Social Provider Instructions taken from [Cognito Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html). 
+Social Provider instructions taken from [Cognito Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html). 
 
 <details>
   <summary>Facebook</summary>
-  
+
+### Step 1: Register with Facebook
+
 1. Create a developer account with [Facebook](https://developers.facebook.com/docs/facebook-login). 
 2. [Sign in](https://developers.facebook.com) with your Facebook credentials. 
 3. From the __My Apps__ menu, choose __Create New App.__ 
@@ -161,7 +163,7 @@ Social Provider Instructions taken from [Cognito Documentation](https://docs.aws
 ![Facebook-CreateApp](Images/FacebookSetupInstructions/Facebook-CreateApp.png "Facebook-CreateApp")
 
 
-4. Select __For Everything Else__ and then give your Facebook app a name and choose __Create App ID.__
+4. Select __For Everything Else,__ give your Facebook app a name and choose __Create App ID.__
 
 
 ![Facebook-CreateAppID](Images/FacebookSetupInstructions/Facebook-CreateAppID.png "Facebook-CreateAppID")
@@ -194,6 +196,31 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 
 15. Choose __Save changes.__
+
+### Step 2: Add Facebook to Your User Pool
+
+1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)
+2. Choose __Manage your User Pools.__
+3. Choose the User Pool created as part of the Amplify deployment
+4. On the left navigation bar, choose __Identity providers__
+5. Select __Facebook__
+6. Type the __app client ID__ and __app client secret__ you recived from the previous section
+7. Type the names to the scopes you want to authorize seperated by commas
+
+
+![Facebook-AttributeMapping](Images/FacebookSetupInstructions/Facebook-AttributeMapping.png "Facebook-AttributeMapping")
+
+
+8. Choose __Enable Facebook__
+9. On the left navigation bar, choose __Attribute Mapping__
+10. Select the __Facebook__ tab
+11. Capture and map the required user attributes
+
+
+![Facebook-IdentityProvider](Images/FacebookSetupInstructions/Facebook-IdentityProvider.png "Facebook-IdentityProvider")
+
+
+12. Choose __Save Changes__
 
 </details>
 
