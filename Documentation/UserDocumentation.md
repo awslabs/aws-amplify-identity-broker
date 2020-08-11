@@ -172,7 +172,7 @@ Social Provider Instructions taken from [Cognito Social Provider Documentation](
 13. From the navigation bar choose __Products__ and then __Set up__ from __Facebook Login.__ 
 14. From the navigation bar choose __Facebook Login__ and then __Settings.__ 
 Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of your user pool domain with the /oauth2/idpresponse endpoint. 
-![Facebook-OauthRedirectURI](Images/FacebookSetupInstructions/OauthRedirectURI.png "Facebook-OauthRedirectURI")
+![Facebook-OauthRedirectURI](Images/FacebookSetupInstructions/Facebook-OauthRedirectURI.png "Facebook-OauthRedirectURI")
 15. Choose __Save changes.__
 
 </details>
