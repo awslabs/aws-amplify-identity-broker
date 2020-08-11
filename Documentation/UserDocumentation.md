@@ -148,7 +148,7 @@ See next sections for specific provider steps.
 
 ### Social Providers
 
-Social Provider Instructions taken from [Cognito Social Provider Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html). 
+Social Provider Instructions taken from [Cognito Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html). 
 
 <details>
   <summary>Facebook</summary>
@@ -156,23 +156,43 @@ Social Provider Instructions taken from [Cognito Social Provider Documentation](
 1. Create a developer account with [Facebook](https://developers.facebook.com/docs/facebook-login). 
 2. [Sign in](https://developers.facebook.com) with your Facebook credentials. 
 3. From the __My Apps__ menu, choose __Create New App.__ 
+
+
 ![Facebook-CreateApp](Images/FacebookSetupInstructions/Facebook-CreateApp.png "Facebook-CreateApp")
+
+
 4. Select __For Everything Else__ and then give your Facebook app a name and choose __Create App ID.__
+
+
 ![Facebook-CreateAppID](Images/FacebookSetupInstructions/Facebook-CreateAppID.png "Facebook-CreateAppID")
+
+
 5. On the left navigation bar, choose __Settings__ and then __Basic__.
 6. Note the __App ID__ and the __App Secret.__ You will use them in the next section. 
 7. Choose __+ Add Platform__ from the bottom of the page. 
 8. Choose __Website__
 9. Under __Website,__ type your user pool domain with the /oauth2/idpresponse endpoint into Site URL. 
+
+
 ![Facebook-WebsitePlatform](Images/FacebookSetupInstructions/Facebook-WebsitePlatform.png "Facebook-WebsitePlatform")
+
+
 10. Choose __Save changes__
 11. Type your user pool domain into __App Domains__
+
+
 ![Facebook-AppDomains](Images/FacebookSetupInstructions/Facebook-AppDomains.png "Facebook-AppDomains")
+
+
 12. Choose __Save changes.__
 13. From the navigation bar choose __Products__ and then __Set up__ from __Facebook Login.__ 
 14. From the navigation bar choose __Facebook Login__ and then __Settings.__ 
 Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of your user pool domain with the /oauth2/idpresponse endpoint. 
+
+
 ![Facebook-OauthRedirectURI](Images/FacebookSetupInstructions/Facebook-OauthRedirectURI.png "Facebook-OauthRedirectURI")
+
+
 15. Choose __Save changes.__
 
 </details>
