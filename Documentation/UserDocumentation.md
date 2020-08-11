@@ -208,7 +208,7 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 7. Type the names to the scopes you want to authorize seperated by commas
 
 
-![Facebook-AttributeMapping](Images/FacebookSetupInstructions/Facebook-AttributeMapping.png "Facebook-AttributeMapping")
+![Facebook-IdentityProvider](Images/FacebookSetupInstructions/Facebook-IdentityProvider.png "Facebook-IdentityProvider")
 
 
 8. Choose __Enable Facebook__
@@ -217,7 +217,7 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 11. Capture and map the required user attributes
 
 
-![Facebook-IdentityProvider](Images/FacebookSetupInstructions/Facebook-IdentityProvider.png "Facebook-IdentityProvider")
+![Facebook-AttributeMapping](Images/FacebookSetupInstructions/Facebook-AttributeMapping.png "Facebook-AttributeMapping")
 
 
 12. Choose __Save Changes__
