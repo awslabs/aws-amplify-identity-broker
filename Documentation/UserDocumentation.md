@@ -226,8 +226,43 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 <details>
   <summary>Google</summary>
-  
-1. 
+
+### Step 1: Register with Google
+
+1. Create a developer account with Google. 
+2. [Sign in](https://console.developers.google.com) with your Google credentials. 
+3. Choose __Create Project__
+
+
+![Google-CreateProject](Images/GoogleSetupInstructions/Google-CreateProject.png "Google-CreateProject")
+
+
+4. Type in a project name and choose __Create__ 
+5. On the left navigation bar, choose __OAuth consent screen__
+6. Select your User Type and choose __Create__
+
+
+![Google-OauthConsent](Images/GoogleSetupInstructions/Google-OauthConsent.png "Google-OauthConsent")
+
+
+7. Type in an application name and choose __Save__
+8. On the left navigation bar, choose __Credentials__
+9. Create your OAuth 2.0 credentials by choosing __OAuth client ID__ from the __Create credentials__ drop-down list.
+
+
+![Google-CreateCredentials](Images/GoogleSetupInstructions/Google-CreateCredentials.png "Google-CreateCredentials")
+
+
+10. Choose __Web application.__
+11. Type your user pool domain into __Authorized JavaScript origins.__
+12. Type your user pool domain with the __/oauth2/idpresponse__ endpoint into __Authorized Redirect URIs.__
+
+
+![Google-CreateOauthClientID](Images/GoogleSetupInstructions/Google-CreateOauthClientID.png "Google-CreateOauthClientID")
+
+13. Choose Create.
+14. Note the OAuth client ID and client secret. You will need them for the next section.
+15. Choose OK.
 
 </details>
 
