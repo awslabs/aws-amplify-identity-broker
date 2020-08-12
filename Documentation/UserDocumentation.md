@@ -229,7 +229,7 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 ### Step 1: Register with Google
 
-1. Create a developer account with Google. 
+1. Create a [developer account with Google.](https://developers.google.com/identity)
 2. [Sign in](https://console.developers.google.com) with your Google credentials. 
 3. Choose __Create Project__
 
@@ -260,9 +260,34 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 ![Google-CreateOauthClientID](Images/GoogleSetupInstructions/Google-CreateOauthClientID.png "Google-CreateOauthClientID")
 
-13. Choose Create.
-14. Note the OAuth client ID and client secret. You will need them for the next section.
-15. Choose OK.
+13. Choose __Create.__
+14. Note the __OAuth client ID__ and __client secret.__ You will need them for the next section.
+15. Choose __OK.__
+
+### Step 2: Add Google to Your User Pool
+
+1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)
+2. Choose __Manage your User Pools.__
+3. Choose the User Pool created as part of the Amplify deployment
+4. On the left navigation bar, choose __Identity providers__
+5. Select __Google__
+6. Type the __app client ID__ and __app client secret__ you recived from the previous section
+7. Type the names to the scopes you want to authorize seperated by spaces
+
+
+![Google-IdentityProvider](Images/GoogleSetupInstructions/Google-IdentityProvider.png "Google-IdentityProvider")
+
+
+8. Choose __Enable Google__
+9. On the left navigation bar, choose __Attribute Mapping__
+10. Select the __Google__ tab
+11. Capture and map the required user attributes
+
+
+![Google-AttributeMapping](Images/GoogleSetupInstructions/Google-AttributeMapping.png "Google-AttributeMapping")
+
+
+12. Choose __Save Changes__
 
 </details>
 
