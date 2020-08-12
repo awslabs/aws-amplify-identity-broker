@@ -205,7 +205,7 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 4. On the left navigation bar, choose __Identity providers__
 5. Select __Facebook__
 6. Type the __app client ID__ and __app client secret__ you recived from the previous section
-7. Type the names to the scopes you want to authorize seperated by commas
+7. Type the names of the scopes you want to authorize seperated by commas
 
 
 ![Facebook-IdentityProvider](Images/FacebookSetupInstructions/Facebook-IdentityProvider.png "Facebook-IdentityProvider")
@@ -272,7 +272,7 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 4. On the left navigation bar, choose __Identity providers__
 5. Select __Google__
 6. Type the __app client ID__ and __app client secret__ you recived from the previous section
-7. Type the names to the scopes you want to authorize seperated by spaces
+7. Type the names of the scopes you want to authorize seperated by spaces
 
 
 ![Google-IdentityProvider](Images/GoogleSetupInstructions/Google-IdentityProvider.png "Google-IdentityProvider")
