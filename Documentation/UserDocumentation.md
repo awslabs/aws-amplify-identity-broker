@@ -337,7 +337,7 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 11. Capture and map the required user attributes
 
 
-![Amazon-AttributeMapping](Images/FacebookSetupInstructions/Amazon-AttributeMapping.png "Amazon-AttributeMapping")
+![Amazon-AttributeMapping](Images/AmazonSetupInstructions/Amazon-AttributeMapping.png "Amazon-AttributeMapping")
 
 
 12. Choose __Save Changes__
