@@ -9,7 +9,8 @@
     "axios": "^0.19.2",
     "jwt-decode": "^2.2.0",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.0",
