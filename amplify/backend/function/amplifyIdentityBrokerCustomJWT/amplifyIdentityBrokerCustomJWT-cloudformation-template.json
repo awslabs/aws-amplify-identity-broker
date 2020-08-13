@@ -76,7 +76,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-amplify-identity-broker-kevnvoaws-133750-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerCustomJWT-56744f33343838784f74-build.zip"
+					"S3Key": "amplify-builds/amplifyIdentityBrokerCustomJWT-5452672b464f30727942-build.zip"
 				}
 			}
 		},
