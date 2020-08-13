@@ -294,7 +294,54 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 <details>
   <summary>Amazon</summary>
   
-1. 
+### Step 1: Register with Amazon
+
+1. Create a [developer account with Amazon.](https://developer.amazon.com/login-with-amazon)
+2. [Sign in](https://developer.amazon.com/dashboard) with your Amazon credentials.
+3. You need to create an Amazon security profile to receive the Amazon client ID and client secret. Choose __Apps and Services__ from navigation bar at the top of the page and then choose __Login with Amazon.__
+4. Choose __Create a Security Profile.__
+
+![Amazon-CreateSecurityProfile](Images/AmazonSetupInstructions/Amazon-CreateSecurityProfile.png "Amazon-CreateSecurityProfile")
+
+
+5. Type in a __Security Profile Name,__ a __Security Profile Description,__ and a __Consent Privacy Notice URL.__
+6. Choose __Save.__
+7. Choose __Client ID__ and __Client Secret__ to show the client ID and secret. You will use them in the next section. 
+8. Hover over the gear and choose __Web Settings,__ and then choose __Edit.__ 
+9. Type your user pool domain into __Allowed Origins.__ 
+10. Type your user pool domain with the __/oauth2/idpresponse__ endpoint into __Allowed Return URLs.__
+
+
+![Amazon-WebSettings](Images/AmazonSetupInstructions/Amazon-WebSettings.png "Amazon-WebSettings")
+
+
+11. Choose __Save.__
+
+### Step 2: Add Amazon to Your User Pool
+
+1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)
+2. Choose __Manage your User Pools.__
+3. Choose the User Pool created as part of the Amplify deployment
+4. On the left navigation bar, choose __Identity providers__
+5. Select __Login with Amazon__
+6. Type the __app client ID__ and __app client secret__ you recived from the previous section
+7. Type the names of the scopes you want to authorize seperated by spaces
+
+
+![Amazon-IdentityProvider](Images/AmazonSetupInstructions/Amazon-IdentityProvider.png "AmazonIdentityProvider")
+
+
+8. Choose __Enable Login with Amazon__
+9. On the left navigation bar, choose __Attribute Mapping__
+10. Select the __Amazon__ tab
+11. Capture and map the required user attributes
+
+
+![Amazon-AttributeMapping](Images/FacebookSetupInstructions/Amazon-AttributeMapping.png "Amazon-AttributeMapping")
+
+
+12. Choose __Save Changes__
+
 
 </details>
 
