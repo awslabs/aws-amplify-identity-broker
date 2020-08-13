@@ -244,8 +244,11 @@ class App extends React.Component {
                 },
                 {
                   //Not possible to do a dropdown menu in the amplify sigin page. I will set a request for the amplify to get this feature added.
-                  label: "Membership",
+                  label: "Membership (Standard, Premium, Admin)",
                   type: "custom:customer-type",
+                  // We set the default to Standard for now, because if the user leaves the form field blank, it will send a null data type and error will be flagged.
+                  // The user will override this form field if they want to set the membership other then Standard.
+                  value: "Standard",
                   required: false,
                 }
               ]}></AmplifySignUp>

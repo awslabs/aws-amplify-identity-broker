@@ -130,20 +130,6 @@
 					]
 				}
 			]
-		},
-		"amplifyIdentityBrokerCustomJWT": {
-			"build": true,
-			"providerPlugin": "awscloudformation",
-			"service": "Lambda",
-			"dependsOn": [
-				{
-					"category": "auth",
-					"resourceName": "amplifyIdentityBrokerAuth",
-					"attributes": [
-						"UserPoolId"
-					]
-				}
-			]
 		}
 	},
 	"api": {

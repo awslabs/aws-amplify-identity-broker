@@ -184,6 +184,7 @@ Resources:
         - 
           Name: customer-type
           Mutable: true
+          Required: false
           AttributeDataType: String
 
       LambdaConfig:

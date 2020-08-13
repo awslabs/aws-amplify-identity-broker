@@ -1,5 +1,4 @@
 {
-    
     "xraffin": {
         "awscloudformation": {
             "AuthRoleName": "amplify-amplify-identity-broker-xraffin-113500-authRole",
