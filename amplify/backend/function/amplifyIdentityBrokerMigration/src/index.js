@@ -58,7 +58,7 @@ exports.handler = (event, context, callback) => {
                         console.log('Getting user.');
                         //Start String manipulation to make it the right format for user creation
                         var useratt = data.UserAttributes;
-                        useratt.shift()
+                        useratt.shift();
                         var attributes = {};
                         for (var i = 0; i<useratt.length; i++){
                             attributes [useratt[i].Name] = useratt[i].Value;
@@ -88,11 +88,10 @@ exports.handler = (event, context, callback) => {
         // Lookup the user in your existing user directory service and retrieved user attrubites
         cognitoidentityserviceprovider.adminGetUser(params, function(err, data) {
             if (data) {
-                console.log(data)
                 console.log('Getting user.');
                 //Start String manipulation to make it the right format for user creation
                 var useratt = data.UserAttributes;
-                useratt.shift()
+                useratt.shift();
                 var attributes = {};
                 for (var i = 0; i<useratt.length; i++){
                     attributes [useratt[i].Name] = useratt[i].Value;
@@ -103,12 +102,12 @@ exports.handler = (event, context, callback) => {
                 context.succeed(event);
                 //User has been created and status is also Confirmed. The Client show automatically send them a reset code and move them into the reset password screen.
             } 
-            else     {
+            else {
                 // an error occurred
-                console.log(err, err.stack)}
+                console.log(err, err.stack)
                 // Return error to Amazon Cognito
                 callback("Bad password");
-            ;          
+            }          
           });
     }
     else { 

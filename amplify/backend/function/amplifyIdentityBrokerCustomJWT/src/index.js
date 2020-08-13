@@ -16,6 +16,7 @@ permissions and limitations under the License. */
 Amplify Params - DO NOT EDIT */
 
 exports.handler = (event, context, callback) => {
+    console.log(event);
     event.response = {
         "claimsOverrideDetails": {
             "claimsToAddOrOverride": {

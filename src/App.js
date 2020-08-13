@@ -24,14 +24,14 @@ import awsconfig from './aws-exports';
 var Config = require("Config");
 
 Amplify.configure(awsconfig);
-/*
-  Still only looking for a way to intergate this with the config-overrides.js, this way I will not mess with othe ENV
+
+ /*  //Still only looking for a way to intergate this with the config-overrides.js, this way I will not mess with othe ENV
   Amplify.configure({...awsconfig, 
 	Auth: {
 		// OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
-		authenticationFlowType: 'USER_PASSWORD_AUTH',
+		authenticationFlowType: Config. authenticationFlowType !== undefined ? Config. authenticationFlowType : "USER_SRP_AUTH",
 	},
-});*/
+}); */
 I18n.putVocabularies(strings);
 
 const socialIdPs = ["LoginWithAmazon", "Facebook", "Google"];
@@ -244,6 +244,12 @@ class App extends React.Component {
                   inputProps: {
                     type: 'hidden',
                   }
+                },
+                {
+                  //Not possible to do a dropdown menu in the amplify sigin page. I will set a request for the amplify to get this feature added.
+                  label: "Membership",
+                  type: "custom:customer-type",
+                  required: false,
                 }
               ]}></AmplifySignUp>
             <div>

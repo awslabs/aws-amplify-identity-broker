@@ -76,7 +76,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-amplify-identity-broker-kevnvoaws-133750-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerExposeJWKS-6662775a66727a653738-build.zip"
+					"S3Key": "amplify-builds/amplifyIdentityBrokerExposeJWKS-665a62444c6d79434e30-build.zip"
 				}
 			}
 		},
@@ -180,17 +180,6 @@
 						{
 							"Effect": "Allow",
 							"Action": [
-								"cognito-identity:Describe*",
-								"cognito-identity:Get*",
-								"cognito-identity:List*",
-								"cognito-idp:Describe*",
-								"cognito-idp:AdminGetDevice",
-								"cognito-idp:AdminGetUser",
-								"cognito-idp:AdminList*",
-								"cognito-idp:List*",
-								"cognito-sync:Describe*",
-								"cognito-sync:Get*",
-								"cognito-sync:List*",
 								"iam:ListOpenIdConnectProviders",
 								"iam:ListRoles",
 								"sns:ListPlatformApplications"

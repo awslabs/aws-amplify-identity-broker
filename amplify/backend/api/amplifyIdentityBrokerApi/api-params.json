@@ -29,7 +29,7 @@
             }
         },
         {
-            "name": "/well-known/jwksjson",
+            "name": "/.well-known/jwks.json",
             "lambdaFunction": "amplifyIdentityBrokerExposeJWKS",
             "privacy": {
                 "open": true
