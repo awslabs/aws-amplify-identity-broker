@@ -106,7 +106,7 @@ We've define all CSS extra properties in _src/index.css_, look at this file befo
 ## Add Identity Providers
 
 __PREREQUISITE__: 
-In order to have the external IdP working you need to setup a subdomain (or a domain) for the COgnito user pool that the broker use.
+In order to have the external IdP working you need to setup a subdomain (or a domain) for the Cognito user pool that the broker use.
 In the AWS console go to _Cognito_ -> _User Pool_ -> _brokeruserpool-<YOUR ENVIRONMENT NAME>_
 In the left menu go to _APP Integration_ -> _Domain Name_ and enter a unique subdomain.
   
@@ -155,7 +155,7 @@ See next sections for specific provider steps.
 ## Migration instructions
 
 __PREREQUISITE__: 
-In order for the User Migration to be successful, We need to make sure that the Lambda code is probably set for your specific existing userpool. Currently the Lambda user-migration function is setup for existing Cognito userpool migration to the current Cognito userpool for demonstration purposes.
+In order for the User Migration to be successful, We need to make sure that the Lambda code is probably set for your specific existing userpool. Currently the Lambda user-migration function is setup for migrating from the existing Cognito userpool to the current Cognito userpool for demonstration purposes.
 
 [Lambda User Migration Code](https://github.com/xavierraffin/amplify-identity-broker/blob/5e348800fb22b6c9f91d471f139f85e3eea38a54/amplify/backend/function/amplifyIdentityBrokerMigration/src/index.js)
 
@@ -174,7 +174,7 @@ To use the user migration that is labeled `amplifyIdentityBrokerMigration`, the 
 
   ![Cognito Menu](Images/CognitoMenuTrigger.png)
 
-3. In the User Migration click the dropdown button and select Lambda function, if you are using the pre-built one with this project it should be label `amplifyIdentityBrokerMigration-YourENV`
+3. In the User Migration click the dropdown list and select Lambda function, if you are using the pre-built one with this project it should be label `amplifyIdentityBrokerMigration-YourENV`
 
 
   ![Cognito Menu](Images/MigrationTrigger.png)
@@ -198,13 +198,11 @@ Your app sends the username and password to Amazon Cognito. If your app has a na
     ```
     This will detect if your authenticationFlowType have been set or not yet, if the authenticationFlowType has not been set then USER_SRP_AUTH will be the assigned flow.
 
-  2. Lastly we need to set the "USER_PASSWORD" to the desired enviroment, we do this by navigating to config-overrides.js in the root folder and setting the specfic with the following example.
+  2. Lastly we need to set the "USER_PASSWORD" flow to the desired enviroment, navigate to config-overrides.js in the root folder and set code with the following example.
 
       Example:
       ```
       case "Your-ENV": localConfig = {
-            "providers": ["AWSSSO", "LoginWithAmazon", "Facebook", "Google"],
-            "hostedUIUrl": "https://your-cognito-domain.auth.us-west-2.amazoncognito.com",
             // This is added to any ENV that want to use User-Migration, the authenication flow type need to be set to USER_PASSWORD_AUTH from default(USER_SRP_AUTH)
             "authenticationFlowType": "USER_PASSWORD_AUTH",
         };
