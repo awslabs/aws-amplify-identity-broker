@@ -181,8 +181,7 @@ Resources:
           Required: false
           Mutable: true
 
-        - 
-          Name: customer-type
+        - Name: customer-type
           Mutable: true
           Required: false
           AttributeDataType: String
