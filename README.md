@@ -100,4 +100,4 @@ See __[Developer Documentation](Documentation/DeveloperDocumentation.md)__ to se
 
 ## License
 
-This project is licensed under the Apache-2.0 License.
+This project is licensed under the MIT License.
