@@ -19,6 +19,8 @@ export const strings = {
     en: {
         [Translations.SIGN_UP_EMAIL_PLACEHOLDER]: "your.adress@example.com",
         [Translations.PHONE_PLACEHOLDER]: "(555) 555-1234",
+        MEMBERSHIP: "Membership (Standard, Premium, Admin)",
+        MEMBERSHIP_VALUE: "Standard",
         AWSSSO: "Sign In with AWS SSO (SAML)",
         OIDCIdentityProvider: "Sign In with Demo OIDC (oauth2)",
         AMAZON_SIGNIN: "Sign In with Amazon",
@@ -62,6 +64,8 @@ export const strings = {
         GOOGLE_SIGNIN: "Connectez-vous avec Google",
         FACEBOOK_SIGNIN: "Connectez-vous avec Facebook",
         OR: "OU",
+        MEMBERSHIP: "Adhésion (Norme, Prime, Administrateur)",
+        MEMBERSHIP_VALUE: "Norme",
         WAIT_REDIRECTION: "Vous vous êtes connecté avec succès, attendez d'être redirigé..."
     },
 };

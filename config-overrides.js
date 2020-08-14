@@ -47,6 +47,13 @@ module.exports = function override(config, env) {
             "hostedUIUrl": "https://liamsaml.auth.us-east-1.amazoncognito.com",
         };
             break;
+        case "kevnvoaws": localConfig = {
+            "providers": ["AWSSSO", "LoginWithAmazon", "Facebook", "Google"],
+            "hostedUIUrl": "https://kevnvo.auth.us-west-2.amazoncognito.com",
+            // This is added to any ENV that want to use User-Migration, the authenication flow type need to be set to USER_PASSWORD_AUTH from default(USER_SRP_AUTH)
+            "authenticationFlowType": "USER_PASSWORD_AUTH",
+        };
+            break;
         default:
             localConfig = {
                 "providers": [],

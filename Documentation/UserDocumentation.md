@@ -153,3 +153,61 @@ See next sections for specific provider steps.
 ### Amazon
 
 ## Migration instructions
+
+__PREREQUISITE__: 
+In order for the User Migration to be successful, We need to make sure that the Lambda code is probably set for your specific existing userpool. Currently the Lambda user-migration function is setup for existing Cognito userpool migration to the current Cognito userpool for demonstration purposes.
+
+[Lambda User Migration Code](https://github.com/xavierraffin/amplify-identity-broker/blob/5e348800fb22b6c9f91d471f139f85e3eea38a54/amplify/backend/function/amplifyIdentityBrokerMigration/src/index.js)
+
+[Migration Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-migrate-user.html#cognito-user-pools-lambda-trigger-syntax-user-migration)
+
+[Cognito SDK Documention](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html)
+
+
+__Linking the Trigger__:
+To use the user migration that is labeled `amplifyIdentityBrokerMigration`, the following setting needs to be enable
+
+1. In the AWS console go to _Cognito_ -> _User Pool_ -> _brokeruserpool 
+
+2. On the left side menu navigate to Triggers
+
+
+  ![Cognito Menu](Images/CognitoMenuTrigger.png)
+
+3. In the User Migration click the dropdown button and select Lambda function, if you are using the pre-built one with this project it should be label `amplifyIdentityBrokerMigration-YourENV`
+
+
+  ![Cognito Menu](Images/MigrationTrigger.png)
+
+__Important__:
+Your app sends the username and password to Amazon Cognito. If your app has a native sign-in UI and uses the Cognito Identity Provider SDK, your app must use the USER_PASSWORD_AUTH flow, in which the SDK sends the password to the server (your app must not use the default USER_SRP_AUTH flow since the SDK does not send the password to the server in the SRP authentication flow). The USER_PASSWORD_AUTH flow is enabled by setting AuthenticationDetails.authenticationType to "USER_PASSWORD".
+ [Switch Authentication Flows](https://docs.amplify.aws/lib/auth/switch-auth/q/platform/js)
+
+ If you like to set a migration flow for a specfic enviroment, follow the these steps:
+
+ 1. After your calling your imports in src/App.js of your react frontend, the use the following example.
+
+    Example:
+    ```
+    Amplify.configure({...awsconfig, 
+      Auth: {
+        // OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
+        authenticationFlowType: Config.authenticationFlowType !== undefined ? Config.authenticationFlowType : "USER_SRP_AUTH",
+      },
+    });
+    ```
+    This will detect if your authenticationFlowType have been set or not yet, if the authenticationFlowType has not been set then USER_SRP_AUTH will be the assigned flow.
+
+  2. Lastly we need to set the "USER_PASSWORD" to the desired enviroment, we do this by navigating to config-overrides.js in the root folder and setting the specfic with the following example.
+
+      Example:
+      ```
+      case "Your-ENV": localConfig = {
+            "providers": ["AWSSSO", "LoginWithAmazon", "Facebook", "Google"],
+            "hostedUIUrl": "https://your-cognito-domain.auth.us-west-2.amazoncognito.com",
+            // This is added to any ENV that want to use User-Migration, the authenication flow type need to be set to USER_PASSWORD_AUTH from default(USER_SRP_AUTH)
+            "authenticationFlowType": "USER_PASSWORD_AUTH",
+        };
+            break;
+      ```
+      This will set your specfic enviroment to USER_PASSWORD_AUTH.

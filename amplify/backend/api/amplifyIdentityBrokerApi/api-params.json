@@ -27,6 +27,13 @@
             "privacy": {
                 "open": true
             }
+        },
+        {
+            "name": "/.well-known/jwks.json",
+            "lambdaFunction": "amplifyIdentityBrokerExposeJWKS",
+            "privacy": {
+                "open": true
+            }
         }
     ],
     "resourceName": "amplifyIdentityBrokerApi",
@@ -43,13 +50,16 @@
         },
         {
             "lambdaFunction": "amplifyIdentityBrokerUserInfo"
+        },
+        {
+            "lambdaFunction": "amplifyIdentityBrokerExposeJWKS"
         }
     ],
     "privacy": {
         "auth": 0,
         "unauth": 0,
-        "authRoleName": "amplify-amplify-identity-broker-liamwalker-130900-authRole",
-        "unAuthRoleName": "amplify-amplify-identity-broker-liamwalker-130900-unauthRole"
+        "authRoleName": "amplify-amplify-identity-broker-kevnvoaws-133750-authRole",
+        "unAuthRoleName": "amplify-amplify-identity-broker-kevnvoaws-133750-unauthRole"
     },
     "dependsOn": [
         {
@@ -83,7 +93,15 @@
                 "Name",
                 "Arn"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerExposeJWKS",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
         }
     ],
-    "uuid": "8e8d7a79"
+    "uuid": "f7e3b4c2"
 }

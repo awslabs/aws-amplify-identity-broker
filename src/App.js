@@ -23,7 +23,12 @@ import jwt_decode from 'jwt-decode';
 import awsconfig from './aws-exports';
 var Config = require("Config");
 
-Amplify.configure(awsconfig);
+Amplify.configure({...awsconfig, 
+	Auth: {
+		// OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
+		authenticationFlowType: Config.authenticationFlowType !== undefined ? Config.authenticationFlowType : "USER_SRP_AUTH",
+	},
+});
 I18n.putVocabularies(strings);
 
 const socialIdPs = ["LoginWithAmazon", "Facebook", "Google"];
@@ -236,6 +241,15 @@ class App extends React.Component {
                   inputProps: {
                     type: 'hidden',
                   }
+                },
+                {
+                  //Not possible to do a dropdown menu in the amplify sigin page. I will set a request for the amplify to get this feature added.
+                  label: I18n.get("MEMBERSHIP"),
+                  type: "custom:customer-type",
+                  // We set the default to Standard for now, because if the user leaves the form field blank, it will send a null data type and error will be flagged.
+                  // The user will override this form field if they want to set the membership other then Standard.
+                  value: I18n.get("MEMBERSHIP_VALUE"),
+                  required: false,
                 }
               ]}></AmplifySignUp>
             <div>
