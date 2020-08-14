@@ -155,12 +155,14 @@ See next sections for specific provider steps.
 ## Migration instructions
 
 __PREREQUISITE__: 
-In order for the User Migration to be successful, We need to make sure that the Lambda code is probably set for your specific existing userpool. Currently the Lambda user-migration function is setup for existing Cognito userpool migration to the current Cognito userpool for demonstration purposes. 
+In order for the User Migration to be successful, We need to make sure that the Lambda code is probably set for your specific existing userpool. Currently the Lambda user-migration function is setup for existing Cognito userpool migration to the current Cognito userpool for demonstration purposes.
+
 [Lambda User Migration Code](https://github.com/xavierraffin/amplify-identity-broker/blob/5e348800fb22b6c9f91d471f139f85e3eea38a54/amplify/backend/function/amplifyIdentityBrokerMigration/src/index.js)
 
 [Migration Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-migrate-user.html#cognito-user-pools-lambda-trigger-syntax-user-migration)
 
 [Cognito SDK Documention](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html)
+
 
 __Linking the Trigger__:
 To use the user migration that is labeled `amplifyIdentityBrokerMigration`, the following setting needs to be enable
