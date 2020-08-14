@@ -16,6 +16,7 @@ permissions and limitations under the License. */
     AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID
     REGION
 Amplify Params - DO NOT EDIT */
+// For some reason the enpoint can be hit on API GW but when it is called in the broker, it does not work. We are investgating this with the cloudfront team.
 const https = require('https');
 exports.handler = async (event) => {
     //Set your Lamada environment variable 
