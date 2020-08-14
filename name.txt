@@ -1,0 +1,22 @@
+https://test-token	
+.auth.us-west-2.amazoncognito.com/login?response_type=code&scope=openid%email&client_id=4ib3emounf4m26fat1cdm8c051&redirect_uri=http://localhost
+
+curl -X POST \
+  'https://test-token	
+.auth.us-west-2.amazoncognito.com/oauth2/token?
+  grant_type=authorization_code&
+  code=1a497874-2767-4557-90e6-6a8e83231e32&
+  redirect_uri=http://localhost&
+  client_id=4ib3emounf4m26fat1cdm8c051&scope=openid%20email' \
+  -H 'Accept-Encoding: gzip, deflate' \
+  -H 'Authorization: Basic NGliM2Vtb3VuZjRtMjZmYXQxY2RtOGMwNTE6dHEyZHMzajY2ZDVsYzZpOGZma3Rjam84Mm1qZmJhb3Ezdm8waTRmbmZtOW9sdnBrOGlx' \
+  -H 'Content-Type: application/x-www-form-urlencoded' 
+
+  base 64 : 4ib3emounf4m26fat1cdm8c051:tq2ds3j66d5lc6i8ffktcjo82mjfbaoq3vo0i4fnfm9olvpk8iq
+
+  NGliM2Vtb3VuZjRtMjZmYXQxY2RtOGMwNTE6dHEyZHMzajY2ZDVsYzZpOGZma3Rjam84Mm1qZmJhb3Ezdm8waTRmbmZtOW9sdnBrOGlx
+
+
+aws cognito-idp admin-update-user-attributes --user-pool-id us-west-2_pGrb1C1Yt --username test-user  --user-attributes Name="custom:customer-type",Value="Standard"
+
+#M
