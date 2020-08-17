@@ -138,19 +138,20 @@ class App extends React.Component {
       let authorization_code = queryStringParams.get('authorization_code');
       let authInfo = await Auth.currentSession();
       let idToken = authInfo.idToken.jwtToken;
-      var tokenExpiry;
 
       if (idToken) { // Set ID Token cookie for fast SSO
-        var idTokenDecoded = jwt_decode(idToken);
-        tokenExpiry = idTokenDecoded['exp'];
-        setCookie("id_token", idToken, tokenExpiry);
+        let idTokenDecoded = jwt_decode(idToken);
+        let idTokenExpiry = idTokenDecoded['exp'];
+        setCookie("id_token", idToken, idTokenExpiry);
       }
 
       if (authorization_code && redirect_uri) { // PKCE Flow
         let accessToken = authInfo.accessToken.jwtToken;
         let refreshToken = authInfo.refreshToken.token;
         if (idToken && accessToken && refreshToken) {
-          setCookie("access_token", accessToken, tokenExpiry); // Set Access Token cookie for fast SSO
+          let accessTokenDecoded = jwt_decode(accessToken);
+          let accessTokenExpiry = accessTokenDecoded['exp'];
+          setCookie("access_token", accessToken, accessTokenExpiry); // Set Access Token cookie for fast SSO
           const response = await storeTokens(authorization_code, idToken, accessToken, refreshToken) // Store tokens in dynamoDB
           if (response.status === 200) {
             window.location.replace(redirect_uri + '/?code=' + authorization_code);
