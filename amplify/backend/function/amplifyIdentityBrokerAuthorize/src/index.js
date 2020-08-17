@@ -24,6 +24,26 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
 var clientsTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME;
 
+async function getCookiesFromHeader(headers) {
+    if (headers === null || headers === undefined || headers.Cookie === undefined) {
+        return {};
+    }
+
+    var list = {},
+        rc = headers.Cookie;
+
+    rc && rc.split(';').forEach(function (cookie) {
+        var parts = cookie.split('=');
+        var key = parts.shift().trim()
+        var value = decodeURI(parts.join('='));
+        if (key != '') {
+            list[key] = value
+        }
+    });
+
+    return list;
+};
+
 async function verifyClient(client_id, redirect_uri) {
     var data;
     var params = {
@@ -77,13 +97,39 @@ async function handlePKCE(event) {
         }
     };
 
+    var cookies = await getCookiesFromHeader(event.headers);
+    if (cookies.id_token && cookies.access_token) {
+        // If there is already an id_token and access_token cookie we don't need to redirect to the login page
+        // This avoids loading the login page and storing tokens using the storage endpoint
+        params = { // Add tokens from cookie to what is being stored in dynamodb
+            TableName: codesTableName,
+            Item: {
+                authorization_code: authorizationCode,
+                code_challenge: code_challenge,
+                client_id: client_id,
+                redirect_uri: redirect_uri,
+                code_expiry: codeExpiry,
+                id_token: cookies.id_token,
+                access_token: cookies.access_token
+            }
+        };
+    }
+
     try {
         var result = await docClient.put(params).promise();
     } catch (error) {
         console.error(error);
     }
 
-    return { //redirect to login page
+    if (cookies.id_token && cookies.access_token) {
+        return { // Redirect directly to client application passing the authorization code
+            statusCode: 302,
+            headers: {
+                Location: redirect_uri + '/?code=' + authorizationCode,
+            }
+        };
+    }
+    return { // Redirect to login page
         statusCode: 302,
         headers: {
             Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&authorization_code=' + authorizationCode,
@@ -110,7 +156,19 @@ async function handleImplicit(event) {
         };
     }
 
-    return { //redirect to login page
+    var cookies = await getCookiesFromHeader(event.headers);
+    if (cookies.id_token) {
+        // If there is already an id_token cookie we don't need to redirect to the login page
+        // This avoids loading the login page and makes SSO faster
+        return { // Redirect directly to client application with ID token from cookie
+            statusCode: 302,
+            headers: {
+                Location: redirect_uri + '/?id_token=' + cookies.id_token,
+            }
+        };
+    }
+
+    return { // Redirect to login page
         statusCode: 302,
         headers: {
             Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri,

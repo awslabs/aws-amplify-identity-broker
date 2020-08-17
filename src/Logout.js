@@ -16,6 +16,7 @@ class Logout extends React.Component {
         // Sign out the user and erase the id_token cookie
         Auth.signOut();
         eraseCookie("id_token");
+        eraseCookie("access_token");
 
         // Accept requests according to https://docs.aws.amazon.com/cognito/latest/developerguide/logout-endpoint.html
         let queryStringParams = new URLSearchParams(window.location.search);
