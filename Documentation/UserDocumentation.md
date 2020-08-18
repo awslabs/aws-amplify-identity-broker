@@ -18,7 +18,7 @@ This document explains how to use the broker:
 
 The project architecture is the following:
 
-![Projet Architecture Image](Images/DeployedArchitecture.png "Projet Architecture")
+![Project Architecture Image](Images/DeployedArchitecture.png "Project Architecture")
 
 See __[Developer Documentation](DeveloperDocumentation.md)__ to see more detailed information on every component. 
 
@@ -146,11 +146,204 @@ See next sections for specific provider steps.
 
 ### SAML Provider
 
-### Facebook
+### Social Providers
 
-### Google
+Social Provider instructions taken from [Cognito Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html). 
 
-### Amazon
+<details>
+  <summary>Facebook</summary>
+
+### Step 1: Register with Facebook
+
+1. Create a developer account with [Facebook](https://developers.facebook.com/docs/facebook-login). 
+2. [Sign in](https://developers.facebook.com) with your Facebook credentials. 
+3. From the __My Apps__ menu, choose __Create New App.__ 
+
+
+![Facebook-CreateApp](Images/FacebookSetupInstructions/Facebook-CreateApp.png "Facebook-CreateApp")
+
+
+4. Select __For Everything Else,__ give your Facebook app a name and choose __Create App ID.__
+
+
+![Facebook-CreateAppID](Images/FacebookSetupInstructions/Facebook-CreateAppID.png "Facebook-CreateAppID")
+
+
+5. On the left navigation bar, choose __Settings__ and then __Basic__.
+6. Note the __App ID__ and the __App Secret.__ You will use them in the next section. 
+7. Choose __+ Add Platform__ from the bottom of the page. 
+8. Choose __Website__
+9. Under __Website,__ type your user pool domain with the /oauth2/idpresponse endpoint into Site URL. 
+
+
+![Facebook-WebsitePlatform](Images/FacebookSetupInstructions/Facebook-WebsitePlatform.png "Facebook-WebsitePlatform")
+
+
+10. Choose __Save changes__
+11. Type your user pool domain into __App Domains__
+
+
+![Facebook-AppDomains](Images/FacebookSetupInstructions/Facebook-AppDomains.png "Facebook-AppDomains")
+
+
+12. Choose __Save changes.__
+13. From the navigation bar choose __Products__ and then __Set up__ from __Facebook Login.__ 
+14. From the navigation bar choose __Facebook Login__ and then __Settings.__ 
+Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of your user pool domain with the /oauth2/idpresponse endpoint. 
+
+
+![Facebook-OauthRedirectURI](Images/FacebookSetupInstructions/Facebook-OauthRedirectURI.png "Facebook-OauthRedirectURI")
+
+
+15. Choose __Save changes.__
+
+### Step 2: Add Facebook to Your User Pool
+
+1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)
+2. Choose __Manage your User Pools.__
+3. Choose the User Pool created as part of the Amplify deployment
+4. On the left navigation bar, choose __Identity providers__
+5. Select __Facebook__
+6. Type the __app client ID__ and __app client secret__ you recived from the previous section
+7. Type the names of the scopes you want to authorize seperated by commas
+
+
+![Facebook-IdentityProvider](Images/FacebookSetupInstructions/Facebook-IdentityProvider.png "Facebook-IdentityProvider")
+
+
+8. Choose __Enable Facebook__
+9. On the left navigation bar, choose __Attribute Mapping__
+10. Select the __Facebook__ tab
+11. Capture and map the required user attributes
+
+
+![Facebook-AttributeMapping](Images/FacebookSetupInstructions/Facebook-AttributeMapping.png "Facebook-AttributeMapping")
+
+
+12. Choose __Save Changes__
+
+</details>
+
+<details>
+  <summary>Google</summary>
+
+### Step 1: Register with Google
+
+1. Create a [developer account with Google.](https://developers.google.com/identity)
+2. [Sign in](https://console.developers.google.com) with your Google credentials. 
+3. Choose __Create Project__
+
+
+![Google-CreateProject](Images/GoogleSetupInstructions/Google-CreateProject.png "Google-CreateProject")
+
+
+4. Type in a project name and choose __Create__ 
+5. On the left navigation bar, choose __OAuth consent screen__
+6. Select your User Type and choose __Create__
+
+
+![Google-OauthConsent](Images/GoogleSetupInstructions/Google-OauthConsent.png "Google-OauthConsent")
+
+
+7. Type in an application name and choose __Save__
+8. On the left navigation bar, choose __Credentials__
+9. Create your OAuth 2.0 credentials by choosing __OAuth client ID__ from the __Create credentials__ drop-down list.
+
+
+![Google-CreateCredentials](Images/GoogleSetupInstructions/Google-CreateCredentials.png "Google-CreateCredentials")
+
+
+10. Choose __Web application.__
+11. Type your user pool domain into __Authorized JavaScript origins.__
+12. Type your user pool domain with the __/oauth2/idpresponse__ endpoint into __Authorized Redirect URIs.__
+
+
+![Google-CreateOauthClientID](Images/GoogleSetupInstructions/Google-CreateOauthClientID.png "Google-CreateOauthClientID")
+
+13. Choose __Create.__
+14. Note the __OAuth client ID__ and __client secret.__ You will need them for the next section.
+15. Choose __OK.__
+
+### Step 2: Add Google to Your User Pool
+
+1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)
+2. Choose __Manage your User Pools.__
+3. Choose the User Pool created as part of the Amplify deployment
+4. On the left navigation bar, choose __Identity providers__
+5. Select __Google__
+6. Type the __app client ID__ and __app client secret__ you recived from the previous section
+7. Type the names of the scopes you want to authorize seperated by spaces
+
+
+![Google-IdentityProvider](Images/GoogleSetupInstructions/Google-IdentityProvider.png "Google-IdentityProvider")
+
+
+8. Choose __Enable Google__
+9. On the left navigation bar, choose __Attribute Mapping__
+10. Select the __Google__ tab
+11. Capture and map the required user attributes
+
+
+![Google-AttributeMapping](Images/GoogleSetupInstructions/Google-AttributeMapping.png "Google-AttributeMapping")
+
+
+12. Choose __Save Changes__
+
+</details>
+
+<details>
+  <summary>Amazon</summary>
+  
+### Step 1: Register with Amazon
+
+1. Create a [developer account with Amazon.](https://developer.amazon.com/login-with-amazon)
+2. [Sign in](https://developer.amazon.com/dashboard) with your Amazon credentials.
+3. You need to create an Amazon security profile to receive the Amazon client ID and client secret. Choose __Apps and Services__ from navigation bar at the top of the page and then choose __Login with Amazon.__
+4. Choose __Create a Security Profile.__
+
+![Amazon-CreateSecurityProfile](Images/AmazonSetupInstructions/Amazon-CreateSecurityProfile.png "Amazon-CreateSecurityProfile")
+
+
+5. Type in a __Security Profile Name,__ a __Security Profile Description,__ and a __Consent Privacy Notice URL.__
+6. Choose __Save.__
+7. Choose __Client ID__ and __Client Secret__ to show the client ID and secret. You will use them in the next section. 
+8. Hover over the gear and choose __Web Settings,__ and then choose __Edit.__ 
+9. Type your user pool domain into __Allowed Origins.__ 
+10. Type your user pool domain with the __/oauth2/idpresponse__ endpoint into __Allowed Return URLs.__
+
+
+![Amazon-WebSettings](Images/AmazonSetupInstructions/Amazon-WebSettings.png "Amazon-WebSettings")
+
+
+11. Choose __Save.__
+
+### Step 2: Add Amazon to Your User Pool
+
+1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)
+2. Choose __Manage your User Pools.__
+3. Choose the User Pool created as part of the Amplify deployment
+4. On the left navigation bar, choose __Identity providers__
+5. Select __Login with Amazon__
+6. Type the __app client ID__ and __app client secret__ you recived from the previous section
+7. Type the names of the scopes you want to authorize seperated by spaces
+
+
+![Amazon-IdentityProvider](Images/AmazonSetupInstructions/Amazon-IdentityProvider.png "AmazonIdentityProvider")
+
+
+8. Choose __Enable Login with Amazon__
+9. On the left navigation bar, choose __Attribute Mapping__
+10. Select the __Amazon__ tab
+11. Capture and map the required user attributes
+
+
+![Amazon-AttributeMapping](Images/AmazonSetupInstructions/Amazon-AttributeMapping.png "Amazon-AttributeMapping")
+
+
+12. Choose __Save Changes__
+
+
+</details>
 
 ## Migration instructions
 
