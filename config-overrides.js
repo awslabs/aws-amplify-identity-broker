@@ -38,9 +38,9 @@ module.exports = function override(config, env) {
             "hostedUIUrl": "https://xraffin.auth.us-east-1.amazoncognito.com",
         };
             break;
-        case "liamsaml": localConfig = {
-            "providers": ["AWSSSO", "LoginWithAmazon", "Facebook", "Google"],
-            "hostedUIUrl": "https://liamsaml.auth.us-east-1.amazoncognito.com",
+        case "envliamaws": localConfig = {
+            "providers": ["LoginWithAmazon", "Facebook", "Google"],
+            "hostedUIUrl": "https://liamenv.auth.us-east-1.amazoncognito.com",
         };
             break;
         case "kevnvoaws": localConfig = {

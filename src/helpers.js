@@ -8,6 +8,7 @@
   */
 
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 export function setCookie(name, value, expiry) {
     var expires = "";
@@ -59,4 +60,10 @@ export async function storeTokens(authorization_code, idToken, accessToken, refr
         )
     }
     return response;
+}
+
+export function setTokenCookie(type, token) {
+    let tokenDecoded = jwt_decode(token);
+    let tokenExpiry = tokenDecoded['exp'];
+    setCookie(type, token, tokenExpiry);
 }

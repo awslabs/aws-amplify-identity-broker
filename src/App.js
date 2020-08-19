@@ -13,9 +13,7 @@ import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, Amp
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { setCookie, getCookie, eraseCookie, storeTokens } from './helpers'
-import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+import { eraseCookie, storeTokens, setTokenCookie } from './helpers'
 import awsconfig from './aws-exports';
 var Config = require("Config");
 
@@ -72,18 +70,17 @@ class App extends React.Component {
     if (tokens['id_token'] && tokens['access_token']) { // If the page was loaded from a redirect from idp 
       idToken = tokens['id_token'];
       accessToken = tokens['access_token'];
-      var idTokenDecoded = jwt_decode(idToken);
-      var tokenExpiry = idTokenDecoded['exp'];
-      setCookie("id_token", idToken, tokenExpiry);
+      // Set ID token cookie for fast SSO
+      setTokenCookie("id_token", idToken);
 
       clientRedirectUri = localStorage.getItem(`client-redirect-uri`);
-      localStorage.removeItem('client-redirect-uri');
-      var authorization_code = localStorage.getItem(`authorization_code`);
-      localStorage.removeItem(`authorization_code`);
-
       if (clientRedirectUri) {
+        localStorage.removeItem('client-redirect-uri');
+        var authorization_code = localStorage.getItem(`authorization_code`);
         if (authorization_code) { // PKCE Flow
-          setCookie("access_token", accessToken, tokenExpiry);
+          localStorage.removeItem(`authorization_code`);
+          // Set access token cookie for fast SSO. We only set the access token cookie if the broker is accessed using the PKCE flow
+          setTokenCookie("access_token", accessToken);
           const response = await storeTokens(authorization_code, idToken, accessToken) // Store tokens in dynamoDB
           if (response.status === 200) {
             window.location.replace(clientRedirectUri + '/?code=' + authorization_code);
@@ -132,26 +129,24 @@ class App extends React.Component {
   }
 
   async handleAuthUIStateChange(authState) {
-    if (authState === "signedin") {
+    if (authState === "signedin") { // When the user signs in with their local account
       let queryStringParams = new URLSearchParams(window.location.search);
       let redirect_uri = queryStringParams.get('redirect_uri');
       let authorization_code = queryStringParams.get('authorization_code');
       let authInfo = await Auth.currentSession();
       let idToken = authInfo.idToken.jwtToken;
 
-      if (idToken) { // Set ID Token cookie for fast SSO
-        let idTokenDecoded = jwt_decode(idToken);
-        let idTokenExpiry = idTokenDecoded['exp'];
-        setCookie("id_token", idToken, idTokenExpiry);
+      if (idToken) {
+        // Set ID token cookie for fast SSO
+        setTokenCookie("id_token", idToken);
       }
 
       if (authorization_code && redirect_uri) { // PKCE Flow
         let accessToken = authInfo.accessToken.jwtToken;
         let refreshToken = authInfo.refreshToken.token;
         if (idToken && accessToken && refreshToken) {
-          let accessTokenDecoded = jwt_decode(accessToken);
-          let accessTokenExpiry = accessTokenDecoded['exp'];
-          setCookie("access_token", accessToken, accessTokenExpiry); // Set Access Token cookie for fast SSO
+          // Set access token cookie for fast SSO. We only set the access token cookie if the broker is accessed using the PKCE flow
+          setTokenCookie("access_token", accessToken);
           const response = await storeTokens(authorization_code, idToken, accessToken, refreshToken) // Store tokens in dynamoDB
           if (response.status === 200) {
             window.location.replace(redirect_uri + '/?code=' + authorization_code);
@@ -162,7 +157,7 @@ class App extends React.Component {
         window.location.replace(redirect_uri + '/?id_token=' + idToken);
       }
     }
-    else if (authState === "signedout") {
+    else if (authState === "signedout") { // When the user signs out with their local account
       eraseCookie("id_token");
       eraseCookie("access_token");
     }
