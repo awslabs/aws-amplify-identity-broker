@@ -48,7 +48,7 @@ In a real use case, your user will only go to the broker from a client website o
 > - OIDC Demo User Credentials: __Username:__ demo __Password:__ P@ssw0rd
 > - Social login: use an account of your own
 
-See [client demo code repository](https://github.com/awslabs/amplify-identity-broker-client)
+See [client demo code repository](https://github.com/awslabs/aws-amplify-identity-broker-client)
 
 ## Documentation
 
@@ -98,6 +98,10 @@ The project architecture is the following:
 
 See __[Developer Documentation](Documentation/DeveloperDocumentation.md)__ to see more detailed information on every component. 
 
+## Security
+
+See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. See the LICENSE file.
