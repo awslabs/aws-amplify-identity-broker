@@ -15,7 +15,6 @@ import App from './App';
 import Logout from './Logout';
 import * as serviceWorker from './serviceWorker';
 
-
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
