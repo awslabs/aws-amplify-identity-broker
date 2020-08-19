@@ -11,7 +11,6 @@
         "env": {
             "Type": "String"
         },
-        
         "tableName": {
             "Type": "String"
         }
@@ -31,20 +30,16 @@
             "Type": "AWS::DynamoDB::Table",
             "Properties": {
                 "AttributeDefinitions": [
-                  
-                  {
-                      "AttributeName": "authorization_code",
-                      "AttributeType": "S"
-                  } 
-                  
+                    {
+                        "AttributeName": "authorization_code",
+                        "AttributeType": "S"
+                    }
                 ],
                 "KeySchema": [
-                  
-                  {
-                    "AttributeName": "authorization_code",
-                    "KeyType": "HASH"
-                  } 
-                  
+                    {
+                        "AttributeName": "authorization_code",
+                        "KeyType": "HASH"
+                    }
                 ],
                 "ProvisionedThroughput": {
                     "ReadCapacityUnits": "5",
@@ -53,30 +48,32 @@
                 "StreamSpecification": {
                     "StreamViewType": "NEW_IMAGE"
                 },
+                "TimeToLiveSpecification": {
+                    "AttributeName": "record_expiry",
+                    "Enabled": "TRUE"
+                },
                 "TableName": {
                     "Fn::If": [
                         "ShouldNotCreateEnvResources",
                         {
-                           "Ref": "tableName"
-                        }, 
+                            "Ref": "tableName"
+                        },
                         {
-
                             "Fn::Join": [
                                 "",
                                 [
-                                  {
-                                    "Ref": "tableName"
-                                  },
-                                  "-",
-                                  {
-                                    "Ref": "env"
-                                  }
+                                    {
+                                        "Ref": "tableName"
+                                    },
+                                    "-",
+                                    {
+                                        "Ref": "env"
+                                    }
                                 ]
                             ]
                         }
                     ]
                 }
-                
             }
         }
     },
@@ -112,7 +109,6 @@
                 "Ref": "partitionKeyType"
             }
         },
-        
         "Region": {
             "Value": {
                 "Ref": "AWS::Region"

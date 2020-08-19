@@ -18,7 +18,8 @@ Amplify Params - DO NOT EDIT */
 
 const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
-const CODE_LIFE = 900000;
+const CODE_LIFE = 900000; // How long in milliseconds the authorization code can be used to retrieve the tokens from the table (15 minutes)
+const RECORD_LIFE = 3600000 // How long in milliseconds the record lasts in the dynamoDB table (1 hour)
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
@@ -85,7 +86,9 @@ async function handlePKCE(event) {
     }
 
     const authorizationCode = uuidv4();
-    const codeExpiry = Date.now() + CODE_LIFE;
+    const currentTime = Date.now();
+    const codeExpiry = currentTime + CODE_LIFE;
+    const recordExpiry = currentTime + RECORD_LIFE;
     var params = {
         TableName: codesTableName,
         Item: {
@@ -93,7 +96,8 @@ async function handlePKCE(event) {
             code_challenge: code_challenge,
             client_id: client_id,
             redirect_uri: redirect_uri,
-            code_expiry: codeExpiry
+            code_expiry: codeExpiry,
+            record_expiry: recordExpiry
         }
     };
 
@@ -109,6 +113,7 @@ async function handlePKCE(event) {
                 client_id: client_id,
                 redirect_uri: redirect_uri,
                 code_expiry: codeExpiry,
+                record_expiry: recordExpiry,
                 id_token: cookies.id_token,
                 access_token: cookies.access_token
             }
