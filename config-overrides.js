@@ -33,7 +33,7 @@ module.exports = function override(config, env) {
             "hostedUIUrl": "https://amplify-identity-broker.auth.us-west-2.amazoncognito.com",
         };
             break;
-        case "vp": localConfig = {
+        case "vpxrn": localConfig = {
             "providers": [""],
             "hostedUIUrl": "https://vp-prod.auth.us-west-2.amazoncognito.com",
         };
