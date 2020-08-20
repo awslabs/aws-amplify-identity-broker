@@ -10,9 +10,13 @@
 		"env": {
 			"Type": "String"
 		},
-		"authamplifyIdentityBrokerAuthUserPoolId": {
+		"storageamplifyIdentityBrokerClientsTableName": {
 			"Type": "String",
-			"Default": "authamplifyIdentityBrokerAuthUserPoolId"
+			"Default": "storageamplifyIdentityBrokerClientsTableName"
+		},
+		"storageamplifyIdentityBrokerClientsTableArn": {
+			"Type": "String",
+			"Default": "storageamplifyIdentityBrokerClientsTableArn"
 		}
 	},
 	"Conditions": {
@@ -37,12 +41,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyIdentityBrokerExposeJWKS",
+						"amplifyIdentityBrokerVerifyClient",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyIdentityBrokerExposeJWKS",
+									"amplifyIdentityBrokerVerifyClient",
 									"-",
 									{
 										"Ref": "env"
@@ -60,8 +64,11 @@
 						"REGION": {
 							"Ref": "AWS::Region"
 						},
-						"AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID": {
-							"Ref": "authamplifyIdentityBrokerAuthUserPoolId"
+						"STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME": {
+							"Ref": "storageamplifyIdentityBrokerClientsTableName"
+						},
+						"STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_ARN": {
+							"Ref": "storageamplifyIdentityBrokerClientsTableArn"
 						}
 					}
 				},
@@ -76,7 +83,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-amplify-identity-broker-envliamaws-140145-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerExposeJWKS-6469484b5a515875786a-build.zip"
+					"S3Key": "amplify-builds/amplifyIdentityBrokerVerifyClient-57706753446572306965-build.zip"
 				}
 			}
 		},
@@ -86,12 +93,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyidentitybrokerLambdaRole386476a6",
+						"amplifyidentitybrokerLambdaRolefbe79e03",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyidentitybrokerLambdaRole386476a6",
+									"amplifyidentitybrokerLambdaRolefbe79e03",
 									"-",
 									{
 										"Ref": "env"
@@ -180,27 +187,25 @@
 						{
 							"Effect": "Allow",
 							"Action": [
-								"iam:ListOpenIdConnectProviders",
-								"iam:ListRoles",
-								"sns:ListPlatformApplications"
+								"dynamodb:Get*",
+								"dynamodb:BatchGetItem",
+								"dynamodb:List*",
+								"dynamodb:Describe*",
+								"dynamodb:Scan",
+								"dynamodb:Query"
 							],
 							"Resource": [
 								{
+									"Ref": "storageamplifyIdentityBrokerClientsTableArn"
+								},
+								{
 									"Fn::Join": [
-										"",
+										"/",
 										[
-											"arn:aws:cognito-idp:",
 											{
-												"Ref": "AWS::Region"
+												"Ref": "storageamplifyIdentityBrokerClientsTableArn"
 											},
-											":",
-											{
-												"Ref": "AWS::AccountId"
-											},
-											":userpool/",
-											{
-												"Ref": "authamplifyIdentityBrokerAuthUserPoolId"
-											}
+											"index/*"
 										]
 									]
 								}
