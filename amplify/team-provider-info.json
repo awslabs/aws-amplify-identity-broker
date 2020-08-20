@@ -76,7 +76,8 @@
                 "amplifyIdentityBrokerToken": {},
                 "amplifyIdentityBrokerStorage": {},
                 "amplifyIdentityBrokerMigration": {},
-                "amplifyIdentityBrokerUserInfo": {}
+                "amplifyIdentityBrokerUserInfo": {},
+                "amplifyIdentityBrokerExposeJWKS": {}
             }
         }
     },
