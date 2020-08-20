@@ -8,6 +8,7 @@
   */
 
 import React from 'react';
+import axios from 'axios';
 import { Auth } from 'aws-amplify';
 import { eraseCookie } from './helpers'
 import awsconfig from './aws-exports';
@@ -21,8 +22,19 @@ class Logout extends React.Component {
             localStorage.removeItem('redirectInfo');
             var rdJSON = JSON.parse(redirectInfo);
             if (rdJSON['clientID'] && rdJSON['logoutURI']) { // Redirect back to client
-                // TODO: Check clientID and logoutURI agaisnt entry in dynamoDB
-                window.location.assign(rdJSON['logoutURI']);
+                axios.get('/verifyClient', {
+                    params: {
+                        client_id: rdJSON['clientID'],
+                        logout_uri: rdJSON['logoutURI']
+                    }
+                }).then(response => {
+                    if (response.status === 200) {
+                        window.location.assign(rdJSON['logoutURI']);
+                    }
+                }).catch(error => {
+                    console.log(error.response)
+                    window.location.href = '/';
+                });
             }
             else if (rdJSON['responseType'] === "id_token" && rdJSON['clientID'] && rdJSON['redirectURI']) { // Call authorize endpoint to start implicit flow
                 let authorizeEndpointPath = '/oauth2/authorize/?response_type=' + rdJSON['responseType']
@@ -38,7 +50,6 @@ class Logout extends React.Component {
             else { // Default to redirecting to the broker login page
                 window.location.href = '/';
             }
-
         }
         else { // If the logout endpoint is being called before the Hosted UI logout endpoint has been called
             // Sign out the user and erase the token cookies
