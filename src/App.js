@@ -237,16 +237,25 @@ class App extends React.Component {
                   inputProps: {
                     type: 'hidden',
                   }
-                },
-                {
-                  //Not possible to do a dropdown menu in the amplify sigin page. I will set a request for the amplify to get this feature added.
-                  label: I18n.get("MEMBERSHIP"),
+                }
+                /**  Here an example of a custom attribute insertion:
+                 * 
+                 * This assume that the custom field customer-type 
+                 * is defined in file amplify/backend/auth/amplifyIdentityBrokerAuth/amplifyIdentityBrokerAuth-cloudformation-template.yml
+                 * 
+                 *         - Name: customer-type
+                 *           Mutable: true
+                 *           Required: false
+                 *           AttributeDataType: String
+                 * 
+                ,{
+                  
+                  label: I18n.get("YOUR_LABEL"),
                   type: "custom:customer-type",
-                  // We set the default to Standard for now, because if the user leaves the form field blank, it will send a null data type and error will be flagged.
-                  // The user will override this form field if they want to set the membership other then Standard.
-                  value: I18n.get("MEMBERSHIP_VALUE"),
+                  value: "anything",
                   required: false,
                 }
+                */
               ]}></AmplifySignUp>
             <div>
               {I18n.get("WAIT_REDIRECTION")}
