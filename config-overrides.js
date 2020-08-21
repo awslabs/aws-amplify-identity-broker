@@ -34,7 +34,7 @@ module.exports = function override(config, env) {
         };
             break;
         case "vpxrn": localConfig = {
-            "providers": [""],
+            "providers": [],
             "hostedUIUrl": "https://vp-prod.auth.us-west-2.amazoncognito.com",
         };
             break;
