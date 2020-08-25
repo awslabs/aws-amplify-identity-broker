@@ -13,17 +13,16 @@ import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, Amp
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { setCookie, getCookie } from './helpers'
-import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+import { eraseCookie, storeTokens, setTokenCookie } from './helpers'
 import awsconfig from './aws-exports';
 var Config = require("Config");
 
-Amplify.configure({...awsconfig, 
-	Auth: {
-		// OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
-		authenticationFlowType: Config.authenticationFlowType !== undefined ? Config.authenticationFlowType : "USER_SRP_AUTH",
-	},
+Amplify.configure({
+  ...awsconfig,
+  Auth: {
+    // OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
+    authenticationFlowType: Config.authenticationFlowType !== undefined ? Config.authenticationFlowType : "USER_SRP_AUTH",
+  },
 });
 I18n.putVocabularies(strings);
 
@@ -54,9 +53,10 @@ class App extends React.Component {
     this.handleIdPLogin = this.handleIdPLogin.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     var clientRedirectUri = null;
     var idToken = null;
+    var accessToken = null;
 
     // Check if the page was loaded from a redirect from idp. It will have id_token and access_token in the url
     let urlValues = window.location.hash.substr(1);
@@ -69,39 +69,31 @@ class App extends React.Component {
 
     if (tokens['id_token'] && tokens['access_token']) { // If the page was loaded from a redirect from idp 
       idToken = tokens['id_token'];
-      var idTokenDecoded = jwt_decode(idToken);
-      var tokenExpiry = idTokenDecoded['exp'];
-      setCookie("id_token", idToken, tokenExpiry);
-      // TODO: Fill the amplify auth object
+      accessToken = tokens['access_token'];
+      // Set the ID and access token cookies for fast SSO
+      setTokenCookie("id_token", idToken);
+      setTokenCookie("access_token", accessToken);
 
       clientRedirectUri = localStorage.getItem(`client-redirect-uri`);
-      if (!clientRedirectUri) {
-        return;
+      if (clientRedirectUri) {
+        localStorage.removeItem('client-redirect-uri');
+        var authorization_code = localStorage.getItem(`authorization_code`);
+        if (authorization_code) { // PKCE Flow
+          localStorage.removeItem(`authorization_code`);
+          const response = await storeTokens(authorization_code, idToken, accessToken) // Store tokens in dynamoDB
+          if (response.status === 200) {
+            window.location.replace(clientRedirectUri + '/?code=' + authorization_code);
+          }
+        }
+        else { // Implicit Flow
+          const clientURL = new URL(clientRedirectUri);
+          clientURL.search = new URLSearchParams({
+            id_token: idToken
+          });
+          window.location.assign(clientURL.href);
+        }
       }
-      localStorage.removeItem('client-redirect-uri');
     }
-    else {
-      // Check if the page was loaded from a redirct from a client
-      // To redirect back there needs to be a redirect_uri and an existing id_token cookie
-      let queryStringParams = new URLSearchParams(window.location.search);
-      let redirect_uri = queryStringParams.get('redirect_uri');
-      if (!redirect_uri) {
-        return;
-      }
-      var idTokenCookie = getCookie("id_token");
-      if (!idTokenCookie) {
-        return;
-      }
-      idToken = idTokenCookie;
-      clientRedirectUri = redirect_uri;
-    }
-
-    // If we have both an id_token and a redirect_uri then we can redirect to the client
-    const clientURL = new URL(clientRedirectUri);
-    clientURL.search = new URLSearchParams({
-      id_token: idToken
-    });
-    window.location.assign(clientURL.href);
   }
 
   toggleLang = () => {
@@ -117,8 +109,12 @@ class App extends React.Component {
   handleIdPLogin(identity_provider) {
     let queryStringParams = new URLSearchParams(window.location.search);
     let redirect_uri = queryStringParams.get('redirect_uri');
+    let authorization_code = queryStringParams.get('authorization_code');
     if (redirect_uri) {
       localStorage.setItem(`client-redirect-uri`, redirect_uri);
+    }
+    if (authorization_code) {
+      localStorage.setItem(`authorization_code`, authorization_code);
     }
 
     const hostedUIEndpoint = new URL(Config.hostedUIUrl + '/oauth2/authorize');
@@ -132,35 +128,41 @@ class App extends React.Component {
   }
 
   async handleAuthUIStateChange(authState) {
-    if (authState === "signedin") {
+    if (authState === "signedin") { // When the user signs in with their local account
       let queryStringParams = new URLSearchParams(window.location.search);
       let redirect_uri = queryStringParams.get('redirect_uri');
       let authorization_code = queryStringParams.get('authorization_code');
       let authInfo = await Auth.currentSession();
       let idToken = authInfo.idToken.jwtToken;
+      let accessToken = authInfo.accessToken.jwtToken;
+      let refreshToken = authInfo.refreshToken.token;
+
+      if (idToken && accessToken && refreshToken) {
+        // Set the ID and access token cookies for fast SSO
+        setTokenCookie("id_token", idToken);
+        setTokenCookie("access_token", accessToken);
+      }
+      else{
+        console.error("Inconsistent application state: Tokens missing from current session");
+        return;
+      }
 
       if (authorization_code && redirect_uri) { // PKCE Flow
-        let accessToken = authInfo.accessToken.jwtToken;
-        let refreshToken = authInfo.refreshToken.token;
-        if (idToken && accessToken && refreshToken) {
-          const response = await axios.post( // Store tokens in dynamodb using storage endpoint
-            '/storage',
-            {
-              authorization_code: authorization_code,
-              id_token: idToken,
-              access_token: accessToken,
-              refresh_token: refreshToken
-            },
-            { headers: { 'Content-Type': 'application/json' } }
-          )
+          const response = await storeTokens(authorization_code, idToken, accessToken, refreshToken) // Store tokens in dynamoDB
           if (response.status === 200) {
             window.location.replace(redirect_uri + '/?code=' + authorization_code);
           }
-        }
+          else{
+            console.error("Could not store tokens. Server response: " + response.data);
+          }
       }
-      else if (redirect_uri && idToken) { // Implicit Flow
+      else if (redirect_uri) { // Implicit Flow
         window.location.replace(redirect_uri + '/?id_token=' + idToken);
       }
+    }
+    else if (authState === "signedout") { // When the user signs out with their local account
+      eraseCookie("id_token");
+      eraseCookie("access_token");
     }
   }
 

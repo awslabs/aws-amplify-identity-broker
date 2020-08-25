@@ -7,6 +7,9 @@
   * the License.
   */
 
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
+
 export function setCookie(name, value, expiry) {
     var expires = "";
     if (expiry) {
@@ -29,4 +32,38 @@ export function getCookie(name) {
 
 export function eraseCookie(name) {
     document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+export async function storeTokens(authorization_code, idToken, accessToken, refreshToken) {
+    var response;
+    if (refreshToken) {
+        response = await axios.post( // Call storage endpoint to store tokens in dynamoDB
+            '/storage',
+            {
+                authorization_code: authorization_code,
+                id_token: idToken,
+                access_token: accessToken,
+                refresh_token: refreshToken
+            },
+            { headers: { 'Content-Type': 'application/json' } }
+        )
+    }
+    else {
+        response = await axios.post( // Call storage endpoint to store tokens in dynamoDB
+            '/storage',
+            {
+                authorization_code: authorization_code,
+                id_token: idToken,
+                access_token: accessToken
+            },
+            { headers: { 'Content-Type': 'application/json' } }
+        )
+    }
+    return response;
+}
+
+export function setTokenCookie(type, token) {
+    let tokenDecoded = jwt_decode(token);
+    let tokenExpiry = tokenDecoded['exp'];
+    setCookie(type, token, tokenExpiry);
 }

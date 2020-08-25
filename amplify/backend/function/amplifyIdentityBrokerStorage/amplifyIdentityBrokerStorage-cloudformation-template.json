@@ -81,8 +81,8 @@
 				"Runtime": "nodejs12.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-vpxrn-153806-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerStorage-6f31554f4e57552f4857-build.zip"
+					"S3Bucket": "amplify-amplify-identity-broker-envliamaws-140145-deployment",
+					"S3Key": "amplify-builds/amplifyIdentityBrokerStorage-6d724664417343706c74-build.zip"
 				},
 				"Layers": []
 			}
@@ -187,8 +187,7 @@
 						{
 							"Effect": "Allow",
 							"Action": [
-								"dynamodb:Update*",
-								"dynamodb:RestoreTable*"
+								"dynamodb:UpdateItem"
 							],
 							"Resource": [
 								{

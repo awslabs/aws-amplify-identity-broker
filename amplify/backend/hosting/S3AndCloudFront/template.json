@@ -224,6 +224,46 @@
                             "MinTTL": 0,
                             "Compress": false,
                             "PathPattern": "/storage*"
+                        },
+                        {
+                            "AllowedMethods": [
+                                "GET",
+                                "HEAD",
+                                "OPTIONS"
+                            ],
+                            "TargetOriginId": "amplifyIdentityBrokerApiGateway",
+                            "ForwardedValues": {
+                                "QueryString": "true",
+                                "Cookies": {
+                                    "Forward": "all"
+                                }
+                            },
+                            "ViewerProtocolPolicy": "redirect-to-https",
+                            "DefaultTTL": 86400,
+                            "MaxTTL": 31536000,
+                            "MinTTL": 0,
+                            "Compress": false,
+                            "PathPattern": "/.well-known*"
+                        },
+                        {
+                            "AllowedMethods": [
+                                "GET",
+                                "HEAD",
+                                "OPTIONS"
+                            ],
+                            "TargetOriginId": "amplifyIdentityBrokerApiGateway",
+                            "ForwardedValues": {
+                                "QueryString": "true",
+                                "Cookies": {
+                                    "Forward": "all"
+                                }
+                            },
+                            "ViewerProtocolPolicy": "redirect-to-https",
+                            "DefaultTTL": 0,
+                            "MaxTTL": 0,
+                            "MinTTL": 0,
+                            "Compress": false,
+                            "PathPattern": "/verifyClient*"
                         }
                     ],
                     "DefaultCacheBehavior": {
