@@ -96,7 +96,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-amplify-identity-broker-envliamaws-140145-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerAuthorize-50316475625976614e71-build.zip"
+					"S3Key": "amplify-builds/amplifyIdentityBrokerAuthorize-6b446b707961734b5a48-build.zip"
 				},
 				"Layers": []
 			}
