@@ -12,7 +12,7 @@ exports.handler = (event, context, callback) => {
   console.log(event);
   // Identify why was this function invoked
   if (event.triggerSource === "CustomMessage_SignUp") {
-    let lang = event.request.userAttributes["locale"] // Acesss the event data of custom user Attribute lang
+    let lang = event.request.userAttributes["locale"]; // Acesss the event data of custom user Attribute lang
     console.log("Lang is " + lang);
 
     // Ensure that your message contains event.request.codeParameter. This is the placeholder for code that will be sent

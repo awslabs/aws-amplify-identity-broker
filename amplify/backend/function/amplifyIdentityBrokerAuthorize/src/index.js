@@ -19,7 +19,7 @@ Amplify Params - DO NOT EDIT */
 const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
 const CODE_LIFE = 600000; // How long in milliseconds the authorization code can be used to retrieve the tokens from the table (10 minutes)
-const RECORD_LIFE = 900000 // How long in milliseconds the record lasts in the dynamoDB table (15 minutes)
+const RECORD_LIFE = 900000; // How long in milliseconds the record lasts in the dynamoDB table (15 minutes)
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
@@ -35,15 +35,15 @@ async function getCookiesFromHeader(headers) {
 
     rc && rc.split(';').forEach(function (cookie) {
         var parts = cookie.split('=');
-        var key = parts.shift().trim()
+        var key = parts.shift().trim();
         var value = decodeURI(parts.join('='));
         if (key != '') {
-            list[key] = value
+            list[key] = value;
         }
     });
 
     return list;
-};
+}
 
 async function verifyClient(client_id, redirect_uri) {
     var data;

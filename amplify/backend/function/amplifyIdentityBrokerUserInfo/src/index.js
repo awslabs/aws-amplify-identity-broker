@@ -24,7 +24,7 @@ exports.handler = async (event) => {
 
     var params = {
         AccessToken: accessToken
-    }
+    };
     var userInfo = await cognitoidentityserviceprovider.getUser(params).promise();
 
     // Need to change return format to match reference
