@@ -33,9 +33,9 @@ module.exports = function override(config, env) {
             "hostedUIUrl": "https://amplify-identity-broker.auth.us-west-2.amazoncognito.com",
         };
             break;
-        case "xraffin": localConfig = {
-            "providers": ["Facebook", "Google", "LoginWithAmazon", "dev1"],
-            "hostedUIUrl": "https://xraffin.auth.us-east-1.amazoncognito.com",
+        case "vpxrn": localConfig = {
+            "providers": [],
+            "hostedUIUrl": "https://vp-prod.auth.us-west-2.amazoncognito.com",
         };
             break;
         case "envliamaws": localConfig = {

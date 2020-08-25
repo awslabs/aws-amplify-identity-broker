@@ -50,7 +50,8 @@
                 "amplifyIdentityBrokerToken": {},
                 "amplifyIdentityBrokerStorage": {},
                 "amplifyIdentityBrokerMigration": {},
-                "amplifyIdentityBrokerUserInfo": {}
+                "amplifyIdentityBrokerUserInfo": {},
+                "amplifyIdentityBrokerExposeJWKS": {}
             }
         }
     },
@@ -91,6 +92,33 @@
             "StackName": "amplify-amplify-identity-broker-envliamaws-140145",
             "StackId": "arn:aws:cloudformation:us-east-1:386310383721:stack/amplify-amplify-identity-broker-envliamaws-140145/b7b01700-e0b3-11ea-b8d7-12ae8fb95b53",
             "AmplifyAppId": "d2bxuwebazvqxf"
+        },
+        "categories": {
+            "auth": {
+                "amplifyIdentityBrokerAuth": {}
+            },
+            "function": {
+                "amplifyIdentityBrokerCustomMessage": {},
+                "amplifyIdentityBrokerAuthorize": {},
+                "amplifyIdentityBrokerToken": {},
+                "amplifyIdentityBrokerStorage": {},
+                "amplifyIdentityBrokerMigration": {},
+                "amplifyIdentityBrokerUserInfo": {},
+                "amplifyIdentityBrokerExposeJWKS": {}
+            }
+        }
+    },
+    "vpxrn": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-amplify-identity-broker-vpxrn-153806-authRole",
+            "UnauthRoleArn": "arn:aws:iam::286124396253:role/amplify-amplify-identity-broker-vpxrn-153806-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::286124396253:role/amplify-amplify-identity-broker-vpxrn-153806-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-amplify-identity-broker-vpxrn-153806-deployment",
+            "UnauthRoleName": "amplify-amplify-identity-broker-vpxrn-153806-unauthRole",
+            "StackName": "amplify-amplify-identity-broker-vpxrn-153806",
+            "StackId": "arn:aws:cloudformation:us-west-2:286124396253:stack/amplify-amplify-identity-broker-vpxrn-153806/d23482d0-e335-11ea-9548-068ac9786352",
+            "AmplifyAppId": "d189cilte7ry0x"
         },
         "categories": {
             "auth": {
