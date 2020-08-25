@@ -19,7 +19,7 @@ Amplify Params - DO NOT EDIT */
 const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
 const CODE_LIFE = 900000; // How long in milliseconds the authorization code can be used to retrieve the tokens from the table (15 minutes)
-const RECORD_LIFE = 3600000 // How long in milliseconds the record lasts in the dynamoDB table (1 hour)
+const RECORD_LIFE = 1800000 // How long in milliseconds the record lasts in the dynamoDB table (30 minutes)
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
