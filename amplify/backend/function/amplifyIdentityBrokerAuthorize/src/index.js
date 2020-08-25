@@ -18,8 +18,8 @@ Amplify Params - DO NOT EDIT */
 
 const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
-const CODE_LIFE = 900000; // How long in milliseconds the authorization code can be used to retrieve the tokens from the table (15 minutes)
-const RECORD_LIFE = 1800000 // How long in milliseconds the record lasts in the dynamoDB table (30 minutes)
+const CODE_LIFE = 600000; // How long in milliseconds the authorization code can be used to retrieve the tokens from the table (10 minutes)
+const RECORD_LIFE = 900000 // How long in milliseconds the record lasts in the dynamoDB table (15 minutes)
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
@@ -89,22 +89,12 @@ async function handlePKCE(event) {
     const currentTime = Date.now();
     const codeExpiry = currentTime + CODE_LIFE;
     const recordExpiry = currentTime + RECORD_LIFE;
-    var params = {
-        TableName: codesTableName,
-        Item: {
-            authorization_code: authorizationCode,
-            code_challenge: code_challenge,
-            client_id: client_id,
-            redirect_uri: redirect_uri,
-            code_expiry: codeExpiry,
-            record_expiry: recordExpiry
-        }
-    };
+    var params;
 
     var cookies = await getCookiesFromHeader(event.headers);
-    if (cookies.id_token && cookies.access_token) {
-        // If there is already an id_token and access_token cookie we don't need to redirect to the login page
-        // This avoids loading the login page and storing tokens using the storage endpoint
+    var canReturnTokensDirectly = cookies.id_token && cookies.access_token ? true : false; // If there is already an id_token and access_token cookie we can return the tokens directly
+
+    if (canReturnTokensDirectly) {
         params = { // Add tokens from cookie to what is being stored in dynamodb
             TableName: codesTableName,
             Item: {
@@ -119,6 +109,19 @@ async function handlePKCE(event) {
             }
         };
     }
+    else {
+        params = {
+            TableName: codesTableName,
+            Item: {
+                authorization_code: authorizationCode,
+                code_challenge: code_challenge,
+                client_id: client_id,
+                redirect_uri: redirect_uri,
+                code_expiry: codeExpiry,
+                record_expiry: recordExpiry
+            }
+        };
+    }
 
     try {
         var result = await docClient.put(params).promise();
@@ -126,7 +129,7 @@ async function handlePKCE(event) {
         console.error(error);
     }
 
-    if (cookies.id_token && cookies.access_token) {
+    if (canReturnTokensDirectly) {
         return { // Redirect directly to client application passing the authorization code
             statusCode: 302,
             headers: {
@@ -134,12 +137,14 @@ async function handlePKCE(event) {
             }
         };
     }
-    return { // Redirect to login page
-        statusCode: 302,
-        headers: {
-            Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&authorization_code=' + authorizationCode,
-        }
-    };
+    else {
+        return { // Redirect to login page
+            statusCode: 302,
+            headers: {
+                Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&authorization_code=' + authorizationCode,
+            }
+        };
+    }
 }
 
 async function handleImplicit(event) {
@@ -162,9 +167,9 @@ async function handleImplicit(event) {
     }
 
     var cookies = await getCookiesFromHeader(event.headers);
-    if (cookies.id_token) {
-        // If there is already an id_token cookie we don't need to redirect to the login page
-        // This avoids loading the login page and makes SSO faster
+    var canReturnTokensDirectly = cookies.id_token ? true : false; // If there is already an id_token cookie we can return it directly
+
+    if (canReturnTokensDirectly) {
         return { // Redirect directly to client application with ID token from cookie
             statusCode: 302,
             headers: {
@@ -172,13 +177,14 @@ async function handleImplicit(event) {
             }
         };
     }
-
-    return { // Redirect to login page
-        statusCode: 302,
-        headers: {
-            Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri,
-        }
-    };
+    else {
+        return { // Redirect to login page
+            statusCode: 302,
+            headers: {
+                Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri,
+            }
+        };
+    }
 }
 
 exports.handler = async (event) => {
