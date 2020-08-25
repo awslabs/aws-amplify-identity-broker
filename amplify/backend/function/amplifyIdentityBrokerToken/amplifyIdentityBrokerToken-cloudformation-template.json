@@ -191,7 +191,6 @@
 								"dynamodb:BatchGetItem",
 								"dynamodb:List*",
 								"dynamodb:Describe*",
-								"dynamodb:Scan",
 								"dynamodb:Query"
 							],
 							"Resource": [

@@ -187,8 +187,7 @@
 						{
 							"Effect": "Allow",
 							"Action": [
-								"dynamodb:Update*",
-								"dynamodb:RestoreTable*"
+								"dynamodb:UpdateItem"
 							],
 							"Resource": [
 								{
