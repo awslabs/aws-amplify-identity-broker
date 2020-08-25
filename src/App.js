@@ -70,8 +70,9 @@ class App extends React.Component {
     if (tokens['id_token'] && tokens['access_token']) { // If the page was loaded from a redirect from idp 
       idToken = tokens['id_token'];
       accessToken = tokens['access_token'];
-      // Set ID token cookie for fast SSO
+      // Set the ID and access token cookies for fast SSO
       setTokenCookie("id_token", idToken);
+      setTokenCookie("access_token", accessToken);
 
       clientRedirectUri = localStorage.getItem(`client-redirect-uri`);
       if (clientRedirectUri) {
@@ -79,8 +80,6 @@ class App extends React.Component {
         var authorization_code = localStorage.getItem(`authorization_code`);
         if (authorization_code) { // PKCE Flow
           localStorage.removeItem(`authorization_code`);
-          // Set access token cookie for fast SSO. We only set the access token cookie if the broker is accessed using the PKCE flow
-          setTokenCookie("access_token", accessToken);
           const response = await storeTokens(authorization_code, idToken, accessToken) // Store tokens in dynamoDB
           if (response.status === 200) {
             window.location.replace(clientRedirectUri + '/?code=' + authorization_code);
@@ -135,25 +134,29 @@ class App extends React.Component {
       let authorization_code = queryStringParams.get('authorization_code');
       let authInfo = await Auth.currentSession();
       let idToken = authInfo.idToken.jwtToken;
+      let accessToken = authInfo.accessToken.jwtToken;
+      let refreshToken = authInfo.refreshToken.token;
 
-      if (idToken) {
-        // Set ID token cookie for fast SSO
+      if (idToken && accessToken && refreshToken) {
+        // Set the ID and access token cookies for fast SSO
         setTokenCookie("id_token", idToken);
+        setTokenCookie("access_token", accessToken);
+      }
+      else{
+        console.error("Inconsistent application state: Tokens missing from current session");
+        return;
       }
 
       if (authorization_code && redirect_uri) { // PKCE Flow
-        let accessToken = authInfo.accessToken.jwtToken;
-        let refreshToken = authInfo.refreshToken.token;
-        if (idToken && accessToken && refreshToken) {
-          // Set access token cookie for fast SSO. We only set the access token cookie if the broker is accessed using the PKCE flow
-          setTokenCookie("access_token", accessToken);
           const response = await storeTokens(authorization_code, idToken, accessToken, refreshToken) // Store tokens in dynamoDB
           if (response.status === 200) {
             window.location.replace(redirect_uri + '/?code=' + authorization_code);
           }
-        }
+          else{
+            console.error("Could not store tokens. Server response: " + response.data);
+          }
       }
-      else if (redirect_uri && idToken) { // Implicit Flow
+      else if (redirect_uri) { // Implicit Flow
         window.location.replace(redirect_uri + '/?id_token=' + idToken);
       }
     }

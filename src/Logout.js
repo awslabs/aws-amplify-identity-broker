@@ -32,7 +32,7 @@ class Logout extends React.Component {
                         window.location.assign(rdJSON['logoutURI']);
                     }
                 }).catch(error => {
-                    console.log(error.response)
+                    console.error(error.response)
                     window.location.href = '/';
                 });
             }
