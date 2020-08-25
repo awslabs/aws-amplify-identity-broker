@@ -227,13 +227,9 @@
                         },
                         {
                             "AllowedMethods": [
-                                "DELETE",
                                 "GET",
                                 "HEAD",
-                                "OPTIONS",
-                                "PATCH",
-                                "POST",
-                                "PUT"
+                                "OPTIONS"
                             ],
                             "TargetOriginId": "amplifyIdentityBrokerApiGateway",
                             "ForwardedValues": {
@@ -251,13 +247,9 @@
                         },
                         {
                             "AllowedMethods": [
-                                "DELETE",
                                 "GET",
                                 "HEAD",
-                                "OPTIONS",
-                                "PATCH",
-                                "POST",
-                                "PUT"
+                                "OPTIONS"
                             ],
                             "TargetOriginId": "amplifyIdentityBrokerApiGateway",
                             "ForwardedValues": {
