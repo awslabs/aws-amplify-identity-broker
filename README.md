@@ -1,4 +1,4 @@
-# Amplify Identity Broker
+# AWS Amplify Identity Broker
 
 This project demonstrates how to build a login application to authenticate several websites and mobile apps.
 
