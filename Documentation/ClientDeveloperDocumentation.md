@@ -208,7 +208,7 @@ https://<broker-domain>/logout?redirect_uri=<your-client-redirect-uri>&client_id
 
 ## How to create a signup link
 
-...TODO... Not sure we have that ???
+... coming soon ...
 
 ## How to direct to the account settings page
 
