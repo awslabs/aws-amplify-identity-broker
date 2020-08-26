@@ -53,49 +53,6 @@ class App extends React.Component {
     this.handleIdPLogin = this.handleIdPLogin.bind(this);
   }
 
-  async componentDidMount() {
-    var clientRedirectUri = null;
-    var idToken = null;
-    var accessToken = null;
-
-    // Check if the page was loaded from a redirect from idp. It will have id_token and access_token in the url
-    let urlValues = window.location.hash.substr(1);
-    let urlKeyPairs = urlValues.split('&');
-    let tokens = {};
-    urlKeyPairs.forEach(function (item, index) {
-      let pair = item.split('=');
-      tokens[pair[0]] = pair[1];
-    });
-
-    if (tokens['id_token'] && tokens['access_token']) { // If the page was loaded from a redirect from idp 
-      idToken = tokens['id_token'];
-      accessToken = tokens['access_token'];
-      // Set the ID and access token cookies for fast SSO
-      setTokenCookie("id_token", idToken);
-      setTokenCookie("access_token", accessToken);
-
-      clientRedirectUri = localStorage.getItem(`client-redirect-uri`);
-      if (clientRedirectUri) {
-        localStorage.removeItem('client-redirect-uri');
-        var authorization_code = localStorage.getItem(`authorization_code`);
-        if (authorization_code) { // PKCE Flow
-          localStorage.removeItem(`authorization_code`);
-          const response = await storeTokens(authorization_code, idToken, accessToken) // Store tokens in dynamoDB
-          if (response.status === 200) {
-            window.location.replace(clientRedirectUri + '/?code=' + authorization_code);
-          }
-        }
-        else { // Implicit Flow
-          const clientURL = new URL(clientRedirectUri);
-          clientURL.search = new URLSearchParams({
-            id_token: idToken
-          });
-          window.location.assign(clientURL.href);
-        }
-      }
-    }
-  }
-
   toggleLang = () => {
     if (this.state.lang === "en") {
       I18n.setLanguage("fr");
@@ -107,6 +64,7 @@ class App extends React.Component {
   }
 
   handleIdPLogin(identity_provider) {
+    // Store redirect_uri/authorization_code in local storage to be used to later
     let queryStringParams = new URLSearchParams(window.location.search);
     let redirect_uri = queryStringParams.get('redirect_uri');
     let authorization_code = queryStringParams.get('authorization_code');
@@ -116,22 +74,27 @@ class App extends React.Component {
     if (authorization_code) {
       localStorage.setItem(`authorization_code`, authorization_code);
     }
-
-    const hostedUIEndpoint = new URL(Config.hostedUIUrl + '/oauth2/authorize');
-    hostedUIEndpoint.search = new URLSearchParams({
-      response_type: "token",
-      client_id: awsconfig.aws_user_pools_web_client_id,
-      redirect_uri: window.location.origin,
-      identity_provider: identity_provider
-    });
-    window.location.assign(hostedUIEndpoint.href);
+    Auth.federatedSignIn({ provider: identity_provider });
   }
 
   async handleAuthUIStateChange(authState) {
-    if (authState === "signedin") { // When the user signs in with their local account
+    if (authState === "signedin") {
+      var redirect_uri;
+      var authorization_code;
       let queryStringParams = new URLSearchParams(window.location.search);
-      let redirect_uri = queryStringParams.get('redirect_uri');
-      let authorization_code = queryStringParams.get('authorization_code');
+      let qsRedirectUri = queryStringParams.get('redirect_uri');
+      let qsAuthorizationCode = queryStringParams.get('authorization_code');
+
+      if (qsRedirectUri) { // For a local sign in the redirect_uri/authorization_code will be in the query string params
+        redirect_uri = qsRedirectUri;
+        authorization_code = qsAuthorizationCode;
+      } else { // For a federated sign in the redirect_uri/authorization_code will be in the local storage
+        redirect_uri = localStorage.getItem('client-redirect-uri');
+        authorization_code = localStorage.getItem('authorization_code');
+        localStorage.removeItem(`client-redirect-uri`);
+        localStorage.removeItem(`authorization_code`);
+      }
+
       let authInfo = await Auth.currentSession();
       let idToken = authInfo.idToken.jwtToken;
       let accessToken = authInfo.accessToken.jwtToken;
@@ -142,25 +105,25 @@ class App extends React.Component {
         setTokenCookie("id_token", idToken);
         setTokenCookie("access_token", accessToken);
       }
-      else{
+      else {
         console.error("Inconsistent application state: Tokens missing from current session");
         return;
       }
 
       if (authorization_code && redirect_uri) { // PKCE Flow
-          const response = await storeTokens(authorization_code, idToken, accessToken, refreshToken) // Store tokens in dynamoDB
-          if (response.status === 200) {
-            window.location.replace(redirect_uri + '/?code=' + authorization_code);
-          }
-          else{
-            console.error("Could not store tokens. Server response: " + response.data);
-          }
+        const response = await storeTokens(authorization_code, idToken, accessToken, refreshToken) // Store tokens in dynamoDB
+        if (response.status === 200) {
+          window.location.replace(redirect_uri + '/?code=' + authorization_code);
+        }
+        else {
+          console.error("Could not store tokens. Server response: " + response.data);
+        }
       }
       else if (redirect_uri) { // Implicit Flow
         window.location.replace(redirect_uri + '/?id_token=' + idToken);
       }
     }
-    else if (authState === "signedout") { // When the user signs out with their local account
+    else if (authState === "signedout") {
       eraseCookie("id_token");
       eraseCookie("access_token");
     }

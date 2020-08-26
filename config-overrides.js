@@ -50,6 +50,10 @@ module.exports = function override(config, env) {
             "authenticationFlowType": "USER_PASSWORD_AUTH",
         };
             break;
+        case "liamidp": localConfig = {
+            "providers": ["AWSSSO", "Facebook", "LoginWithAmazon", "Google"]
+        };
+            break;
         default:
             localConfig = {
                 "providers": [],
