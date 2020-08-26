@@ -76,7 +76,7 @@ See [Client Developer Documentation](./ClientDeveloperDocumentation.md) to see h
 
 ### Differences with the OIDC standard
 
-The AWS Amplify identity broker follows the [OIDC standard](https://openid.net/specs/openid-connect-core-1_0.html) with two exceptions:
+The AWS Amplify identity broker follows the [OpenID Connect 1.0 standard](https://openid.net/specs/openid-connect-core-1_0.html) with two exceptions:
 
 * __Oauth2 scopes__ : The Oauth2 scope cannot be injected in the _access_token_ by the broker (because Cognito do not expose a Trigger for that). If you need to scope user permission inside your client application, the workaround we suggest is to add custom values (like scopes) inside the _id_token_ using the [Pre token generation Lambda trigger](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-token-generation.html). Then inside your client applications make sure you send both the _access_token_ and the _id_token_ to your backend. Your backend can then check both tokens and use the custom claims (your _scopes_) to make decision regarding permission to provide.
 
