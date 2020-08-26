@@ -256,6 +256,16 @@ See [how to verify a token](https://docs.aws.amazon.com/cognito/latest/developer
 
 If you have an existing pool of user in your application that you need to migrate you'll have to migrate them into the Cognito user pool of the broker (see [migration instructions](./UserDocumentation.md#migration-instructions)).
 
+## If you use a standard OIDC client
+
+The AWS Amplify Identity broker follows the [OpenID Connect 1.0 specification](https://openid.net/specs/openid-connect-core-1_0.html).
+
+You may already have an existing application that is a OIDC standard client.
+
+If this is the case you can integrate your application with the broker but keep in mind that:
+* not all the flows and endpoint are implemented
+* the broker is not 100% standard see the [differences with the OIDC standard](./UserDocumentation.md#differences-with-the-oidc-standard) section.
+
 ## If you use Amplify
 
 First, you should checkout out our [AWS Amplify client example](https://github.com/awslabs/aws-amplify-identity-broker-client).
