@@ -64,7 +64,6 @@ From any Amplify app you'll need to add our [Auth.tsx helper](https://github.com
 Then from any authenticated page you need to make sure that the Amplify auth framework is called:
 
 ```
-import React from 'react';
 import authClient from '../Auth';
 
 class MyPage extends React.Component<any> {
@@ -74,4 +73,53 @@ class MyPage extends React.Component<any> {
     }
     ...
 ```
+
+_See and example [here](https://github.com/awslabs/aws-amplify-identity-broker-client/blob/master/src/HomePage/index.tsx)_
+
+After that ```authClient.isLoggedIn()``` will return true if you are logged in.
+
+The login link can be created with the following method from our Auth helper:
+
+```
+import authClient from '../Auth';
+
+class MyOtherPage extends React.Component<any> {
+
+    render() {
+        return (
+                {
+                    !authClient.isLoggedIn() &&
+                    < button className="btn btn-dark" onClick={() => { authClient.login() }}>Log In</button>
+                }
+```
+
+And this for logout:
+
+```
+import authClient from '../Auth';
+
+class MyOtherOtherPage extends React.Component<any> {
+    logout = () => {
+        authClient.logout();
+        this.props.history.replace('/');
+    };
+
+    render() {
+        return (
+                {
+                    authClient.isLoggedIn() &&
+                    < div >
+                        <label className="mr-2 text-white">You are logged in as: {authClient.getUserInfo().email}</label>
+                        <button className="btn btn-link" onClick={() => { authClient.login("/logout") }}>Switch User</button>&nbsp;&nbsp;
+                        <button className="btn btn-dark" onClick={() => { this.logout() }}>Log Out</button>
+                    </div >
+                }
+            </nav >
+        );
+    }
+}
+```
+
+_See and example [here](https://github.com/awslabs/aws-amplify-identity-broker-client/blob/master/src/NavBar/index.tsx)_
+
 
