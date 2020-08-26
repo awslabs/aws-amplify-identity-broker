@@ -60,7 +60,7 @@ If a user of your application bookmarked a page of your application (or send a l
 
 In that case you have to redirect him to the broker using the same method as the login (see previous section).
 
-_Note: If you want to redirect the user back to the current page (and not your application home) you have to provide a redirect_uri to that page. The redirect_uri will have to start with the same string that the registered client_id_
+_Note: You cannot redirect the user back to the current page but only to your application registered redirect_uri. This is a security measure to make sure an attacker cannot pass a redirect_uri to a page he is in control of. You can fork the broker to change that but we do not recommend to do so._
 
 ## How to create a logout link
 ## How to create a signup link
