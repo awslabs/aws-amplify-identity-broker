@@ -171,7 +171,7 @@ https://<your-client-callback-URL>/?id_token=...JWT-token-base64 encoded...
   
 
   Once you get your tokens from the broker you can use them directly against your backend.
-  In the backend you will need to verify the JWT token signature (see [how to verify a token](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html))
+  In the backend you will need to verify the JWT token signature (see _How to verify a JWT token_ section below).
   
   _Note: You can refer to the [OAuth 2.0 RFC 7636](https://tools.ietf.org/html/rfc7636) to check your implementation._
 </details>
@@ -189,6 +189,23 @@ _Note: You cannot redirect the user back to the current page but only to your ap
 ## How to create a signup link
 
 ## How to verify a JWT token
+
+Verifying a token is an operation that require you to use the public key (also named __JSON Web Key__) of the signing authority (your Cognito user pool in the case of a broker).
+You can download the key from the Cognito URL or from the broker helper function URL:
+
+Cognito URL:
+
+```
+https://cognito-idp.{region}.amazonaws.com/{userPoolId}/.well-known/jwks.json
+```
+
+Broker URL:
+
+```
+https://<broker-domain>/.well-known/jwks.json
+```
+
+See [how to verify a token](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html)) from more detail.
 
 ## How to refresh the tokens
 
