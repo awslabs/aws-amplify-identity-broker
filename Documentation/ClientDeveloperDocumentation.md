@@ -4,6 +4,8 @@ This document explains how to use the broker as a login solution for your websit
 
 In addition from the explanation of this page you can find a working example [here](https://github.com/awslabs/aws-amplify-identity-broker-client) (this project uses AWS Amplify but you are free to use anything else).
 
+Before any client to be able to use the _AWS Amplify Identity Broker_ you'll need to [register your client](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/Documentation/UserDocumentation.md#register-a-client).
+
 ## Choose your flow (Implicit, PKCE)
 
 The AWS Amplify identity broker exposes two standard Oauth2 authentication flows __Implicit__ and __PKCE__. You can create different client using different flows at the same time.
