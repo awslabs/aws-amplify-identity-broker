@@ -37,7 +37,7 @@ The AWS Amplify identity broker exposes two standard Oauth2 authentication flows
 * __Implicit flow__: the simpler one. It require just a link from your app and for you to read a GET parameter. This flow only returns an _id_token_ you __should not__ use an id_token to authenticate a user against a backend. (see details below)
 * __PKCE flow__: the most secured flow. It will require you to generate random strings, apply some hashed and exchange information two times with the broker.
 
-The broker is not 100% compliant to the Oauth2 flow (see the minor _Differences with the Oauth2 standard__ section below for more detail)
+The broker is not 100% compliant to the Oauth2 flow (see _Differences with the OIDC standard__ section below for more detail)
 
 Expand the section below to see the detailed flows:
 
