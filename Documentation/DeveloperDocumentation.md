@@ -50,7 +50,7 @@ __Cognito Trigger functions__
   <summary>Click to expand!</summary>
   
   
-  The flows entity are:
+  Flows entity are:
   * __User__: the user and his browser
   * __Client Application__: (like the one from our [client demo project](https://github.com/awslabs/aws-amplify-identity-broker-client))
   * __Identity Broker__ : the main project
@@ -60,14 +60,17 @@ __Cognito Trigger functions__
   * __Idp__: Any 3rd party idenity provider (in the case of federation)
   
   __PKCE flow__
+  
   ![PKCE flow](Images/PKCEFlow.png "PKCE flow")
   
   __Implicit flow__
+  
   ![Implicit flow](Images/ImplicitFlow.png "Implicit flow")
   
   _Note: Accordingly to the [what the Oauth2 BCP recommend](https://tools.ietf.org/html/draft-ietf-oauth-security-topics-09#section-2.1.2) we do not return the access_token in that flow but only the id_token._
   
   __IDP federation flow__
+  
   ![IDP federation flow](Images/IdPFederation.png "IDP federation flow")
   
   _Note: The end of the flow (the return to the AWS Amplify broker client will be done accordingly to the client selected flow: PKCE or Implicit)_
