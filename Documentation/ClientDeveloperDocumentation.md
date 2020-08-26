@@ -236,6 +236,8 @@ See [how to verify a token](https://docs.aws.amazon.com/cognito/latest/developer
 
 ## Migration instructions
 
+If you have an existing pool of user in your application that you need to migrate you'll have to migrate them into the Cognito user pool of the broker (see [migration instructions](./UserDocumentation.md#migration-instructions)).
+
 ## If you use Amplify
 
 First, you should checkout out our [AWS Amplify client example](https://github.com/awslabs/aws-amplify-identity-broker-client).
