@@ -186,6 +186,10 @@ _Note: You cannot redirect the user back to the current page but only to your ap
 
 ## How to create a logout link
 
+## How to create a switch user
+
+The switch user flow is almost the same than the logout flow. The difference is that after logout the logout flow redirect to your app immediatly where in the switch user flow the broker will show again the login form to the user and only redirect to your app if successful.
+
 ## How to create a signup link
 
 ## How to verify a JWT token
