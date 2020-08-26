@@ -190,9 +190,21 @@ When you want to logout from your application you just have to destroy the JWT t
 
 If you want to logout from the broker itself (preventing any other client application to reuse the current session) then you have to invoke the broker logout flow.
 
+Here is the url you have to redirect the browser to:
+
+```
+https://<broker-domain>/logout?logout_uri=<your-client-redirect-uri>&client_id=<your-client-id>
+```
+
+The _client_id_ and _logout_uri_ has to be exactly the ones your registered in the broker DynamoDB table _amplifyIdentityBrokerCodesTable_ (see [How to register a client](./UserDocumentation.md#register-a-client)). _logout_uri_ has to be equal to the _redirect_uri_ value of the table. 
+
 ## How to create a switch user
 
 The switch user flow is almost the same than the logout flow. The difference is that after logout the logout flow redirect to your app immediatly where in the switch user flow the broker will show again the login form to the user and only redirect to your app if successful.
+
+```
+https://<broker-domain>/logout?redirect_uri=<your-client-redirect-uri>&client_id=<your-client-id>&response_type=id_token
+```
 
 ## How to create a signup link
 
