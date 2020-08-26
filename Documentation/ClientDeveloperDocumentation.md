@@ -2,7 +2,7 @@
 
 This document explains how to use the broker as a login solution for your websites and mobile application.
 
-In addition from the explanation of this page you can find a working example [here](https://github.com/awslabs/aws-amplify-identity-broker-client).
+In addition from the explanation of this page you can find a working example [here](https://github.com/awslabs/aws-amplify-identity-broker-client) (this project uses AWS Amplify but you are free to use anything else).
 
 ## Choose your flow (Implicit, PKCE)
 
@@ -54,7 +54,24 @@ Expand the section below to see the detailed flows:
 ## How to create a signup link
 ## How to verify a JWT token
 ## How to refresh token
-## How to get IAM credentials
 ## Migration instructions
 ## If you use Amplify
+
+First, you should checkout out our [AWS Amplify client example](https://github.com/awslabs/aws-amplify-identity-broker-client).
+
+From any Amplify app you'll need to add our [Auth.tsx helper](https://github.com/awslabs/aws-amplify-identity-broker-client/blob/master/src/Auth.tsx).
+
+Then from any authenticated page you need to make sure that the Amplify auth framework is called:
+
+```
+import React from 'react';
+import authClient from '../Auth';
+
+class MyPage extends React.Component<any> {
+    async componentDidMount() {
+        await authClient.handleAuth();   <-- this is what you need to add
+        ...
+    }
+    ...
+```
 
