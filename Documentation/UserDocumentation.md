@@ -6,7 +6,7 @@ This document explains how to use the broker:
 * How to customize
 * How to migrate from an existing user pool system
 
-## Presentation and feature overview
+## Presentation
 
 The AWS Amplify Identity Broker is a centralized login solution. It is a component you can use to authenticate your user on all your websites and applications:
 
