@@ -186,11 +186,32 @@ _Note: You cannot redirect the user back to the current page but only to your ap
 
 ## How to create a logout link
 
+When you want to logout from your application you just have to destroy the JWT tokens you have from your browser (or app) storage (cookie, local storage, session storage, ...). But doing so will only log you out of your current application.
+
+If you want to logout from the broker itself (preventing any other client application to reuse the current session) then you have to invoke the broker logout flow.
+
 ## How to create a switch user
 
 The switch user flow is almost the same than the logout flow. The difference is that after logout the logout flow redirect to your app immediatly where in the switch user flow the broker will show again the login form to the user and only redirect to your app if successful.
 
 ## How to create a signup link
+
+...TODO... Not sure we have that ???
+
+## How to direct to the account settings page
+
+The broker offers a page that allow a user to see their personal information that Cognito (or a 3rd party IdP) stores and update some of the values.
+
+## How to direct to the account security settings page
+
+The broker offers a page that allow a user to see and update their MFA preference.
+The broker support MFA by SMS or OTP (One Time Password).
+
+## How to direct to the SSO dashboard
+
+The broker offers a page that allow a user to see all the client he has access to.
+
+_Note: All user will have the same list. If you want a custom list depending of the user you have to fork the broker project and do it yourself_
 
 ## How to verify a JWT token
 
