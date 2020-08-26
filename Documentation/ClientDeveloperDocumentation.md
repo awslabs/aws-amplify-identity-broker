@@ -214,16 +214,22 @@ https://<broker-domain>/logout?redirect_uri=<your-client-redirect-uri>&client_id
 
 The broker offers a page that allow a user to see their personal information that Cognito (or a 3rd party IdP) stores and update some of the values.
 
+... coming soon ...
+
 ## How to direct to the account security settings page
 
 The broker offers a page that allow a user to see and update their MFA preference.
 The broker support MFA by SMS or OTP (One Time Password).
+
+... coming soon ...
 
 ## How to direct to the SSO dashboard
 
 The broker offers a page that allow a user to see all the client he has access to.
 
 _Note: All user will have the same list. If you want a custom list depending of the user you have to fork the broker project and do it yourself_
+
+... coming soon ...
 
 ## How to verify a JWT token
 
