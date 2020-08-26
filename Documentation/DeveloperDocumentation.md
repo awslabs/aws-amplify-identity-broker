@@ -50,7 +50,7 @@ __Cognito Trigger functions__
   <summary>Click to expand!</summary>
   
   
-  Flows entity are:
+  Flow entities are:
   * __User__: the user and his browser
   * __Client Application__: (like the one from our [client demo project](https://github.com/awslabs/aws-amplify-identity-broker-client))
   * __Identity Broker__ : the main project
