@@ -8,9 +8,7 @@ This document explains how to use the broker:
 
 ## Presentation and feature overview
 
-### Example use cases 
-
-By deploying this project and integrati
+...TODO...
 
 ### Choose your flow
 
@@ -51,6 +49,7 @@ Expand the section below to see the detailed flows:
   
 </details>
 
+See [Client Developer Documentation](./ClientDeveloperDocumentation.md) to see how to implement a client using these flows.
 
 ## Deployment
 
