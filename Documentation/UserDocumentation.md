@@ -8,9 +8,30 @@ This document explains how to use the broker:
 
 ## Presentation and feature overview
 
-...TODO...
+The AWS Amplify Identity Broker is a centralized login solution. It is a component you can use to authenticate your user on all your websites and applications:
+
+![Projet Scope Image](./Images/SimplifiedProjectScope.png "Simplified Project Scope")
+
+The broker will be deployed within your own AWS account and will be in your full control (see _Deployment_ section).
+
+Using the broker your users will have the same unique identity accross all your websites and applications. The broker provides Single Sign On (SSO): your users will have to login only once to be authenticated on all your services (but can have different permission levels specific to every application).
+
+Optionaly you can add external IdP (Identity Providers) to the broker. Which means that the user can sign-in using your corporate (or your customer corporate) Active Directory or using Facebook, Google or Amazon login or any OIDC and SAML IdP. Technically you can add up to 300 IdPs to your broker (limit coming from Cognito documented [here](https://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)). Today user coming from any client will see the same list of IdPs but you can fork the broker project and customize the behavior to make the list dynamic and for example:
+
+* show the corporate IdP to people accessing the broker from your office private network
+* show a list of IdP specific to a customer by giving them a special URL (like a link with a get parameter flag)
+* show a list of IdP specific to a client application
+
+__Note that even if your users login in with a 3rd party IdP they will have a unique and peristent identity within the broker__ (under the hood a Cognito user pool identity).
+
+In term of UI customization because you are in control of the source code and the deployment infrastructure you can make any change you like.
+The same applies for flow customization where all the front end part are customizable using the broker and backend flows can be customized using [Cognito Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html). The broker already leverage some of these triggers to introduce special feature like i18n (internationalization).
+
+Finaly the broker is a living open source project and your contributions are welcome if you see a missing feature that can be useful to all the broker users. Please see the [Developer Documentation](./DeveloperDocumentation.md) if you are interested by contributing.
 
 ### Choose your flow
+
+Selecting an authentication flow is a critical decision in term of security. We support several options to allow you connecting existing application that supports only one specific flow.
 
 The AWS Amplify identity broker exposes two standard Oauth2 authentication flows:
 * __Implicit flow__: the simpler one. It require just a link from your app and for you to read a GET parameter. This flow only returns an _id_token_ you __should not__ use an id_token to authenticate a user against a backend. (see details below)
