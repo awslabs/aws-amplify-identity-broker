@@ -10,7 +10,47 @@ This document explains how to use the broker:
 
 ### Example use cases 
 
+By deploying this project and integrati
+
 ### Choose your flow
+
+The AWS Amplify identity broker exposes two standard Oauth2 authentication flows:
+* __Implicit flow__: the simpler one. It require just a link from your app and for you to read a GET parameter. This flow only returns an _id_token_ you __should not__ use an id_token to authenticate a user against a backend. (see details below)
+* __PKCE flow__: the most secured flow. It will require you to generate random strings, apply some hashed and exchange information two times with the broker.
+
+Expand the section below to see the detailed flows:
+
+<details>
+  <summary>Implicit flow</summary>
+  
+  Flow entities are:
+  * __User__: the user and his browser
+  * __Client Application__: (like the one from our [client demo project](https://github.com/awslabs/aws-amplify-identity-broker-client))
+  * __Identity Broker__ : the main project
+  * __DynamoDB__: the broker storage layer
+  * __Cognito__: The Cognito service and endpoints
+  
+  __Implicit flow__
+  
+  ![Implicit flow](Images/ImplicitFlow.png "Implicit flow")
+  
+  _Note: Accordingly to the [what the Oauth2 BCP recommend](https://tools.ietf.org/html/draft-ietf-oauth-security-topics-09#section-2.1.2) we do not return the access_token in that flow but only the id_token._
+</details>
+
+<details>
+  <summary>PKCE flow</summary>
+  
+  Flow entities are:
+  * __User__: the user and his browser
+  * __Client Application__: (like the one from our [client demo project](https://github.com/awslabs/aws-amplify-identity-broker-client))
+  * __Identity Broker__ : the main project
+  * __DynamoDB__: the broker storage layer
+  * __Cognito__: The Cognito service and endpoints
+  
+  ![PKCE flow](Images/PKCEFlow.png "PKCE flow")
+  
+</details>
+
 
 ## Deployment
 
