@@ -53,6 +53,41 @@ Expand the section below to see the detailed flows:
 
 ## How to create a login button/link 
 
+Depending of the flow the steps will differ.
+
+### Implicit flow
+
+The initial link to create has to be like this:
+
+```
+https://<broker-domain>/oauth2/authorize?redirect_uri=<your-client-callback-URL>&client_id=<your-client-id>&response_type=id_token
+```
+
+The _client_id_ and _redirect_uri_ has to be exactly the ones your registered in the broker DynamoDB table _amplifyIdentityBrokerCodesTable_ (see [How to register a client](./UserDocumentation.md#register-a-client))
+
+Once the client logged in successfuly, the broker will redirect the browser of the client to your callback with the id_token as a GET parameter.
+
+```
+https://<your-client-callback-URL>/?id_token=...JWT-token-base64 encoded...
+```
+
+In your application store the JWT token with your favorite method (Cookie, local storage, ...).
+
+You can decript the token content by reading the base64 content.
+
+An example code in javascript to do that (using the library [jwt_decode](https://github.com/auth0/jwt-decode)):
+
+```
+import jwt_decode from 'jwt-decode';
+var idTokenDecoded = jwt_decode(idToken);
+var tokenExpiry = idTokenDecoded['exp'];  <-- an example field you can read
+```
+__Note__: _By default the implicit flow returns only the id_token. You can read the information it contains to display custom information to the user but you __should not__ use an id_token to authenticate a user against a backend. This is a [recommendation from the Oauth2 BCP](https://tools.ietf.org/html/draft-ietf-oauth-security-topics-09#section-2.1.2)_
+
+### PKCE flow
+
+Once you get your tokens from the broker you can use them directly against your backend.
+In the backend you will need to verify the JWT token signature (see [how to verify a token](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html))
 
 ## How to redirect from authenticated page when no JWT token provided
 
