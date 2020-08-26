@@ -51,7 +51,17 @@ Expand the section below to see the detailed flows:
   ![PKCE flow](Images/PKCEFlow.png "PKCE flow")
 </details>
 
-## How to create a login button/link and redirect from authenticated page when no JWT token provided
+## How to create a login button/link 
+
+
+## How to redirect from authenticated page when no JWT token provided
+
+If a user of your application bookmarked a page of your application (or send a link to a friend) and if this page requires authentication it is possible that the user won't have a valid JWT token.
+
+In that case you have to redirect him to the broker using the same method as the login (see previous section).
+
+_Note: If you want to redirect the user back to the current page (and not your application home) you have to provide a redirect_uri to that page. The redirect_uri will have to start with the same string that the registered client_id_
+
 ## How to create a logout link
 ## How to create a signup link
 ## How to verify a JWT token
