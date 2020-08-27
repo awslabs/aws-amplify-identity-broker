@@ -4,6 +4,16 @@ This document is for contributors of the project.
 
 ## Create your own dev environment
 
+```
+git clone git@github.com:awslabs/aws-amplify-identity-broker-client.git
+```
+
+Install npm dependencies
+
+```
+npm install
+```
+
 First need to create a new AWS Amplify environment:
 
 ```
