@@ -32,7 +32,7 @@
         }
     },
     "kms": {
-        "amplifyIdentityBrokerKms": {
+        "amplifyIdentityBrokerTokenEncryptionKey": {
             "service": "KMS",
             "providerPlugin": "awscloudformation",
             "dependsOn": [
