@@ -419,10 +419,12 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 ## Migration instructions
 
-__PREREQUISITE__: 
-In order for the User Migration to be successful, We need to make sure that the Lambda code is probably set for your specific existing userpool. Currently the Lambda user-migration function is setup for migrating from the existing Cognito userpool to the current Cognito userpool for demonstration purposes.
+__DISCLAIMER__:
+Migrating credentials from an existing system to Cognito comes with the risk that these credentials have been exposed in the past. For better security it is recommended to force the users to recreate passwords. The documentation below shows how to migrate users and credentials for learning puspose only.
 
-[Lambda User Migration Code](https://github.com/awslabs/aws-amplify-identity-broker/blob/5e348800fb22b6c9f91d471f139f85e3eea38a54/amplify/backend/function/amplifyIdentityBrokerMigration/src/index.js)
+In this project we provide an example of a Lambda function that migrate users one at a time. For our demo we migrate the users from a _legacy_ Cognito user pool to the broker user pool. If your pool of user is not Cognito you'll have to adapt the source code to match with your system APIs.
+
+[Lambda User Migration Code](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/amplify/backend/function/amplifyIdentityBrokerMigration/src/index.js)
 
 [Migration Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-migrate-user.html#cognito-user-pools-lambda-trigger-syntax-user-migration)
 
