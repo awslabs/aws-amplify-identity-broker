@@ -144,7 +144,6 @@
 						{
 							"Effect": "Allow",
 							"Action": [
-								"kms:DescribeKey",
 								"kms:Decrypt"
 							],
 							"Resource": "*"

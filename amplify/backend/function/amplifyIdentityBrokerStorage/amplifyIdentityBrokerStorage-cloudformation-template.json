@@ -144,9 +144,7 @@
 						{
 							"Effect": "Allow",
 							"Action": [
-								"kms:Encrypt",
-								"kms:GenerateDataKey",
-								"kms:GenerateDataKeyWithoutPlaintext"
+								"kms:Encrypt"
 							],
 							"Resource": "*"
 						},

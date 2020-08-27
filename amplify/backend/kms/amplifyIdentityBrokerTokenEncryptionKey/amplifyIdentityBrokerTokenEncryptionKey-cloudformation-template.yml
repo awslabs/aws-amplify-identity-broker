@@ -55,8 +55,6 @@ Resources:
             - !Ref functionamplifyIdentityBrokerStorageLambdaExecutionRoleArn
           Action:
           - kms:Encrypt
-          - kms:GenerateDataKey
-          - kms:GenerateDataKeyWithoutPlaintext
           Resource: "*"
         - Sid: Allow amplifyIdentityToken Lambda
           Effect: Allow
