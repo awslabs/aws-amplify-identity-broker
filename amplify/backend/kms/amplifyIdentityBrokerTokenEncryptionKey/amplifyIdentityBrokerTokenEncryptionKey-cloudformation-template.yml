@@ -22,6 +22,12 @@ Parameters:
   permissions:
     Type: CommaDelimitedList
 
+  dependsOn:
+    Type: CommaDelimitedList
+
+  resourceNameTruncated:
+    Type: String
+
 Conditions:
   ShouldNotCreateEnvResources: !Equals [!Ref env, NONE]
 
