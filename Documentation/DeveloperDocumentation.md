@@ -5,7 +5,7 @@ This document is for contributors of the project.
 ## Create your own dev environment
 
 ```
-git clone git@github.com:awslabs/aws-amplify-identity-broker-client.git
+git clone git@github.com:awslabs/aws-amplify-identity-broker.git
 ```
 
 Install npm dependencies
@@ -39,6 +39,8 @@ Now add a section for your environment in _config-override.js_ at the root of th
         "hostedUIUrl": "<cognito-domain>",
 };
 ```
+
+If you need a client, you can use the [demo client project](https://github.com/awslabs/aws-amplify-identity-broker-client). But you should play with your browser and Postman for easier test of the flows.
 
 ## Architecture
 
