@@ -50,10 +50,8 @@ Resources:
         - Sid: Allow amplifyIdentityBrokerStorage and amplifyIdentityBrokerAuthorize Lambdas
           Effect: Allow
           Principal:
-            - AWS:
-                Fn::Ref: functionamplifyIdentityBrokerAuthorizeLambdaExecutionRoleArn
-            - AWS:
-                Fn::Ref: functionamplifyIdentityBrokerStorageLambdaExecutionRoleArn
+            - AWS: !Ref functionamplifyIdentityBrokerAuthorizeLambdaExecutionRoleArn
+            - AWS: !Ref functionamplifyIdentityBrokerStorageLambdaExecutionRoleArn
           Action:
           - kms:Encrypt
           - kms:GenerateDataKey
@@ -62,8 +60,7 @@ Resources:
         - Sid: Allow amplifyIdentityToken Lambda
           Effect: Allow
           Principal:
-            AWS:
-              Fn::Ref: functionamplifyIdentityBrokerTokenLambdaExecutionRoleArn
+            AWS: !Ref functionamplifyIdentityBrokerTokenLambdaExecutionRoleArn
           Action:
           - kms:Decrypt
           Resource: "*"
