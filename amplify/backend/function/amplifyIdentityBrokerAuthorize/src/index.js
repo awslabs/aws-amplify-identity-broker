@@ -21,9 +21,32 @@ const { v4: uuidv4 } = require('uuid');
 const CODE_LIFE = 600000; // How long in milliseconds the authorization code can be used to retrieve the tokens from the table (10 minutes)
 const RECORD_LIFE = 900000; // How long in milliseconds the record lasts in the dynamoDB table (15 minutes)
 
+var kmsClient = new AWS.KMS();
+var keyIdAlias = "alias/amplifyIdentityBrokerTokenStorageKey-" + process.env.ENV;
+
 var docClient = new AWS.DynamoDB.DocumentClient();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
 var clientsTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME;
+
+async function encryptToken(token) {
+    var params = {
+        KeyId: keyIdAlias,
+        Plaintext: token
+    };
+    return new Promise(function(resolve, reject) {
+        kmsClient.encrypt(params, function(err, data) {
+            if (err){
+                console.error(err, err.stack);
+                reject(err);
+            }
+            else {
+            // Encryption has been successful
+            var encryptedToken = data.CiphertextBlob;
+            resolve(encryptedToken);
+            }
+        });
+    });
+}
 
 async function getCookiesFromHeader(headers) {
     if (headers === null || headers === undefined || headers.Cookie === undefined) {
@@ -95,6 +118,10 @@ async function handlePKCE(event) {
     var canReturnTokensDirectly = cookies.id_token && cookies.access_token ? true : false; // If there is already an id_token and access_token cookie we can return the tokens directly
 
     if (canReturnTokensDirectly) {
+
+        var encrypted_id_token = await encryptToken(cookies.id_token);
+        var encrypted_access_token = await encryptToken(cookies.access_token);
+
         params = { // Add tokens from cookie to what is being stored in dynamodb
             TableName: codesTableName,
             Item: {
@@ -104,8 +131,8 @@ async function handlePKCE(event) {
                 redirect_uri: redirect_uri,
                 code_expiry: codeExpiry,
                 record_expiry: recordExpiry,
-                id_token: cookies.id_token,
-                access_token: cookies.access_token
+                id_token: encrypted_id_token,
+                access_token: encrypted_access_token
             }
         };
     }

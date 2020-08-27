@@ -81,8 +81,8 @@
 				"Runtime": "nodejs12.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-envliamaws-140145-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerStorage-6d724664417343706c74-build.zip"
+					"S3Bucket": "amplify-amplify-identity-broker-xrndev-150334-deployment",
+					"S3Key": "amplify-builds/amplifyIdentityBrokerStorage-4c524d62694e77637036-build.zip"
 				},
 				"Layers": []
 			}
@@ -141,6 +141,13 @@
 				"PolicyDocument": {
 					"Version": "2012-10-17",
 					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"kms:Encrypt"
+							],
+							"Resource": "*"
+						},
 						{
 							"Effect": "Allow",
 							"Action": [
@@ -233,6 +240,14 @@
 		"LambdaExecutionRole": {
 			"Value": {
 				"Ref": "LambdaExecutionRole"
+			}
+		},
+		"LambdaExecutionRoleArn": {
+			"Value": {
+				"Fn::GetAtt": [
+					"LambdaExecutionRole",
+					"Arn"
+				]
 			}
 		}
 	}
