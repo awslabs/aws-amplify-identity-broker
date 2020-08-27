@@ -30,66 +30,6 @@
 		}
 	},
 	"Resources": {
-		"StorageEncryptionKey": {
-			"Type": "AWS::KMS::Key",
-			"DependsOn": [
-				"LambdaExecutionRole"
-			],
-			"Properties": {
-				"Description": {
-					"Fn::Join": [
-						" ",
-						[
-							"Symmetric key that encrypt token information inside the",
-							{
-								"Ref": "storageamplifyIdentityBrokerCodesTableName"
-							},
-							"DynamoDB table"
-						]
-					]
-				},
-				"KeyPolicy": {
-					"Version": "2012-10-17",
-					"Id": "key-broker-1",
-					"Statement": [
-						{
-							"Sid": "Enable IAM User Permissions",
-							"Effect": "Allow",
-							"Principal": {
-								"AWS": {
-									"Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
-								}
-							},
-							"Action": "kms:*",
-							"Resource": "*"
-						},
-						{
-							"Sid": "Allow use of the key inside the amplifyIdentityBrokerStorage Lambda",
-							"Effect": "Allow",
-							"Principal": {
-								"AWS": {
-									"Fn::GetAtt": [
-										"LambdaExecutionRole",
-										"Arn"
-									]
-								}
-							},
-							"Action": [
-								"kms:DescribeKey",
-								"kms:Encrypt",
-								"kms:Decrypt",
-								"kms:ReEncrypt*",
-								"kms:GenerateDataKey",
-								"kms:GenerateDataKeyWithoutPlaintext"
-							],
-							"Resource": "*"
-						}
-					]
-				},
-				"KeyUsage": "ENCRYPT_DECRYPT",
-				"PendingWindowInDays": 7
-			}
-		},
 		"LambdaFunction": {
 			"Type": "AWS::Lambda::Function",
 			"Metadata": {
@@ -141,8 +81,8 @@
 				"Runtime": "nodejs12.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-vpxrn-153806-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerStorage-6d724664417343706c74-build.zip"
+					"S3Bucket": "amplify-amplify-identity-broker-xrndev-150334-deployment",
+					"S3Key": "amplify-builds/amplifyIdentityBrokerStorage-586b4365734e65346a51-build.zip"
 				},
 				"Layers": []
 			}
@@ -204,19 +144,11 @@
 						{
 							"Effect": "Allow",
 							"Action": [
-								"kms:DescribeKey",
 								"kms:Encrypt",
-								"kms:Decrypt",
-								"kms:ReEncrypt*",
 								"kms:GenerateDataKey",
 								"kms:GenerateDataKeyWithoutPlaintext"
 							],
-							"Resource": {
-								"Fn::GetAtt": [
-									"StorageEncryptionKey",
-									"Arn"
-								]
-							}
+							"Resource": "*"
 						},
 						{
 							"Effect": "Allow",
@@ -310,6 +242,14 @@
 		"LambdaExecutionRole": {
 			"Value": {
 				"Ref": "LambdaExecutionRole"
+			}
+		},
+		"LambdaExecutionRoleArn": {
+			"Value": {
+				"Fn::GetAtt": [
+					"LambdaExecutionRole",
+					"Arn"
+				]
 			}
 		}
 	}

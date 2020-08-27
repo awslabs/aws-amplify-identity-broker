@@ -41,6 +41,9 @@ exports.handler = async (event) => {
     }
 
 
+    var encrypted_id_token = encrypt(id_token);
+    var encrypted_access_token = encrypt(access_token);
+
     var params;
     if (refresh_token === undefined) {
         params = {
@@ -56,6 +59,7 @@ exports.handler = async (event) => {
         };
     }
     else {
+        var encrypted_refresh_token = encrypt(refresh_token);
         params = {
             TableName: codesTableName,
             Key: {

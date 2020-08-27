@@ -1,0 +1,30 @@
+{
+    "resourceNameTruncated": "brokerkms6c0c3e3",
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerToken",
+            "attributes": [
+                "LambdaExecutionRoleArn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerAuthorize",
+            "attributes": [
+                "LambdaExecutionRoleArn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerStorage",
+            "attributes": [
+                "LambdaExecutionRoleArn"
+            ]
+        }
+    ]
+}

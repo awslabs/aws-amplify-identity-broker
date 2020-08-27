@@ -95,6 +95,9 @@ async function handlePKCE(event) {
     var canReturnTokensDirectly = cookies.id_token && cookies.access_token ? true : false; // If there is already an id_token and access_token cookie we can return the tokens directly
 
     if (canReturnTokensDirectly) {
+
+        var encrypted_id_token = encrypt(cookies.id_token);
+        var encrypted_access_token = encrypt(cookies.access_token);
         params = { // Add tokens from cookie to what is being stored in dynamodb
             TableName: codesTableName,
             Item: {
@@ -104,8 +107,8 @@ async function handlePKCE(event) {
                 redirect_uri: redirect_uri,
                 code_expiry: codeExpiry,
                 record_expiry: recordExpiry,
-                id_token: cookies.id_token,
-                access_token: cookies.access_token
+                id_token: encrypted_id_token,
+                access_token: encrypted_access_token
             }
         };
     }
