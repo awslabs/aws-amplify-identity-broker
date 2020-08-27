@@ -2,6 +2,34 @@
 
 This document is for contributors of the project.
 
+## Create your own dev environment
+
+First need to create a new AWS Amplify environment:
+
+```
+> amplify init
+Note: It is recommended to run this command from the root of your app directory
+? Do you want to use an existing environment? (Y/n) n
+? Enter a name for the environment mynewdevenv
+```
+
+Then publish your environment to your AWS account:
+
+```
+amplify publish
+```
+
+Once deployed you need to take note of the Cognito domain name.
+
+Now add a section for your environment in _config-override.js_ at the root of the project source:
+
+```
+ case "mynewdevenv": localConfig = {
+        "providers": [],                      <-- you can start with an empty list
+        "hostedUIUrl": "<cognito-domain>",
+};
+```
+
 ## Architecture
 
 The project architecture is the following:
