@@ -50,8 +50,9 @@ Resources:
         - Sid: Allow amplifyIdentityBrokerStorage and amplifyIdentityBrokerAuthorize Lambdas
           Effect: Allow
           Principal:
-            - AWS: !Ref functionamplifyIdentityBrokerAuthorizeLambdaExecutionRoleArn
-            - AWS: !Ref functionamplifyIdentityBrokerStorageLambdaExecutionRoleArn
+            AWS:
+            - !Ref functionamplifyIdentityBrokerAuthorizeLambdaExecutionRoleArn
+            - !Ref functionamplifyIdentityBrokerStorageLambdaExecutionRoleArn
           Action:
           - kms:Encrypt
           - kms:GenerateDataKey
@@ -66,7 +67,11 @@ Resources:
           Resource: "*"
       KeyUsage: ENCRYPT_DECRYPT
       PendingWindowInDays: 7
-
+  TokenStorageEncryptionKeyAlias:
+    Type: AWS::KMS::Alias
+    Properties: 
+      AliasName: !Sub "amplifyIdentityBrokerTokenStorageEncryptionKeyAlias-${env}"
+      TargetKeyId: !Ref TokenStorageEncryptionKey
 Outputs:
   KMSKeyID:
     Value: !Ref "TokenStorageEncryptionKey"

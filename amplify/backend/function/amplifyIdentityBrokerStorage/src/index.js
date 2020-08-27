@@ -16,8 +16,30 @@ Amplify Params - DO NOT EDIT */
 
 const AWS = require('aws-sdk');
 
+var kmsClient = new AWS.KMS();
+var keyIdAlias = "alias/amplifyIdentityBrokerTokenStorageEncryptionKeyAlias-" + process.env.ENV;
+
 var docClient = new AWS.DynamoDB.DocumentClient();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
+
+async function encryptToken(token) {
+    var params = {
+        KeyId: keyIdAlias,
+        Plaintext: token
+    };
+    return new Promise(function(resolve, reject) {
+        kmsClient.encrypt(params, function(err, encryptedToken) {
+            if (err){
+                console.error(err, err.stack);
+                reject(err);
+            }
+            else {
+            // Encryption has been successful
+            resolve(encryptedToken);
+            }
+        });
+    });
+}
 
 exports.handler = async (event) => {
     if (!event.body) {
@@ -41,8 +63,8 @@ exports.handler = async (event) => {
     }
 
 
-    var encrypted_id_token = encrypt(id_token);
-    var encrypted_access_token = encrypt(access_token);
+    var encrypted_id_token = encryptToken(id_token);  
+    var encrypted_access_token = encryptToken(access_token);
 
     var params;
     if (refresh_token === undefined) {
@@ -53,13 +75,13 @@ exports.handler = async (event) => {
             },
             UpdateExpression: "SET id_token = :idt, access_token = :at",
             ExpressionAttributeValues: {
-                ":idt": id_token,
-                ":at": access_token
+                ":idt": encrypted_id_token,
+                ":at": encrypted_access_token
             }
         };
     }
     else {
-        var encrypted_refresh_token = encrypt(refresh_token);
+        var encrypted_refresh_token = encryptToken(refresh_token);
         params = {
             TableName: codesTableName,
             Key: {
@@ -67,15 +89,15 @@ exports.handler = async (event) => {
             },
             UpdateExpression: "SET id_token = :idt, access_token = :at, refresh_token = :rt",
             ExpressionAttributeValues: {
-                ":idt": id_token,
-                ":at": access_token,
-                ":rt": refresh_token
+                ":idt": encrypted_id_token,
+                ":at": encrypted_access_token,
+                ":rt": encrypted_refresh_token
             }
         };
     }
 
     try {
-        var result = await docClient.update(params).promise();
+        await docClient.update(params).promise();
     } catch (error) {
         console.error(error);
         return {
