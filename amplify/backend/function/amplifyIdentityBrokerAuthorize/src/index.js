@@ -22,7 +22,7 @@ const CODE_LIFE = 600000; // How long in milliseconds the authorization code can
 const RECORD_LIFE = 900000; // How long in milliseconds the record lasts in the dynamoDB table (15 minutes)
 
 var kmsClient = new AWS.KMS();
-var keyIdAlias = "alias/amplifyIdentityBrokerTokenStorageEncryptionKeyAlias-" + process.env.ENV;
+var keyIdAlias = "alias/amplifyIdentityBrokerTokenStorageKey-" + process.env.ENV;
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
@@ -34,13 +34,14 @@ async function encryptToken(token) {
         Plaintext: token
     };
     return new Promise(function(resolve, reject) {
-        kmsClient.encrypt(params, function(err, encryptedToken) {
+        kmsClient.encrypt(params, function(err, data) {
             if (err){
                 console.error(err, err.stack);
                 reject(err);
             }
             else {
             // Encryption has been successful
+            var encryptedToken = data.CiphertextBlob;
             resolve(encryptedToken);
             }
         });
@@ -118,8 +119,8 @@ async function handlePKCE(event) {
 
     if (canReturnTokensDirectly) {
 
-        var encrypted_id_token = encryptToken(cookies.id_token);
-        var encrypted_access_token = encryptToken(cookies.access_token);
+        var encrypted_id_token = await encryptToken(cookies.id_token);
+        var encrypted_access_token = await encryptToken(cookies.access_token);
 
         params = { // Add tokens from cookie to what is being stored in dynamodb
             TableName: codesTableName,

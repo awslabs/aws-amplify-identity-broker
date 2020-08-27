@@ -113,15 +113,9 @@ exports.handler = async (event) => {
 
     try {
         // Decrypt the tokens
-        console.log("Original token = " + access_token);
         const access_token_req = { CiphertextBlob: Buffer.from(access_token, 'base64') };
         const access_token_data = await kmsClient.decrypt(access_token_req).promise();
         access_token_clear_text = access_token_data.Plaintext.toString('ascii');
-
-        console.log(Buffer.from(access_token, 'base64'));
-        console.log(access_token_req);
-        console.log(access_token_data);
-        console.log("access_token_clear_text = " + access_token_clear_text);
 
         const id_token_req = { CiphertextBlob: Buffer.from(id_token, 'base64') };
         const id_token_data = await kmsClient.decrypt(id_token_req).promise();

@@ -70,9 +70,12 @@ Resources:
   TokenStorageEncryptionKeyAlias:
     Type: AWS::KMS::Alias
     Properties: 
-      AliasName: !Sub "amplifyIdentityBrokerTokenStorageEncryptionKeyAlias-${env}"
+      AliasName: !Sub "alias/amplifyIdentityBrokerTokenStorageKey-${env}"
       TargetKeyId: !Ref TokenStorageEncryptionKey
 Outputs:
   KMSKeyID:
     Value: !Ref "TokenStorageEncryptionKey"
     Description: Id of the CMK used by the AWS Amplify identity broker
+  KMSKeyAlias:
+    Value: !Sub "alias/amplifyIdentityBrokerTokenStorageKey-${env}"
+    Description: Alias of the CMK used by the AWS Amplify identity broker

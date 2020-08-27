@@ -17,7 +17,7 @@ Amplify Params - DO NOT EDIT */
 const AWS = require('aws-sdk');
 
 var kmsClient = new AWS.KMS();
-var keyIdAlias = "alias/amplifyIdentityBrokerTokenStorageEncryptionKeyAlias-" + process.env.ENV;
+var keyIdAlias = "alias/amplifyIdentityBrokerTokenStorageKey-" + process.env.ENV;
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
@@ -28,13 +28,14 @@ async function encryptToken(token) {
         Plaintext: token
     };
     return new Promise(function(resolve, reject) {
-        kmsClient.encrypt(params, function(err, encryptedToken) {
+        kmsClient.encrypt(params, function(err, data) {
             if (err){
                 console.error(err, err.stack);
                 reject(err);
             }
             else {
             // Encryption has been successful
+            var encryptedToken = data.CiphertextBlob;
             resolve(encryptedToken);
             }
         });
@@ -63,8 +64,8 @@ exports.handler = async (event) => {
     }
 
 
-    var encrypted_id_token = encryptToken(id_token);  
-    var encrypted_access_token = encryptToken(access_token);
+    var encrypted_id_token = await encryptToken(id_token);  
+    var encrypted_access_token = await encryptToken(access_token);
 
     var params;
     if (refresh_token === undefined) {
@@ -81,7 +82,7 @@ exports.handler = async (event) => {
         };
     }
     else {
-        var encrypted_refresh_token = encryptToken(refresh_token);
+        var encrypted_refresh_token = await encryptToken(refresh_token);
         params = {
             TableName: codesTableName,
             Key: {
