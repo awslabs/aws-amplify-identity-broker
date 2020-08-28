@@ -94,7 +94,7 @@ See __[Developer Documentation](DeveloperDocumentation.md)__ to see more detaile
 
 __COST__ The project architecture is Serverless, you only pay when there is user activity plus a small amount of storage (website static assets, dynamodb tables). Overall the solution is very cost effective. Amazon Cognito will be the primary source of cost, see [Amazon Cognito pricing](https://aws.amazon.com/cognito/pricing/) to estimate your costs.
 
-### Deployment instruction
+### Deployment Instructions
 
 __Prerequisites :__ In order to deploy the solution you need:
 * an AWS account
@@ -112,13 +112,13 @@ npm install
 
 3. Set your Hosted UI Domain Name 
 
-To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the "hostedUIDomainName" property. Be default it is `"amplifyidbroker"`. When created the Hosted UI will have the name of your environment concatenated with a hyphon in the form `https://{hostedUIDomainName}-{env}.auth.{region}.amazoncognito.com` 
+To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the "hostedUIDomainName" property. Be default it is `"amplifyidbroker"`. When created, the Hosted UI will have the name of your environment concatenated with a hyphon in the form `https://{hostedUIDomainName}-{env}.auth.{region}.amazoncognito.com` 
 
 4. Set your User Pool's Federated Social Identity Providers
 
 To set the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the "authProvidersUserPool" array. By default Facebook, Google and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with
 
-Before running `amplify init` in Step 6 you will need to obtain app client id and secret for each social provider you included. You can do this by completing Step 1 of the instructions for [Facebook](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#step-1-register-with-facebook-to-get-an-app-id-and-app-secret), [Google](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#step-1-register-with-google-to-get-an-oauth-client-id-and-client-secret) and [Amazon](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#step-1-register-with-amazon-to-get-an-client-id-and-client-secret)
+Before running `amplify init` in Step 6 you will need to get an __Client ID__ and __Client secret__ for each social provider you included. You can do this by completing Step 1 of the instructions for [Facebook](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#step-1-register-with-facebook-to-get-an-app-id-and-app-secret), [Google](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#step-1-register-with-google-to-get-an-oauth-client-id-and-client-secret) and [Amazon](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#step-1-register-with-amazon-to-get-an-client-id-and-client-secret)
 
 
 5. Delete the AWS demo environemnt file
@@ -182,7 +182,7 @@ For more option on the Amplify UI component look at the [Documentation](https://
 
 We've define all CSS extra properties in _src/index.css_, look at this file before any overide.
 
-## Configure
+## Add Identity Providers
 
 __PREREQUISITE__: 
 In order to have the external IdP working you need to setup a subdomain (or a domain) for the Cognito user pool that the broker use.
