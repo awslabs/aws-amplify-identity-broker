@@ -107,6 +107,8 @@ __1. Clone the project or fork it__
 git clone git@github.com:awslabs/aws-amplify-identity-broker.git
 ```
 
+__Note__: _If you want to save your modification and settings under Git your should [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) this repository and work from your fork. You can also start with a clone, fork and add your fork as another remote._
+
 __2. Install all the dependencies__
 
 ```
