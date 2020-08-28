@@ -118,7 +118,7 @@ __4. Set your User Pool's Federated Social Identity Providers__
 
 To set the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the `authProvidersUserPool` array. By default Facebook, Google, and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with. _If you add them again after deployment you'll just have to redo the step 6, 7 and 8._
 
-When initializing your environment in Step 7 you will be prompted for a Client ID and Client secret for each social provider you included. You can get these by completing Step 1 of the provided instructions for each social provider found [here](https://github.com/awslabs/aws-amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#social-providers)
+When initializing your environment in Step 6 you will be prompted for a Client ID and Client secret for each social provider you included. You can get these by completing Step 1 of the provided instructions for each social provider found [here](https://github.com/awslabs/aws-amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#social-providers)
 
 
 __5. Delete the AWS demo environment file__
@@ -129,9 +129,7 @@ Remove the file with the AWS dev & demo environment (amplify will create a new f
 rm -f ./amplify/team-provider-info.json
 ```
 
-__6. Configure config-overrides.js__
-
-__7. Initialize your environment__
+__6. Initialize your environment__
 
 _You need to have the AWS cli and AWS credentials in place before running this_
 
@@ -139,6 +137,26 @@ _You need to have the AWS cli and AWS credentials in place before running this_
 amplify init
 ```
 You will be prompted for a name for your environment and a Client ID and Client secret for each social provider you included in Step 4
+
+__7. Configure config-overrides.js__
+
+The file _config-overrides.js_ is used at compile time to configure the Single Page App. Edit the file and add the settings for your environment:
+
+```
+case "<your-amplify-environment-name>": localConfig = {
+            "providers": ["<a-corporate-SSO>", "Facebook", "LoginWithAmazon", "Google"]
+};
+```
+
+If you do not need to federate just let the list empty:
+
+```
+case "<your-amplify-environment-name>": localConfig = {
+            "providers": ["<a-corporate-SSO>", "Facebook", "LoginWithAmazon", "Google"]
+};
+```
+
+The names entered has to match what the [Cognito documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) ask for `identity_provider`. See below on the page detail about how to setup federation for SAML, OIDC, Facebook, Google and Amazon as IdPs.
 
 __8. Publish the app__
 
@@ -217,7 +235,23 @@ See next sections for specific provider steps.
 
 ### OIDC Provider (oauth2)
 
+The name you enter in the Cognito user pool to designate your provider as to be set inside the _config-overrides.js_ file associated to your environment:
+
+```
+case "<your-amplify-environment-name>": localConfig = {
+            "providers": ["<a-OIDC-provider-name>", "Facebook", "LoginWithAmazon", "Google"]
+};
+```
+
 ### SAML Provider
+
+The name you enter in the Cognito user pool to designate your provider as to be set inside the _config-overrides.js_ file associated to your environment:
+
+```
+case "<your-amplify-environment-name>": localConfig = {
+            "providers": ["<a-OIDC-provider-name>", "Facebook", "LoginWithAmazon", "Google"]
+};
+```
 
 ### Social Providers
 
@@ -273,6 +307,17 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 15. Choose __Save changes.__
 
+### Step 3: Activate Facebook on the AWS Amplify identity broker
+
+Add the string _Facebook_ inside the _config-overrides.js_ file associated to your AWS Amplify environment:
+
+```
+case "<your-amplify-environment-name>": localConfig = {
+            "providers": ["Facebook"]
+};
+```
+_Write exactly __Facebook__ this has to match exactly what the [Cognito documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) is asking for.
+
 </details>
 
 <details>
@@ -319,6 +364,17 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 16. Choose __Save__
 
+### Step 3: Activate Google on the AWS Amplify identity broker
+
+Add the string _Google_ inside the _config-overrides.js_ file associated to your AWS Amplify environment:
+
+```
+case "<your-amplify-environment-name>": localConfig = {
+            "providers": ["Google"]
+};
+```
+_Write exactly __Google__ this has to match exactly what the [Cognito documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) is asking for.
+
 </details>
 
 <details>
@@ -349,6 +405,17 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 
 11. Choose __Save.__
+
+### Step 3: Activate Amazon on the AWS Amplify identity broker
+
+Add the string _LoginWithAmazon_ inside the _config-overrides.js_ file associated to your AWS Amplify environment:
+
+```
+case "<your-amplify-environment-name>": localConfig = {
+            "providers": ["LoginWithAmazon"]
+};
+```
+_Write exactly __LoginWithAmazon__ this has to match exactly what the [Cognito documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) is asking for.
 
 </details>
 
