@@ -225,7 +225,7 @@ Social Provider instructions taken from [Cognito Documentation](https://docs.aws
 <details>
   <summary>Facebook</summary>
 
-### Step 1: Register with Facebook
+### Part 1: Register with Facebook to get an App ID and App Secret
 
 1. Create a developer account with [Facebook](https://developers.facebook.com/docs/facebook-login). 
 2. [Sign in](https://developers.facebook.com) with your Facebook credentials. 
@@ -242,7 +242,10 @@ Social Provider instructions taken from [Cognito Documentation](https://docs.aws
 
 
 5. On the left navigation bar, choose __Settings__ and then __Basic__.
-6. Note the __App ID__ and the __App Secret.__ You will use them in the next section. 
+6. Note the __App ID__ and the __App Secret.__ You will use them in the next section.
+
+### Part 2: Finish registering with Facebook
+
 7. Choose __+ Add Platform__ from the bottom of the page. 
 8. Choose __Website__
 9. Under __Website,__ type your user pool domain with the /oauth2/idpresponse endpoint into Site URL. 
@@ -268,31 +271,6 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 
 15. Choose __Save changes.__
-
-### Step 2: Add Facebook to Your User Pool
-
-1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)
-2. Choose __Manage your User Pools.__
-3. Choose the User Pool created as part of the Amplify deployment
-4. On the left navigation bar, choose __Identity providers__
-5. Select __Facebook__
-6. Type the __app client ID__ and __app client secret__ you recived from the previous section
-7. Type the names of the scopes you want to authorize seperated by commas
-
-
-![Facebook-IdentityProvider](Images/FacebookSetupInstructions/Facebook-IdentityProvider.png "Facebook-IdentityProvider")
-
-
-8. Choose __Enable Facebook__
-9. On the left navigation bar, choose __Attribute Mapping__
-10. Select the __Facebook__ tab
-11. Capture and map the required user attributes
-
-
-![Facebook-AttributeMapping](Images/FacebookSetupInstructions/Facebook-AttributeMapping.png "Facebook-AttributeMapping")
-
-
-12. Choose __Save Changes__
 
 </details>
 
