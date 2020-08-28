@@ -129,7 +129,7 @@ Remove the file with the AWS dev & demo environment (amplify will create a new f
 rm -f ./amplify/team-provider-info.json
 ```
 
-__6. Configure conig-overrides.js__
+__6. Configure config-overrides.js__
 
 __7. Initialize your environment__
 
@@ -152,11 +152,11 @@ amplify publish
 __Setup your own domain__
 
 ## Register a client
-To use the indentity broker you must register a client_id and redirect_uri with the `amplifyIdentityBrokerClients` DynamoDB table. These values are passed as query string paramters when a request is made to the /oauth2/authorize endpoint and then checked agaisnt the table.
+To use the indentity broker you must register a client_id, redirect_uri, and logout_uri with the `amplifyIdentityBrokerClients` DynamoDB table. These values are passed as query string paramters when a request is made to the /oauth2/authorize endpoint and then checked agaisnt the table.
 
 You can decide any client id you like. For example _my_application_1_ or _7b5a0ffb1dc505d5fddff331af665fb9f6d90e58_ are valid client ids.
 
-To register your client, create an item in the `amplifyIdentityBrokerClients` DynamoDB with a client_id and the redirect_uri of your client application. Below is an example of a registered client
+To register your client, create an item in the `amplifyIdentityBrokerClients` DynamoDB with a client_id and the redirect_uri and logout_uri of your client application. Below is an example of a registered client
 
 ![Clients Table Example](Images/ClientsTableExample.png "Clients Table Example")
 
