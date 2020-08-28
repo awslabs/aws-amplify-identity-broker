@@ -99,7 +99,7 @@ __COST__ The project architecture is Serverless, you only pay when there is user
 __Prerequisites :__ In order to deploy the solution you need:
 * an AWS account
 * the AWS CLI installed with administrator credentials (instruction-link)
-* the Amplify CLI (instruction-link)
+* the AWS Amplify CLI (instruction-link)
 
 __1. Clone the project or fork it__
 
@@ -198,7 +198,7 @@ In the file _src/index.css_ we set the root color like that:
 }
 ```
 
-For more option on the Amplify UI component look at the [Documentation](https://docs.amplify.aws/ui/customization/theming/q/framework/react)
+For more option on the AWS Amplify UI component look at the [Documentation](https://docs.amplify.aws/ui/customization/theming/q/framework/react)
 
 We've define all CSS extra properties in _src/index.css_, look at this file before any overide.
 
@@ -224,7 +224,7 @@ Example:
 
 Be exact with the name of your OIDC and SAML providers or strings that match what the [Amazon Cognito documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) is asking `identity_provider` for social federation.
 
-Note that the label that appear in the button is displayed using the i18n Amplify system. If you want to change the name edit the file _src/strings.js_ and create label that match your provider name.
+Note that the label that appear in the button is displayed using the i18n AWS Amplify system. If you want to change the name edit the file _src/strings.js_ and create label that match your provider name.
 Example:
 
 ```
