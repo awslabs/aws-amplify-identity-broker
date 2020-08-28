@@ -226,7 +226,7 @@ Social Provider instructions taken from [Cognito Documentation](https://docs.aws
 <details>
   <summary>Facebook</summary>
 
-### Step 1: Register with Facebook to get an App ID and App Secret
+### Step 1: Register with Facebook to get a App ID and App Secret
 
 1. Create a developer account with [Facebook](https://developers.facebook.com/docs/facebook-login). 
 2. [Sign in](https://developers.facebook.com) with your Facebook credentials. 
@@ -278,7 +278,7 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 <details>
   <summary>Google</summary>
 
-### Step 1: Register with Google to get an OAuth client ID and client secret
+### Step 1: Register with Google to get a OAuth client ID and client secret
 
 1. Create a [developer account with Google.](https://developers.google.com/identity)
 2. [Sign in](https://console.developers.google.com) with your Google credentials. 
@@ -317,14 +317,14 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 ![Google-CreateOauthClientID](Images/GoogleSetupInstructions/Google-CreateOauthClientID.png "Google-CreateOauthClientID")
 
-16. Choose __Save.__
+16. Choose __Save__
 
 </details>
 
 <details>
   <summary>Amazon</summary>
   
-### Step 1: Register with Amazon to get an Client ID and Client Secret
+### Step 1: Register with Amazon to get a Client ID and Client Secret
 
 1. Create a [developer account with Amazon.](https://developer.amazon.com/login-with-amazon)
 2. [Sign in](https://developer.amazon.com/dashboard) with your Amazon credentials.
