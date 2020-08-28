@@ -13,7 +13,7 @@ import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, Amp
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { eraseCookie, storeTokens, setTokenCookie } from './helpers'
+import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 import awsconfig from './aws-exports';
 var Config = require("Config");
 
@@ -104,6 +104,10 @@ class App extends React.Component {
         // Set the ID and access token cookies for fast SSO
         setTokenCookie("id_token", idToken);
         setTokenCookie("access_token", accessToken);
+        // Set the refresh token cookie. Refresh token cannot be parsed for an an expiry so use the access token to get an expiry.
+        // Although the refresh token has a different (longer) expiry than the access token, this is for the purpose of fast SSO, 
+        // so the refresh token cookie will get set again when the id or access token cookie expires
+        setRefreshTokenCookie(refreshToken, accessToken);
       }
       else {
         console.error("Inconsistent application state: Tokens missing from current session");
@@ -126,6 +130,7 @@ class App extends React.Component {
     else if (authState === "signedout") {
       eraseCookie("id_token");
       eraseCookie("access_token");
+      eraseCookie("refresh_token");
     }
   }
 

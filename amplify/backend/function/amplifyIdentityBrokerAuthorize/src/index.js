@@ -88,11 +88,11 @@ async function handlePKCE(event) {
     const authorizationCode = uuidv4();
     const currentTime = Date.now();
     const codeExpiry = currentTime + CODE_LIFE;
-    const recordExpiry = currentTime + RECORD_LIFE;
+    const recordExpiry = Math.floor((currentTime + RECORD_LIFE) / 1000); // TTL must be in seconds
     var params;
 
     var cookies = await getCookiesFromHeader(event.headers);
-    var canReturnTokensDirectly = cookies.id_token && cookies.access_token ? true : false; // If there is already an id_token and access_token cookie we can return the tokens directly
+    var canReturnTokensDirectly = cookies.id_token && cookies.access_token && cookies.refresh_token ? true : false; // If there are already token cookies we can return the tokens directly
 
     if (canReturnTokensDirectly) {
         params = { // Add tokens from cookie to what is being stored in dynamodb
@@ -105,7 +105,8 @@ async function handlePKCE(event) {
                 code_expiry: codeExpiry,
                 record_expiry: recordExpiry,
                 id_token: cookies.id_token,
-                access_token: cookies.access_token
+                access_token: cookies.access_token,
+                refresh_token: cookies.refresh_token
             }
         };
     }
