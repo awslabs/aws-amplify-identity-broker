@@ -38,6 +38,10 @@ module.exports = function override(config, env) {
             "hostedUIUrl": "https://vp-prod.auth.us-west-2.amazoncognito.com",
         };
             break;
+        case "prod": localConfig = {
+            "providers": ["AWSSSO", "OIDCIdentityProvider", "LoginWithAmazon", "Facebook", "Google"]
+        };
+            break;
         case "liamidp": localConfig = {
             "providers": ["AWSSSO", "Facebook", "LoginWithAmazon", "Google"]
         };
