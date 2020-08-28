@@ -152,7 +152,7 @@ amplify publish
 __Setup your own domain__
 
 ## Register a client
-To use the indentity broker you must register a client_id, redirect_uri, and logout_uri with the `amplifyIdentityBrokerClients` DynamoDB table. These values are passed as query string paramters when a request is made to the /oauth2/authorize endpoint and then checked agaisnt the table.
+To use the identity broker you must register a client_id, redirect_uri, and logout_uri with the `amplifyIdentityBrokerClients` DynamoDB table. These values are passed as query string paramters when a request is made to the /oauth2/authorize endpoint and then checked agaisnt the table.
 
 You can decide any client id you like. For example _my_application_1_ or _7b5a0ffb1dc505d5fddff331af665fb9f6d90e58_ are valid client ids.
 
