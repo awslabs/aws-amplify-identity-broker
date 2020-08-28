@@ -101,27 +101,27 @@ __Prerequisites :__ In order to deploy the solution you need:
 * the AWS CLI installed with administrator credentials (instruction-link)
 * the Amplify CLI (instruction-link)
 
-1. Clone the project or fork it
+1. __Clone the project or fork it__
 
-2. Install all the dependencies
+2. __Install all the dependencies__
 
 ```
 cd amplify-identity-broker
 npm install
 ```
 
-3. Set your Hosted UI Domain Name 
+3. __Set your Hosted UI Domain Name__
 
-To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the `hostedUIDomainName` property. Be default it is "amplifyidbroker". When created, the Hosted UI domain name will take the form `https://{hostedUIDomainName}-{enviornment}.auth.{region}.amazoncognito.com` 
+To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the `hostedUIDomainName` property. Be default it is "amplifyidbroker". When created, the Hosted UI domain name will take the form `https://{hostedUIDomainName}-{environment}.auth.{region}.amazoncognito.com` 
 
-4. Set your User Pool's Federated Social Identity Providers
+4. __Set your User Pool's Federated Social Identity Providers__
 
-To set the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the `authProvidersUserPool` array. By default Facebook, Google and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with
+To set the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the `authProvidersUserPool` array. By default Facebook, Google, and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with
 
-When initializing your environment in Step 7 you will be prompted to get a Client ID and Client secret for each social provider you included. You can get these by completing Step 1 of the provided instructions for each social provider found [here](https://github.com/awslabs/aws-amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#social-providers)
+When initializing your environment in Step 7 you will be prompted for a Client ID and Client secret for each social provider you included. You can get these by completing Step 1 of the provided instructions for each social provider found [here](https://github.com/awslabs/aws-amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#social-providers)
 
 
-5. Delete the AWS demo environment file
+5. __Delete the AWS demo environment file__
 
 Remove the file with the AWS dev & demo environment (amplify will create a new file with your environment information later)
 
@@ -129,9 +129,9 @@ Remove the file with the AWS dev & demo environment (amplify will create a new f
 rm -f ./amplify/team-provider-info.json
 ```
 
-6. Configure conig-overrides.js
+6. __Configure conig-overrides.js__
 
-7. Initialize your environment
+7. __Initialize your environment__
 
 _You need to have the AWS cli and AWS credentials in place before running this_
 
@@ -140,7 +140,7 @@ amplify init
 ```
 You will be prompted for a name for your environment and a Client ID and Client secret for each social provider you included in Step 4
 
-8. Publish the app
+8. __Publish the app__
 
 This command will create all the backend resources and the hosting bucket plus cloudfront distribution that will host the broker:
 
