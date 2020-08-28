@@ -118,7 +118,7 @@ To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBro
 
 To set the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the "authProvidersUserPool" array. By default Facebook, Google and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with
 
-Before running `amplify init` in Step 6 you will need to get an __Client ID__ and __Client secret__ for each social provider you included. You can do this by completing Step 1 of the instructions for [Facebook](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#step-1-register-with-facebook-to-get-an-app-id-and-app-secret), [Google](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#step-1-register-with-google-to-get-an-oauth-client-id-and-client-secret) and [Amazon](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#step-1-register-with-amazon-to-get-an-client-id-and-client-secret)
+Before running `amplify init` in Step 6 you will need to get an __Client ID__ and __Client secret__ for each social provider you included. You can do this by completing Step 1 of the provided instructions for each social provider found [here](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#identity-providers)
 
 
 5. Delete the AWS demo environemnt file
