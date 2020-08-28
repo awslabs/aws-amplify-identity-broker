@@ -16,16 +16,16 @@ The broker will be deployed within your own AWS account and will be in your full
 
 Using the broker your users will have the same unique identity accross all your websites and applications. The broker provides Single Sign On (SSO): your users will have to login only once to be authenticated on all your services (but can have different permission levels specific to every application).
 
-Optionaly you can add external IdP (Identity Providers) to the broker. Which means that the user can sign-in using your corporate (or your customer corporate) Active Directory or using Facebook, Google or Amazon login or any OIDC and SAML IdP. Technically you can add up to 300 IdPs to your broker (limit coming from Cognito documented [here](https://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)). Today user coming from any client will see the same list of IdPs but you can fork the broker project and customize the behavior to make the list dynamic and for example:
+Optionaly you can add external IdP (Identity Providers) to the broker. Which means that the user can sign-in using your corporate (or your customer corporate) Active Directory or using Facebook, Google or Amazon login or any OIDC and SAML IdP. Technically you can add up to 300 IdPs to your broker (limit coming from Amazon Cognito documented [here](https://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)). Today user coming from any client will see the same list of IdPs but you can fork the broker project and customize the behavior to make the list dynamic and for example:
 
 * show the corporate IdP to people accessing the broker from your office private network
 * show a list of IdP specific to a customer by giving them a special URL (like a link with a get parameter flag)
 * show a list of IdP specific to a client application
 
-__Note that even if your users login in with a 3rd party IdP they will have a unique and peristent identity within the broker__ (under the hood a Cognito user pool identity).
+__Note that even if your users login in with a 3rd party IdP they will have a unique and peristent identity within the broker__ (under the hood a Amazon Cognito user pool identity).
 
 In term of UI customization because you are in control of the source code and the deployment infrastructure you can make any change you like.
-The same applies for flow customization where all the front end part are customizable using the broker and backend flows can be customized using [Cognito Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html). The broker already leverage some of these triggers to introduce special feature like i18n (internationalization).
+The same applies for flow customization where all the front end part are customizable using the broker and backend flows can be customized using [Amazon Cognito Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html). The broker already leverage some of these triggers to introduce special feature like i18n (internationalization).
 
 Finaly the broker is a living open source project and your contributions are welcome if you see a missing feature that can be useful to all the broker users. Please see the [Developer Documentation](./DeveloperDocumentation.md) if you are interested by contributing.
 
@@ -49,7 +49,7 @@ Expand the section below to see the detailed flows:
   * __Client Application__: (like the one from our [client demo project](https://github.com/awslabs/aws-amplify-identity-broker-client))
   * __Identity Broker__ : the main project
   * __DynamoDB__: the broker storage layer
-  * __Cognito__: The Cognito service and endpoints
+  * __Cognito__: The Amazon Cognito service and endpoints
   
   __Implicit flow__
   
@@ -66,7 +66,7 @@ Expand the section below to see the detailed flows:
   * __Client Application__: (like the one from our [client demo project](https://github.com/awslabs/aws-amplify-identity-broker-client))
   * __Identity Broker__ : the main project
   * __DynamoDB__: the broker storage layer
-  * __Cognito__: The Cognito service and endpoints
+  * __Cognito__: The Amazon Cognito service and endpoints
   
   ![PKCE flow](Images/PKCEFlow.png "PKCE flow")
   
@@ -78,9 +78,9 @@ See [Client Developer Documentation](./ClientDeveloperDocumentation.md) to see h
 
 The AWS Amplify identity broker follows the [OpenID Connect 1.0 standard](https://openid.net/specs/openid-connect-core-1_0.html) with two exceptions:
 
-* __Oauth2 scopes__ : The Oauth2 scope cannot be injected in the _access_token_ by the broker (because Cognito do not expose a Trigger for that). If you need to scope user permission inside your client application, the workaround we suggest is to add custom values (like scopes) inside the _id_token_ using the [Pre token generation Lambda trigger](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-token-generation.html). Then inside your client applications make sure you send both the _access_token_ and the _id_token_ to your backend. Your backend can then check both tokens and use the custom claims (your _scopes_) to make decision regarding permission to provide.
+* __Oauth2 scopes__ : The Oauth2 scope cannot be injected in the _access_token_ by the broker (because Amazon Cognito do not expose a Trigger for that). If you need to scope user permission inside your client application, the workaround we suggest is to add custom values (like scopes) inside the _id_token_ using the [Pre token generation Lambda trigger](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-token-generation.html). Then inside your client applications make sure you send both the _access_token_ and the _id_token_ to your backend. Your backend can then check both tokens and use the custom claims (your _scopes_) to make decision regarding permission to provide.
 
-* __/oauth2/userinfo__: The Oauth2 standard [stipulate](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo) that the UserInfo endpoint MUST accept Access Tokens as OAuth 2.0 Bearer Token Usage. The broker do not use that but instead is expecting the token to be provided inside a HTTP header named __access_token__. If this is a bloker for you, you can use the [UserInfo endpoint that Cognito expose](https://docs.aws.amazon.com/cognito/latest/developerguide/userinfo-endpoint.html) directly.
+* __/oauth2/userinfo__: The Oauth2 standard [stipulate](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo) that the UserInfo endpoint MUST accept Access Tokens as OAuth 2.0 Bearer Token Usage. The broker do not use that but instead is expecting the token to be provided inside a HTTP header named __access_token__. If this is a bloker for you, you can use the [UserInfo endpoint that Amazon Cognito expose](https://docs.aws.amazon.com/cognito/latest/developerguide/userinfo-endpoint.html) directly.
 
 ## Deployment
 
@@ -156,7 +156,7 @@ case "<your-amplify-environment-name>": localConfig = {
 };
 ```
 
-The names entered has to match what the [Cognito documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) ask for `identity_provider`. See below on the page detail about how to setup federation for SAML, OIDC, Facebook, Google and Amazon as IdPs.
+The names entered has to match what the [Amazon Cognito documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) ask for `identity_provider`. See below on the page detail about how to setup federation for SAML, OIDC, Facebook, Google and Amazon as IdPs.
 
 __8. Publish the app__
 
@@ -172,7 +172,7 @@ __Setup your own domain__
 ## Register a client
 To use the identity broker you must register a client_id, redirect_uri, and logout_uri with the `amplifyIdentityBrokerClients` DynamoDB table. These values are passed as query string paramters when a request is made to the /oauth2/authorize endpoint and then checked agaisnt the table.
 
-You can decide any client id you like. For example _my_application_1_ or _7b5a0ffb1dc505d5fddff331af665fb9f6d90e58_ are valid client ids.
+You can decide any client id you like. For example `my_application_1` or `7b5a0ffb1dc505d5fddff331af665fb9f6d90e58` are valid client ids.
 
 To register your client, create an item in the `amplifyIdentityBrokerClients` DynamoDB with a client_id and the redirect_uri and logout_uri of your client application. Below is an example of a registered client
 
@@ -222,7 +222,7 @@ Example:
             break;
 ```
 
-Be exact with the name of your OIDC and SAML providers or strings that match what the [Cognito documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) is asking `identity_provider` for social federation.
+Be exact with the name of your OIDC and SAML providers or strings that match what the [Amazon Cognito documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) is asking `identity_provider` for social federation.
 
 Note that the label that appear in the button is displayed using the i18n Amplify system. If you want to change the name edit the file _src/strings.js_ and create label that match your provider name.
 Example:
@@ -247,7 +247,7 @@ Follow the [Amazon Cognito User Pool SAML IDP documentation](https://docs.aws.am
 
 ### Social Providers
 
-Social Provider instructions taken from [Cognito Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html). 
+Social Provider instructions taken from [Amazon Cognito Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html). 
 
 <details>
   <summary>Facebook</summary>
@@ -381,9 +381,9 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 ## Migration instructions
 
 __DISCLAIMER__:
-Migrating credentials from an existing system to Cognito comes with the risk that these credentials have been exposed in the past. For better security it is recommended to force the users to recreate passwords. The documentation below shows how to migrate users and credentials for learning puspose only.
+Migrating credentials from an existing system to Amazon Cognito comes with the risk that these credentials have been exposed in the past. For better security it is recommended to force the users to recreate passwords. The documentation below shows how to migrate users and credentials for learning puspose only.
 
-In this project we provide an example of a Lambda function that migrate users one at a time. For our demo we migrate the users from a _legacy_ Cognito user pool to the broker user pool. If your pool of user is not Cognito you'll have to adapt the source code to match with your system APIs.
+In this project we provide an example of a Lambda function that migrate users one at a time. For our demo we migrate the users from a _legacy_ Amazon Cognito user pool to the broker user pool. If your pool of user is not Amazon Cognito you'll have to adapt the source code to match with your system APIs.
 
 [Lambda User Migration Code](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/amplify/backend/function/amplifyIdentityBrokerMigration/src/index.js)
 
@@ -395,7 +395,7 @@ In this project we provide an example of a Lambda function that migrate users on
 __Linking the Trigger__:
 To use the user migration that is labeled `amplifyIdentityBrokerMigration`, the following setting needs to be enable
 
-1. In the AWS console go to _Cognito_ -> _User Pool_ -> _brokeruserpool 
+1. In the AWS console go to _Amazon Cognito_ -> _User Pool_ -> _brokeruserpool 
 
 2. On the left side menu navigate to Triggers
 
@@ -408,7 +408,7 @@ To use the user migration that is labeled `amplifyIdentityBrokerMigration`, the 
   ![Cognito Menu](Images/MigrationTrigger.png)
 
 __Important__:
-Your app sends the username and password to Amazon Cognito. If your app has a native sign-in UI and uses the Cognito Identity Provider SDK, your app must use the USER_PASSWORD_AUTH flow, in which the SDK sends the password to the server (your app must not use the default USER_SRP_AUTH flow since the SDK does not send the password to the server in the SRP authentication flow). The USER_PASSWORD_AUTH flow is enabled by setting AuthenticationDetails.authenticationType to "USER_PASSWORD".
+Your app sends the username and password to Amazon Cognito. If your app has a native sign-in UI and uses the Amazon Cognito Identity Provider SDK, your app must use the USER_PASSWORD_AUTH flow, in which the SDK sends the password to the server (your app must not use the default USER_SRP_AUTH flow since the SDK does not send the password to the server in the SRP authentication flow). The USER_PASSWORD_AUTH flow is enabled by setting AuthenticationDetails.authenticationType to "USER_PASSWORD".
  [Switch Authentication Flows](https://docs.amplify.aws/lib/auth/switch-auth/q/platform/js)
 
  If you like to set a migration flow for a specfic enviroment, follow the these steps:
