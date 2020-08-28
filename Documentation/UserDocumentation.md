@@ -112,16 +112,16 @@ npm install
 
 3. Set your Hosted UI Domain Name 
 
-To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the `hostedUIDomainName` property. Be default it is "amplifyidbroker". When created, the Hosted UI domain name will take the form `https://{hostedUIDomainName}-{enviornment}.auth.{region}.amazoncognito.com` 
+To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the `hostedUIDomainName` property. Be default it is "amplifyidbroker". When created, the Hosted UI domain name will take the form `https://{hostedUIDomainName}-{enviornment}.auth.{region}.amazoncognito.com` 
 
 4. Set your User Pool's Federated Social Identity Providers
 
-To set the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the `authProvidersUserPool` array. By default Facebook, Google and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with
+To set the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the `authProvidersUserPool` array. By default Facebook, Google and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with
 
-When initializing your environment in Step 6 you will be prompted to get a __Client ID__ and __Client secret__ for each social provider you included. You can do this by completing Step 1 of the provided instructions for each social provider found [here](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#identity-providers)
+When initializing your environment in Step 7 you will be prompted to get a Client ID and Client secret for each social provider you included. You can get these by completing Step 1 of the provided instructions for each social provider found [here](https://github.com/awslabs/aws-amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#social-providers)
 
 
-5. Delete the AWS demo environemnt file
+5. Delete the AWS demo environment file
 
 Remove the file with the AWS dev & demo environment (amplify will create a new file with your environment information later)
 
@@ -129,16 +129,18 @@ Remove the file with the AWS dev & demo environment (amplify will create a new f
 rm -f ./amplify/team-provider-info.json
 ```
 
-6. Initialize your environment
+6. Configure conig-overrides.js
+
+7. Initialize your environment
 
 _You need to have the AWS cli and AWS credentials in place before running this_
 
 ```
 amplify init
 ```
-You will be prompted for a name for your environment and a __Client ID__ and __Client secret__ for each social provider you included in Step 4
+You will be prompted for a name for your environment and a Client ID and Client secret for each social provider you included in Step 4
 
-7. Publish the app
+8. Publish the app
 
 This command will create all the backend resources and the hosting bucket plus cloudfront distribution that will host the broker:
 
@@ -186,7 +188,7 @@ We've define all CSS extra properties in _src/index.css_, look at this file befo
 
 __PREREQUISITE__: 
 
-To add identity providers, you need to insert these provider under the file _config-overrides.js_ whih is at the root of the project.
+To add identity providers, you need to insert these providers under the file _config-overrides.js_ which is at the root of the project.
 You have to add the settings on the environment you like to modify.
 
 Example:
@@ -316,31 +318,6 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 ![Google-CreateOauthClientID](Images/GoogleSetupInstructions/Google-CreateOauthClientID.png "Google-CreateOauthClientID")
 
 16. Choose __Save.__
-
-### Step 2: Add Google to Your User Pool
-
-1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)
-2. Choose __Manage your User Pools.__
-3. Choose the User Pool created as part of the Amplify deployment
-4. On the left navigation bar, choose __Identity providers__
-5. Select __Google__
-6. Type the __app client ID__ and __app client secret__ you recived from the previous section
-7. Type the names of the scopes you want to authorize seperated by spaces
-
-
-![Google-IdentityProvider](Images/GoogleSetupInstructions/Google-IdentityProvider.png "Google-IdentityProvider")
-
-
-8. Choose __Enable Google__
-9. On the left navigation bar, choose __Attribute Mapping__
-10. Select the __Google__ tab
-11. Capture and map the required user attributes
-
-
-![Google-AttributeMapping](Images/GoogleSetupInstructions/Google-AttributeMapping.png "Google-AttributeMapping")
-
-
-12. Choose __Save Changes__
 
 </details>
 
