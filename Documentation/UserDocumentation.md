@@ -112,12 +112,11 @@ npm install
 
 3. Configure your Hosted UI Domain Name 
 
-To configure the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the "hostedUIDomainName" property. Be default it is `"amplifyidbroker"` When created the Hosted UI is created it will have the name of your enviornment concatenated with a hyphon in the form `https://{hostedUIDomainName}-{env}.auth.{region}.amazoncognito.com` 
-- To configure thBy default Facebook, Google and LoginwithAmazon are enabled, but can be 
+- To configure the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the "hostedUIDomainName" property. Be default it is `"amplifyidbroker"`. When created the Hosted UI will have the name of your enviornment concatenated with a hyphon in the form `https://{hostedUIDomainName}-{env}.auth.{region}.amazoncognito.com` 
 
-4. Configure your User Pool's federated social identity providers
+4. Configure your User Pool's Federated Social Identity Providers
 
-To configure the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the "authProvidersUserPool" array. By default Facebook, Google, LoginWithAmazon are configured but each can be removed from the configuration
+- To configure the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the "authProvidersUserPool" array. By default Facebook, Google and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with
 
 TBD config-overide.js+ ???
 
