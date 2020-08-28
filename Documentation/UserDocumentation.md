@@ -182,16 +182,9 @@ For more option on the Amplify UI component look at the [Documentation](https://
 
 We've define all CSS extra properties in _src/index.css_, look at this file before any overide.
 
-## Add Identity Providers
+## Identity Providers
 
 __PREREQUISITE__: 
-In order to have the external IdP working you need to setup a subdomain (or a domain) for the Cognito user pool that the broker use.
-In the AWS console go to _Cognito_ -> _User Pool_ -> _brokeruserpool-<YOUR ENVIRONMENT NAME>_
-In the left menu go to _APP Integration_ -> _Domain Name_ and enter a unique subdomain.
-  
-_The user will see this domain name only very briefly during redirection, you probably don't need to set a real domain. But if you need to follow the [Cognito Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-add-custom-domain.html)_
-
-Take note of the domain for next steps.
 
 To add identity providers, you need to insert these provider under the file _config-overrides.js_ whih is at the root of the project.
 You have to add the settings on the environment you like to modify.
@@ -200,8 +193,7 @@ Example:
 
 ```
         case "production": localConfig = {
-            "providers": ["Provider1", "Provider2", "LoginWithAmazon", "Facebook", "Google"],
-            "hostedUIUrl": "https://<YOUR DOMAIN NAME>.auth.us-west-2.amazoncognito.com",
+            "providers": ["Provider1", "Provider2", "LoginWithAmazon", "Facebook", "Google"]
           };
             break;
 ```
