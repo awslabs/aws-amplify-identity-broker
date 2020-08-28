@@ -277,7 +277,7 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 <details>
   <summary>Google</summary>
 
-### Step 1: Register with Google
+### Step 1: Register with Google to get an OAuth client ID and client secret
 
 1. Create a [developer account with Google.](https://developers.google.com/identity)
 2. [Sign in](https://console.developers.google.com) with your Google credentials. 
@@ -303,16 +303,20 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 ![Google-CreateCredentials](Images/GoogleSetupInstructions/Google-CreateCredentials.png "Google-CreateCredentials")
 
 
-10. Choose __Web application.__
-11. Type your user pool domain into __Authorized JavaScript origins.__
-12. Type your user pool domain with the __/oauth2/idpresponse__ endpoint into __Authorized Redirect URIs.__
+10. Choose __Web application.__ and type in a name for your OAuth 2.0 client
+11. Choose __Create.__
+12. Note the __OAuth client ID__ and __client secret.__ You will use them when running `amplify init`
+
+### Step 2: Finish registering with Google
+
+13. Click edit on the OAuth 2.0 Client IDs you created in Step 1
+14. Type your user pool domain into __Authorized JavaScript origins.__
+15. Type your user pool domain with the __/oauth2/idpresponse__ endpoint into __Authorized Redirect URIs.__
 
 
 ![Google-CreateOauthClientID](Images/GoogleSetupInstructions/Google-CreateOauthClientID.png "Google-CreateOauthClientID")
 
-13. Choose __Create.__
-14. Note the __OAuth client ID__ and __client secret.__ You will need them for the next section.
-15. Choose __OK.__
+16. Choose __Save.__
 
 ### Step 2: Add Google to Your User Pool
 
