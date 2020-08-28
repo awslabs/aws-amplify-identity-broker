@@ -204,6 +204,10 @@ We've define all CSS extra properties in _src/index.css_, look at this file befo
 
 ## Identity Providers
 
+The setup of federation with 3rd party Identity Providers has to be done within the Amazon Cognito User Pool associated with your running broker and a small change is to make on the broker itseld to let him aware of the additionnal IdPs to display (see PREREQUISITE down below).
+
+The changes made against the Amazon Cognito User Pool should be done within the AWS console.
+
 __PREREQUISITE__: 
 
 To add identity providers, you need to insert these providers under the file _config-overrides.js_ which is at the root of the project.
@@ -218,7 +222,7 @@ Example:
             break;
 ```
 
-Be exact with the name of your providers.
+Be exact with the name of your OIDC and SAML providers or strings that match what the [Cognito documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) is asking `identity_provider` for social federation.
 
 Note that the label that appear in the button is displayed using the i18n Amplify system. If you want to change the name edit the file _src/strings.js_ and create label that match your provider name.
 Example:
@@ -235,23 +239,11 @@ See next sections for specific provider steps.
 
 ### OIDC Provider (oauth2)
 
-The name you enter in the Cognito user pool to designate your provider as to be set inside the _config-overrides.js_ file associated to your environment:
-
-```
-case "<your-amplify-environment-name>": localConfig = {
-            "providers": ["<a-OIDC-provider-name>", "Facebook", "LoginWithAmazon", "Google"]
-};
-```
+Follow the [Amazon Cognito User Pool OIDC IDP documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-oidc-idp.html). Remember the name you choose for your provider, you have to use it inside _config-overrides.js_ and _src/strings.js_ as explained before.
 
 ### SAML Provider
 
-The name you enter in the Cognito user pool to designate your provider as to be set inside the _config-overrides.js_ file associated to your environment:
-
-```
-case "<your-amplify-environment-name>": localConfig = {
-            "providers": ["<a-OIDC-provider-name>", "Facebook", "LoginWithAmazon", "Google"]
-};
-```
+Follow the [Amazon Cognito User Pool SAML IDP documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-saml-idp.html). Remember the name you choose for your provider, you have to use it inside _config-overrides.js_ and _src/strings.js_ as explained before.
 
 ### Social Providers
 
@@ -307,17 +299,6 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 15. Choose __Save changes.__
 
-### Step 3: Activate Facebook on the AWS Amplify identity broker
-
-Add the string _Facebook_ inside the _config-overrides.js_ file associated to your AWS Amplify environment:
-
-```
-case "<your-amplify-environment-name>": localConfig = {
-            "providers": ["Facebook"]
-};
-```
-_Write exactly __Facebook__ this has to match exactly what the [Cognito documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) is asking for.
-
 </details>
 
 <details>
@@ -364,17 +345,6 @@ _Write exactly __Facebook__ this has to match exactly what the [Cognito document
 
 16. Choose __Save__
 
-### Step 3: Activate Google on the AWS Amplify identity broker
-
-Add the string _Google_ inside the _config-overrides.js_ file associated to your AWS Amplify environment:
-
-```
-case "<your-amplify-environment-name>": localConfig = {
-            "providers": ["Google"]
-};
-```
-_Write exactly __Google__ this has to match exactly what the [Cognito documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) is asking for.
-
 </details>
 
 <details>
@@ -405,17 +375,6 @@ _Write exactly __Google__ this has to match exactly what the [Cognito documentat
 
 
 11. Choose __Save.__
-
-### Step 3: Activate Amazon on the AWS Amplify identity broker
-
-Add the string _LoginWithAmazon_ inside the _config-overrides.js_ file associated to your AWS Amplify environment:
-
-```
-case "<your-amplify-environment-name>": localConfig = {
-            "providers": ["LoginWithAmazon"]
-};
-```
-_Write exactly __LoginWithAmazon__ this has to match exactly what the [Cognito documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) is asking for.
 
 </details>
 
