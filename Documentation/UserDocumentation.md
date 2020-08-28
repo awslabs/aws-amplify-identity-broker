@@ -110,17 +110,18 @@ cd amplify-identity-broker
 npm install
 ```
 
-3. Configure your Hosted UI Domain Name 
+3. Set your Hosted UI Domain Name 
 
-- To configure the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the "hostedUIDomainName" property. Be default it is `"amplifyidbroker"`. When created the Hosted UI will have the name of your enviornment concatenated with a hyphon in the form `https://{hostedUIDomainName}-{env}.auth.{region}.amazoncognito.com` 
+To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the "hostedUIDomainName" property. Be default it is `"amplifyidbroker"`. When created the Hosted UI will have the name of your environment concatenated with a hyphon in the form `https://{hostedUIDomainName}-{env}.auth.{region}.amazoncognito.com` 
 
-4. Configure your User Pool's Federated Social Identity Providers
+4. Set your User Pool's Federated Social Identity Providers
 
-- To configure the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the "authProvidersUserPool" array. By default Facebook, Google and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with
+To set the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the "authProvidersUserPool" array. By default Facebook, Google and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with
 
-TBD config-overide.js+ ???
+Before running `amplify init` in Step 6 you will need to obtain app client id and secret for each social provider you included. You can do this by completing Step 1 of the instructions for [Facebook](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#step-1-register-with-facebook-to-get-an-app-id-and-app-secret), [Google](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#step-1-register-with-google-to-get-an-oauth-client-id-and-client-secret) and [Amazon](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#step-1-register-with-amazon-to-get-an-client-id-and-client-secret)
 
-3. Delete the AWS demo environemnt file
+
+5. Delete the AWS demo environemnt file
 
 Remove the file with the AWS dev & demo environment (amplify will create a new file with your environment information later)
 
@@ -128,16 +129,16 @@ Remove the file with the AWS dev & demo environment (amplify will create a new f
 rm -f ./amplify/team-provider-info.json
 ```
 
-4. Initialise your environment
+6. Initialise your environment
 
 _You need to have the AWS cli and AWS credentials in place before running this_
 
 ```
 amplify init
 ```
-Name the environment whatever you like.
+You will be prompted for an app client id and secret for each social provider you configured in Step 4 and a name for your environment
 
-5. Publish the app
+7. Publish the app
 
 This command will create all the backend resources and the hosting bucket plus cloudfront distribution that will host the broker:
 
@@ -181,7 +182,7 @@ For more option on the Amplify UI component look at the [Documentation](https://
 
 We've define all CSS extra properties in _src/index.css_, look at this file before any overide.
 
-## Add Identity Providers
+## Configure
 
 __PREREQUISITE__: 
 In order to have the external IdP working you need to setup a subdomain (or a domain) for the Cognito user pool that the broker use.
