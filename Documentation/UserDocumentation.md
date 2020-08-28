@@ -110,7 +110,10 @@ cd amplify-identity-broker
 npm install
 ```
 
-2. Select the deployment options and parameters
+3. Configure your Hosted UI Domain Name and Social Providers
+Navigate to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70). There . When created the Hosted UI is created it will have the name of your enviornment concatenated with a hyphon in the form `https://{hostedUIDomainName}-{env}.auth.{region}.amazoncognito.com` By default Facebook, Google and LoginwithAmazon are configured but can be
+
+[(https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70)
 
 TBD config-overide.js+ ???
 
