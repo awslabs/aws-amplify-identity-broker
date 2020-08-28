@@ -112,13 +112,13 @@ npm install
 
 3. Set your Hosted UI Domain Name 
 
-To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the "hostedUIDomainName" property. Be default it is `"amplifyidbroker"`. When created, the Hosted UI will have the name of your environment concatenated with a hyphon in the form `https://{hostedUIDomainName}-{env}.auth.{region}.amazoncognito.com` 
+To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the `hostedUIDomainName` property. Be default it is "amplifyidbroker". When created, the Hosted UI domain name will take the form `https://{hostedUIDomainName}-{enviornment}.auth.{region}.amazoncognito.com` 
 
 4. Set your User Pool's Federated Social Identity Providers
 
-To set the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the "authProvidersUserPool" array. By default Facebook, Google and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with
+To set the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/xavierraffin/amplify-identity-broker/blob/IdP-refactor/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the `authProvidersUserPool` array. By default Facebook, Google and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with
 
-Before running `amplify init` in Step 6 you will need to get an __Client ID__ and __Client secret__ for each social provider you included. You can do this by completing Step 1 of the provided instructions for each social provider found [here](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#identity-providers)
+When initializing your environment in Step 6 you will be prompted to get a __Client ID__ and __Client secret__ for each social provider you included. You can do this by completing Step 1 of the provided instructions for each social provider found [here](https://github.com/xavierraffin/amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#identity-providers)
 
 
 5. Delete the AWS demo environemnt file
@@ -129,14 +129,14 @@ Remove the file with the AWS dev & demo environment (amplify will create a new f
 rm -f ./amplify/team-provider-info.json
 ```
 
-6. Initialise your environment
+6. Initialize your environment
 
 _You need to have the AWS cli and AWS credentials in place before running this_
 
 ```
 amplify init
 ```
-You will be prompted for an app client id and secret for each social provider you configured in Step 4 and a name for your environment
+You will be prompted for a name for your environment and a __Client ID__ and __Client secret__ for each social provider you included in Step 4
 
 7. Publish the app
 
