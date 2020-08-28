@@ -1,33 +1,4 @@
 {
-    "xraffin": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-amplify-identity-broker-xraffin-113500-authRole",
-            "UnauthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-xraffin-113500-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-xraffin-113500-authRole",
-            "Region": "us-west-2",
-            "DeploymentBucketName": "amplify-amplify-identity-broker-xraffin-113500-deployment",
-            "UnauthRoleName": "amplify-amplify-identity-broker-xraffin-113500-unauthRole",
-            "StackName": "amplify-amplify-identity-broker-xraffin-113500",
-            "StackId": "arn:aws:cloudformation:us-west-2:959861384820:stack/amplify-amplify-identity-broker-xraffin-113500/12f485b0-c2dc-11ea-94d1-0abdf39f8170",
-            "AmplifyAppId": "dgvx8t5exfw79"
-        },
-        "categories": {
-            "auth": {
-                "amplifyIdentityBrokerAuth": {}
-            },
-            "function": {
-                "amplifyIdentityBrokerCustomMessage": {},
-                "amplifyIdentityBrokerAuthorize": {},
-                "amplifyIdentityBrokerToken": {},
-                "amplifyIdentityBrokerStorage": {},
-                "amplifyIdentityBrokerMigration": {},
-                "amplifyIdentityBrokerCodesTable": {},
-                "amplifyIdentityBrokerClientsTable": {},
-                "amplifyIdentityBrokerAuth": {},
-                "amplifyIdentityBrokerUserInfo": {}
-            }
-        }
-    },
     "production": {
         "awscloudformation": {
             "AuthRoleName": "amplify-amplify-identity-broker-production-120950-authRole",
@@ -52,32 +23,6 @@
                 "amplifyIdentityBrokerMigration": {},
                 "amplifyIdentityBrokerUserInfo": {},
                 "amplifyIdentityBrokerExposeJWKS": {}
-            }
-        }
-    },
-    "kevnvoaws": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-amplify-identity-broker-kevnvoaws-133750-authRole",
-            "UnauthRoleArn": "arn:aws:iam::111989064546:role/amplify-amplify-identity-broker-kevnvoaws-133750-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::111989064546:role/amplify-amplify-identity-broker-kevnvoaws-133750-authRole",
-            "Region": "us-west-2",
-            "DeploymentBucketName": "amplify-amplify-identity-broker-kevnvoaws-133750-deployment",
-            "UnauthRoleName": "amplify-amplify-identity-broker-kevnvoaws-133750-unauthRole",
-            "StackName": "amplify-amplify-identity-broker-kevnvoaws-133750",
-            "StackId": "arn:aws:cloudformation:us-west-2:111989064546:stack/amplify-amplify-identity-broker-kevnvoaws-133750/b3212ea0-d824-11ea-8681-0667625073fa",
-            "AmplifyAppId": "d1usem8fhcmegf"
-        },
-        "categories": {
-            "auth": {
-                "amplifyIdentityBrokerAuth": {}
-            },
-            "function": {
-                "amplifyIdentityBrokerCustomMessage": {},
-                "amplifyIdentityBrokerAuthorize": {},
-                "amplifyIdentityBrokerToken": {},
-                "amplifyIdentityBrokerStorage": {},
-                "amplifyIdentityBrokerMigration": {},
-                "amplifyIdentityBrokerUserInfo": {}
             }
         }
     },
