@@ -67,7 +67,7 @@
             ]
         }
     ],
-    "hostedUIDomainName": "liamidp",
+    "hostedUIDomainName": "amplifyidbroker",
     "authProvidersUserPool": [
         "Facebook",
         "Google",
