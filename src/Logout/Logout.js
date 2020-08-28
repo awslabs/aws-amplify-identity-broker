@@ -10,8 +10,8 @@
 import React from 'react';
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
-import { eraseCookie } from './helpers'
-import awsconfig from './aws-exports';
+import { eraseCookie } from '../helpers'
+import awsconfig from '../aws-exports';
 var Config = require("Config");
 
 class Logout extends React.Component {
@@ -51,9 +51,8 @@ class Logout extends React.Component {
                 window.location.href = '/';
             }
         }
-        else { // If the logout endpoint is being called before the Hosted UI logout endpoint has been called
-            // Sign out the user and erase the token cookies
-            Auth.signOut();
+        else { // If the logout endpoint is being called before the user has been logged out
+            // Erase the token cookies
             eraseCookie("id_token");
             eraseCookie("access_token");
 
@@ -82,13 +81,9 @@ class Logout extends React.Component {
             }
             localStorage.setItem('redirectInfo', JSON.stringify(redirectObject));
 
-            // Call Cognito Hosted UI /logout endpoint
-            const hostedUILogoutEndpoint = new URL(Config.hostedUIUrl + '/logout');
-            hostedUILogoutEndpoint.search = new URLSearchParams({
-                client_id: awsconfig.aws_user_pools_web_client_id,
-                logout_uri: window.location.origin + '/logout'
-            });
-            window.location.assign(hostedUILogoutEndpoint.href);
+
+            Auth.signOut(); // Sign the user out
+            window.location.reload(); // Reload the page to handle the client redirect
         }
     }
 

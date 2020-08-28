@@ -17,8 +17,7 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email",
-        "phone_number"
+        "email"
     ],
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
@@ -39,7 +38,7 @@
     "userPoolGroups": false,
     "adminQueries": false,
     "triggers": "{\"CustomMessage\":[\"custom\"]}",
-    "hostedUI": false,
+    "hostedUI": true,
     "userPoolGroupList": [],
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -67,5 +66,13 @@
                 "Name"
             ]
         }
-    ]
+    ],
+    "hostedUIDomainName": "amplifyidbroker",
+    "authProvidersUserPool": [
+        "Facebook",
+        "Google",
+        "LoginWithAmazon"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}},{\"ProviderName\":\"LoginWithAmazon\",\"authorize_scopes\":\"profile profile:user_id\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"user_id\"}}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://d2xgofpejqjfcr.cloudfront.net/\"],\"LogoutURLs\":[\"https://d2xgofpejqjfcr.cloudfront.net/logout\"]}"
 }
