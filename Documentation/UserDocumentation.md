@@ -225,7 +225,7 @@ Social Provider instructions taken from [Cognito Documentation](https://docs.aws
 <details>
   <summary>Facebook</summary>
 
-### Part 1: Register with Facebook to get an App ID and App Secret
+### Step 1: Register with Facebook to get an App ID and App Secret
 
 1. Create a developer account with [Facebook](https://developers.facebook.com/docs/facebook-login). 
 2. [Sign in](https://developers.facebook.com) with your Facebook credentials. 
@@ -242,9 +242,9 @@ Social Provider instructions taken from [Cognito Documentation](https://docs.aws
 
 
 5. On the left navigation bar, choose __Settings__ and then __Basic__.
-6. Note the __App ID__ and the __App Secret.__ You will use them in the next section.
+6. Note the __App ID__ and the __App Secret.__ You will use them when running `amplify init`
 
-### Part 2: Finish registering with Facebook
+### Step 2: Finish registering with Facebook
 
 7. Choose __+ Add Platform__ from the bottom of the page. 
 8. Choose __Website__
@@ -344,7 +344,7 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 <details>
   <summary>Amazon</summary>
   
-### Step 1: Register with Amazon
+### Step 1: Register with Amazon to get an Client ID and Client Secret
 
 1. Create a [developer account with Amazon.](https://developer.amazon.com/login-with-amazon)
 2. [Sign in](https://developer.amazon.com/dashboard) with your Amazon credentials.
@@ -356,7 +356,10 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 5. Type in a __Security Profile Name,__ a __Security Profile Description,__ and a __Consent Privacy Notice URL.__
 6. Choose __Save.__
-7. Choose __Client ID__ and __Client Secret__ to show the client ID and secret. You will use them in the next section. 
+7. Choose __Client ID__ and __Client Secret__ to show the client ID and secret. You will use them when running `amplify init`
+
+### Step 2: Finish registering with Amazon
+
 8. Hover over the gear and choose __Web Settings,__ and then choose __Edit.__ 
 9. Type your user pool domain into __Allowed Origins.__ 
 10. Type your user pool domain with the __/oauth2/idpresponse__ endpoint into __Allowed Return URLs.__
@@ -366,32 +369,6 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 
 11. Choose __Save.__
-
-### Step 2: Add Amazon to Your User Pool
-
-1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)
-2. Choose __Manage your User Pools.__
-3. Choose the User Pool created as part of the Amplify deployment
-4. On the left navigation bar, choose __Identity providers__
-5. Select __Login with Amazon__
-6. Type the __app client ID__ and __app client secret__ you recived from the previous section
-7. Type the names of the scopes you want to authorize seperated by spaces
-
-
-![Amazon-IdentityProvider](Images/AmazonSetupInstructions/Amazon-IdentityProvider.png "AmazonIdentityProvider")
-
-
-8. Choose __Enable Login with Amazon__
-9. On the left navigation bar, choose __Attribute Mapping__
-10. Select the __Amazon__ tab
-11. Capture and map the required user attributes
-
-
-![Amazon-AttributeMapping](Images/AmazonSetupInstructions/Amazon-AttributeMapping.png "Amazon-AttributeMapping")
-
-
-12. Choose __Save Changes__
-
 
 </details>
 
