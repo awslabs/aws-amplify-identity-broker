@@ -103,6 +103,10 @@ __Prerequisites :__ In order to deploy the solution you need:
 
 __1. Clone the project or fork it__
 
+```
+git clone git@github.com:awslabs/aws-amplify-identity-broker.git
+```
+
 __2. Install all the dependencies__
 
 ```
