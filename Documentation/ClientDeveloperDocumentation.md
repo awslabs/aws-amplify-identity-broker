@@ -190,28 +190,46 @@ When you want to logout from your application you just have to destroy the JWT t
 
 If you want to logout from the broker itself (preventing any other client application to reuse the current session) then you have to invoke the broker logout flow.
 
+Here is the url you have to redirect the browser to:
+
+```
+https://<broker-domain>/logout?logout_uri=<your-client-redirect-uri>&client_id=<your-client-id>
+```
+
+The _client_id_ and _logout_uri_ has to be exactly the ones your registered in the broker DynamoDB table _amplifyIdentityBrokerCodesTable_ (see [How to register a client](./UserDocumentation.md#register-a-client)). _logout_uri_ has to be equal to the _redirect_uri_ value of the table. 
+
 ## How to create a switch user
 
 The switch user flow is almost the same than the logout flow. The difference is that after logout the logout flow redirect to your app immediatly where in the switch user flow the broker will show again the login form to the user and only redirect to your app if successful.
 
+```
+https://<broker-domain>/logout?redirect_uri=<your-client-redirect-uri>&client_id=<your-client-id>&response_type=id_token
+```
+
 ## How to create a signup link
 
-...TODO... Not sure we have that ???
+... coming soon ...
 
 ## How to direct to the account settings page
 
 The broker offers a page that allow a user to see their personal information that Cognito (or a 3rd party IdP) stores and update some of the values.
+
+... coming soon ...
 
 ## How to direct to the account security settings page
 
 The broker offers a page that allow a user to see and update their MFA preference.
 The broker support MFA by SMS or OTP (One Time Password).
 
+... coming soon ...
+
 ## How to direct to the SSO dashboard
 
 The broker offers a page that allow a user to see all the client he has access to.
 
 _Note: All user will have the same list. If you want a custom list depending of the user you have to fork the broker project and do it yourself_
+
+... coming soon ...
 
 ## How to verify a JWT token
 
@@ -237,6 +255,16 @@ See [how to verify a token](https://docs.aws.amazon.com/cognito/latest/developer
 ## Migration instructions
 
 If you have an existing pool of user in your application that you need to migrate you'll have to migrate them into the Cognito user pool of the broker (see [migration instructions](./UserDocumentation.md#migration-instructions)).
+
+## If you use a standard OIDC client
+
+The AWS Amplify Identity broker follows the [OpenID Connect 1.0 specification](https://openid.net/specs/openid-connect-core-1_0.html).
+
+You may already have an existing application that is a OIDC standard client.
+
+If this is the case you can integrate your application with the broker but keep in mind that:
+* not all the flows and endpoint are implemented
+* the broker is not 100% standard see the [differences with the OIDC standard](./UserDocumentation.md#differences-with-the-oidc-standard) section.
 
 ## If you use Amplify
 

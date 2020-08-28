@@ -5,7 +5,7 @@ This project demonstrates how to build a login application to authenticate sever
 __Current features are:__
 
 * login, forgot password ...
-* is an OIDC standard Identity Provider ([with few exceptions](Documentation/UserDocumentation.md#OIDCstandard))
+* is an OIDC standard Identity Provider ([with few exceptions](Documentation/UserDocumentation.md#differences-with-the-oidc-standard))
 * style customization
 * i18n : _languages in this demo: English and French_
 * PKCE and Implicit Oauth2 flows : _for secured web and mobile application login_
@@ -65,7 +65,7 @@ See [client demo code repository](https://github.com/awslabs/aws-amplify-identit
 
   __Similarities__
 
-  * both expose similar APIs : they are standard OIDC identity provider (with [few exceptions for the current project](Documentation/UserDocumentation.md#OIDCstandard))
+  * both expose similar APIs : they are standard OIDC identity provider (with [few exceptions for the current project](Documentation/UserDocumentation.md#differences-with-the-oidc-standard))
   * feature scope is similar (but this project has more features)
   * both require very low effort to deploy
   * both are managed within the AWS account of the customer
@@ -75,7 +75,7 @@ See [client demo code repository](https://github.com/awslabs/aws-amplify-identit
   * The Hosted UI is managed, you don’t have access to the code or deployment infrastructure. This project is a code project with an simplified deployment system into a Serverless infrastructure you control.
   * This project can be customized deeply. UI, languages, specific behaviors (depending on IP address, link, ...). Again since you have access to the code you can do whatever you want with it
   * This project comes with some missing feature of the Hosted UI: i18n, full CSS, JS customization, consent approbation
-  * This project diverge a bit here and there of standard OAuth flows (because of some current restrictions). The limitation is in the way Oauth scope are injected in tokens and some oauth2 API are handled (see [User Documentation](Documentation/UserDocumentation.md#OIDCstandard)). _We are working on it to fill the gap._
+  * This project diverge a bit here and there of standard OAuth flows (because of some current restrictions). The limitation is in the way Oauth scope are injected in tokens and some oauth2 API are handled (see [User Documentation](Documentation/UserDocumentation.md#differences-with-the-oidc-standard)). _We are working on it to fill the gap._
 
   __VISUAL COMPARISON__
 

@@ -144,6 +144,13 @@
 						{
 							"Effect": "Allow",
 							"Action": [
+								"kms:Decrypt"
+							],
+							"Resource": "*"
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
 								"logs:CreateLogGroup",
 								"logs:CreateLogStream",
 								"logs:PutLogEvents"
@@ -237,6 +244,14 @@
 		"LambdaExecutionRole": {
 			"Value": {
 				"Ref": "LambdaExecutionRole"
+			}
+		},
+		"LambdaExecutionRoleArn": {
+			"Value": {
+				"Fn::GetAtt": [
+					"LambdaExecutionRole",
+					"Arn"
+				]
 			}
 		}
 	}

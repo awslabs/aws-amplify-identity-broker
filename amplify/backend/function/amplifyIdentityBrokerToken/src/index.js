@@ -18,6 +18,8 @@ const AWS = require('aws-sdk');
 const crypto = require('crypto');
 const qs = require('querystring');
 
+var kmsClient = new AWS.KMS();
+
 var docClient = new AWS.DynamoDB.DocumentClient();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
 
@@ -109,14 +111,31 @@ exports.handler = async (event) => {
         };
     }
 
+    try {
+        // Decrypt the tokens
+        const access_token_req = { CiphertextBlob: Buffer.from(access_token, 'base64') };
+        const access_token_data = await kmsClient.decrypt(access_token_req).promise();
+        access_token_clear_text = access_token_data.Plaintext.toString('ascii');
+
+        const id_token_req = { CiphertextBlob: Buffer.from(id_token, 'base64') };
+        const id_token_data = await kmsClient.decrypt(id_token_req).promise();
+        id_token_clear_text = id_token_data.Plaintext.toString('ascii');
+    } catch (err) {
+        console.error('Decrypt error:', err);
+        return {
+            statusCode: 400,
+            body: JSON.stringify('Could not decrypt tokens'),
+        };
+    }
+
     return {
         statusCode: 200,
         headers: {
             "Access-Control-Allow-Origin": "*" // Required for CORS support to work
         },
         body: JSON.stringify({
-            "access_token": access_token,
-            "id_token": id_token,
+            "access_token": access_token_clear_text,
+            "id_token": id_token_clear_text,
             "token_type": "Bearer"
         }),
     };
