@@ -200,14 +200,16 @@ Once the environment is created you'll need to add the necessary redirect rules 
 
 | First Header  | Second Header | Type |
 | ------------- | ------------- | ---- |
-| /oauth2/<*>  | <api-gateway-url>/oauth2/<*>  | 200 |
-| /storage  | <api-gateway-url>/storage  | 200 |
-| /.well-known/jwks.json  | <api-gateway-url>/.well-known/jwks.json  | 200 |
-| /verifyClient  | <api-gateway-url>/verifyClient  | 200 |
+| /oauth2/<*>  | ...api-gateway-url.../oauth2/<*>  | 200 |
+| /storage  | ...api-gateway-url.../storage  | 200 |
+| /.well-known/jwks.json  | ...api-gateway-url.../.well-known/jwks.json  | 200 |
+| /verifyClient  | ...api-gateway-url.../verifyClient  | 200 |
 | /logout  | /index.html  | 200 |
 | /<*>  | /index.html  | 404 |
   
-__IMPORTANT__ The order of the redirect rules is important!
+__Note:__ The `...api-gateway-url...` needs to be replaced by the entry point url of the API Gateway associated with your broker. You can find the value by going to the Amazon API Gateway service or by looking at the AWS CloudFormation service and reading at the outbput of the template `amplify-amplify-identity-broker-<env>-xxxxxx-apiamplifyIdentityBrokerApi-XXXXXXXXXXX`
+  
+> __IMPORTANT__ The order of the redirect rules is important!
 
 Your setup should look like that:
 
