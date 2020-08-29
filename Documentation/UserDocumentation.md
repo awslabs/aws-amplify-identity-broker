@@ -177,11 +177,17 @@ __Setup your own domain__
 ## Deploying with the AWS Amplify console
 
 If you want to use the AWS Amplify console as your CI/CD pipeline to qutomate the deployment of the solution, you will need to set the following environment variable inside your AWS Amplify console app: (You would need to add only the variables corresponding to the social platforms you have configured during the Auth CLI setup):
+
 __AMPLIFY_FACEBOOK_CLIENT_ID__
+
 __AMPLIFY_FACEBOOK_CLIENT_SECRET__
+
 __AMPLIFY_GOOGLE_CLIENT_ID__
+
 __AMPLIFY_GOOGLE_CLIENT_SECRET__
+
 __AMPLIFY_AMAZON_CLIENT_ID__
+
 __AMPLIFY_AMAZON_CLIENT_SECRET__
 
 __Note:__ This variable requirement is a temporary workaround that may disapear in the future. We'll update this documentation accordingly.
