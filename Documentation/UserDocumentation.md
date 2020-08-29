@@ -186,7 +186,7 @@ __AMPLIFY_AMAZON_CLIENT_SECRET__
 
 __Note:__ This variable requirement is a temporary workaround that may disapear in the future. We'll update this documentation accordingly.
 
-Once the environment is created you'll need to add the necessary redirect rules manually:
+Once the environment is created you'll need to add the necessary redirect rules manually. On the AWS console, go to _AWS Amplify_, select your app, on the left menu click on _Rewrites and redirects_ and clic _Edit_ to input the following values:
 
 | First Header  | Second Header | Type |
 | ------------- | ------------- | ---- |
