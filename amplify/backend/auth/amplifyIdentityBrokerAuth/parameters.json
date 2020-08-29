@@ -67,7 +67,7 @@
             ]
         }
     ],
-    "hostedUIDomainName": "amplifyidbroker",
+    "hostedUIDomainName": "amplifyidbroker-prod",
     "authProvidersUserPool": [
         "Facebook",
         "Google",
