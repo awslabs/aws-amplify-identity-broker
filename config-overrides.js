@@ -19,7 +19,7 @@ if (!fs.existsSync("./amplify/backend/amplify-meta.json")) {
     amplifyMeta = require("./amplify/backend/amplify-meta.json");
 }
 const REGEX = /.*-(\w+)/;
-const AMPLIFY_ENV = amplifyMeta.hosting.S3AndCloudFront.output.HostingBucketName.match(REGEX)[1];
+const AMPLIFY_ENV = amplifyMeta.storage.amplifyIdentityBrokerCodesTable.output.Name.match(REGEX)[1];
 
 console.log("Injecting config");
 console.log("AMPLIFY_ENV is " + AMPLIFY_ENV);
