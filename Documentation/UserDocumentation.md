@@ -287,9 +287,9 @@ Example:
 
 See next sections for specific provider steps.
 
-__ACTIVATION__:
+__AFTER ANY IDP ADDITION__:
 
-After adding any IdP,m ake sure you activate your provider on the app settings of the broker inside the Amazon Cognito user pool.
+After adding any IdP, make sure you __Enable__ your provider on the app settings of the broker inside the Amazon Cognito user pool.
 On the AWS console, on the Amazon Cognito User Pool page, go on `App settings` and check the box you want to activate.
 
 Your settings should look like somethink like this:
