@@ -176,6 +176,8 @@ __Setup your own domain__
 
 ## Deploying with the AWS Amplify console
 
+### Step 1: Environment Variables|
+
 If you want to use the AWS Amplify console as your CI/CD pipeline to qutomate the deployment of the solution, you will need to set the following environment variable inside your AWS Amplify console app: (You would need to add only the variables corresponding to the social platforms you have configured during the Auth CLI setup):
 
 __AMPLIFY_FACEBOOK_CLIENT_ID__
@@ -191,6 +193,8 @@ __AMPLIFY_AMAZON_CLIENT_ID__
 __AMPLIFY_AMAZON_CLIENT_SECRET__
 
 __Note:__ This variable requirement is a temporary workaround that may disapear in the future. We'll update this documentation accordingly.
+
+### Step 2: Redirect rules
 
 Once the environment is created you'll need to add the necessary redirect rules manually. On the AWS console, go to _AWS Amplify_, select your app, on the left menu click on _Rewrites and redirects_ and clic _Edit_ to input the following values:
 
@@ -210,6 +214,8 @@ Your setup should look like that:
 ![AWS console custom rules](Images/custom-rules.png "AWS console custom rules")
 
 See [the documentation](https://docs.aws.amazon.com/amplify/latest/userguide/redirects.html) for more info about how AWS Amplify console rules works.
+
+> __Why do we need this?__ We need to add the redirect rules because when the AWS Amplify Console service deploys the broker he doesn't deploy the S3 and Cloudfront hosting but use a managed hosting. Therefore the behavior we set through the CloudFormation templates of this project are not applied and we need to reproduce the same settings within the AWS Amplify Console service context.
 
 ## Register a client
 To use the identity broker you must register a client_id, redirect_uri, and logout_uri with the `amplifyIdentityBrokerClients` DynamoDB table. These values are passed as query string paramters when a request is made to the /oauth2/authorize endpoint and then checked agaisnt the table.
