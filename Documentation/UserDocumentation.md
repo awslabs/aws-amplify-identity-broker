@@ -186,6 +186,25 @@ __AMPLIFY_AMAZON_CLIENT_SECRET__
 
 __Note:__ This variable requirement is a temporary workaround that may disapear in the future. We'll update this documentation accordingly.
 
+Once the environment is created you'll need to add the necessary redirect rules manually:
+
+| First Header  | Second Header | Type |
+| ------------- | ------------- | ---- |
+| /oauth2/<*>  | <api-gateway-url>/oauth2/<*>  | 200 |
+| /storage  | <api-gateway-url>/storage  | 200 |
+| /.well-known/jwks.json  | <api-gateway-url>/.well-known/jwks.json  | 200 |
+| /verifyClient  | <api-gateway-url>/verifyClient  | 200 |
+| /logout  | /index.html  | 200 |
+| /<*>  | /index.html  | 404 |
+  
+__IMPORTANT__ The order of the redirect rules is important!
+
+Your setup should look like that:
+
+![AWS console custom rules](Images/custom-rules.png "AWS console custom rules")
+
+See [the documentation](https://docs.aws.amazon.com/amplify/latest/userguide/redirects.html) for more info about how AWS Amplify console rules works.
+
 ## Register a client
 To use the identity broker you must register a client_id, redirect_uri, and logout_uri with the `amplifyIdentityBrokerClients` DynamoDB table. These values are passed as query string paramters when a request is made to the /oauth2/authorize endpoint and then checked agaisnt the table.
 
