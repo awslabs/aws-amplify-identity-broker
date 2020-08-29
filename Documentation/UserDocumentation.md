@@ -294,7 +294,7 @@ On the AWS console, on the Amazon Cognito User Pool page, go on `App settings` a
 
 Your settings should look like somethink like this:
 
-![Active IdP settings](Images/FacebookSetupInstructions/active-idp-app-settings.png "Active IdP settings")
+![Active IdP settings](Images/active-idp-app-settings.png "Active IdP settings")
 
 ### OIDC Provider (oauth2)
 
