@@ -42,8 +42,8 @@ module.exports = function override(config, env) {
             "providers": ["AWSSSO", "OIDCIdentityProvider", "LoginWithAmazon", "Facebook", "Google"]
         };
             break;
-        case "liamidp": localConfig = {
-            "providers": ["AWSSSO", "Facebook", "LoginWithAmazon", "Google"]
+        case "liamdev": localConfig = {
+            "providers": ["Facebook", "LoginWithAmazon", "Google"]
         };
             break;
         default:

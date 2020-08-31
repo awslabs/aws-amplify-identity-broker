@@ -17,6 +17,10 @@
 		"storageamplifyIdentityBrokerCodesTableArn": {
 			"Type": "String",
 			"Default": "storageamplifyIdentityBrokerCodesTableArn"
+		},
+		"authamplifyIdentityBrokerAuthAppClientIDWeb": {
+			"Type": "String",
+			"Default": "authamplifyIdentityBrokerAuthAppClientIDWeb"
 		}
 	},
 	"Conditions": {
@@ -69,6 +73,9 @@
 						},
 						"STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_ARN": {
 							"Ref": "storageamplifyIdentityBrokerCodesTableArn"
+						},
+						"AUTH_AMPLIFYIDENTITYBROKERAUTH_APPCLIENTIDWEB": {
+							"Ref": "authamplifyIdentityBrokerAuthAppClientIDWeb"
 						}
 					}
 				},
@@ -81,8 +88,8 @@
 				"Runtime": "nodejs12.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-liamidp-90714-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerToken-54715337415369306d52-build.zip"
+					"S3Bucket": "amplify-amplify-identity-broker-liamdev-105242-deployment",
+					"S3Key": "amplify-builds/amplifyIdentityBrokerToken-4c53654d69354d5a6b62-build.zip"
 				},
 				"Layers": []
 			}

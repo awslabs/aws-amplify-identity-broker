@@ -8,6 +8,7 @@
   */
 
 /* Amplify Params - DO NOT EDIT
+	AUTH_AMPLIFYIDENTITYBROKERAUTH_APPCLIENTIDWEB
 	ENV
 	REGION
 	STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_ARN
@@ -23,6 +24,7 @@ var kmsClient = new AWS.KMS();
 var docClient = new AWS.DynamoDB.DocumentClient();
 var cognitoSP = new AWS.CognitoIdentityServiceProvider();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
+var appClientID = process.env.AUTH_AMPLIFYIDENTITYBROKERAUTH_APPCLIENTIDWEB;
 
 function base64URLEncode(str) {
     return str.toString('base64')
@@ -166,7 +168,7 @@ exports.handler = async (event) => {
 
         var params = {
             AuthFlow: 'REFRESH_TOKEN',
-            ClientId: client_id,
+            ClientId: appClientID,
             AuthParameters: {
                 "REFRESH_TOKEN": refresh_token
             }
