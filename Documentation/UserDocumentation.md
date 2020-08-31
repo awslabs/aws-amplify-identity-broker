@@ -6,15 +6,38 @@ This document explains how to use the broker:
 * How to customize
 * How to migrate from an existing user pool system
 
-## Presentation and feature overview
+## Presentation
 
-...TODO...
+The AWS Amplify Identity Broker is a centralized login solution. It is a component you can use to authenticate your user on all your websites and applications:
+
+![Projet Scope Image](./Images/SimplifiedProjectScope.png "Simplified Project Scope")
+
+The broker will be deployed within your own AWS account and will be in your full control (see _Deployment_ section).
+
+Using the broker your users will have the same unique identity accross all your websites and applications. The broker provides Single Sign On (SSO): your users will have to login only once to be authenticated on all your services (but can have different permission levels specific to every application).
+
+Optionaly you can add external IdP (Identity Providers) to the broker. Which means that the user can sign-in using your corporate (or your customer corporate) Active Directory or using Facebook, Google or Amazon login or any OIDC and SAML IdP. Technically you can add up to 300 IdPs to your broker (limit coming from Cognito documented [here](https://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)). Today user coming from any client will see the same list of IdPs but you can fork the broker project and customize the behavior to make the list dynamic and for example:
+
+* show the corporate IdP to people accessing the broker from your office private network
+* show a list of IdP specific to a customer by giving them a special URL (like a link with a get parameter flag)
+* show a list of IdP specific to a client application
+
+__Note that even if your users login in with a 3rd party IdP they will have a unique and peristent identity within the broker__ (under the hood a Cognito user pool identity).
+
+In term of UI customization because you are in control of the source code and the deployment infrastructure you can make any change you like.
+The same applies for flow customization where all the front end part are customizable using the broker and backend flows can be customized using [Cognito Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html). The broker already leverage some of these triggers to introduce special feature like i18n (internationalization).
+
+Finaly the broker is a living open source project and your contributions are welcome if you see a missing feature that can be useful to all the broker users. Please see the [Developer Documentation](./DeveloperDocumentation.md) if you are interested by contributing.
 
 ### Choose your flow
+
+Selecting an authentication flow is a critical decision in term of security. We support several options to allow you connecting existing application that supports only one specific flow.
 
 The AWS Amplify identity broker exposes two standard Oauth2 authentication flows:
 * __Implicit flow__: the simpler one. It require just a link from your app and for you to read a GET parameter. This flow only returns an _id_token_ you __should not__ use an id_token to authenticate a user against a backend. (see details below)
 * __PKCE flow__: the most secured flow. It will require you to generate random strings, apply some hashed and exchange information two times with the broker.
+
+The broker is not 100% compliant to the Oauth2 flow (see _Differences with the OIDC standard__ section below for more detail)
 
 Expand the section below to see the detailed flows:
 
@@ -50,6 +73,14 @@ Expand the section below to see the detailed flows:
 </details>
 
 See [Client Developer Documentation](./ClientDeveloperDocumentation.md) to see how to implement a client using these flows.
+
+### Differences with the OIDC standard
+
+The AWS Amplify identity broker follows the [OpenID Connect 1.0 standard](https://openid.net/specs/openid-connect-core-1_0.html) with two exceptions:
+
+* __Oauth2 scopes__ : The Oauth2 scope cannot be injected in the _access_token_ by the broker (because Cognito do not expose a Trigger for that). If you need to scope user permission inside your client application, the workaround we suggest is to add custom values (like scopes) inside the _id_token_ using the [Pre token generation Lambda trigger](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-token-generation.html). Then inside your client applications make sure you send both the _access_token_ and the _id_token_ to your backend. Your backend can then check both tokens and use the custom claims (your _scopes_) to make decision regarding permission to provide.
+
+* __/oauth2/userinfo__: The Oauth2 standard [stipulate](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo) that the UserInfo endpoint MUST accept Access Tokens as OAuth 2.0 Bearer Token Usage. The broker do not use that but instead is expecting the token to be provided inside a HTTP header named __access_token__. If this is a bloker for you, you can use the [UserInfo endpoint that Cognito expose](https://docs.aws.amazon.com/cognito/latest/developerguide/userinfo-endpoint.html) directly.
 
 ## Deployment
 
@@ -388,10 +419,12 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 ## Migration instructions
 
-__PREREQUISITE__: 
-In order for the User Migration to be successful, We need to make sure that the Lambda code is probably set for your specific existing userpool. Currently the Lambda user-migration function is setup for migrating from the existing Cognito userpool to the current Cognito userpool for demonstration purposes.
+__DISCLAIMER__:
+Migrating credentials from an existing system to Cognito comes with the risk that these credentials have been exposed in the past. For better security it is recommended to force the users to recreate passwords. The documentation below shows how to migrate users and credentials for learning puspose only.
 
-[Lambda User Migration Code](https://github.com/awslabs/aws-amplify-identity-broker/blob/5e348800fb22b6c9f91d471f139f85e3eea38a54/amplify/backend/function/amplifyIdentityBrokerMigration/src/index.js)
+In this project we provide an example of a Lambda function that migrate users one at a time. For our demo we migrate the users from a _legacy_ Cognito user pool to the broker user pool. If your pool of user is not Cognito you'll have to adapt the source code to match with your system APIs.
+
+[Lambda User Migration Code](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/amplify/backend/function/amplifyIdentityBrokerMigration/src/index.js)
 
 [Migration Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-migrate-user.html#cognito-user-pools-lambda-trigger-syntax-user-migration)
 

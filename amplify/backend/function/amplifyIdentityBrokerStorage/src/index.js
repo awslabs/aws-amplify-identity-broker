@@ -16,8 +16,31 @@ Amplify Params - DO NOT EDIT */
 
 const AWS = require('aws-sdk');
 
+var kmsClient = new AWS.KMS();
+var keyIdAlias = "alias/amplifyIdentityBrokerTokenStorageKey-" + process.env.ENV;
+
 var docClient = new AWS.DynamoDB.DocumentClient();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
+
+async function encryptToken(token) {
+    var params = {
+        KeyId: keyIdAlias,
+        Plaintext: token
+    };
+    return new Promise(function (resolve, reject) {
+        kmsClient.encrypt(params, function (err, data) {
+            if (err) {
+                console.error(err, err.stack);
+                reject(err);
+            }
+            else {
+                // Encryption has been successful
+                var encryptedToken = data.CiphertextBlob;
+                resolve(encryptedToken);
+            }
+        });
+    });
+}
 
 exports.handler = async (event) => {
     if (!event.body) {
@@ -40,6 +63,10 @@ exports.handler = async (event) => {
         };
     }
 
+    var encrypted_id_token = await encryptToken(id_token);
+    var encrypted_access_token = await encryptToken(access_token);
+    var encrypted_refresh_token = await encryptToken(refresh_token);
+
     var params = {
         TableName: codesTableName,
         Key: {
@@ -47,14 +74,14 @@ exports.handler = async (event) => {
         },
         UpdateExpression: "SET id_token = :idt, access_token = :at, refresh_token = :rt",
         ExpressionAttributeValues: {
-            ":idt": id_token,
-            ":at": access_token,
-            ":rt": refresh_token
+            ":idt": encrypted_id_token,
+            ":at": encrypted_access_token,
+            ":rt": encrypted_refresh_token
         }
     };
 
     try {
-        var result = await docClient.update(params).promise();
+        await docClient.update(params).promise();
     } catch (error) {
         console.error(error);
         return {

@@ -1,0 +1,79 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  env:
+    Type: String
+
+  functionamplifyIdentityBrokerAuthorizeLambdaExecutionRoleArn:
+    Type: String
+    Default: functionamplifyIdentityBrokerAuthorizeLambdaExecutionRoleArn
+
+  functionamplifyIdentityBrokerTokenLambdaExecutionRoleArn:
+    Type: String
+    Default: functionamplifyIdentityBrokerTokenLambdaExecutionRoleArn
+
+  functionamplifyIdentityBrokerStorageLambdaExecutionRoleArn:
+    Type: String
+    Default: functionamplifyIdentityBrokerStorageLambdaExecutionRoleArn
+
+  parentStack:
+    Type: String
+
+  permissions:
+    Type: CommaDelimitedList
+
+  dependsOn:
+    Type: CommaDelimitedList
+
+  resourceNameTruncated:
+    Type: String
+
+Conditions:
+  ShouldNotCreateEnvResources: !Equals [!Ref env, NONE]
+
+Resources:
+  TokenStorageEncryptionKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: Symmetric key that encrypt token information inside the amplifyIdentityBrokerCodesTableName table
+      KeyPolicy:
+        Version: '2012-10-17'
+        Id: key-broker-1
+        Statement:
+        - Sid: Enable IAM User Permissions
+          Effect: Allow
+          Principal:
+            AWS:
+              Fn::Sub: arn:aws:iam::${AWS::AccountId}:root
+          Action: kms:*
+          Resource: "*"
+        - Sid: Allow amplifyIdentityBrokerStorage and amplifyIdentityBrokerAuthorize Lambdas
+          Effect: Allow
+          Principal:
+            AWS:
+            - !Ref functionamplifyIdentityBrokerAuthorizeLambdaExecutionRoleArn
+            - !Ref functionamplifyIdentityBrokerStorageLambdaExecutionRoleArn
+          Action:
+          - kms:Encrypt
+          Resource: "*"
+        - Sid: Allow amplifyIdentityToken Lambda
+          Effect: Allow
+          Principal:
+            AWS: !Ref functionamplifyIdentityBrokerTokenLambdaExecutionRoleArn
+          Action:
+          - kms:Decrypt
+          Resource: "*"
+      KeyUsage: ENCRYPT_DECRYPT
+      PendingWindowInDays: 7
+  TokenStorageEncryptionKeyAlias:
+    Type: AWS::KMS::Alias
+    Properties: 
+      AliasName: !Sub "alias/amplifyIdentityBrokerTokenStorageKey-${env}"
+      TargetKeyId: !Ref TokenStorageEncryptionKey
+Outputs:
+  KMSKeyID:
+    Value: !Ref "TokenStorageEncryptionKey"
+    Description: Id of the CMK used by the AWS Amplify identity broker
+  KMSKeyAlias:
+    Value: !Sub "alias/amplifyIdentityBrokerTokenStorageKey-${env}"
+    Description: Alias of the CMK used by the AWS Amplify identity broker
