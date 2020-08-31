@@ -37,6 +37,25 @@ function sha256(buffer) {
     return crypto.createHash('sha256').update(buffer).digest();
 }
 
+async function decryptToken(token) {
+    var params = {
+        CiphertextBlob: Buffer.from(token, 'base64')
+    };
+    return new Promise(function (resolve, reject) {
+        kmsClient.decrypt(params, function (err, data) {
+            if (err) {
+                console.error(err, err.stack);
+                reject(err);
+            }
+            else {
+                // Decryption has been successful
+                var decryptedToken = data.Plaintext.toString('ascii');
+                resolve(decryptedToken);
+            }
+        });
+    });
+}
+
 exports.handler = async (event) => {
     if (!(event && event.body)) {
         return {
@@ -126,17 +145,9 @@ exports.handler = async (event) => {
         }
         try {
             // Decrypt the tokens
-            const access_token_req = { CiphertextBlob: Buffer.from(access_token, 'base64') };
-            const access_token_data = await kmsClient.decrypt(access_token_req).promise();
-            access_token_clear_text = access_token_data.Plaintext.toString('ascii');
-
-            const id_token_req = { CiphertextBlob: Buffer.from(id_token, 'base64') };
-            const id_token_data = await kmsClient.decrypt(id_token_req).promise();
-            id_token_clear_text = id_token_data.Plaintext.toString('ascii');
-
-            const refresh_token_req = { CiphertextBlob: Buffer.from(refresh_token, 'base64') };
-            const refresh_token_data = await kmsClient.decrypt(refresh_token_req).promise();
-            refresh_token_clear_text = refresh_token_data.Plaintext.toString('ascii');
+            var access_token_clear_text = await decryptToken(access_token);
+            var id_token_clear_text = await decryptToken(id_token);
+            var refresh_token_clear_text = await decryptToken(refresh_token);
         } catch (err) {
             console.error('Decrypt error:', err);
             return {
