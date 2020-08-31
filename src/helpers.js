@@ -35,30 +35,16 @@ export function eraseCookie(name) {
 }
 
 export async function storeTokens(authorization_code, idToken, accessToken, refreshToken) {
-    var response;
-    if (refreshToken) {
-        response = await axios.post( // Call storage endpoint to store tokens in dynamoDB
-            '/storage',
-            {
-                authorization_code: authorization_code,
-                id_token: idToken,
-                access_token: accessToken,
-                refresh_token: refreshToken
-            },
-            { headers: { 'Content-Type': 'application/json' } }
-        )
-    }
-    else {
-        response = await axios.post( // Call storage endpoint to store tokens in dynamoDB
-            '/storage',
-            {
-                authorization_code: authorization_code,
-                id_token: idToken,
-                access_token: accessToken
-            },
-            { headers: { 'Content-Type': 'application/json' } }
-        )
-    }
+    var response = await axios.post( // Call storage endpoint to store tokens in dynamoDB
+        '/storage',
+        {
+            authorization_code: authorization_code,
+            id_token: idToken,
+            access_token: accessToken,
+            refresh_token: refreshToken
+        },
+        { headers: { 'Content-Type': 'application/json' } }
+    )
     return response;
 }
 
@@ -66,4 +52,10 @@ export function setTokenCookie(type, token) {
     let tokenDecoded = jwt_decode(token);
     let tokenExpiry = tokenDecoded['exp'];
     setCookie(type, token, tokenExpiry);
+}
+
+export function setRefreshTokenCookie(refreshToken, accessToken) { // Use expiry of access token to set the refresh token cookie
+    let tokenDecoded = jwt_decode(accessToken);
+    let tokenExpiry = tokenDecoded['exp'];
+    setCookie("refresh_token", refreshToken, tokenExpiry);
 }

@@ -33,16 +33,16 @@ async function encryptToken(token) {
         KeyId: keyIdAlias,
         Plaintext: token
     };
-    return new Promise(function(resolve, reject) {
-        kmsClient.encrypt(params, function(err, data) {
-            if (err){
+    return new Promise(function (resolve, reject) {
+        kmsClient.encrypt(params, function (err, data) {
+            if (err) {
                 console.error(err, err.stack);
                 reject(err);
             }
             else {
-            // Encryption has been successful
-            var encryptedToken = data.CiphertextBlob;
-            resolve(encryptedToken);
+                // Encryption has been successful
+                var encryptedToken = data.CiphertextBlob;
+                resolve(encryptedToken);
             }
         });
     });
@@ -111,16 +111,17 @@ async function handlePKCE(event) {
     const authorizationCode = uuidv4();
     const currentTime = Date.now();
     const codeExpiry = currentTime + CODE_LIFE;
-    const recordExpiry = currentTime + RECORD_LIFE;
+    const recordExpiry = Math.floor((currentTime + RECORD_LIFE) / 1000); // TTL must be in seconds
     var params;
 
     var cookies = await getCookiesFromHeader(event.headers);
-    var canReturnTokensDirectly = cookies.id_token && cookies.access_token ? true : false; // If there is already an id_token and access_token cookie we can return the tokens directly
+    var canReturnTokensDirectly = cookies.id_token && cookies.access_token && cookies.refresh_token ? true : false; // If there are already token cookies we can return the tokens directly
 
     if (canReturnTokensDirectly) {
 
         var encrypted_id_token = await encryptToken(cookies.id_token);
         var encrypted_access_token = await encryptToken(cookies.access_token);
+        var encrypted_refresh_token = await encryptToken(cookies.refresh_token);
 
         params = { // Add tokens from cookie to what is being stored in dynamodb
             TableName: codesTableName,
@@ -132,7 +133,9 @@ async function handlePKCE(event) {
                 code_expiry: codeExpiry,
                 record_expiry: recordExpiry,
                 id_token: encrypted_id_token,
-                access_token: encrypted_access_token
+                access_token: encrypted_access_token,
+                refresh_token: encrypted_refresh_token
+
             }
         };
     }

@@ -27,16 +27,16 @@ async function encryptToken(token) {
         KeyId: keyIdAlias,
         Plaintext: token
     };
-    return new Promise(function(resolve, reject) {
-        kmsClient.encrypt(params, function(err, data) {
-            if (err){
+    return new Promise(function (resolve, reject) {
+        kmsClient.encrypt(params, function (err, data) {
+            if (err) {
                 console.error(err, err.stack);
                 reject(err);
             }
             else {
-            // Encryption has been successful
-            var encryptedToken = data.CiphertextBlob;
-            resolve(encryptedToken);
+                // Encryption has been successful
+                var encryptedToken = data.CiphertextBlob;
+                resolve(encryptedToken);
             }
         });
     });
@@ -56,46 +56,29 @@ exports.handler = async (event) => {
     var access_token = jsonBody.access_token;
     var refresh_token = jsonBody.refresh_token;
 
-    if (authorization_code === undefined || id_token === undefined || access_token === undefined) {
+    if (authorization_code === undefined || id_token === undefined || access_token === undefined || refresh_token === undefined) {
         return {
             statusCode: 400,
             body: JSON.stringify('Body missing values'),
         };
     }
 
-
-    var encrypted_id_token = await encryptToken(id_token);  
+    var encrypted_id_token = await encryptToken(id_token);
     var encrypted_access_token = await encryptToken(access_token);
+    var encrypted_refresh_token = await encryptToken(refresh_token);
 
-    var params;
-    if (refresh_token === undefined) {
-        params = {
-            TableName: codesTableName,
-            Key: {
-                authorization_code: authorization_code
-            },
-            UpdateExpression: "SET id_token = :idt, access_token = :at",
-            ExpressionAttributeValues: {
-                ":idt": encrypted_id_token,
-                ":at": encrypted_access_token
-            }
-        };
-    }
-    else {
-        var encrypted_refresh_token = await encryptToken(refresh_token);
-        params = {
-            TableName: codesTableName,
-            Key: {
-                authorization_code: authorization_code
-            },
-            UpdateExpression: "SET id_token = :idt, access_token = :at, refresh_token = :rt",
-            ExpressionAttributeValues: {
-                ":idt": encrypted_id_token,
-                ":at": encrypted_access_token,
-                ":rt": encrypted_refresh_token
-            }
-        };
-    }
+    var params = {
+        TableName: codesTableName,
+        Key: {
+            authorization_code: authorization_code
+        },
+        UpdateExpression: "SET id_token = :idt, access_token = :at, refresh_token = :rt",
+        ExpressionAttributeValues: {
+            ":idt": encrypted_id_token,
+            ":at": encrypted_access_token,
+            ":rt": encrypted_refresh_token
+        }
+    };
 
     try {
         await docClient.update(params).promise();
