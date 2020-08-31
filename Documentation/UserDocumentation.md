@@ -287,6 +287,15 @@ Example:
 
 See next sections for specific provider steps.
 
+__AFTER ANY IDP ADDITION__:
+
+After adding any IdP, make sure you __Enable__ your provider on the app settings of the broker inside the Amazon Cognito user pool.
+On the AWS console, on the Amazon Cognito User Pool page, go on `App settings` and check the box you want to activate.
+
+Your settings should look like somethink like this:
+
+![Active IdP settings](Images/active-idp-app-settings.png "Active IdP settings")
+
 ### OIDC Provider (oauth2)
 
 Follow the [Amazon Cognito User Pool OIDC IDP documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-oidc-idp.html). Remember the name you choose for your provider, you have to use it inside _config-overrides.js_ and _src/strings.js_ as explained before.
