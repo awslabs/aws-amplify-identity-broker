@@ -39,7 +39,7 @@ You can sign-up, sign-in, try SSO from any of these client application demos:
 
 In a real use case, your user will only go to the broker from a client website or app, but for reference the Broker demo url itself is: 
 
-* https://d2zxvlukxu4lhp.cloudfront.net _(this could be __login.yourcompany.com__)_
+* https://master.dw8p5s05jola3.amplifyapp.com _(this could be __login.yourcompany.com__)_
 
 > __Demo Credentials__
 > 

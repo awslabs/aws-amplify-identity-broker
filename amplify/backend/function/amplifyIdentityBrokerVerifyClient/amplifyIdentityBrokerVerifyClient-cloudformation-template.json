@@ -82,7 +82,7 @@
 				"Layers": [],
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-liamidp-90714-deployment",
+					"S3Bucket": "amplify-amplify-identity-broker-prod-111206-deployment",
 					"S3Key": "amplify-builds/amplifyIdentityBrokerVerifyClient-57706753446572306965-build.zip"
 				}
 			}

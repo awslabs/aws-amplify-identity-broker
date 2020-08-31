@@ -19,7 +19,7 @@ if (!fs.existsSync("./amplify/backend/amplify-meta.json")) {
     amplifyMeta = require("./amplify/backend/amplify-meta.json");
 }
 const REGEX = /.*-(\w+)/;
-const AMPLIFY_ENV = amplifyMeta.hosting.S3AndCloudFront.output.HostingBucketName.match(REGEX)[1];
+const AMPLIFY_ENV = amplifyMeta.storage.amplifyIdentityBrokerCodesTable.output.Name.match(REGEX)[1];
 
 console.log("Injecting config");
 console.log("AMPLIFY_ENV is " + AMPLIFY_ENV);
@@ -38,16 +38,8 @@ module.exports = function override(config, env) {
             "hostedUIUrl": "https://vp-prod.auth.us-west-2.amazoncognito.com",
         };
             break;
-        case "envliamaws": localConfig = {
-            "providers": ["LoginWithAmazon", "Facebook", "Google"],
-            "hostedUIUrl": "https://liamenv.auth.us-east-1.amazoncognito.com",
-        };
-            break;
-        case "kevnvoaws": localConfig = {
-            "providers": ["AWSSSO", "LoginWithAmazon", "Facebook", "Google"],
-            "hostedUIUrl": "https://kevnvo.auth.us-west-2.amazoncognito.com",
-            // This is added to any ENV that want to use User-Migration, the authenication flow type need to be set to USER_PASSWORD_AUTH from default(USER_SRP_AUTH)
-            "authenticationFlowType": "USER_PASSWORD_AUTH",
+        case "prod": localConfig = {
+            "providers": ["AWSSSO", "OIDCIdentityProvider", "LoginWithAmazon", "Facebook", "Google"]
         };
             break;
         case "liamidp": localConfig = {
