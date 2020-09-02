@@ -32,6 +32,8 @@ class Settings extends React.Component {
         this.props.history.push('/logout');
     }
 
+    // Currently only displaying current user attributes 
+    // To update user attributes use Auth.updateUserAttributes() https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#updateuserattributes
     render() {
         if (this.state.userAttributes.length === 0) {
             return null
