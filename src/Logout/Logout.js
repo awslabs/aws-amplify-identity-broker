@@ -11,8 +11,6 @@ import React from 'react';
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
 import { eraseCookie } from '../helpers'
-import awsconfig from '../aws-exports';
-var Config = require("Config");
 
 class Logout extends React.Component {
     componentDidMount() {

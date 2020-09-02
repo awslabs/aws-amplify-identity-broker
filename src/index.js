@@ -13,11 +13,13 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import Logout from './Logout/Logout';
+import Settings from './Settings/Settings';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+      <Route exact path="/settings" component={Settings} />
       <Route exact path="/logout" component={Logout} />
       <Route exact path="/" component={App} />
     </BrowserRouter>

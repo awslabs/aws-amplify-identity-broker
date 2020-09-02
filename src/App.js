@@ -126,6 +126,9 @@ class App extends React.Component {
       else if (redirect_uri) { // Implicit Flow
         window.location.replace(redirect_uri + '/?id_token=' + idToken);
       }
+      else { // Sign in directly to broker (not from redirect from client as part of oauth2 flow)
+        window.location.href = '/settings';
+      }
     }
     else if (authState === "signedout") {
       eraseCookie("id_token");
