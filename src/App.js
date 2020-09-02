@@ -9,12 +9,13 @@
 
 import React from 'react';
 import { Auth, Amplify } from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifyForgotPassword } from '@aws-amplify/ui-react';
+import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifyForgotPassword, AmplifyConfirmSignUp } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 import awsconfig from './aws-exports';
+import { any } from 'bluebird';
 var Config = require("Config");
 
 Amplify.configure({
@@ -76,6 +77,7 @@ class App extends React.Component {
     }
     Auth.federatedSignIn({ provider: identity_provider });
   }
+
 
   async handleAuthUIStateChange(authState) {
     if (authState === AuthState.SignedIn) {
@@ -163,7 +165,7 @@ class App extends React.Component {
           }
           {
             this.IdPLogin &&
-            <div className="hr-sect">{I18n.get("OR")}</div>
+            <div className="hr-sect">{I18n.get("OR")} </div>
           }
           <AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
             <AmplifyForgotPassword
@@ -178,6 +180,7 @@ class App extends React.Component {
             <AmplifySignIn
               usernameAlias="email"
               slot="sign-in"
+
               formFields={[
                 {
                   type: "email",
@@ -230,6 +233,20 @@ class App extends React.Component {
                 }
                 */
               ]}></AmplifySignUp>
+            <AmplifyConfirmSignUp
+              usernameAlias="email"
+              slot="confirm-sign-up"
+              formFields={[
+                {
+                  type: "email",
+                  required: false,
+                  label: I18n.get("VERIFY_EMAIL"),
+                  inputProps: {
+                    type: 'hidden',
+                  }
+                }
+              ]}></AmplifyConfirmSignUp>
+
             <div>
               {I18n.get("WAIT_REDIRECTION")}
               <AmplifySignOut />

@@ -1,54 +1,18 @@
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "Lambda resource stack creation using Amplify CLI",
+	"Description": "Lambda Function resource stack creation using Amplify CLI",
 	"Parameters": {
-		"REDIRECTURL": {
+		"CloudWatchRule": {
 			"Type": "String",
-			"Default": ""
-		},
-		"BROKERAUTHURL": {
-			"Type": "String",
-			"Default": ""
-		},
-		"EMAILMESSAGE": {
-			"Type": "String",
-			"Default": ""
-		},
-		"EMAILSUBJECT": {
-			"Type": "String",
-			"Default": ""
-		},
-		"modules": {
-			"Type": "String",
-			"Default": "",
-			"Description": "Comma-delimmited list of modules to be executed by a lambda trigger. Sent to resource as an env variable."
-		},
-		"resourceName": {
-			"Type": "String",
-			"Default": ""
-		},
-		"trigger": {
-			"Type": "String",
-			"Default": "true"
-		},
-		"functionName": {
-			"Type": "String",
-			"Default": ""
-		},
-		"roleName": {
-			"Type": "String",
-			"Default": ""
-		},
-		"parentResource": {
-			"Type": "String",
-			"Default": ""
-		},
-		"parentStack": {
-			"Type": "String",
-			"Default": ""
+			"Default": "NONE",
+			"Description": " Schedule Expression"
 		},
 		"env": {
 			"Type": "String"
+		},
+		"hostingS3AndCloudFrontCloudFrontSecureURL": {
+			"Type": "String",
+			"Default": "https://example.com"
 		}
 	},
 	"Conditions": {
@@ -73,12 +37,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyIdentityBrokerCustomMessage",
+						"amplifyIdentityBrokerVerifyCode",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyIdentityBrokerCustomMessage",
+									"amplifyIdentityBrokerVerifyCode",
 									"-",
 									{
 										"Ref": "env"
@@ -93,26 +57,11 @@
 						"ENV": {
 							"Ref": "env"
 						},
-						"MODULES": {
-							"Ref": "modules"
-						},
 						"REGION": {
 							"Ref": "AWS::Region"
 						},
-						"REDIRECTURL": {
-							"Ref": "REDIRECTURL"
-						},
-						"BROKERAUTHURL": {
-							"Ref": "BROKERAUTHURL"
-						},
-						"EMAILSUBJECT": {
-							"Ref": "EMAILSUBJECT"
-						},
-						"EMAILMESSAGE": {
-							"Ref": "EMAILMESSAGE"
-						},
-						"RESOURCENAME": {
-							"Ref": "resourceName"
+						"POST_REGISTRATION_VERIFICATION_REDIRECT_URL": {
+							"Ref": "hostingS3AndCloudFrontCloudFrontSecureURL"
 						}
 					}
 				},
@@ -122,11 +71,12 @@
 						"Arn"
 					]
 				},
-				"Runtime": "nodejs10.x",
+				"Runtime": "nodejs12.x",
+				"Layers": [],
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-liamdev-105242-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerCustomMessage-6c2b4c725a754974724f-build.zip"
+					"S3Bucket": "amplify-amplify-identity-broker-sampledev-201259-deployment",
+					"S3Key": "amplify-builds/amplifyIdentityBrokerVerifyCode-73724532514258764677-build.zip"
 				}
 			}
 		},
@@ -136,12 +86,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyIdentityBrokerCustomMessage",
+						"amplifyidentitybrokerLambdaRole5e2b43fb",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyIdentityBrokerCustomMessage",
+									"amplifyidentitybrokerLambdaRole5e2b43fb",
 									"-",
 									{
 										"Ref": "env"
@@ -227,14 +177,14 @@
 				]
 			}
 		},
-		"LambdaExecutionRole": {
-			"Value": {
-				"Ref": "LambdaExecutionRole"
-			}
-		},
 		"Region": {
 			"Value": {
 				"Ref": "AWS::Region"
+			}
+		},
+		"LambdaExecutionRole": {
+			"Value": {
+				"Ref": "LambdaExecutionRole"
 			}
 		}
 	}

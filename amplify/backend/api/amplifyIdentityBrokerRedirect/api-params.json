@@ -1,0 +1,34 @@
+{
+    "paths": [
+        {
+            "name": "/redirect",
+            "lambdaFunction": "amplifyIdentityBrokerVerifyCode",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "amplifyIdentityBrokerRedirect",
+    "apiName": "amplifyIdentityBrokerRedirect",
+    "functionArns": [
+        {
+            "lambdaFunction": "amplifyIdentityBrokerVerifyCode"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-amplify-identity-broker-sampledev-201259-authRole",
+        "unAuthRoleName": "amplify-amplify-identity-broker-sampledev-201259-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerVerifyCode",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

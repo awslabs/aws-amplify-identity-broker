@@ -7,30 +7,41 @@
   * the License.
   */
 
-var providerName = "Amplify Identity Broker";
-exports.handler = (event, context, callback) => {
-  console.log(event);
-  // Identify why was this function invoked
-  if (event.triggerSource === "CustomMessage_SignUp") {
-    let lang = event.request.userAttributes["locale"]; // Acesss the event data of custom user Attribute lang
-    console.log("Lang is " + lang);
+ var providerName = "Amplify Identity Broker";
+ exports.handler = (event, context, callback) => {
+   console.log(event);
 
-    // Ensure that your message contains event.request.codeParameter. This is the placeholder for code that will be sent
-    // French
-    if (lang == "fr") {
-      event.response.smsMessage = "Bienvenue à " + providerName + ". Votre code de confirmation est " + event.request.codeParameter;
-      event.response.emailSubject = "Bienvenue à " + providerName;
-      event.response.emailMessage = "Merci pour votre inscription. " + event.request.codeParameter + " est votre code de vérification";
-    }
-    //English
-    else {
-      event.response.smsMessage = "Welcome to " + providerName + ". Your confirmation code is " + event.request.codeParameter;
-      event.response.emailSubject = "Welcome to " + providerName;
-      event.response.emailMessage = "Thank you for signing up. " + event.request.codeParameter + " is your verification code";
-    }
-  }
-  // Create custom message for other events
-
-  // Return to Amazon Cognito
-  callback(null, event);
-};
+   const url = process.env.REDIRECTURL;
+   const userName = event.userName;
+   const region = event.region;
+   const email = event.request.userAttributes.email;
+   const codeParameter = event.request.codeParameter;
+   const clientId = event.callerContext.clientId;
+   
+ 
+   // Identify why was this function invoked
+   if (event.triggerSource === "CustomMessage_SignUp") {
+     let lang = event.request.userAttributes["locale"]; // Acesss the event data of custom user Attribute lang
+     console.log("Lang is " + lang);
+ 
+     // Ensure that your message contains event.request.codeParameter. This is the placeholder for code that will be sent
+     // French
+     if (lang == "fr") {
+       const link = `<a href="${url}?code=${codeParameter}&username=${userName}&clientId=${clientId}&region=${region}&email=${email}" target="_blank"> lien </a>`;
+       event.response.smsMessage = "Bienvenue à " + providerName + ". Votre code de confirmation est " + event.request.codeParameter;
+       event.response.emailSubject = "Action requise: Vérifiez vos coordonnées";
+       event.response.emailMessage = `Merci de vous être inscrit. Cliquez ici ${link} pour vérifier votre email.`;
+     }
+     //English
+     else {
+       const link = `<a href="${url}?code=${codeParameter}&username=${userName}&clientId=${clientId}&region=${region}&email=${email}" target="_blank"> link </a>`;
+       event.response.smsMessage = "Welcome to " + providerName + ". Your confirmation code is " + event.request.codeParameter;
+       event.response.emailSubject = "Action required: Verify your contact info.";
+       event.response.emailMessage = `Thank you for signing up. Click this ${link} to verify your email.`;
+     }
+   }
+   // Create custom message for other events
+ 
+   // Return to Amazon Cognito
+   callback(null, event);
+ };
