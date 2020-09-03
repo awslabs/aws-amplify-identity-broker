@@ -10,9 +10,9 @@
 		"env": {
 			"Type": "String"
 		},
-		"hostingS3AndCloudFrontCloudFrontSecureURL": {
+		"REDIRECTURL": {
 			"Type": "String",
-			"Default": "https://example.com"
+			"Default": "https://d1prnzg9jptzq4.cloudfront.net"
 		}
 	},
 	"Conditions": {
@@ -37,12 +37,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyIdentityBrokerVerifyCode",
+						"amplifyIdentityBrokerAccountConfirmation",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyIdentityBrokerVerifyCode",
+									"amplifyIdentityBrokerAccountConfirmation",
 									"-",
 									{
 										"Ref": "env"
@@ -60,8 +60,8 @@
 						"REGION": {
 							"Ref": "AWS::Region"
 						},
-						"POST_REGISTRATION_VERIFICATION_REDIRECT_URL": {
-							"Ref": "hostingS3AndCloudFrontCloudFrontSecureURL"
+						"REDIRECTURL": {
+							"Ref": "REDIRECTURL"
 						}
 					}
 				},
@@ -76,7 +76,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-amplify-identity-broker-sampledev-201259-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerVerifyCode-73724532514258764677-build.zip"
+					"S3Key": "amplify-builds/amplifyIdentityBrokerAccountConfirmation-2f74797a3775512f4552-build.zip"
 				}
 			}
 		},
@@ -86,12 +86,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"amplifyidentitybrokerLambdaRole5e2b43fb",
+						"amplifyidentitybrokerLambdaRole494058b9",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"amplifyidentitybrokerLambdaRole5e2b43fb",
+									"amplifyidentitybrokerLambdaRole494058b9",
 									"-",
 									{
 										"Ref": "env"

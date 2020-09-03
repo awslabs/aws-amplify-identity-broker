@@ -4,7 +4,7 @@
 	"Parameters": {
 		"REDIRECTURL": {
 			"Type": "String",
-			"Default": ""
+			"Default": "https://d1prnzg9jptzq4.cloudfront.net"
 		},
 		"BROKERAUTHURL": {
 			"Type": "String",
@@ -125,8 +125,8 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-liamdev-105242-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerCustomMessage-6c2b4c725a754974724f-build.zip"
+					"S3Bucket": "amplify-amplify-identity-broker-sampledev-201259-deployment",
+					"S3Key": "amplify-builds/amplifyIdentityBrokerCustomMessage-68702f524872714c7033-build.zip"
 				}
 			}
 		},

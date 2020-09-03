@@ -11,7 +11,7 @@
  exports.handler = (event, context, callback) => {
    console.log(event);
 
-   const url = process.env.REDIRECTURL;
+   const url = process.env.REDIRECTURL + "/accountConfirmation";
    const userName = event.userName;
    const region = event.region;
    const email = event.request.userAttributes.email;

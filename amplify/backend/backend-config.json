@@ -133,126 +133,120 @@
         }
       ]
     },
-      "amplifyIdentityBrokerUserInfo": {
-        "build": true,
-        "providerPlugin": "awscloudformation",
-        "service": "Lambda",
-        "dependsOn": []
-      },
-      "amplifyIdentityBrokerExposeJWKS": {
-        "build": true,
-        "providerPlugin": "awscloudformation",
-        "service": "Lambda",
-        "dependsOn": [
-          {
-            "category": "auth",
-            "resourceName": "amplifyIdentityBrokerAuth",
-            "attributes": [
-              "UserPoolId"
-            ]
-          }
-        ]
-      },
-      "amplifyIdentityBrokerVerifyClient": {
-        "build": true,
-        "providerPlugin": "awscloudformation",
-        "service": "Lambda",
-        "dependsOn": [
-          {
-            "category": "storage",
-            "resourceName": "amplifyIdentityBrokerClientsTable",
-            "attributes": [
-              "Name",
-              "Arn"
-            ]
-          }
-        ]
-      },
-      "amplifyIdentityBrokerVerifyCode": {
-        "build": true,
-        "providerPlugin": "awscloudformation",
-        "service": "Lambda",
-        "dependsOn": []
-      }
+    "amplifyIdentityBrokerUserInfo": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": []
     },
-    "api": {
-      "amplifyIdentityBrokerApi": {
-        "service": "API Gateway",
-        "providerPlugin": "awscloudformation",
-        "dependsOn": [
-          {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerAuthorize",
-            "attributes": [
-              "Name",
-              "Arn"
-            ]
-          },
-          {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerToken",
-            "attributes": [
-              "Name",
-              "Arn"
-            ]
-          },
-          {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerStorage",
-            "attributes": [
-              "Name",
-              "Arn"
-            ]
-          },
-          {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerUserInfo",
-            "attributes": [
-              "Name",
-              "Arn"
-            ]
-          },
-          {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerExposeJWKS",
-            "attributes": [
-              "Name",
-              "Arn"
-            ]
-          },
-          {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerVerifyClient",
-            "attributes": [
-              "Name",
-              "Arn"
-            ]
-          }
-        ]
-      },
-      "amplifyIdentityBrokerRedirect": {
-        "service": "API Gateway",
-        "providerPlugin": "awscloudformation",
-        "dependsOn": [
-          {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerVerifyCode",
-            "attributes": [
-              "Name",
-              "Arn"
-            ]
-          }
-        ]
-      }
+    "amplifyIdentityBrokerExposeJWKS": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amplifyIdentityBrokerAuth",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ]
     },
-    "storage": {
-      "amplifyIdentityBrokerCodesTable": {
-        "service": "DynamoDB",
-        "providerPlugin": "awscloudformation"
-      },
-      "amplifyIdentityBrokerClientsTable": {
-        "service": "DynamoDB",
-        "providerPlugin": "awscloudformation"
-      }
+    "amplifyIdentityBrokerVerifyClient": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "amplifyIdentityBrokerClientsTable",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
+    },
+    "amplifyIdentityBrokerAccountConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": []
+    }
+  },
+  "api": {
+    "amplifyIdentityBrokerApi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerAuthorize",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerToken",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerStorage",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerUserInfo",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerExposeJWKS",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerVerifyClient",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerAccountConfirmation",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
+    }
+  },
+  "storage": {
+    "amplifyIdentityBrokerCodesTable": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
+    },
+    "amplifyIdentityBrokerClientsTable": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
     }
   }
+}

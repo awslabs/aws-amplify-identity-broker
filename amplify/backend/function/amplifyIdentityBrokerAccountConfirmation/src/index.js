@@ -27,7 +27,7 @@ let confirmSignUp = CognitoIdentityServiceProvider.confirmSignUp(params).promise
 confirmSignUp.then(
         (data) => {
             context.succeed({
-                location: process.env.POST_REGISTRATION_VERIFICATION_REDIRECT_URL
+                location: process.env.REDIRECTURL
             });
         }
     ).catch(
