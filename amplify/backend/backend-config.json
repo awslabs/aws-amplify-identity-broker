@@ -95,6 +95,13 @@
       "service": "Lambda",
       "dependsOn": [
         {
+          "category": "auth",
+          "resourceName": "amplifyIdentityBrokerAuth",
+          "attributes": [
+              "AppClientIDWeb"
+          ]
+        },
+        {
           "category": "storage",
           "resourceName": "amplifyIdentityBrokerCodesTable",
           "attributes": [
@@ -129,6 +136,13 @@
           "resourceName": "amplifyIdentityBrokerAuth",
           "attributes": [
             "UserPoolId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "amplifyIdentityBrokerAuth",
+          "attributes": [
+              "AppClientID"
           ]
         }
       ]

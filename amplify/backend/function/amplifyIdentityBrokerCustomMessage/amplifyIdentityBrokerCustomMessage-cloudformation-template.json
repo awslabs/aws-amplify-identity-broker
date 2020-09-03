@@ -6,10 +6,6 @@
 			"Type": "String",
 			"Default": "https://d1prnzg9jptzq4.cloudfront.net"
 		},
-		"BROKERAUTHURL": {
-			"Type": "String",
-			"Default": ""
-		},
 		"EMAILMESSAGE": {
 			"Type": "String",
 			"Default": ""
@@ -101,9 +97,6 @@
 						},
 						"REDIRECTURL": {
 							"Ref": "REDIRECTURL"
-						},
-						"BROKERAUTHURL": {
-							"Ref": "BROKERAUTHURL"
 						},
 						"EMAILSUBJECT": {
 							"Ref": "EMAILSUBJECT"

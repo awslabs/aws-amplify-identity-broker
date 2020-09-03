@@ -264,6 +264,26 @@
                             "MinTTL": 0,
                             "Compress": false,
                             "PathPattern": "/verifyClient*"
+                        },
+                        {
+                            "AllowedMethods": [
+                                "GET",
+                                "HEAD",
+                                "OPTIONS"
+                            ],
+                            "TargetOriginId": "amplifyIdentityBrokerApiGateway",
+                            "ForwardedValues": {
+                                "QueryString": "true",
+                                "Cookies": {
+                                    "Forward": "all"
+                                }
+                            },
+                            "ViewerProtocolPolicy": "redirect-to-https",
+                            "DefaultTTL": 0,
+                            "MaxTTL": 0,
+                            "MinTTL": 0,
+                            "Compress": false,
+                            "PathPattern": "/accountConfirmation*"
                         }
                     ],
                     "DefaultCacheBehavior": {
