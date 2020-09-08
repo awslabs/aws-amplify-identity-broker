@@ -29,13 +29,11 @@ module.exports = function override(config, env) {
     let localConfig = {};
     switch (AMPLIFY_ENV) {
         case "production": localConfig = {
-            "providers": ["AWSSSO", "OIDCIdentityProvider", "LoginWithAmazon", "Facebook", "Google"],
-            "hostedUIUrl": "https://amplify-identity-broker.auth.us-west-2.amazoncognito.com",
+            "providers": ["AWSSSO", "OIDCIdentityProvider", "LoginWithAmazon", "Facebook", "Google"]
         };
             break;
-        case "vpxrn": localConfig = {
-            "providers": [],
-            "hostedUIUrl": "https://vp-prod.auth.us-west-2.amazoncognito.com",
+        case "vpprod": localConfig = {
+            "providers": []
         };
             break;
         case "prod": localConfig = {

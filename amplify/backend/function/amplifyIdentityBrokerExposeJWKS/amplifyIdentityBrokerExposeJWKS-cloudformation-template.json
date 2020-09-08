@@ -1,239 +1,239 @@
 {
-	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "Lambda Function resource stack creation using Amplify CLI",
-	"Parameters": {
-		"CloudWatchRule": {
-			"Type": "String",
-			"Default": "NONE",
-			"Description": " Schedule Expression"
-		},
-		"env": {
-			"Type": "String"
-		},
-		"authamplifyIdentityBrokerAuthUserPoolId": {
-			"Type": "String",
-			"Default": "authamplifyIdentityBrokerAuthUserPoolId"
-		}
-	},
-	"Conditions": {
-		"ShouldNotCreateEnvResources": {
-			"Fn::Equals": [
-				{
-					"Ref": "env"
-				},
-				"NONE"
-			]
-		}
-	},
-	"Resources": {
-		"LambdaFunction": {
-			"Type": "AWS::Lambda::Function",
-			"Metadata": {
-				"aws:asset:path": "./src",
-				"aws:asset:property": "Code"
-			},
-			"Properties": {
-				"Handler": "index.handler",
-				"FunctionName": {
-					"Fn::If": [
-						"ShouldNotCreateEnvResources",
-						"amplifyIdentityBrokerExposeJWKS",
-						{
-							"Fn::Join": [
-								"",
-								[
-									"amplifyIdentityBrokerExposeJWKS",
-									"-",
-									{
-										"Ref": "env"
-									}
-								]
-							]
-						}
-					]
-				},
-				"Environment": {
-					"Variables": {
-						"ENV": {
-							"Ref": "env"
-						},
-						"REGION": {
-							"Ref": "AWS::Region"
-						},
-						"AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID": {
-							"Ref": "authamplifyIdentityBrokerAuthUserPoolId"
-						}
-					}
-				},
-				"Role": {
-					"Fn::GetAtt": [
-						"LambdaExecutionRole",
-						"Arn"
-					]
-				},
-				"Runtime": "nodejs12.x",
-				"Layers": [],
-				"Timeout": "25",
-				"Code": {
-					"S3Bucket": "amplify-amplify-identity-broker-liamdev-105242-deployment",
-					"S3Key": "amplify-builds/amplifyIdentityBrokerExposeJWKS-6469484b5a515875786a-build.zip"
-				}
-			}
-		},
-		"LambdaExecutionRole": {
-			"Type": "AWS::IAM::Role",
-			"Properties": {
-				"RoleName": {
-					"Fn::If": [
-						"ShouldNotCreateEnvResources",
-						"amplifyidentitybrokerLambdaRole386476a6",
-						{
-							"Fn::Join": [
-								"",
-								[
-									"amplifyidentitybrokerLambdaRole386476a6",
-									"-",
-									{
-										"Ref": "env"
-									}
-								]
-							]
-						}
-					]
-				},
-				"AssumeRolePolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [
-						{
-							"Effect": "Allow",
-							"Principal": {
-								"Service": [
-									"lambda.amazonaws.com"
-								]
-							},
-							"Action": [
-								"sts:AssumeRole"
-							]
-						}
-					]
-				}
-			}
-		},
-		"lambdaexecutionpolicy": {
-			"DependsOn": [
-				"LambdaExecutionRole"
-			],
-			"Type": "AWS::IAM::Policy",
-			"Properties": {
-				"PolicyName": "lambda-execution-policy",
-				"Roles": [
-					{
-						"Ref": "LambdaExecutionRole"
-					}
-				],
-				"PolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [
-						{
-							"Effect": "Allow",
-							"Action": [
-								"logs:CreateLogGroup",
-								"logs:CreateLogStream",
-								"logs:PutLogEvents"
-							],
-							"Resource": {
-								"Fn::Sub": [
-									"arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*",
-									{
-										"region": {
-											"Ref": "AWS::Region"
-										},
-										"account": {
-											"Ref": "AWS::AccountId"
-										},
-										"lambda": {
-											"Ref": "LambdaFunction"
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			}
-		},
-		"AmplifyResourcesPolicy": {
-			"DependsOn": [
-				"LambdaExecutionRole"
-			],
-			"Type": "AWS::IAM::Policy",
-			"Properties": {
-				"PolicyName": "amplify-lambda-execution-policy",
-				"Roles": [
-					{
-						"Ref": "LambdaExecutionRole"
-					}
-				],
-				"PolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [
-						{
-							"Effect": "Allow",
-							"Action": [
-								"iam:ListOpenIdConnectProviders",
-								"iam:ListRoles",
-								"sns:ListPlatformApplications"
-							],
-							"Resource": [
-								{
-									"Fn::Join": [
-										"",
-										[
-											"arn:aws:cognito-idp:",
-											{
-												"Ref": "AWS::Region"
-											},
-											":",
-											{
-												"Ref": "AWS::AccountId"
-											},
-											":userpool/",
-											{
-												"Ref": "authamplifyIdentityBrokerAuthUserPoolId"
-											}
-										]
-									]
-								}
-							]
-						}
-					]
-				}
-			}
-		}
-	},
-	"Outputs": {
-		"Name": {
-			"Value": {
-				"Ref": "LambdaFunction"
-			}
-		},
-		"Arn": {
-			"Value": {
-				"Fn::GetAtt": [
-					"LambdaFunction",
-					"Arn"
-				]
-			}
-		},
-		"Region": {
-			"Value": {
-				"Ref": "AWS::Region"
-			}
-		},
-		"LambdaExecutionRole": {
-			"Value": {
-				"Ref": "LambdaExecutionRole"
-			}
-		}
-	}
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Lambda Function resource stack creation using Amplify CLI",
+  "Parameters": {
+    "CloudWatchRule": {
+      "Type": "String",
+      "Default": "NONE",
+      "Description": " Schedule Expression"
+    },
+    "env": {
+      "Type": "String"
+    },
+    "authamplifyIdentityBrokerAuthUserPoolId": {
+      "Type": "String",
+      "Default": "authamplifyIdentityBrokerAuthUserPoolId"
+    }
+  },
+  "Conditions": {
+    "ShouldNotCreateEnvResources": {
+      "Fn::Equals": [
+        {
+          "Ref": "env"
+        },
+        "NONE"
+      ]
+    }
+  },
+  "Resources": {
+    "LambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Metadata": {
+        "aws:asset:path": "./src",
+        "aws:asset:property": "Code"
+      },
+      "Properties": {
+        "Handler": "index.handler",
+        "FunctionName": {
+          "Fn::If": [
+            "ShouldNotCreateEnvResources",
+            "amplifyIdentityBrokerExposeJWKS",
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "amplifyIdentityBrokerExposeJWKS",
+                  "-",
+                  {
+                    "Ref": "env"
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "ENV": {
+              "Ref": "env"
+            },
+            "REGION": {
+              "Ref": "AWS::Region"
+            },
+            "AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID": {
+              "Ref": "authamplifyIdentityBrokerAuthUserPoolId"
+            }
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "LambdaExecutionRole",
+            "Arn"
+          ]
+        },
+        "Runtime": "nodejs12.x",
+        "Layers": [],
+        "Timeout": "25",
+        "Code": {
+          "S3Bucket": "amplify-amplify-identity-broker-vpprod-115404-deployment",
+          "S3Key": "amplify-builds/amplifyIdentityBrokerExposeJWKS-6469484b5a515875786a-build.zip"
+        }
+      }
+    },
+    "LambdaExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": {
+          "Fn::If": [
+            "ShouldNotCreateEnvResources",
+            "amplifyidentitybrokerLambdaRole386476a6",
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "amplifyidentitybrokerLambdaRole386476a6",
+                  "-",
+                  {
+                    "Ref": "env"
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "lambdaexecutionpolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Resource": {
+                "Fn::Sub": [
+                  "arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*",
+                  {
+                    "region": {
+                      "Ref": "AWS::Region"
+                    },
+                    "account": {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "lambda": {
+                      "Ref": "LambdaFunction"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "AmplifyResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "iam:ListOpenIdConnectProviders",
+                "iam:ListRoles",
+                "sns:ListPlatformApplications"
+              ],
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:cognito-idp:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":userpool/",
+                      {
+                        "Ref": "authamplifyIdentityBrokerAuthUserPoolId"
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "Name": {
+      "Value": {
+        "Ref": "LambdaFunction"
+      }
+    },
+    "Arn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "LambdaFunction",
+          "Arn"
+        ]
+      }
+    },
+    "Region": {
+      "Value": {
+        "Ref": "AWS::Region"
+      }
+    },
+    "LambdaExecutionRole": {
+      "Value": {
+        "Ref": "LambdaExecutionRole"
+      }
+    }
+  }
 }
