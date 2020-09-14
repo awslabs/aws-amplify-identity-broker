@@ -12,7 +12,7 @@ import { Auth, Amplify } from 'aws-amplify';
 import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifyForgotPassword } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
-import { onAuthUIStateChange } from '@aws-amplify/ui-components';
+import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 import awsconfig from './aws-exports';
 var Config = require("Config");
@@ -78,7 +78,7 @@ class App extends React.Component {
   }
 
   async handleAuthUIStateChange(authState) {
-    if (authState === "signedin") {
+    if (authState === AuthState.SignedIn) {
       var redirect_uri;
       var authorization_code;
       let queryStringParams = new URLSearchParams(window.location.search);
@@ -130,7 +130,7 @@ class App extends React.Component {
         window.location.href = '/settings';
       }
     }
-    else if (authState === "signedout") {
+    else if (authState === AuthState.SignedOut) {
       eraseCookie("id_token");
       eraseCookie("access_token");
       eraseCookie("refresh_token");
