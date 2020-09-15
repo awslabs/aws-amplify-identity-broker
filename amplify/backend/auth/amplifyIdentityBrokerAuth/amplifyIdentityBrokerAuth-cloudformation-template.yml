@@ -160,6 +160,7 @@ Resources:
     # Created upon user selection
     # Depends on SNS Role for Arn if MFA is enabled
     Type: AWS::Cognito::UserPool
+    DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
     Properties:
       UserPoolName: !If [ShouldNotCreateEnvResources, !Ref userPoolName, !Join ['',[!Ref userPoolName, '-', !Ref env]]]
