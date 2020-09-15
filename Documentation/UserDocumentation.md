@@ -2,7 +2,7 @@
 
 This document explains how to use the broker:
 
-* How to deploy
+* How to deploy (and uninstall)
 * How to customize
 * How to migrate from an existing user pool system
 
@@ -498,3 +498,39 @@ Your app sends the username and password to Amazon Cognito. If your app has a na
             break;
       ```
       This will set your specfic enviroment to USER_PASSWORD_AUTH.
+
+## Uninstall
+
+> __Important note:__ the stack deletion will not delete all the ressources to prevent accidental data loss. Especially, the UserPool won't be deleted by a stack deletion. If you really want to delete the user pool do the Step2 after the Step1.
+
+### Step 1 : stack deletion
+
+To delete the broker, you have to run the following command:
+```
+amplify delete
+```
+
+Or if you have multiple environements in your _amplify/team-provider-info.json_ you will run multiple time commands like:
+```
+amplify env remove <name-of-your-env>
+```
+_Note: You cannot delete an environment currently checkout, you'll have to switch env before with `amplify env checkout <my-other-env>`. At anytime you can see the list of env by typing `amplify env list`_
+
+> __Possible cause of failure:__ 
+> * __S3 bucket not empty:__ To solve this, in the AWS console, go to Amazon S3, open the S3 bucket that fail to delete, check all items and click delete. Then redo the stack deletion (using the AWS Amplify CLI or AWS CloudFormation)
+
+__Alternative method: AWS Cloudformation__
+
+Alternatively of using the AWS Amplify CLI is to go to AWS CloudFormation in the region where you have created the environment and deleting the root stack. This  ensures that all the resources created by that stack are removed.
+
+__AWS Amplify console__
+
+If you deployed your environment through the AWS Amplify console, then you should delete it from the AWS Amplify console.
+
+### Step 2 : delete the user pool
+
+> __WARNING:__ Doing this will delete all your user identities and credentials. There is no way to restore this after (the AWS support can't do it neither). Make sure you know what you are doing before proceding.
+
+On the AWS Console, go to Amazon Cognito service page, then go to _User Pool_, select the user pool you want to delete anc click on _Delete pool_ button at the top right corner:
+
+  ![Delete UserPool](Images/deletepool.png)
