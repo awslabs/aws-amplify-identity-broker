@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "Hosting resource stack creation using Amplify CLI",
+    "Description": "Hosting resource for the AWS Amplify Identity Broker",
     "Parameters": {
         "env": {
             "Type": "String"

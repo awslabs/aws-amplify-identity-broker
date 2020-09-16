@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-
+Description: KMS resources for the AWS Amplify Identity Broker
 Parameters:
   env:
     Type: String
@@ -36,6 +36,7 @@ Resources:
     Type: AWS::KMS::Key
     Properties:
       Description: Symmetric key that encrypt token information inside the amplifyIdentityBrokerCodesTableName table
+      EnableKeyRotation: true
       KeyPolicy:
         Version: '2012-10-17'
         Id: key-broker-1

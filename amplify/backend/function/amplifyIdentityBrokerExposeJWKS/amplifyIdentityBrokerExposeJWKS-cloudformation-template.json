@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Lambda Function resource stack creation using Amplify CLI",
+  "Description": "ExposeJWKS Lambda for the AWS Amplify Identity Broker",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",

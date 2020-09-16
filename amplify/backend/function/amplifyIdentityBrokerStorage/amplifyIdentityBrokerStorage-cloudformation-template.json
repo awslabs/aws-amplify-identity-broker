@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Lambda resource stack creation using Amplify CLI",
+  "Description": "Storage Lambda for the AWS Amplify Identity Broker",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
