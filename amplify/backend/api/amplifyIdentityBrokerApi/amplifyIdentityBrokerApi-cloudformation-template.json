@@ -110,25 +110,10 @@
         }
     },
     "Resources": {
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
       "amplifyIdentityBrokerApi": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
-          "Description": "",
+          "Description": "Backend API of the AWS Amplify Identity Broker",
           "Name": "amplifyIdentityBrokerApi",
           "Body": {
             "swagger": "2.0",
