@@ -1,0 +1,10 @@
+[
+  {
+    "Key": "user:AmplifyEnv",
+    "Value": "{project-env}"
+  },
+  {
+    "Key": "user:Application",
+    "Value": "AWS Amplify Identity Broker"
+  }
+]
