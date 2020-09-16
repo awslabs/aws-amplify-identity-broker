@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "DynamoDB resource stack creation using Amplify CLI",
+    "Description": "Client table for the AWS Amplify Identity Broker",
     "Parameters": {
         "partitionKeyName": {
             "Type": "String"
