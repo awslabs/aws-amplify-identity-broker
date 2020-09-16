@@ -45,9 +45,6 @@
                     "ReadCapacityUnits": "5",
                     "WriteCapacityUnits": "5"
                 },
-                "StreamSpecification": {
-                    "StreamViewType": "NEW_IMAGE"
-                },
                 "TimeToLiveSpecification": {
                     "AttributeName": "record_expiry",
                     "Enabled": "TRUE"
