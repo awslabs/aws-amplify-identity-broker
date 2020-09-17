@@ -42,7 +42,6 @@ module.exports = function override(config, env) {
             break;
         case "sampledev": localConfig = {
                 "providers": ["AWSSSO", "OIDCIdentityProvider", "LoginWithAmazon", "Facebook", "Google"],
-                "hostedUIUrl": "https://brokerauth.auth.us-east-1.amazoncognito.com",
         };
             break;
         default:

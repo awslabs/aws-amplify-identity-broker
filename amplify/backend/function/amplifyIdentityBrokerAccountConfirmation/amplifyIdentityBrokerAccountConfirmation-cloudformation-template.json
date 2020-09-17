@@ -1,6 +1,6 @@
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "Lambda Function resource stack creation using Amplify CLI",
+	"Description": "Account Confirmation Lambda for the AWS Amplify Identity Broker",
 	"Parameters": {
 		"CloudWatchRule": {
 			"Type": "String",
@@ -12,7 +12,7 @@
 		},
 		"REDIRECTURL": {
 			"Type": "String",
-			"Default": "https://d1prnzg9jptzq4.cloudfront.net"
+			"Default": ""
 		}
 	},
 	"Conditions": {
