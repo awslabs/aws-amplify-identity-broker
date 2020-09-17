@@ -1,10 +1,10 @@
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "Lambda resource stack creation using Amplify CLI",
+	"Description": "Custom Message Lambda for the AWS Amplify Identity Broker",
 	"Parameters": {
 		"REDIRECTURL": {
 			"Type": "String",
-			"Default": "https://d1prnzg9jptzq4.cloudfront.net"
+			"Default": ""
 		},
 		"EMAILMESSAGE": {
 			"Type": "String",
@@ -115,7 +115,7 @@
 						"Arn"
 					]
 				},
-				"Runtime": "nodejs10.x",
+				"Runtime": "nodejs12.x",
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-amplify-identity-broker-sampledev-201259-deployment",

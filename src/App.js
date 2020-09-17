@@ -165,7 +165,7 @@ class App extends React.Component {
           }
           {
             this.IdPLogin &&
-            <div className="hr-sect">{I18n.get("OR")} </div>
+            <div className="hr-sect">{I18n.get("OR")}</div>
           }
           <AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
             <AmplifyForgotPassword
@@ -180,7 +180,6 @@ class App extends React.Component {
             <AmplifySignIn
               usernameAlias="email"
               slot="sign-in"
-
               formFields={[
                 {
                   type: "email",
