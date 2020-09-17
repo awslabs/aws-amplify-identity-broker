@@ -4,8 +4,8 @@
   "license": "MIT License",
   "private": true,
   "dependencies": {
-    "@aws-amplify/ui-react": "^0.2.18",
-    "aws-amplify": "^3.1.1",
+    "@aws-amplify/ui-react": "^0.2.21",
+    "aws-amplify": "^3.3.1",
     "axios": "^0.20.0",
     "jwt-decode": "^2.2.0",
     "react": "^16.13.1",
@@ -14,8 +14,8 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.0.2",
-    "@testing-library/user-event": "^12.1.3",
+    "@testing-library/react": "^11.0.4",
+    "@testing-library/user-event": "^12.1.5",
     "react-app-rewired": "^2.1.6",
     "react-scripts": "3.4.3"
   },
