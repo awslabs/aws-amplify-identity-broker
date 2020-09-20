@@ -15,7 +15,7 @@ import { strings } from './strings';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 import awsconfig from './aws-exports';
-import { any } from 'bluebird';
+
 var Config = require("Config");
 
 Amplify.configure({

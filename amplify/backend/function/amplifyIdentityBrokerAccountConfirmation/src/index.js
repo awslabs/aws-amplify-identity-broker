@@ -1,8 +1,5 @@
 'use strict';
 var AWS = require('aws-sdk');
-if (typeof Promise === 'undefined') {
-    AWS.config.setPromisesDependency(require('bluebird'));
-}
 var CognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({
     apiVersion: '2019-11-07',
     region: process.env.REGION
