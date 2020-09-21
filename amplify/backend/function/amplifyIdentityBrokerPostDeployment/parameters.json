@@ -1,0 +1,74 @@
+{
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerToken",
+            "attributes": [
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerAuthorize",
+            "attributes": [
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerStorage",
+            "attributes": [
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerUserInfo",
+            "attributes": [
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerExposeJWKS",
+            "attributes": [
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerVerifyClient",
+            "attributes": [
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerAccountConfirmation",
+            "attributes": [
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerCustomMessage",
+            "attributes": [
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerMigration",
+            "attributes": [
+                "Name"
+            ]
+        },
+        {
+            "category": "api",
+            "resourceName": "amplifyIdentityBrokerApi",
+            "attributes": [
+                "ApiDomain"
+            ]
+        },
+    ]
+}

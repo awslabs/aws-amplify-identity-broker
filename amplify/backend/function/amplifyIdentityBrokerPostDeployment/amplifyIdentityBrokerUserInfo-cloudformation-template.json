@@ -1,0 +1,265 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09T00:00:00.000Z",
+  "Description": "KMS resources for the AWS Amplify Identity Broker",
+  "Parameters": {
+     "env": {
+        "Type": "String"
+     },
+     "functionamplifyIdentityBrokerAuthorizeLambdaName": {
+        "Type": "String"
+     },
+     "functionamplifyIdentityBrokerTokenLambdaName": {
+        "Type": "String"
+     },
+     "functionamplifyIdentityBrokerStorageLambdaName": {
+        "Type": "String"
+     },
+     "functionamplifyIdentityBrokerUserInfoName": {
+        "Type": "String"
+     },
+     "functionamplifyIdentityBrokerExposeJWKSName": {
+        "Type": "String"
+     },
+     "functionamplifyIdentityBrokerVerifyClientName": {
+        "Type": "String"
+     },
+     "functionamplifyIdentityBrokerAccountConfirmationName": {
+        "Type": "String"
+     },
+     "functionamplifyIdentityBrokerMigrationName": {
+        "Type": "String"
+     },
+     "functionamplifyIdentityBrokerCustomMessageName": {
+        "Type": "String"
+     },
+     "apiamplifyIdentityBrokerApiApiDomain": {
+        "Type": "String"
+     },
+     "overRideApiDomain": {
+        "Type": "String",
+        "Default": ""
+     }
+  },
+  "Conditions": {
+    "ShouldNotCreateEnvResources": {
+      "Fn::Equals": [
+        {
+          "Fn::Ref": "env"
+        },
+        "NONE"
+      ]
+    }
+  },
+  "Resources": {
+     "InsertDomainOnLambdas": {
+        "Type": "Custom::InsertDomainOnLambdas",
+        "Properties": {
+           "ServiceToken": { "Fn:::GetAtt": [
+              "InsertDomainFunction",
+              "Arn"
+            ]},
+           "ApiDomain": { "Fn:Ref": "apiamplifyIdentityBrokerApiApiDomain" },
+           "overRideApiDomain": { "Fn:Ref": "overRideApiDomain" },
+           "functionNames": [
+              {
+                 "Fn::Ref": "functionamplifyIdentityBrokerAuthorizeLambdaName"
+              },
+              {
+                 "Fn::Ref": "functionamplifyIdentityBrokerTokenLambdaName"
+              },
+              {
+                 "Fn::Ref": "functionamplifyIdentityBrokerStorageLambdaName"
+              },
+              {
+                 "Fn::Ref": "functionamplifyIdentityBrokerUserInfoName"
+              },
+              {
+                 "Fn::Ref": "functionamplifyIdentityBrokerExposeJWKSName"
+              },
+              {
+                 "Fn::Ref": "functionamplifyIdentityBrokerVerifyClientName"
+              },
+              {
+                 "Fn::Ref": "functionamplifyIdentityBrokerAccountConfirmationName"
+              },
+              {
+                 "Fn::Ref": "functionamplifyIdentityBrokerMigrationName"
+              },
+              {
+                 "Fn::Ref": "functionamplifyIdentityBrokerCustomMessageName"
+              }
+           ]
+        }
+     },
+     "InsertDomainFunction": {
+        "Type": "AWS::Lambda::Function",
+        "Metadata": {
+           "aws:asset:path": "./src",
+           "aws:asset:property": "Code"
+        },
+        "Properties": {
+           "Handler": "index.handler",
+           "FunctionName": {
+              "Fn::If": [
+                 "ShouldNotCreateEnvResources",
+                 "amplifyIdentityBrokerInsertDomain",
+                 {
+                    "Fn::Join": [
+                       "",
+                       "- amplifyIdentityBrokerInsertDomain\n- \"-\"\n- Ref: env"
+                    ]
+                 }
+              ]
+           },
+           "Environment": {
+              "Variables": {
+                 "ENV": {
+                    "Fn::Ref": "env"
+                 },
+                 "REGION": {
+                    "Fn::Ref": "AWS::Region"
+                 }
+              }
+           },
+           "Role": {
+              "Fn::GetAtt": [
+                 "LambdaExecutionRole",
+                 "Name"
+              ]
+           },
+           "Runtime": "nodejs12.x",
+           "Timeout": "25",
+           "Code": {
+              "S3Bucket": "amplify-amplify-identity-broker-vpprod-115404-deployment",
+              "S3Key": "amplify-builds/amplifyIdentityBrokerInsertDomain-6e522b416e7044657752-build.zip"
+           },
+           "Layers": []
+        }
+     },
+     "LambdaExecutionRole": {
+        "Type": "AWS::IAM::Role",
+        "Properties": {
+           "RoleName": {
+              "Fn::If": [
+                 "ShouldNotCreateEnvResources",
+                 "amplifyidentitybrokerInsertDomainLambdaRole719106f6",
+                 {
+                    "Fn::Join": [
+                       "",
+                       "- amplifyidentitybrokerInsertDomainLambdaRole719106f6\n- \"-\"\n- Ref: env"
+                    ]
+                 }
+              ]
+           },
+           "AssumeRolePolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                 {
+                    "Effect": "Allow",
+                    "Principal": {
+                       "Service": [
+                          "lambda.amazonaws.com"
+                       ]
+                    },
+                    "Action": [
+                       "sts:AssumeRole"
+                    ]
+                 }
+              ]
+           },
+           "lambdaexecutionpolicy": {
+             "DependsOn": [
+               "LambdaExecutionRole"
+             ],
+             "Type": "AWS::IAM::Policy",
+             "Properties": {
+               "PolicyName": "lambda-execution-policy",
+               "Roles": [
+                 {
+                   "Ref": "LambdaExecutionRole"
+                 }
+               ],
+               "PolicyDocument": {
+                 "Version": "2012-10-17",
+                 "Statement":
+                 [
+                    {
+                      "Effect": "Allow",
+                      "Action": [
+                        "logs:CreateLogGroup",
+                        "logs:CreateLogStream",
+                        "logs:PutLogEvents"
+                      ],
+                      "Resource": {
+                        "Fn::Sub": [
+                          "arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*",
+                          {
+                            "region": {
+                              "Ref": "AWS::Region"
+                            },
+                            "account": {
+                              "Ref": "AWS::AccountId"
+                            },
+                            "lambda": {
+                              "Ref": "LambdaFunction"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "Effect": "Allow",
+                      "Action": [
+                        "lambda:UpdateFunctionConfiguration"
+                      ],
+                      "Resource": {
+                        "Fn::Sub": [
+                          "arn:aws:lambda:${region}:${account}:function:amplifyIdentityBroker*",
+                          {
+                            "region": {
+                              "Ref": "AWS::Region"
+                            },
+                            "account": {
+                              "Ref": "AWS::AccountId"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+               }
+             }
+           },
+        }
+     }
+  },
+  "Outputs": {
+     "Name": {
+        "Value": {
+           "Fn::GetAtt": [
+              "LambdaFunction",
+              "Name"
+           ]
+        }
+     },
+     "Region": {
+        "Value": {
+           "Fn::Ref": "AWS::Region"
+        }
+     },
+     "LambdaExecutionRole": {
+        "Value": {
+           "Fn::Ref": "LambdaExecutionRole"
+        }
+     },
+     "DomainDeployed": {
+        "Value": {
+          "Fn::GetAtt": [
+              "InsertDomainOnLambdas",
+              "DomainDeployed"
+          ]
+        },
+        "Description": "The domain named deployed to all Lambdas as environment variable"
+     }
+  }
+}
