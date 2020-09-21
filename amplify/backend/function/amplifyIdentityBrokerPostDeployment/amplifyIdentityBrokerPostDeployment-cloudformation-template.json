@@ -60,7 +60,7 @@
       "Type": "Custom::InsertDomainOnLambdas",
       "Properties": {
         "ServiceToken": {
-          "Fn:::GetAtt": [
+          "Fn::GetAtt": [
             "InsertDomainFunction",
             "Arn"
           ]
@@ -147,7 +147,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": "300",
         "Code": {
-          "S3Bucket": "amplify-amplify-identity-broker-devxxrn-122549-deployment",
+          "S3Bucket": "amplify-amplify-identity-broker-dvxavrn-123638-deployment",
           "S3Key": "amplify-builds/amplifyIdentityBrokerPostDeployment-6d6a61514a4436617750-build.zip"
         },
         "Layers": []
