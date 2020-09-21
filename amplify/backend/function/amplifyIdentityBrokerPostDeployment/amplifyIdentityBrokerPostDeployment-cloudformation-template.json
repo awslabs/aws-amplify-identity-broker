@@ -61,7 +61,7 @@
       "Properties": {
         "ServiceToken": {
           "Fn::GetAtt": [
-            "InsertDomainFunction",
+            "LambdaFunction",
             "Arn"
           ]
         },
@@ -73,13 +73,13 @@
         },
         "functionNames": [
           {
-            "Ref": "functionamplifyIdentityBrokerAuthorizeLambdaName"
+            "Ref": "functionamplifyIdentityBrokerAuthorizeName"
           },
           {
-            "Ref": "functionamplifyIdentityBrokerTokenLambdaName"
+            "Ref": "functionamplifyIdentityBrokerTokenName"
           },
           {
-            "Ref": "functionamplifyIdentityBrokerStorageLambdaName"
+            "Ref": "functionamplifyIdentityBrokerStorageName"
           },
           {
             "Ref": "functionamplifyIdentityBrokerUserInfoName"
@@ -147,7 +147,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": "300",
         "Code": {
-          "S3Bucket": "amplify-amplify-identity-broker-dvxavrn-123638-deployment",
+          "S3Bucket": "amplify-amplify-identity-broker-devxxxr-125923-deployment",
           "S3Key": "amplify-builds/amplifyIdentityBrokerPostDeployment-6d6a61514a4436617750-build.zip"
         },
         "Layers": []
