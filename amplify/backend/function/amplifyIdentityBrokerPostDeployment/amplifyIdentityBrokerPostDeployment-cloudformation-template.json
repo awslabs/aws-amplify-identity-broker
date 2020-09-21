@@ -49,7 +49,7 @@
     "ShouldNotCreateEnvResources": {
       "Fn::Equals": [
         {
-          "Fn::Ref": "env"
+          "Ref": "env"
         },
         "NONE"
       ]
@@ -66,38 +66,38 @@
           ]
         },
         "ApiDomain": {
-          "Fn:Ref": "apiamplifyIdentityBrokerApiApiDomain"
+          "Ref": "apiamplifyIdentityBrokerApiApiDomain"
         },
         "overRideApiDomain": {
-          "Fn:Ref": "overRideApiDomain"
+          "Ref": "overRideApiDomain"
         },
         "functionNames": [
           {
-            "Fn::Ref": "functionamplifyIdentityBrokerAuthorizeLambdaName"
+            "Ref": "functionamplifyIdentityBrokerAuthorizeLambdaName"
           },
           {
-            "Fn::Ref": "functionamplifyIdentityBrokerTokenLambdaName"
+            "Ref": "functionamplifyIdentityBrokerTokenLambdaName"
           },
           {
-            "Fn::Ref": "functionamplifyIdentityBrokerStorageLambdaName"
+            "Ref": "functionamplifyIdentityBrokerStorageLambdaName"
           },
           {
-            "Fn::Ref": "functionamplifyIdentityBrokerUserInfoName"
+            "Ref": "functionamplifyIdentityBrokerUserInfoName"
           },
           {
-            "Fn::Ref": "functionamplifyIdentityBrokerExposeJWKSName"
+            "Ref": "functionamplifyIdentityBrokerExposeJWKSName"
           },
           {
-            "Fn::Ref": "functionamplifyIdentityBrokerVerifyClientName"
+            "Ref": "functionamplifyIdentityBrokerVerifyClientName"
           },
           {
-            "Fn::Ref": "functionamplifyIdentityBrokerAccountConfirmationName"
+            "Ref": "functionamplifyIdentityBrokerAccountConfirmationName"
           },
           {
-            "Fn::Ref": "functionamplifyIdentityBrokerMigrationName"
+            "Ref": "functionamplifyIdentityBrokerMigrationName"
           },
           {
-            "Fn::Ref": "functionamplifyIdentityBrokerCustomMessageName"
+            "Ref": "functionamplifyIdentityBrokerCustomMessageName"
           }
         ]
       }
@@ -131,10 +131,10 @@
         "Environment": {
           "Variables": {
             "ENV": {
-              "Fn::Ref": "env"
+              "Ref": "env"
             },
             "REGION": {
-              "Fn::Ref": "AWS::Region"
+              "Ref": "AWS::Region"
             }
           }
         },
@@ -147,7 +147,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": "300",
         "Code": {
-          "S3Bucket": "amplify-amplify-identity-broker-devxavier-114058-deployment",
+          "S3Bucket": "amplify-amplify-identity-broker-devxxrn-122549-deployment",
           "S3Key": "amplify-builds/amplifyIdentityBrokerPostDeployment-6d6a61514a4436617750-build.zip"
         },
         "Layers": []
@@ -271,12 +271,12 @@
     },
     "Region": {
       "Value": {
-        "Fn::Ref": "AWS::Region"
+        "Ref": "AWS::Region"
       }
     },
     "LambdaExecutionRole": {
       "Value": {
-        "Fn::Ref": "LambdaExecutionRole"
+        "Ref": "LambdaExecutionRole"
       }
     },
     "HostedDomainDeployed": {

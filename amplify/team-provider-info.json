@@ -120,37 +120,5 @@
         "amplifyIdentityBrokerVerifyClient": {}
       }
     }
-  },
-  "devxavier": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-amplify-identity-broker-devxavier-114058-authRole",
-      "UnauthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-devxavier-114058-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-devxavier-114058-authRole",
-      "Region": "us-west-2",
-      "DeploymentBucketName": "amplify-amplify-identity-broker-devxavier-114058-deployment",
-      "UnauthRoleName": "amplify-amplify-identity-broker-devxavier-114058-unauthRole",
-      "StackName": "amplify-amplify-identity-broker-devxavier-114058",
-      "StackId": "arn:aws:cloudformation:us-west-2:959861384820:stack/amplify-amplify-identity-broker-devxavier-114058/feb98d10-fc39-11ea-9d31-0ab8e1c111db",
-      "AmplifyAppId": "dgvx8t5exfw79"
-    },
-    "categories": {
-      "auth": {
-        "amplifyIdentityBrokerAuth": {
-          "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"1\",\"client_secret\":\"1\"},{\"ProviderName\":\"Google\",\"client_id\":\"1\",\"client_secret\":\"1\"},{\"ProviderName\":\"LoginWithAmazon\",\"client_id\":\"1\",\"client_secret\":\"1\"}]"
-        }
-      },
-      "function": {
-        "amplifyIdentityBrokerPostDeployment": {},
-        "amplifyIdentityBrokerCustomMessage": {},
-        "amplifyIdentityBrokerAuthorize": {},
-        "amplifyIdentityBrokerToken": {},
-        "amplifyIdentityBrokerStorage": {},
-        "amplifyIdentityBrokerMigration": {},
-        "amplifyIdentityBrokerUserInfo": {},
-        "amplifyIdentityBrokerExposeJWKS": {},
-        "amplifyIdentityBrokerVerifyClient": {},
-        "amplifyIdentityBrokerAccountConfirmation": {}
-      }
-    }
   }
 }
