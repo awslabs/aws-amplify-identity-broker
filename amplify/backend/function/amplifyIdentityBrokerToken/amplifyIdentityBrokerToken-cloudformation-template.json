@@ -88,7 +88,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-amplify-identity-broker-devxv-103148-deployment",
+          "S3Bucket": "amplify-amplify-identity-broker-devxavier-114058-deployment",
           "S3Key": "amplify-builds/amplifyIdentityBrokerToken-6d523579356c70353838-build.zip"
         },
         "Layers": []

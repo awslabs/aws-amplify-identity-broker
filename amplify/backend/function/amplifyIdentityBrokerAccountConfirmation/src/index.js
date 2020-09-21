@@ -33,7 +33,7 @@ exports.handler = (req, context, callback) => {
     confirmSignUp.then(
         (data) => {
             context.succeed({
-                location: process.env.REDIRECTURL
+                location: process.env.HOSTING_DOMAIN
             });
         }
     ).catch(

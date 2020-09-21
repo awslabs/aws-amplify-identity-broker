@@ -10,13 +10,13 @@
     "env": {
       "Type": "String"
     },
-    "functionamplifyIdentityBrokerAuthorizeLambdaName": {
+    "functionamplifyIdentityBrokerAuthorizeName": {
       "Type": "String"
     },
-    "functionamplifyIdentityBrokerTokenLambdaName": {
+    "functionamplifyIdentityBrokerTokenName": {
       "Type": "String"
     },
-    "functionamplifyIdentityBrokerStorageLambdaName": {
+    "functionamplifyIdentityBrokerStorageName": {
       "Type": "String"
     },
     "functionamplifyIdentityBrokerUserInfoName": {
@@ -147,8 +147,8 @@
         "Runtime": "nodejs12.x",
         "Timeout": "300",
         "Code": {
-          "S3Bucket": "amplify-amplify-identity-broker-devxv-103148-deployment",
-          "S3Key": "amplify-builds/amplifyIdentityBrokerPostDeployment-5a6838752f7661307172-build.zip"
+          "S3Bucket": "amplify-amplify-identity-broker-devxavier-114058-deployment",
+          "S3Key": "amplify-builds/amplifyIdentityBrokerPostDeployment-6d6a61514a4436617750-build.zip"
         },
         "Layers": []
       }
@@ -189,68 +189,68 @@
               ]
             }
           ]
-        },
-        "lambdaexecutionpolicy": {
-          "DependsOn": [
-            "LambdaExecutionRole"
-          ],
-          "Type": "AWS::IAM::Policy",
-          "Properties": {
-            "PolicyName": "lambda-execution-policy",
-            "Roles": [
-              {
-                "Ref": "LambdaExecutionRole"
-              }
-            ],
-            "PolicyDocument": {
-              "Version": "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "logs:CreateLogGroup",
-                    "logs:CreateLogStream",
-                    "logs:PutLogEvents"
-                  ],
-                  "Resource": {
-                    "Fn::Sub": [
-                      "arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*",
-                      {
-                        "region": {
-                          "Ref": "AWS::Region"
-                        },
-                        "account": {
-                          "Ref": "AWS::AccountId"
-                        },
-                        "lambda": {
-                          "Ref": "LambdaFunction"
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "lambda:UpdateFunctionConfiguration"
-                  ],
-                  "Resource": {
-                    "Fn::Sub": [
-                      "arn:aws:lambda:${region}:${account}:function:amplifyIdentityBroker*",
-                      {
-                        "region": {
-                          "Ref": "AWS::Region"
-                        },
-                        "account": {
-                          "Ref": "AWS::AccountId"
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
+        }
+      }
+    },
+    "lambdaexecutionpolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
           }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Resource": {
+                "Fn::Sub": [
+                  "arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*",
+                  {
+                    "region": {
+                      "Ref": "AWS::Region"
+                    },
+                    "account": {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "lambda": {
+                      "Ref": "LambdaFunction"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "lambda:UpdateFunctionConfiguration"
+              ],
+              "Resource": {
+                "Fn::Sub": [
+                  "arn:aws:lambda:${region}:${account}:function:amplifyIdentityBroker*",
+                  {
+                    "region": {
+                      "Ref": "AWS::Region"
+                    },
+                    "account": {
+                      "Ref": "AWS::AccountId"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       }
     }
@@ -279,14 +279,14 @@
         "Fn::Ref": "LambdaExecutionRole"
       }
     },
-    "DomainDeployed": {
+    "HostedDomainDeployed": {
       "Value": {
         "Fn::GetAtt": [
           "InsertDomainOnLambdas",
           "DomainDeployed"
         ]
       },
-      "Description": "The domain named deployed to all Lambdas as environment variable"
+      "Description": "The domain name deployed to all Lambdas as environment variable HOSTING_DOMAIN"
     }
   }
 }

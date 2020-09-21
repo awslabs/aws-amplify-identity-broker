@@ -20,7 +20,7 @@ exports.handler = async (event, context) => {
 
     try{
         event["ResourceProperties"]["functionNames"].forEach(functionName => {
-            injectEnvVariableToLambda("API_DOMAIN", domainUrl, functionName);
+            injectEnvVariableToLambda("HOSTING_DOMAIN", domainUrl, functionName);
         });
     } catch(e) {
         return sendResponseCfn(event, context, "FAILED", domainUrl);

@@ -102,7 +102,7 @@ exports.handler = (event, context, callback) => {
  
  </html>`
 
-    const url = process.env.REDIRECTURL + "/accountConfirmation";
+    const url = process.env.HOSTING_DOMAIN + "/accountConfirmation";
     const userName = event.userName;
     const region = event.region;
     const email = event.request.userAttributes.email;

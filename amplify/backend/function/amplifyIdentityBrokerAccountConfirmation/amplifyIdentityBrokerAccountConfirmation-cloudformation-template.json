@@ -9,10 +9,6 @@
     },
     "env": {
       "Type": "String"
-    },
-    "REDIRECTURL": {
-      "Type": "String",
-      "Default": ""
     }
   },
   "Conditions": {
@@ -59,9 +55,6 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
-            },
-            "REDIRECTURL": {
-              "Ref": "REDIRECTURL"
             }
           }
         },
@@ -75,8 +68,8 @@
         "Layers": [],
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-amplify-identity-broker-devxv-103148-deployment",
-          "S3Key": "amplify-builds/amplifyIdentityBrokerAccountConfirmation-47334978533549536e41-build.zip"
+          "S3Bucket": "amplify-amplify-identity-broker-devxavier-114058-deployment",
+          "S3Key": "amplify-builds/amplifyIdentityBrokerAccountConfirmation-73557654624479503264-build.zip"
         }
       }
     },
