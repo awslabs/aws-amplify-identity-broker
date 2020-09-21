@@ -9,16 +9,38 @@
 
 const AWS = require("aws-sdk");
 var lambda = new AWS.Lambda();
+var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
 exports.handler = async (event, context) => {
 
-    const domainUrl = event["ResourceProperties"]["ApiDomain"];
+    var domainUrl = event["ResourceProperties"]["ApiDomain"];
 
-    if(["ResourceProperties"]["overRideApiDomain"] != "") {
-        domainUrl = event["ResourceProperties"]["overRideApiDomain"];
+    if(["ResourceProperties"]["hostingDomain"] != "") {
+        domainUrl = event["ResourceProperties"]["hostingDomain"];
     }
 
     try{
+        const UserPoolId = event["ResourceProperties"]["UserPoolId"];
+        const AppClientId = event["ResourceProperties"]["AppClientId"];
+        console.log(`Updating UserPool ${UserPoolId} app ${AppClientId} with callbacks ${domainUrl}`);
+        const params = {
+            ClientId: UserPoolId,
+            UserPoolId: AppClientId,
+            CallbackURLs: [
+                domainUrl
+            ],
+            LogoutURLs: [
+                domainUrl + "/logout"
+            ]
+        };
+        cognitoidentityserviceprovider.updateUserPoolClient(params, function(err, data) {
+            if (err) {
+                console.log(err, err.stack);
+                throw err;
+            } else {
+                console.log(data);
+            }
+        });
         event["ResourceProperties"]["functionNames"].forEach(functionName => {
             injectEnvVariableToLambda("HOSTING_DOMAIN", domainUrl, functionName);
         });

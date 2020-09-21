@@ -10,6 +10,12 @@
     "env": {
       "Type": "String"
     },
+    "authamplifyIdentityBrokerAuthUserPoolId": {
+      "Type": "String"
+    },
+    "authamplifyIdentityBrokerAuthAppClientID": {
+      "Type": "String"
+    },
     "functionamplifyIdentityBrokerAuthorizeName": {
       "Type": "String"
     },
@@ -40,7 +46,7 @@
     "apiamplifyIdentityBrokerApiApiDomain": {
       "Type": "String"
     },
-    "overRideApiDomain": {
+    "hostingDomain": {
       "Type": "String",
       "Default": ""
     }
@@ -65,11 +71,17 @@
             "Arn"
           ]
         },
+        "UserPool": {
+          "Ref": "authamplifyIdentityBrokerAuthUserPoolId"
+        },
+        "AppClientId": {
+          "Ref": "authamplifyIdentityBrokerAuthAppClientID"
+        },
         "ApiDomain": {
           "Ref": "apiamplifyIdentityBrokerApiApiDomain"
         },
-        "overRideApiDomain": {
-          "Ref": "overRideApiDomain"
+        "overrideApiDomain": {
+          "Ref": "hostingDomain"
         },
         "functionNames": [
           {
@@ -147,8 +159,8 @@
         "Runtime": "nodejs12.x",
         "Timeout": "300",
         "Code": {
-          "S3Bucket": "amplify-amplify-identity-broker-xrxrxrd-140013-deployment",
-          "S3Key": "amplify-builds/amplifyIdentityBrokerPostDeployment-6f4f5938366c796d7437-build.zip"
+          "S3Bucket": "amplify-amplify-identity-broker-xxxrrr-145155-deployment",
+          "S3Key": "amplify-builds/amplifyIdentityBrokerPostDeployment-3169527244572b444f7a-build.zip"
         },
         "Layers": []
       }
@@ -226,6 +238,28 @@
                     },
                     "lambda": {
                       "Ref": "LambdaFunction"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "cognito-idp:UpdateUserPoolClient"
+              ],
+              "Resource": {
+                "Fn::Sub": [
+                  "arn:aws:cognito-idp:${region}:${account}:userpool/${userPoolId}",
+                  {
+                    "region": {
+                      "Ref": "AWS::Region"
+                    },
+                    "account": {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "userPoolId": {
+                      "Ref": "authamplifyIdentityBrokerAuthUserPoolId"
                     }
                   }
                 ]

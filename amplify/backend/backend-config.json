@@ -271,6 +271,14 @@
             "providerPlugin": "awscloudformation",
             "dependsOn": [
                 {
+                    "category": "auth",
+                    "resourceName": "amplifyIdentityBrokerAuth",
+                    "attributes": [
+                        "UserPoolId",
+                        "AppClientID"
+                    ]
+                },
+                {
                     "category": "function",
                     "resourceName": "amplifyIdentityBrokerAuthorize",
                     "attributes": [
