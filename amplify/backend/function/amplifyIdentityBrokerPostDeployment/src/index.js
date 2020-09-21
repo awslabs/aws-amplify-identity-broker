@@ -7,7 +7,7 @@
   * the License.
   */
 
-const AWS = require("aws-sdk");v
+const AWS = require("aws-sdk");
 var lambda = new AWS.Lambda();
 
 exports.handler = async (event, context) => {
