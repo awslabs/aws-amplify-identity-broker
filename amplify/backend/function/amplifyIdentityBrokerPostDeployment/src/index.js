@@ -12,7 +12,7 @@ var lambda = new AWS.Lambda();
 var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
 exports.handler = async (event, context) => {
-  var domainUrl = event["ResourceProperties"]["CloudfrontHosting"];
+  var domainUrl = event["ResourceProperties"]["CloudfrontDomain"];
 
   if (event["ResourceProperties"]["OverrideDomain"] != "") {
     domainUrl = event["ResourceProperties"]["OverrideDomain"];
