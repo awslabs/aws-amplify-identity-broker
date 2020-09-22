@@ -43,7 +43,7 @@
     "functionamplifyIdentityBrokerCustomMessageName": {
       "Type": "String"
     },
-    "apiamplifyIdentityBrokerApiApiDomain": {
+    "hostingS3AndCloudFrontCloudFrontSecureURL": {
       "Type": "String"
     },
     "hostingDomain": {
@@ -71,16 +71,16 @@
             "Arn"
           ]
         },
-        "UserPool": {
+        "UserPoolId": {
           "Ref": "authamplifyIdentityBrokerAuthUserPoolId"
         },
         "AppClientId": {
           "Ref": "authamplifyIdentityBrokerAuthAppClientID"
         },
-        "ApiDomain": {
-          "Ref": "apiamplifyIdentityBrokerApiApiDomain"
+        "CloudfrontDomain": {
+          "Ref": "hostingS3AndCloudFrontCloudFrontSecureURL"
         },
-        "overrideApiDomain": {
+        "OverrideDomain": {
           "Ref": "hostingDomain"
         },
         "functionNames": [
@@ -159,8 +159,8 @@
         "Runtime": "nodejs12.x",
         "Timeout": "300",
         "Code": {
-          "S3Bucket": "amplify-amplify-identity-broker-xrdevxr-163108-deployment",
-          "S3Key": "amplify-builds/amplifyIdentityBrokerPostDeployment-3169527244572b444f7a-build.zip"
+          "S3Bucket": "amplify-amplify-identity-broker-devxrdev-173406-deployment",
+          "S3Key": "amplify-builds/amplifyIdentityBrokerPostDeployment-464b7a6b6f6a4a336463-build.zip"
         },
         "Layers": []
       }
@@ -268,7 +268,8 @@
             {
               "Effect": "Allow",
               "Action": [
-                "lambda:UpdateFunctionConfiguration"
+                "lambda:UpdateFunctionConfiguration",
+                "lambda:GetFunctionConfiguration"
               ],
               "Resource": {
                 "Fn::Sub": [

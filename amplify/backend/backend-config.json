@@ -67,10 +67,18 @@
             "service": "Lambda",
             "dependsOn": [
                 {
-                    "category": "api",
-                    "resourceName": "amplifyIdentityBrokerApi",
+                    "category": "auth",
+                    "resourceName": "amplifyIdentityBrokerAuth",
                     "attributes": [
-                        "ApiDomain"
+                        "UserPoolId",
+                        "AppClientID"
+                    ]
+                },
+                {
+                    "category": "hosting",
+                    "resourceName": "S3AndCloudFront",
+                    "attributes": [
+                        "CloudFrontSecureURL"
                     ]
                 },
                 {
@@ -270,14 +278,6 @@
             "service": "API Gateway",
             "providerPlugin": "awscloudformation",
             "dependsOn": [
-                {
-                    "category": "auth",
-                    "resourceName": "amplifyIdentityBrokerAuth",
-                    "attributes": [
-                        "UserPoolId",
-                        "AppClientID"
-                    ]
-                },
                 {
                     "category": "function",
                     "resourceName": "amplifyIdentityBrokerAuthorize",
