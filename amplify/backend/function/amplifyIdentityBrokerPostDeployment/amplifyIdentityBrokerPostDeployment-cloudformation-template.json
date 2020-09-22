@@ -156,11 +156,14 @@
             "Arn"
           ]
         },
+        "DependsOn": [
+          "LambdaExecutionRole"
+        ],
         "Runtime": "nodejs12.x",
         "Timeout": "300",
         "Code": {
-          "S3Bucket": "amplify-amplify-identity-broker-dvxrdvxr-190008-deployment",
-          "S3Key": "amplify-builds/amplifyIdentityBrokerPostDeployment-47587a704c6645574f39-build.zip"
+          "S3Bucket": "amplify-amplify-identity-broker-magic-193200-deployment",
+          "S3Key": "amplify-builds/amplifyIdentityBrokerPostDeployment-754d6a79522f42545246-build.zip"
         },
         "Layers": []
       }

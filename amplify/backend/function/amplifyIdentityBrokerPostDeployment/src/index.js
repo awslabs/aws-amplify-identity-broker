@@ -14,6 +14,9 @@ var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 exports.handler = async (event, context) => {
   var domainUrl = event["ResourceProperties"]["CloudfrontDomain"];
 
+  console.log(event);
+  console.log(context);
+
   if (event["ResourceProperties"]["OverrideDomain"] != "") {
     domainUrl = event["ResourceProperties"]["OverrideDomain"];
   }
