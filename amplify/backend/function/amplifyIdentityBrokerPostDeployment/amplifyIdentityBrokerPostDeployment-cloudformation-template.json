@@ -259,7 +259,8 @@
             {
               "Effect": "Allow",
               "Action": [
-                "cognito-idp:UpdateUserPoolClient"
+                "cognito-idp:UpdateUserPoolClient",
+                "cognito-idp:DescribeUserPoolClient"
               ],
               "Resource": {
                 "Fn::Sub": [

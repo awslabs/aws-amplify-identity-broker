@@ -26,24 +26,9 @@ exports.handler = async (event, context) => {
     const UserPoolId = event["ResourceProperties"]["UserPoolId"];
     const AppClientId = event["ResourceProperties"]["AppClientId"];
     const AppClientIdWeb = event["ResourceProperties"]["AppClientIdWeb"];
-    console.log(
-      `Updating UserPool ${UserPoolId} app ${AppClientId} and app ${AppClientIdWeb} with callbacks ${domainUrl}`
-    );
-    const params = {
-      ClientId: AppClientId,
-      UserPoolId: UserPoolId,
-      CallbackURLs: [domainUrl],
-      LogoutURLs: [domainUrl + "/logout"],
-    };
-    await cognitoidentityserviceprovider.updateUserPoolClient(params).promise();
 
-    const paramsWeb = {
-      ClientId: AppClientIdWeb,
-      UserPoolId: UserPoolId,
-      CallbackURLs: [domainUrl],
-      LogoutURLs: [domainUrl + "/logout"],
-    };
-    await cognitoidentityserviceprovider.updateUserPoolClient(paramsWeb).promise();
+    await updateCognitoAppCallbacks(AppClientId, UserPoolId, domainUrl);
+    await updateCognitoAppCallbacks(AppClientIdWeb, UserPoolId, domainUrl);
 
     for (const functionName of event["ResourceProperties"]["functionNames"]) {
       await injectEnvVariableToLambda(
@@ -52,12 +37,53 @@ exports.handler = async (event, context) => {
         functionName
       );
     }
-    return await response.send(event, context, response.SUCCESS, { DomainDeployed: domainUrl });
+    return await response.send(event, context, response.SUCCESS, {
+      DomainDeployed: domainUrl,
+    });
   } catch (err) {
     console.log(err, err.stack);
-    return await response.send(event, context, response.FAILED, { DomainDeployed: domainUrl });
+    return await response.send(event, context, response.FAILED, {
+      DomainDeployed: domainUrl,
+    });
   }
 };
+
+async function updateCognitoAppCallbacks(AppClientId, UserPoolId, domainUrl) {
+  console.log(
+    `Updating UserPool ${UserPoolId} app ${AppClientId} with callbacks ${domainUrl}`
+  );
+
+  var params = {
+    ClientId: AppClientId,
+    UserPoolId: UserPoolId,
+  };
+  var description = await cognitoidentityserviceprovider
+    .describeUserPoolClient(params)
+    .promise();
+
+  params = {
+    ClientId: AppClientId,
+    UserPoolId: UserPoolId,
+    CallbackURLs: [domainUrl],
+    LogoutURLs: [domainUrl + "/logout"],
+    AccessTokenValidity: description.UserPoolClient.AccessTokenValidity,
+    AllowedOAuthFlows: description.UserPoolClient.AllowedOAuthFlows,
+    AllowedOAuthFlowsUserPoolClient: description.UserPoolClient.AllowedOAuthFlowsUserPoolClient,
+    AllowedOAuthScopes: description.UserPoolClient.AllowedOAuthScopes,
+    AnalyticsConfiguration: description.UserPoolClient.AnalyticsConfiguration,
+    ClientName: description.UserPoolClient.ClientName,
+    DefaultRedirectURI: description.UserPoolClient.DefaultRedirectURI,
+    ExplicitAuthFlows: description.UserPoolClient.ExplicitAuthFlows,
+    IdTokenValidity: description.UserPoolClient.IdTokenValidity,
+    PreventUserExistenceErrors: description.UserPoolClient.PreventUserExistenceErrors,
+    ReadAttributes: description.UserPoolClient.ReadAttributes,
+    RefreshTokenValidity: description.UserPoolClient.RefreshTokenValidity,
+    SupportedIdentityProviders: description.UserPoolClient.SupportedIdentityProviders,
+    TokenValidityUnits: description.UserPoolClient.TokenValidityUnits,
+    WriteAttributes: description.UserPoolClient.WriteAttributes,
+  };
+  return cognitoidentityserviceprovider.updateUserPoolClient(params).promise();
+}
 
 async function injectEnvVariableToLambda(
   variableName,
