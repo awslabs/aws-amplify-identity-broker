@@ -29,11 +29,10 @@ const AMPLIFY_ENV = amplifyMeta.storage.amplifyIdentityBrokerCodesTable.output.N
 
 console.log("Injecting config");
 console.log("AMPLIFY_ENV is " + AMPLIFY_ENV);
-console.log(amplifyTeams);
 
 var appHostingDomain = undefined;
 if(amplifyTeams[AMPLIFY_ENV].categories.function.amplifyIdentityBrokerPostDeployment.hostingDomain) {
-    appHostingDomain = amplifyTeams[AMPLIFY_ENV].categories.amplifyIdentityBrokerPostDeployment.hostingDomain.match(REGEX)[1];
+    appHostingDomain = amplifyTeams[AMPLIFY_ENV].categories.function.amplifyIdentityBrokerPostDeployment.hostingDomain.match(REGEX)[1];
 } else if(amplifyMeta.hosting.S3AndCloudFront.output.CloudFrontDomainName) {
     appHostingDomain = "https://" + amplifyMeta.hosting.S3AndCloudFront.output.CloudFrontDomainName;
 } else {
@@ -46,7 +45,6 @@ if(appHostingDomain) {
     const redirectSignOut = appHostingDomain + "/logout";
 
     var rawdata = fs.readFileSync('./src/aws-exports.js', 'utf-8');
-    console.log(rawdata);
 
     // Inject broker domain in aws-exports.js
     var withLogout = rawdata.replace(/(redirectSignOut\"+\:[ \t]+\")(.*\")/, "$1"+redirectSignOut+"\"");
