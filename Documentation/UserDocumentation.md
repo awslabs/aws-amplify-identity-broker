@@ -237,6 +237,16 @@ Once the environment is created you'll need to add the necessary redirect rules 
   
 __Note:__ The `...api-gateway-url...` needs to be replaced by the entry point url of the API Gateway associated with your broker. You can find the value by going to the Amazon API Gateway service or by looking at the AWS CloudFormation service and reading at the output parameter `RootUrl` of the template `amplify-amplify-identity-broker-<env>-xxxxxx-apiamplifyIdentityBrokerApi-XXXXXXXXXXX`.
 
+> __IMPORTANT__ The order of the redirect rules is important!
+
+Your setup should look like that:
+
+![AWS console custom rules](Images/custom-rules.png "AWS console custom rules")
+
+See [the documentation](https://docs.aws.amazon.com/amplify/latest/userguide/redirects.html) for more info about how AWS Amplify console rules works.
+
+> __Why do we need this?__ We need to add the redirect rules because when the AWS Amplify Console service deploys the broker he doesn't deploy the S3 and Cloudfront hosting but use a managed hosting. Therefore the behavior we set through the CloudFormation templates of this project are not applied and we need to reproduce the same settings within the AWS Amplify Console service context.
+
 ### Step 3: Configure domain (mandatory)
 
 If you plan to configure your custom domain the process follow instructions from [this guide](https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html).
@@ -263,18 +273,6 @@ Once done indicate your domain (or the AWS Amplify provided one) to the broker b
     }
   }
 ```
-
-
-
-> __IMPORTANT__ The order of the redirect rules is important!
-
-Your setup should look like that:
-
-![AWS console custom rules](Images/custom-rules.png "AWS console custom rules")
-
-See [the documentation](https://docs.aws.amazon.com/amplify/latest/userguide/redirects.html) for more info about how AWS Amplify console rules works.
-
-> __Why do we need this?__ We need to add the redirect rules because when the AWS Amplify Console service deploys the broker he doesn't deploy the S3 and Cloudfront hosting but use a managed hosting. Therefore the behavior we set through the CloudFormation templates of this project are not applied and we need to reproduce the same settings within the AWS Amplify Console service context.
 
 ## Register a client
 To use the identity broker you must register a client_id, redirect_uri, and logout_uri with the `amplifyIdentityBrokerClients` DynamoDB table. These values are passed as query string paramters when a request is made to the /oauth2/authorize endpoint and then checked agaisnt the table.
