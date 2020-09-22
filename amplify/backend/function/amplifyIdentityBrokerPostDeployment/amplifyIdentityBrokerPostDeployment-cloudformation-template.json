@@ -116,9 +116,6 @@
             "Ref": "functionamplifyIdentityBrokerAccountConfirmationName"
           },
           {
-            "Ref": "functionamplifyIdentityBrokerMigrationName"
-          },
-          {
             "Ref": "functionamplifyIdentityBrokerCustomMessageName"
           }
         ]
