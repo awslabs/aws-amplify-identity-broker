@@ -28,9 +28,6 @@
     "functionamplifyIdentityBrokerStorageName": {
       "Type": "String"
     },
-    "functionamplifyIdentityBrokerUserInfoName": {
-      "Type": "String"
-    },
     "functionamplifyIdentityBrokerVerifyClientName": {
       "Type": "String"
     },

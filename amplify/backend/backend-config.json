@@ -119,13 +119,6 @@
                 },
                 {
                     "category": "function",
-                    "resourceName": "amplifyIdentityBrokerUserInfo",
-                    "attributes": [
-                        "Name"
-                    ]
-                },
-                {
-                    "category": "function",
                     "resourceName": "amplifyIdentityBrokerVerifyClient",
                     "attributes": [
                         "Name"
