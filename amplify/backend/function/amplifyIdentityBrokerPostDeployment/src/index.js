@@ -63,27 +63,12 @@ async function updateCognitoAppCallbacks(AppClientId, UserPoolId, domainUrl) {
 
   console.log(description);
 
-  params = {
-    ClientId: AppClientId,
-    UserPoolId: UserPoolId,
-    CallbackURLs: [domainUrl],
-    LogoutURLs: [domainUrl + "/logout"],
-    AccessTokenValidity: description.UserPoolClient.AccessTokenValidity,
-    AllowedOAuthFlows: description.UserPoolClient.AllowedOAuthFlows,
-    AllowedOAuthFlowsUserPoolClient: description.UserPoolClient.AllowedOAuthFlowsUserPoolClient,
-    AllowedOAuthScopes: description.UserPoolClient.AllowedOAuthScopes,
-    AnalyticsConfiguration: description.UserPoolClient.AnalyticsConfiguration,
-    ClientName: description.UserPoolClient.ClientName,
-    DefaultRedirectURI: description.UserPoolClient.DefaultRedirectURI,
-    ExplicitAuthFlows: description.UserPoolClient.ExplicitAuthFlows,
-    IdTokenValidity: description.UserPoolClient.IdTokenValidity,
-    PreventUserExistenceErrors: description.UserPoolClient.PreventUserExistenceErrors,
-    ReadAttributes: description.UserPoolClient.ReadAttributes,
-    RefreshTokenValidity: description.UserPoolClient.RefreshTokenValidity,
-    SupportedIdentityProviders: description.UserPoolClient.SupportedIdentityProviders,
-    TokenValidityUnits: description.UserPoolClient.TokenValidityUnits,
-    WriteAttributes: description.UserPoolClient.WriteAttributes,
-  };
+  params = description.UserPoolClient;
+  params.CallbackURLs = new Array();
+  params.CallbackURLs.push(domainUrl);
+  params.LogoutURLs = new Array();
+  params.LogoutURLs.push(domainUrl + "/logout");
+  
   return cognitoidentityserviceprovider.updateUserPoolClient(params).promise();
 }
 
