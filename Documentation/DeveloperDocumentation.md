@@ -40,7 +40,7 @@ __Oauth2/OIDC functions__
 * __amplifyIdentityBrokerUserInfo__: Returns standard answer to _/oauth2/userinfo_. Needs a valid JWT token
 * __amplifyIdentityBrokerExposeJWKS__: Return the oauth public key used by Cognito. It is onvoked behind /.well-known/jwks.json
 
-* __amplifyIdentityBrokerAccountConfirmation__: This is mapped to _/accountConfirmation_ path which is used in confirmation emails
+* __amplifyIdentityBrokerAccountConfirmation__: This is mapped to _/accountConfirmation_ path which is the link provided in confirmation emails. This activate the user account.
 
 __SPA backend functions__
 
