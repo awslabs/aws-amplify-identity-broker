@@ -68,7 +68,8 @@
     "InsertDomainOnLambdas": {
       "Type": "Custom::InsertDomainOnLambdas",
       "DependsOn": [
-        "lambdaexecutionpolicy"
+        "lambdaexecutionpolicy",
+        "LambdaFunction"
       ],
       "Properties": {
         "ServiceToken": {
