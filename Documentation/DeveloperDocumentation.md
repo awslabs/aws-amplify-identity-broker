@@ -50,6 +50,9 @@ __Cognito Trigger functions__
 * __amplifyIdentityBrokerCustomMessage__: Is invoked before sending any email to the user. It is associated to the [Custom message Lambda Trigger](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-custom-message.html) of the Cognito user pool.
 * __amplifyIdentityBrokerMigration__: Is not invoked by default. This is just an example of how to do a migration. Can be associated to the [Migrate user trigger](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-migrate-user.html)
 
+__Utils functions__
+* __amplifyIdentityBrokerPostDeployment__: Is a CloudFormation custom resources that depends on most of Api, Auth and all Functions. It receive the balue of the hosting (the cloudfront domain) the UserPool ID and apps and update the configuration of Cognito app with callback that match. It also inject the HOSTING_DOMAIN environment variable for all functions. The domain value can be override in `team-provider-info.json` with `hostingDomain` (see user documentation). Also this domain is propagated to frontend by `config-overrides.js`
+
 ### Implemented auth flows
 
 <details>
