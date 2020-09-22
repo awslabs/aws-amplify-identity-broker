@@ -8,8 +8,13 @@
   */
 
 var amplifyMeta = {};
+var amplifyTeams = {};
 const fs = require("fs");
-if (!fs.existsSync("./amplify/backend/amplify-meta.json")) {
+const path = require('path');
+if ((!fs.existsSync("./amplify/backend/amplify-meta.json")) ||
+    (!fs.existsSync("./amplify/team-provider-info.json")) ||
+    (!fs.existsSync("./src/aws-exports.js"))
+    ) {
     console.error("Amplify is not configured !!");
     console.log(" please run:");
     console.log(" > amplify init");
@@ -17,12 +22,36 @@ if (!fs.existsSync("./amplify/backend/amplify-meta.json")) {
     process.exit();
 } else {
     amplifyMeta = require("./amplify/backend/amplify-meta.json");
+    amplifyTeams = require("./amplify/team-provider-info.json");
 }
 const REGEX = /.*-(\w+)/;
 const AMPLIFY_ENV = amplifyMeta.storage.amplifyIdentityBrokerCodesTable.output.Name.match(REGEX)[1];
 
 console.log("Injecting config");
 console.log("AMPLIFY_ENV is " + AMPLIFY_ENV);
+
+var hostingDomain = undefined;
+if(amplifyTeams[AMPLIFY_ENV].categories.function.amplifyIdentityBrokerPostDeployment.hostingDomain) {
+    hostingDomain = amplifyTeams[AMPLIFY_ENV].categories.amplifyIdentityBrokerPostDeployment.hostingDomain.match(REGEX)[1];
+} else if(amplifyMeta.hosting.S3AndCloudFront.output.CloudFrontDomainName) {
+    hostingDomain = "https://" + amplifyMeta.hosting.S3AndCloudFront.output.CloudFrontDomainName;
+} else {
+    console.log("WARNING : No hosting domain defined!!");
+    process.exit();
+}
+
+if(hostingDomain) {
+    const redirectSignIn = hostingDomain;
+    const redirectSignOut = hostingDomain + "/logout";
+
+    var rawdata = fs.readFileSync('./src/aws-exports.js', 'utf-8');
+
+    // Inject broker domain in aws-exports.js
+    var withLogout = rawdata.replace(/(redirectSignOut\"+\:[ \t]+\")(.*\")/, "$1"+redirectSignOut+"\"");
+    var withBoth = withLogout.replace(/(redirectSignIn\"+\:[ \t]+\")(.*\")/, "$1"+redirectSignIn+"\"");
+
+    fs.writeFileSync('./src/aws-exports.js', withBoth, 'utf-8');
+}
 
 module.exports = function override(config, env) {
     console.log("Build env is " + env);
