@@ -39,12 +39,9 @@
      ).catch(
          (error) => {
              if(error.message === "User cannot be confirmed. Current status is CONFIRMED"){
-                 var html = `<html><head><title>Account already confirmed</title></head> 
-                             <body><b>The account ${username} has been already confirmed</b><br/>
-                             Click <a href="${process.env.HOSTING_DOMAIN}">here</a> to login.
-                             </body></html>`;
-                     
-                 context.succeed(html);
+                context.succeed({
+                    location: process.env.HOSTING_DOMAIN
+                });
              } else {
                  callback(error.message);
              }
