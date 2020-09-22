@@ -116,6 +116,9 @@
     },
     "LambdaFunction": {
       "Type": "AWS::Lambda::Function",
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
       "Metadata": {
         "aws:asset:path": "./src",
         "aws:asset:property": "Code"
@@ -156,9 +159,6 @@
             "Arn"
           ]
         },
-        "DependsOn": [
-          "LambdaExecutionRole"
-        ],
         "Runtime": "nodejs12.x",
         "Timeout": "300",
         "Code": {

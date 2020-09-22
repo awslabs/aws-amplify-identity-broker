@@ -62,16 +62,16 @@
       }
     }
   },
-  "magic": {
+  "magical": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-amplify-identity-broker-magic-193200-authRole",
-      "UnauthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-magic-193200-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-magic-193200-authRole",
+      "AuthRoleName": "amplify-amplify-identity-broker-magical-195740-authRole",
+      "UnauthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-magical-195740-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::959861384820:role/amplify-amplify-identity-broker-magical-195740-authRole",
       "Region": "us-west-2",
-      "DeploymentBucketName": "amplify-amplify-identity-broker-magic-193200-deployment",
-      "UnauthRoleName": "amplify-amplify-identity-broker-magic-193200-unauthRole",
-      "StackName": "amplify-amplify-identity-broker-magic-193200",
-      "StackId": "arn:aws:cloudformation:us-west-2:959861384820:stack/amplify-amplify-identity-broker-magic-193200/cc2ab7b0-fc7b-11ea-9ac4-02f401615fb5",
+      "DeploymentBucketName": "amplify-amplify-identity-broker-magical-195740-deployment",
+      "UnauthRoleName": "amplify-amplify-identity-broker-magical-195740-unauthRole",
+      "StackName": "amplify-amplify-identity-broker-magical-195740",
+      "StackId": "arn:aws:cloudformation:us-west-2:959861384820:stack/amplify-amplify-identity-broker-magical-195740/61d1d890-fc7f-11ea-8100-0a5c3e85f31a",
       "AmplifyAppId": "d133cwfzeheq0b"
     },
     "categories": {
