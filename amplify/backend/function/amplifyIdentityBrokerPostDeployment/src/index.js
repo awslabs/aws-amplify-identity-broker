@@ -7,6 +7,7 @@
  * the License.
  */
 
+const response = require("./cfn-response");
 const AWS = require("aws-sdk");
 var lambda = new AWS.Lambda();
 var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
@@ -42,12 +43,11 @@ exports.handler = async (event, context) => {
         functionName
       );
     }
+    return await response.send(event, context, response.SUCCESS, { DomainDeployed: domainUrl });
   } catch (err) {
     console.log(err, err.stack);
-    return sendResponseCfn(event, context, "FAILED", domainUrl);
+    return await response.send(event, context, response.FAILED, { DomainDeployed: domainUrl });
   }
-
-  return sendResponseCfn(event, context, "SUCCESS", domainUrl);
 };
 
 async function injectEnvVariableToLambda(
@@ -75,22 +75,4 @@ async function injectEnvVariableToLambda(
     },
   };
   return lambda.updateFunctionConfiguration(params).promise();
-}
-
-// Return expected for a custom resource
-// See: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-custom-resources.html
-function sendResponseCfn(event, context, responseStatus, domainDeployed) {
-  const response_body = {
-    Status: responseStatus,
-    Reason: "Log stream name: " + context.log_stream_name,
-    PhysicalResourceId: context.log_stream_name,
-    StackId: event["StackId"],
-    RequestId: event["RequestId"],
-    LogicalResourceId: event["LogicalResourceId"],
-    Data: {
-      DomainDeployed: domainDeployed,
-    },
-  };
-  console.log("Return response: " + JSON.stringify(response_body));
-  return response_body;
 }
