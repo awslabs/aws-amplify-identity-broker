@@ -95,16 +95,10 @@
             "Ref": "functionamplifyIdentityBrokerStorageName"
           },
           {
-            "Ref": "functionamplifyIdentityBrokerUserInfoName"
-          },
-          {
             "Ref": "functionamplifyIdentityBrokerVerifyClientName"
           },
           {
             "Ref": "functionamplifyIdentityBrokerAccountConfirmationName"
-          },
-          {
-            "Ref": "functionamplifyIdentityBrokerMigrationName"
           },
           {
             "Ref": "functionamplifyIdentityBrokerCustomMessageName"

@@ -112,16 +112,17 @@
                 },
                 {
                     "category": "function",
-                    "resourceName": "amplifyIdentityBrokerMigration",
+                    "resourceName": "amplifyIdentityBrokerVerifyClient",
                     "attributes": [
                         "Name"
                     ]
                 },
                 {
                     "category": "function",
-                    "resourceName": "amplifyIdentityBrokerVerifyClient",
+                    "resourceName": "amplifyIdentityBrokerAccountConfirmation",
                     "attributes": [
-                        "Name"
+                        "Name",
+                        "Arn"
                     ]
                 }
             ]
