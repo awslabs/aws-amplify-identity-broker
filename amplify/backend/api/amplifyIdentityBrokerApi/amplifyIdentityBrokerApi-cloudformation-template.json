@@ -1369,7 +1369,7 @@
                     "application/json"
                   ],
                   "produces": [
-                    "application/json"
+                    "text/html"
                   ],
                   "responses": {
                     "200": {
@@ -1423,6 +1423,9 @@
                     }
                   ],
                   "responses": {
+                    "200": {
+                      "description": "200 response",
+                    },
                     "302": {
                       "description": "302 responses only",    
                       "headers": {
