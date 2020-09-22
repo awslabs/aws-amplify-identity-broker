@@ -140,6 +140,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(Auth);
     var SAMLLoginButtons = this.SAMLIdPs.map(IdP => <button className="saml btn" key={IdP} onClick={() => this.handleIdPLogin(IdP)}>{I18n.get(IdP)}</button>);
     return (
       <div>

@@ -46,7 +46,7 @@ module.exports = function override(config, env) {
             break;
         default:
             localConfig = {
-                "providers": [],
+                "providers": ["AWSSSO", "OIDCIdentityProvider", "LoginWithAmazon", "Facebook", "Google"],
             };
     }
 
