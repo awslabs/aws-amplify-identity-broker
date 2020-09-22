@@ -29,6 +29,7 @@ amplify/backend/auth            <-- Cognito user pool configuration
 amplify/backend/function        <-- all Lambda function code are here
 amplify/backend/storage         <-- DynamoDB tables definition
 amplify/backend/hosting         <-- specific Cloudfront and S3 setup
+amplify/backend/kms             <-- contain the cryptographic material setup (for token encryption in DynamoDB)
 ```
 
 ### Lambda functions
