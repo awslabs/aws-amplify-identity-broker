@@ -206,11 +206,39 @@ Once the environment is created you'll need to add the necessary redirect rules 
 | /storage  | ...api-gateway-url.../storage  | 200 |
 | /.well-known/jwks.json  | ...api-gateway-url.../.well-known/jwks.json  | 200 |
 | /verifyClient  | ...api-gateway-url.../verifyClient  | 200 |
+| /accountConfirmation  | ...api-gateway-url.../accountConfirmation  | 200 |
 | /logout  | /index.html  | 200 |
 | /<*>  | /index.html  | 404 |
   
 __Note:__ The `...api-gateway-url...` needs to be replaced by the entry point url of the API Gateway associated with your broker. You can find the value by going to the Amazon API Gateway service or by looking at the AWS CloudFormation service and reading at the output parameter `RootUrl` of the template `amplify-amplify-identity-broker-<env>-xxxxxx-apiamplifyIdentityBrokerApi-XXXXXXXXXXX`.
-  
+
+### Step 3: Configure domain (optionnal)
+
+If you plan to configure your custom domain the process is the same than without AWS Amplify Console (see section _Setup your custom domain_).
+
+But if you want to use the AWS Amplify console provided domain `http://master.XXXXXXXXXX.amplifyapp.com/` you have to tell the broker by updating your environment configuration on _amplify/team-provider-info.json_:
+
+```
+"your-env-name": {
+    "awscloudformation": {
+      ...
+    },
+    "categories": {
+      "auth": {
+      ...
+      },
+      "function": {
+        "amplifyIdentityBrokerPostDeployment": {
+          "hostingDomain": "https://master.XXXXXXXXXXX.amplifyapp.com"  <-- Here indicate the domain your Broker uses
+        },
+        ...
+      }
+    }
+  }
+```
+
+
+
 > __IMPORTANT__ The order of the redirect rules is important!
 
 Your setup should look like that:
