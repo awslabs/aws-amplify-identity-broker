@@ -25,8 +25,9 @@ exports.handler = async (event, context) => {
   try {
     const UserPoolId = event["ResourceProperties"]["UserPoolId"];
     const AppClientId = event["ResourceProperties"]["AppClientId"];
+    const AppClientIdWeb = event["ResourceProperties"]["AppClientIdWeb"];
     console.log(
-      `Updating UserPool ${UserPoolId} app ${AppClientId} with callbacks ${domainUrl}`
+      `Updating UserPool ${UserPoolId} app ${AppClientId} and app ${AppClientIdWeb} with callbacks ${domainUrl}`
     );
     const params = {
       ClientId: AppClientId,
@@ -35,6 +36,14 @@ exports.handler = async (event, context) => {
       LogoutURLs: [domainUrl + "/logout"],
     };
     await cognitoidentityserviceprovider.updateUserPoolClient(params).promise();
+
+    const paramsWeb = {
+      ClientId: AppClientIdWeb,
+      UserPoolId: UserPoolId,
+      CallbackURLs: [domainUrl],
+      LogoutURLs: [domainUrl + "/logout"],
+    };
+    await cognitoidentityserviceprovider.updateUserPoolClient(paramsWeb).promise();
 
     for (const functionName of event["ResourceProperties"]["functionNames"]) {
       await injectEnvVariableToLambda(

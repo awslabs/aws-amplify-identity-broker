@@ -16,6 +16,9 @@
     "authamplifyIdentityBrokerAuthAppClientID": {
       "Type": "String"
     },
+    "authamplifyIdentityBrokerAuthAppClientIDWeb": {
+      "Type": "String"
+    },
     "functionamplifyIdentityBrokerAuthorizeName": {
       "Type": "String"
     },
@@ -79,6 +82,9 @@
         },
         "AppClientId": {
           "Ref": "authamplifyIdentityBrokerAuthAppClientID"
+        },
+        "AppClientIdWeb": {
+          "Ref": "authamplifyIdentityBrokerAuthAppClientIDWeb"
         },
         "CloudfrontDomain": {
           "Ref": "hostingS3AndCloudFrontCloudFrontSecureURL"

@@ -71,7 +71,8 @@
                     "resourceName": "amplifyIdentityBrokerAuth",
                     "attributes": [
                         "UserPoolId",
-                        "AppClientID"
+                        "AppClientID",
+                        "AppClientIDWeb"
                     ]
                 },
                 {
