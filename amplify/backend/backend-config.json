@@ -112,6 +112,13 @@
                 },
                 {
                     "category": "function",
+                    "resourceName": "amplifyIdentityBrokerMigration",
+                    "attributes": [
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
                     "resourceName": "amplifyIdentityBrokerUserInfo",
                     "attributes": [
                         "Name"
