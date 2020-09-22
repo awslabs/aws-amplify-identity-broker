@@ -63,6 +63,11 @@ async function updateCognitoAppCallbacks(AppClientId, UserPoolId, domainUrl) {
 
   console.log(description);
 
+  // Remove field that are not inputs
+  delete description.ClientSecret;
+  delete description.LastModifiedDate;
+  delete description.CreationDate;
+
   params = description.UserPoolClient;
   params.CallbackURLs = new Array();
   params.CallbackURLs.push(domainUrl);
