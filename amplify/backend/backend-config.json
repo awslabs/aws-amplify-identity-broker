@@ -130,13 +130,6 @@
                     "attributes": [
                         "Name"
                     ]
-                },
-                {
-                    "category": "function",
-                    "resourceName": "amplifyIdentityBrokerAccountConfirmation",
-                    "attributes": [
-                        "Name"
-                    ]
                 }
             ]
         },
