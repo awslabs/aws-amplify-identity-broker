@@ -27,8 +27,8 @@ exports.handler = async (event, context) => {
     const AppClientId = event["ResourceProperties"]["AppClientId"];
     const AppClientIdWeb = event["ResourceProperties"]["AppClientIdWeb"];
 
-    //await updateCognitoAppCallbacks(AppClientId, UserPoolId, domainUrl);
-    //await updateCognitoAppCallbacks(AppClientIdWeb, UserPoolId, domainUrl);
+    await updateCognitoAppCallbacks(AppClientId, UserPoolId, domainUrl);
+    await updateCognitoAppCallbacks(AppClientIdWeb, UserPoolId, domainUrl);
 
     for (const functionName of event["ResourceProperties"]["functionNames"]) {
       await injectEnvVariableToLambda(
@@ -64,9 +64,9 @@ async function updateCognitoAppCallbacks(AppClientId, UserPoolId, domainUrl) {
   console.log(description);
 
   // Remove field that are not inputs
-  delete description.ClientSecret;
-  delete description.LastModifiedDate;
-  delete description.CreationDate;
+  delete description.UserPoolClient.ClientSecret;
+  delete description.UserPoolClient.LastModifiedDate;
+  delete description.UserPoolClient.CreationDate;
 
   params = description.UserPoolClient;
   params.CallbackURLs = new Array();
