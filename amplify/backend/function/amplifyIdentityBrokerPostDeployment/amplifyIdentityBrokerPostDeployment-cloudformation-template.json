@@ -31,9 +31,6 @@
     "functionamplifyIdentityBrokerUserInfoName": {
       "Type": "String"
     },
-    "functionamplifyIdentityBrokerExposeJWKSName": {
-      "Type": "String"
-    },
     "functionamplifyIdentityBrokerVerifyClientName": {
       "Type": "String"
     },
@@ -105,9 +102,6 @@
           },
           {
             "Ref": "functionamplifyIdentityBrokerUserInfoName"
-          },
-          {
-            "Ref": "functionamplifyIdentityBrokerExposeJWKSName"
           },
           {
             "Ref": "functionamplifyIdentityBrokerVerifyClientName"

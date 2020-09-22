@@ -126,13 +126,6 @@
                 },
                 {
                     "category": "function",
-                    "resourceName": "amplifyIdentityBrokerExposeJWKS",
-                    "attributes": [
-                        "Name"
-                    ]
-                },
-                {
-                    "category": "function",
                     "resourceName": "amplifyIdentityBrokerVerifyClient",
                     "attributes": [
                         "Name"
