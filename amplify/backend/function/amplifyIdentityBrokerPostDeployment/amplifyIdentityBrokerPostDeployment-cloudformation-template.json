@@ -5,7 +5,7 @@
     "CloudWatchRule": {
       "Type": "String",
       "Default": "NONE",
-      "Description": " Schedule Expression"
+      "Description": "Schedule Expression"
     },
     "env": {
       "Type": "String"
