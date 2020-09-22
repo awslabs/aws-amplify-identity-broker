@@ -120,7 +120,7 @@ __3. Set your Hosted UI Domain Name__
 
 To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the `hostedUIDomainName` property. Be default it is "amplifyidbroker". When created, the Hosted UI domain name will take the form `https://{hostedUIDomainName}-{environment}.auth.{region}.amazoncognito.com` 
 
-__WARNING:__ _The Cognito domain name has to be __unique__ in your selected region. Conflicting domain name is a cause of deployment failure_
+__WARNING:__ _The Cognito domain name has to be __unique among all AWS customers__ in your selected region. Conflicting domain name is a cause of deployment failure_
 
 __4. Set your User Pool's Federated Social Identity Providers__
 
@@ -174,7 +174,32 @@ This command will create all the backend resources and the hosting bucket plus c
 amplify publish
 ```
 
-__Setup your own domain__
+__9. Setup your own domain (optionnal)__
+
+If you use Cloudfront directly (by default), you should setup your own domain following [this guide](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-alternate-domain-names.html).
+
+If you plan to use AWS Amplify Console as a CI/CD pipeline to deploy, skip that step and go to _Deploying with the AWS Amplify console_ section.
+
+Once your domain associated with the broker, you need to indicate it inside _amplify/team-provider-info.json_:
+
+```
+"your-env-name": {
+    "awscloudformation": {
+      ...
+    },
+    "categories": {
+      "auth": {
+      ...
+      },
+      "function": {
+        "amplifyIdentityBrokerPostDeployment": {
+          "hostingDomain": "https://your-own-domain.com"  <-- Here indicate the domain your Broker uses
+        },
+        ...
+      }
+    }
+  }
+```
 
 ## Deploying with the AWS Amplify console
 
@@ -212,11 +237,13 @@ Once the environment is created you'll need to add the necessary redirect rules 
   
 __Note:__ The `...api-gateway-url...` needs to be replaced by the entry point url of the API Gateway associated with your broker. You can find the value by going to the Amazon API Gateway service or by looking at the AWS CloudFormation service and reading at the output parameter `RootUrl` of the template `amplify-amplify-identity-broker-<env>-xxxxxx-apiamplifyIdentityBrokerApi-XXXXXXXXXXX`.
 
-### Step 3: Configure domain (optionnal)
+### Step 3: Configure domain (mandatory)
 
-If you plan to configure your custom domain the process is the same than without AWS Amplify Console (see section _Setup your custom domain_).
+If you plan to configure your custom domain the process follow instructions from [this guide](https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html).
 
-But if you want to use the AWS Amplify console provided domain `http://master.XXXXXXXXXX.amplifyapp.com/` you have to tell the broker by updating your environment configuration on _amplify/team-provider-info.json_:
+> __NOTE:__ _If you want __do not want__ your custom domain to use the AWS Amplify console provided domain `https://master.XXXXXXXXXX.amplifyapp.com/` you have to tell the broker anyway._
+
+Once done indicate your domain (or the AWS Amplify provided one) to the broker by updating your environment configuration on _amplify/team-provider-info.json_:
 
 ```
 "your-env-name": {
@@ -229,7 +256,7 @@ But if you want to use the AWS Amplify console provided domain `http://master.XX
       },
       "function": {
         "amplifyIdentityBrokerPostDeployment": {
-          "hostingDomain": "https://master.XXXXXXXXXXX.amplifyapp.com"  <-- Here indicate the domain your Broker uses
+          "hostingDomain": "https://your-own-domain.com"  <-- Here indicate the domain your Broker uses
         },
         ...
       }
