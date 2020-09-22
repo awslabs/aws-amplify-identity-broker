@@ -178,6 +178,7 @@ Resources:
           Required: false
           Mutable: true
 
+
       LambdaConfig:
         CustomMessage: !Ref functionamplifyIdentityBrokerCustomMessageArn
 

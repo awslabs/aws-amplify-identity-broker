@@ -21,7 +21,8 @@ export const strings = {
         GOOGLE_SIGNIN: "Sign In with Google",
         FACEBOOK_SIGNIN: "Sign In with Facebook",
         OR: "OR",
-        WAIT_REDIRECTION: "You have successfully logged in, please wait while redirecting..."
+        WAIT_REDIRECTION: "You have successfully logged in, please wait while redirecting...",
+        VERIFY_EMAIL: "You have successfully created an account. Please check your email to confirm your registration..."
     },
     fr: {
         [Translations.NO_ACCOUNT_TEXT]: "Pas encore de compte ?",
@@ -58,6 +59,7 @@ export const strings = {
         GOOGLE_SIGNIN: "Connectez-vous avec Google",
         FACEBOOK_SIGNIN: "Connectez-vous avec Facebook",
         OR: "OU",
-        WAIT_REDIRECTION: "Vous vous êtes connecté avec succès, attendez d'être redirigé..."
+        WAIT_REDIRECTION: "Vous vous êtes connecté avec succès, attendez d'être redirigé...",
+        VERIFY_EMAIL: "Vous avez créé un compte avec succès. Veuillez vérifier votre email pour confirmer votre inscription..."
     },
 };

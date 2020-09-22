@@ -7,30 +7,120 @@
   * the License.
   */
 
-var providerName = "Amplify Identity Broker";
+ function I18N() {
+    this.strings = {
+        en: {
+            EMAIL_GREETING: "Hello",
+            EMAIL_MESSAGE: "Thank you for creating an account with us. Please click on the below link to confirm the registration!",
+            SMS_MESSAGE: "Click on this link to verify your contact info.",
+            EMAIL_SUBJECT: "Action Required: Verify your contact info.",
+            EMAIL_LINK: "Click Here"
+        },
+        fr: {
+            EMAIL_GREETING: "Bonjour",
+            EMAIL_MESSAGE: "d'avoir créé un compte avec nous. Veuillez cliquer sur le lien ci-dessous pour confirmer l'inscription!",
+            SMS_MESSAGE: "Cliquez sur ce lien pour vérifier vos coordonnées. ",
+            EMAIL_SUBJECT: "Action Requise: Vérifiez vos coordonnées",
+            EMAIL_LINK: "Cliquez ici"
+        },
+    };
+    this.language = 'en' // default language
+}
+
+I18N.prototype.setLanguage = function(language){
+    this.language = language;
+}
+
+I18N.prototype.get = function(key){
+    let languageDict = this.strings[this.language];
+    return languageDict[key];
+}
+    
 exports.handler = (event, context, callback) => {
-  console.log(event);
-  // Identify why was this function invoked
-  if (event.triggerSource === "CustomMessage_SignUp") {
-    let lang = event.request.userAttributes["locale"]; // Acesss the event data of custom user Attribute lang
-    console.log("Lang is " + lang);
 
-    // Ensure that your message contains event.request.codeParameter. This is the placeholder for code that will be sent
-    // French
-    if (lang == "fr") {
-      event.response.smsMessage = "Bienvenue à " + providerName + ". Votre code de confirmation est " + event.request.codeParameter;
-      event.response.emailSubject = "Bienvenue à " + providerName;
-      event.response.emailMessage = "Merci pour votre inscription. " + event.request.codeParameter + " est votre code de vérification";
-    }
-    //English
-    else {
-      event.response.smsMessage = "Welcome to " + providerName + ". Your confirmation code is " + event.request.codeParameter;
-      event.response.emailSubject = "Welcome to " + providerName;
-      event.response.emailMessage = "Thank you for signing up. " + event.request.codeParameter + " is your verification code";
-    }
-  }
-  // Create custom message for other events
+    // Template used to generate HTML email
+    const template = (email, link) => `<html>
 
-  // Return to Amazon Cognito
-  callback(null, event);
+ <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <style type="text/css">
+         body {
+             margin: 0;
+             font: 12px/16px Arial, sans-serif;
+         }
+ 
+         /* buttons */
+ 
+         .buttonComponent {
+             border-collapse: separate;
+             text-decoration: none !important;
+             line-height: 47px;
+             border-radius: 3px;
+             border-style: solid;
+             border-color: #CBA957;
+             border-width: 1px;
+             background: #F0C354 linear-gradient(#F7DEA2, #F0C354) repeat scroll 0%=0%;
+             background-color: #ffa723;
+             white-space: nowrap;
+             min-width: 150px;
+             min-height: 27px;
+         }
+ 
+         .buttonComponentLink {
+             color: rgb(27, 27, 27) !important;
+             font: 16px/ 18px Arial, sans-serif !important;
+             display: table-cell;
+             margin: auto 0;
+             vertical-align: middle;
+             min-width: 150px;
+             height: 47px;
+         }
+     </style>
+ </head>
+ 
+ <body>
+    <div class="greeting">
+        ${translator.get("EMAIL_GREETING")},
+        <br />
+        ${translator.get("EMAIL_MESSAGE")}
+        <br />
+        <br />
+        <br />
+    </div>
+    
+     <table id="container" class="buttonComponent" bgcolor="#ffa723" width="222">
+         <tbody>
+             <tr>
+                 <td style="width:100%; vertical-align:middle;" align="center" valign="middle" width="100%" height="27">
+                     <a class="buttonComponentLink" href="${link}"> ${translator.get("EMAIL_LINK")} </a>
+                 </td>
+             </tr>
+         </tbody>
+     </table>
+ 
+ </body>
+ 
+ </html>`
+
+    const url = process.env.HOSTING_DOMAIN + "/accountConfirmation";
+    const userName = event.userName;
+    const region = event.region;
+    const email = event.request.userAttributes.email;
+    const codeParameter = event.request.codeParameter;
+    const clientId = event.callerContext.clientId;
+    const translator = new I18N();
+    const link = url + "?code=" + codeParameter + "&username=" + userName + "&clientId=" + clientId + "&region=" + region + "&email=" + email;
+
+    // Identify why was this function invoked
+    if (event.triggerSource === "CustomMessage_SignUp") {
+        let lang = event.request.userAttributes["locale"]; // Access the event data of custom user Attribute lang
+        translator.setLanguage(lang);
+        
+        event.response.smsMessage   = link;
+        event.response.emailSubject = translator.get("EMAIL_SUBJECT");
+        event.response.emailMessage = template(email, link);
+    }
+
+    // Return to Amazon Cognito
+    callback(null, event);
 };

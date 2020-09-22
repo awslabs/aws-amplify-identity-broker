@@ -61,6 +61,91 @@
         }
     },
     "function": {
+        "amplifyIdentityBrokerPostDeployment": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda",
+            "dependsOn": [
+                {
+                    "category": "auth",
+                    "resourceName": "amplifyIdentityBrokerAuth",
+                    "attributes": [
+                        "UserPoolId",
+                        "AppClientID"
+                    ]
+                },
+                {
+                    "category": "hosting",
+                    "resourceName": "S3AndCloudFront",
+                    "attributes": [
+                        "CloudFrontSecureURL"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "amplifyIdentityBrokerToken",
+                    "attributes": [
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "amplifyIdentityBrokerStorage",
+                    "attributes": [
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "amplifyIdentityBrokerAuthorize",
+                    "attributes": [
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "amplifyIdentityBrokerCustomMessage",
+                    "attributes": [
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "amplifyIdentityBrokerMigration",
+                    "attributes": [
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "amplifyIdentityBrokerUserInfo",
+                    "attributes": [
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "amplifyIdentityBrokerExposeJWKS",
+                    "attributes": [
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "amplifyIdentityBrokerVerifyClient",
+                    "attributes": [
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "amplifyIdentityBrokerAccountConfirmation",
+                    "attributes": [
+                        "Name"
+                    ]
+                }
+            ]
+        },
         "amplifyIdentityBrokerCustomMessage": {
             "build": true,
             "providerPlugin": "awscloudformation",
@@ -98,7 +183,7 @@
                     "category": "auth",
                     "resourceName": "amplifyIdentityBrokerAuth",
                     "attributes": [
-                        "AppClientIDWeb"
+                            "AppClientIDWeb"
                     ]
                 },
                 {
@@ -142,7 +227,7 @@
                     "category": "auth",
                     "resourceName": "amplifyIdentityBrokerAuth",
                     "attributes": [
-                        "AppClientID"
+                            "AppClientID"
                     ]
                 }
             ]
@@ -181,6 +266,11 @@
                     ]
                 }
             ]
+        },
+        "amplifyIdentityBrokerAccountConfirmation": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda"
         }
     },
     "api": {
@@ -231,6 +321,14 @@
                 {
                     "category": "function",
                     "resourceName": "amplifyIdentityBrokerVerifyClient",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "amplifyIdentityBrokerAccountConfirmation",
                     "attributes": [
                         "Name",
                         "Arn"

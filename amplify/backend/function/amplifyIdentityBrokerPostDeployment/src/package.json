@@ -1,0 +1,7 @@
+{
+  "name": "amplifyIdentityBrokerPostDeployment",
+  "version": "2.0.0",
+  "description": "Finalize stack deployment",
+  "main": "index.js",
+  "license": "MIT License"
+}

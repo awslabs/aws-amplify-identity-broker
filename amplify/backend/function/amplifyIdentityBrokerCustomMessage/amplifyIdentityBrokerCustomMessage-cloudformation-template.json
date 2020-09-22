@@ -2,10 +2,6 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "Custom Message Lambda for the AWS Amplify Identity Broker",
   "Parameters": {
-    "REDIRECTURL": {
-      "Type": "String",
-      "Default": ""
-    },
     "EMAILMESSAGE": {
       "Type": "String",
       "Default": ""
@@ -95,9 +91,6 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "REDIRECTURL": {
-              "Ref": "REDIRECTURL"
-            },
             "EMAILSUBJECT": {
               "Ref": "EMAILSUBJECT"
             },
@@ -118,8 +111,8 @@
         "Runtime": "nodejs12.x",
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-amplify-identity-broker-vpprod-115404-deployment",
-          "S3Key": "amplify-builds/amplifyIdentityBrokerCustomMessage-6c2b4c725a754974724f-build.zip"
+          "S3Bucket": "amplify-amplify-identity-broker-asyncdev-221350-deployment",
+          "S3Key": "amplify-builds/amplifyIdentityBrokerCustomMessage-77516a744e53496c4b38-build.zip"
         }
       }
     },

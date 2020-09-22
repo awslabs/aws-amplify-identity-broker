@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Storage Lambda for the AWS Amplify Identity Broker",
+  "Description": "Account Confirmation Lambda for the AWS Amplify Identity Broker",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -9,14 +9,6 @@
     },
     "env": {
       "Type": "String"
-    },
-    "storageamplifyIdentityBrokerCodesTableName": {
-      "Type": "String",
-      "Default": "storageamplifyIdentityBrokerCodesTableName"
-    },
-    "storageamplifyIdentityBrokerCodesTableArn": {
-      "Type": "String",
-      "Default": "storageamplifyIdentityBrokerCodesTableArn"
     }
   },
   "Conditions": {
@@ -41,12 +33,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "amplifyIdentityBrokerStorage",
+            "amplifyIdentityBrokerAccountConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "amplifyIdentityBrokerStorage",
+                  "amplifyIdentityBrokerAccountConfirmation",
                   "-",
                   {
                     "Ref": "env"
@@ -63,12 +55,6 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
-            },
-            "STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME": {
-              "Ref": "storageamplifyIdentityBrokerCodesTableName"
-            },
-            "STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_ARN": {
-              "Ref": "storageamplifyIdentityBrokerCodesTableArn"
             }
           }
         },
@@ -79,12 +65,12 @@
           ]
         },
         "Runtime": "nodejs12.x",
+        "Layers": [],
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-amplify-identity-broker-asyncdev-221350-deployment",
-          "S3Key": "amplify-builds/amplifyIdentityBrokerStorage-504c6752486354594668-build.zip"
-        },
-        "Layers": []
+          "S3Key": "amplify-builds/amplifyIdentityBrokerAccountConfirmation-73557654624479503264-build.zip"
+        }
       }
     },
     "LambdaExecutionRole": {
@@ -93,12 +79,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "amplifyidentitybrokerLambdaRolea53a71b5",
+            "amplifyidentitybrokerLambdaRole494058b9",
             {
               "Fn::Join": [
                 "",
                 [
-                  "amplifyidentitybrokerLambdaRolea53a71b5",
+                  "amplifyidentitybrokerLambdaRole494058b9",
                   "-",
                   {
                     "Ref": "env"
@@ -144,13 +130,6 @@
             {
               "Effect": "Allow",
               "Action": [
-                "kms:Encrypt"
-              ],
-              "Resource": "*"
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
                 "logs:CreateLogGroup",
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
@@ -171,47 +150,6 @@
                   }
                 ]
               }
-            }
-          ]
-        }
-      }
-    },
-    "AmplifyResourcesPolicy": {
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ],
-      "Type": "AWS::IAM::Policy",
-      "Properties": {
-        "PolicyName": "amplify-lambda-execution-policy",
-        "Roles": [
-          {
-            "Ref": "LambdaExecutionRole"
-          }
-        ],
-        "PolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Action": [
-                "dynamodb:UpdateItem"
-              ],
-              "Resource": [
-                {
-                  "Ref": "storageamplifyIdentityBrokerCodesTableArn"
-                },
-                {
-                  "Fn::Join": [
-                    "/",
-                    [
-                      {
-                        "Ref": "storageamplifyIdentityBrokerCodesTableArn"
-                      },
-                      "index/*"
-                    ]
-                  ]
-                }
-              ]
             }
           ]
         }
@@ -240,14 +178,6 @@
     "LambdaExecutionRole": {
       "Value": {
         "Ref": "LambdaExecutionRole"
-      }
-    },
-    "LambdaExecutionRoleArn": {
-      "Value": {
-        "Fn::GetAtt": [
-          "LambdaExecutionRole",
-          "Arn"
-        ]
       }
     }
   }
