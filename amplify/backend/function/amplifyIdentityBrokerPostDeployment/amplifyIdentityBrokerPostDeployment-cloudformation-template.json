@@ -28,10 +28,19 @@
     "functionamplifyIdentityBrokerStorageName": {
       "Type": "String"
     },
+    "functionamplifyIdentityBrokerUserInfoName": {
+      "Type": "String"
+    },
+    "functionamplifyIdentityBrokerExposeJWKSName": {
+      "Type": "String"
+    },
     "functionamplifyIdentityBrokerVerifyClientName": {
       "Type": "String"
     },
     "functionamplifyIdentityBrokerAccountConfirmationName": {
+      "Type": "String"
+    },
+    "functionamplifyIdentityBrokerMigrationName": {
       "Type": "String"
     },
     "functionamplifyIdentityBrokerCustomMessageName": {
@@ -95,10 +104,19 @@
             "Ref": "functionamplifyIdentityBrokerStorageName"
           },
           {
+            "Ref": "functionamplifyIdentityBrokerUserInfoName"
+          },
+          {
+            "Ref": "functionamplifyIdentityBrokerExposeJWKSName"
+          },
+          {
             "Ref": "functionamplifyIdentityBrokerVerifyClientName"
           },
           {
             "Ref": "functionamplifyIdentityBrokerAccountConfirmationName"
+          },
+          {
+            "Ref": "functionamplifyIdentityBrokerMigrationName"
           },
           {
             "Ref": "functionamplifyIdentityBrokerCustomMessageName"

@@ -112,6 +112,27 @@
                 },
                 {
                     "category": "function",
+                    "resourceName": "amplifyIdentityBrokerMigration",
+                    "attributes": [
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "amplifyIdentityBrokerUserInfo",
+                    "attributes": [
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "amplifyIdentityBrokerExposeJWKS",
+                    "attributes": [
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
                     "resourceName": "amplifyIdentityBrokerVerifyClient",
                     "attributes": [
                         "Name"
@@ -121,8 +142,7 @@
                     "category": "function",
                     "resourceName": "amplifyIdentityBrokerAccountConfirmation",
                     "attributes": [
-                        "Name",
-                        "Arn"
+                        "Name"
                     ]
                 }
             ]
