@@ -40,9 +40,6 @@
     "functionamplifyIdentityBrokerAccountConfirmationName": {
       "Type": "String"
     },
-    "functionamplifyIdentityBrokerMigrationName": {
-      "Type": "String"
-    },
     "functionamplifyIdentityBrokerCustomMessageName": {
       "Type": "String"
     },
@@ -114,9 +111,6 @@
           },
           {
             "Ref": "functionamplifyIdentityBrokerAccountConfirmationName"
-          },
-          {
-            "Ref": "functionamplifyIdentityBrokerMigrationName"
           },
           {
             "Ref": "functionamplifyIdentityBrokerCustomMessageName"
