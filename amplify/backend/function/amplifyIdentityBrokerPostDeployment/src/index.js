@@ -50,7 +50,7 @@ exports.handler = async (event, context) => {
 
 async function updateCognitoAppCallbacks(AppClientId, UserPoolId, domainUrl) {
   console.log(
-    `Updating UserPool ${UserPoolId} app ${AppClientId} with callbacks ${domainUrl}`
+    `Updating UserPool ${UserPoolId} app client ${AppClientId} with callbacks ${domainUrl}`
   );
 
   var params = {
