@@ -61,6 +61,8 @@ async function updateCognitoAppCallbacks(AppClientId, UserPoolId, domainUrl) {
     .describeUserPoolClient(params)
     .promise();
 
+  console.log(description);
+
   params = {
     ClientId: AppClientId,
     UserPoolId: UserPoolId,
