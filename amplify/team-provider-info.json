@@ -82,7 +82,7 @@
       },
       "function": {
         "amplifyIdentityBrokerPostDeployment": {
-          "hostingDomain": "https://preprod.dw8p5s05jola3.amplifyapp.com"
+          "hostingDomain": "https://preprod.d35dwu2at8rhkc.amplifyapp.com"
         },
         "amplifyIdentityBrokerCustomMessage": {},
         "amplifyIdentityBrokerAuthorize": {},
