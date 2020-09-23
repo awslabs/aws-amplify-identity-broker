@@ -81,7 +81,9 @@
         }
       },
       "function": {
-        "amplifyIdentityBrokerPostDeployment": {},
+        "amplifyIdentityBrokerPostDeployment": {
+          "hostingDomain": "https://preprod.dw8p5s05jola3.amplifyapp.com"
+        },
         "amplifyIdentityBrokerCustomMessage": {},
         "amplifyIdentityBrokerAuthorize": {},
         "amplifyIdentityBrokerToken": {},
