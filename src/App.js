@@ -35,11 +35,16 @@ class App extends React.Component {
 
   constructor(props, context) {
     super(props, context);
+    let lang = "en";
     if (navigator.language === "fr" || navigator.language.startsWith("fr-")) {
-      this.state = { lang: "fr" };
-    } else {
-      this.state = { lang: "en" };
+      lang = { lang: "fr" };
     }
+
+    this.state = {
+      lang: lang,
+      authState: AuthState.SignIn
+    };
+
     onAuthUIStateChange(newAuthState => {
       this.handleAuthUIStateChange(newAuthState)
     })
@@ -137,6 +142,8 @@ class App extends React.Component {
       eraseCookie("access_token");
       eraseCookie("refresh_token");
     }
+    this.setState({ authState: authState });
+    console.log("New authState = " + authState);
   }
 
   render() {
@@ -147,24 +154,29 @@ class App extends React.Component {
         <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
         <div className="container">
           {
+            this.state.authState == AuthState.SignIn &&
             this.SAMLLogin &&
             <div>
               {SAMLLoginButtons}
             </div>
           }
           {
+            this.state.authState == AuthState.SignIn &&
             this.amazonLogin &&
             <button className="amazon btn" onClick={() => this.handleIdPLogin('LoginWithAmazon')}> <i className="fa fa-amazon fa-fw"></i>{I18n.get("AMAZON_SIGNIN")}</button>
           }
           {
+            this.state.authState == AuthState.SignIn &&
             this.googleLogin &&
             <button className="google btn" onClick={() => this.handleIdPLogin('Google')}> <i className="fa fa-google fa-fw"></i>{I18n.get("GOOGLE_SIGNIN")}</button>
           }
           {
+            this.state.authState == AuthState.SignIn &&
             this.facebookLogin &&
             <button className="fb btn" onClick={() => this.handleIdPLogin('Facebook')}> <i className="fa fa-facebook fa-fw"></i>{I18n.get("FACEBOOK_SIGNIN")}</button>
           }
           {
+            this.state.authState == AuthState.SignIn &&
             this.IdPLogin &&
             <div className="hr-sect">{I18n.get("OR")}</div>
           }
@@ -190,7 +202,9 @@ class App extends React.Component {
                   type: "password",
                   required: true,
                 }
-              ]}></AmplifySignIn>
+              ]}>
+              <div slot="federated-buttons"></div>
+            </AmplifySignIn>
             <AmplifySignUp
               usernameAlias="email"
               slot="sign-up"

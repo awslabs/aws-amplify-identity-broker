@@ -49,7 +49,6 @@ if(appHostingDomain) {
     // Inject broker domain in aws-exports.js
     var withLogout = rawdata.replace(/(redirectSignOut\"+\:[ \t]+\")(.*\")/, "$1"+redirectSignOut+"\"");
     var withBoth = withLogout.replace(/(redirectSignIn\"+\:[ \t]+\")(.*\")/, "$1"+redirectSignIn+"\"");
-    console.log(withBoth);
 
     fs.writeFileSync('./src/aws-exports.js', withBoth, 'utf-8');
 }
@@ -64,14 +63,6 @@ module.exports = function override(config, env) {
             break;
         case "prod": localConfig = {
             "providers": ["AWSSSO", "OIDCIdentityProvider", "LoginWithAmazon", "Facebook", "Google"]
-        };
-            break;
-        case "liamdev": localConfig = {
-            "providers": ["Facebook", "LoginWithAmazon", "Google"]
-        };
-            break;
-        case "sampledev": localConfig = {
-                "providers": ["AWSSSO", "OIDCIdentityProvider", "LoginWithAmazon", "Facebook", "Google"],
         };
             break;
         default:
