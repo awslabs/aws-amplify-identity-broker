@@ -163,7 +163,7 @@ async function handlePKCE(event) {
         return { // Redirect directly to client application passing the authorization code
             statusCode: 302,
             headers: {
-                Location: redirect_uri + '/?code=' + authorizationCode,
+                Location: redirect_uri + '/?code=' + authorizationCode + insertStateIfAny(event),
             }
         };
     }
@@ -171,7 +171,7 @@ async function handlePKCE(event) {
         return { // Redirect to login page
             statusCode: 302,
             headers: {
-                Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&authorization_code=' + authorizationCode,
+                Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&authorization_code=' + authorizationCode + insertStateIfAny(event),
             }
         };
     }
@@ -203,7 +203,7 @@ async function handleImplicit(event) {
         return { // Redirect directly to client application with ID token from cookie
             statusCode: 302,
             headers: {
-                Location: redirect_uri + '/?id_token=' + cookies.id_token,
+                Location: redirect_uri + '/?id_token=' + cookies.id_token + insertStateIfAny(event),
             }
         };
     }
@@ -211,10 +211,21 @@ async function handleImplicit(event) {
         return { // Redirect to login page
             statusCode: 302,
             headers: {
-                Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri,
+                Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri + insertStateIfAny(event),
             }
         };
     }
+}
+
+function insertStateIfAny(event) {
+    var stateQueryString = "";
+
+    var state = event.queryStringParameters.state;
+    if (state !== undefined) {
+        stateQueryString = "&state=" + state;
+    }
+
+    return stateQueryString;
 }
 
 exports.handler = async (event) => {

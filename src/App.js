@@ -74,11 +74,15 @@ class App extends React.Component {
     let queryStringParams = new URLSearchParams(window.location.search);
     let redirect_uri = queryStringParams.get('redirect_uri');
     let authorization_code = queryStringParams.get('authorization_code');
+    let clientState = queryStringParams.get('state');
     if (redirect_uri) {
       localStorage.setItem(`client-redirect-uri`, redirect_uri);
     }
     if (authorization_code) {
       localStorage.setItem(`authorization_code`, authorization_code);
+    }
+    if (clientState) {
+      localStorage.setItem(`client-state`, clientState);
     }
     Auth.federatedSignIn({ provider: identity_provider });
   }
@@ -88,18 +92,23 @@ class App extends React.Component {
     if (authState === AuthState.SignedIn) {
       var redirect_uri;
       var authorization_code;
+      var clientState;
       let queryStringParams = new URLSearchParams(window.location.search);
       let qsRedirectUri = queryStringParams.get('redirect_uri');
       let qsAuthorizationCode = queryStringParams.get('authorization_code');
+      let qsClientState = queryStringParams.get('state');
 
       if (qsRedirectUri) { // For a local sign in the redirect_uri/authorization_code will be in the query string params
         redirect_uri = qsRedirectUri;
         authorization_code = qsAuthorizationCode;
+        clientState = qsClientState;
       } else { // For a federated sign in the redirect_uri/authorization_code will be in the local storage
         redirect_uri = localStorage.getItem('client-redirect-uri');
         authorization_code = localStorage.getItem('authorization_code');
+        clientState = localStorage.getItem('client-state');
         localStorage.removeItem(`client-redirect-uri`);
         localStorage.removeItem(`authorization_code`);
+        localStorage.removeItem(`client-state`);
       }
 
       let authInfo = await Auth.currentSession();
@@ -124,14 +133,14 @@ class App extends React.Component {
       if (authorization_code && redirect_uri) { // PKCE Flow
         const response = await storeTokens(authorization_code, idToken, accessToken, refreshToken) // Store tokens in dynamoDB
         if (response.status === 200) {
-          window.location.replace(redirect_uri + '/?code=' + authorization_code);
+          window.location.replace(redirect_uri + '/?code=' + authorization_code + ((clientState !== undefined) ? "&state=" + clientState : ""));
         }
         else {
           console.error("Could not store tokens. Server response: " + response.data);
         }
       }
       else if (redirect_uri) { // Implicit Flow
-        window.location.replace(redirect_uri + '/?id_token=' + idToken);
+        window.location.replace(redirect_uri + '/?id_token=' + idToken + ((clientState !== undefined) ? "&state=" + clientState : ""));
       }
       else { // Sign in directly to broker (not from redirect from client as part of oauth2 flow)
         window.location.href = '/settings';
