@@ -32,7 +32,7 @@ console.log("AMPLIFY_ENV is " + AMPLIFY_ENV);
 
 var appHostingDomain = undefined;
 if(amplifyTeams[AMPLIFY_ENV].categories.function.amplifyIdentityBrokerPostDeployment.hostingDomain) {
-    appHostingDomain = amplifyTeams[AMPLIFY_ENV].categories.function.amplifyIdentityBrokerPostDeployment.hostingDomain.match(REGEX)[1];
+    appHostingDomain = amplifyTeams[AMPLIFY_ENV].categories.function.amplifyIdentityBrokerPostDeployment.hostingDomain;
 } else if(amplifyMeta.hosting.S3AndCloudFront.output.CloudFrontDomainName) {
     appHostingDomain = "https://" + amplifyMeta.hosting.S3AndCloudFront.output.CloudFrontDomainName;
 } else {
