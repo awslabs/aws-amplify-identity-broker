@@ -154,29 +154,29 @@ class App extends React.Component {
         <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
         <div className="container">
           {
-            this.state.authState == AuthState.SignIn &&
+            this.state.authState === AuthState.SignIn &&
             this.SAMLLogin &&
             <div>
               {SAMLLoginButtons}
             </div>
           }
           {
-            this.state.authState == AuthState.SignIn &&
+            this.state.authState === AuthState.SignIn &&
             this.amazonLogin &&
             <button className="amazon btn" onClick={() => this.handleIdPLogin('LoginWithAmazon')}> <i className="fa fa-amazon fa-fw"></i>{I18n.get("AMAZON_SIGNIN")}</button>
           }
           {
-            this.state.authState == AuthState.SignIn &&
+            this.state.authState === AuthState.SignIn &&
             this.googleLogin &&
             <button className="google btn" onClick={() => this.handleIdPLogin('Google')}> <i className="fa fa-google fa-fw"></i>{I18n.get("GOOGLE_SIGNIN")}</button>
           }
           {
-            this.state.authState == AuthState.SignIn &&
+            this.state.authState === AuthState.SignIn &&
             this.facebookLogin &&
             <button className="fb btn" onClick={() => this.handleIdPLogin('Facebook')}> <i className="fa fa-facebook fa-fw"></i>{I18n.get("FACEBOOK_SIGNIN")}</button>
           }
           {
-            this.state.authState == AuthState.SignIn &&
+            this.state.authState === AuthState.SignIn &&
             this.IdPLogin &&
             <div className="hr-sect">{I18n.get("OR")}</div>
           }
