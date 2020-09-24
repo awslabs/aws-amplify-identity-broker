@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "KMS resources for the AWS Amplify Identity Broker",
+  "Description": "Lambda PostDeployment for the AWS Amplify Identity Broker",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
