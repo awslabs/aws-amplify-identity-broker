@@ -201,6 +201,16 @@ Once your domain associated with the broker, you need to indicate it inside _amp
   }
 ```
 
+After a change on the _hostingDomain_ in _amplify/team-provider-info.json_, if you already deployed the project the Amplify CLI will not detect your change automatically. You will need to do the following command to propagate your change:
+
+```
+amplify push --force
+```
+
+_To verify if the change have been propagated you can open one of the AWS Lambda within teh AWS console and look at the value of the environment variable `HOSTING_DOMAIN`_
+
+
+
 ## Deploying with the AWS Amplify console
 
 ### Step 1: Environment Variables|
@@ -273,6 +283,14 @@ Once done indicate your domain (or the AWS Amplify provided one) to the broker b
     }
   }
 ```
+
+After a change on the _hostingDomain_ in _amplify/team-provider-info.json_, if you already deployed the project the Amplify CLI will not detect your change automatically. You will need to do the following command to propagate your change:
+
+```
+amplify push --force
+```
+
+_To verify if the change have been propagated you can open one of the AWS Lambda within teh AWS console and look at the value of the environment variable `HOSTING_DOMAIN`_
 
 ## Register a client
 To use the identity broker you must register a client_id, redirect_uri, and logout_uri with the `amplifyIdentityBrokerClients` DynamoDB table. These values are passed as query string paramters when a request is made to the /oauth2/authorize endpoint and then checked agaisnt the table.
