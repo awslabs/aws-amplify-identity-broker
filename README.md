@@ -12,15 +12,15 @@ __Current features are:__
 * deep customization of flows and UIs
 * Social login federation: _Facebook, Twitter, Amazon, Google logins_
 * Corporate federation: _SAML_
+* Corporate federation: _OIDC (JWT token)_
+* Migration helper
+* account setting page
 
 __Coming soon features:__
 
 * MFA : _SMS, OTP_
 * consent approbation
-* Corporate federation: _OIDC (JWT token)_
-* account setting page
 * SSO dashboard (listing apps)
-* Migration helper
 
 This is a simplified view of the scope of the project (what this repository is about):
 
@@ -30,14 +30,12 @@ The project is based on [AWS Amplify](https://aws.amazon.com/amplify/) and [Amaz
 
 ## Live demo
 
-You can sign-up, sign-in, try SSO from any of these client application demos:
+You can sign-up, sign-in, try SSO from any of these two client application demos:
 
-* Website 1 (Implict flow) : https://master.dv7odw7xb73ou.amplifyapp.com _(this could be __yourcompany.com__)_
-* Website 2 (Implict flow) : https://master.dvj34ijv8eg6m.amplifyapp.com _(this could be __portal.yourcompany.com__)_
-* Website 3 (PKCE flow) :  https://master.dgt79y8acfq6b.amplifyapp.com _(this could be __www.yoursubsidiary.com__)_
-* Website 4 (PKCE flow) :  https://master.d3uilst39vffn1.amplifyapp.com _(this could be __mypartner.net__)_
+* Website 1 : https://master.dv7odw7xb73ou.amplifyapp.com _(this could be __myapp1.yourcompany.com__)_
+* Website 2 :  https://master.dgt79y8acfq6b.amplifyapp.com _(this could be __www.yoursubsidiary.com__ or __myapp2.yourcompany.com__)_
 
-In a real use case, your user will only go to the broker from a client website or app, but for reference the Broker demo url itself is: 
+In a real use case, your user will only go to the broker from a client website or app, but for reference the Broker demo url itself is:
 
 * https://master.dw8p5s05jola3.amplifyapp.com _(this could be __login.yourcompany.com__)_
 
