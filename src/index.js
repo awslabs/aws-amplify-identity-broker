@@ -14,12 +14,14 @@ import './index.css';
 import App from './App';
 import Logout from './Logout/Logout';
 import Settings from './Settings/Settings';
+import Dashboard from './Dashboard/Dashboard';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Route exact path="/settings" component={Settings} />
+      <Route exact path="/dashboard" component={Dashboard} />
       <Route exact path="/logout" component={Logout} />
       <Route exact path="/" component={App} />
     </BrowserRouter>
