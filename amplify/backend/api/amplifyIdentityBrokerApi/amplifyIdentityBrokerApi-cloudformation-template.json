@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "API Gateway resource for the AWS Amplify Identity Broker",
+    "Description": "API Gateway resource stack creation using Amplify CLI",
     
     "Parameters": {
         "authRoleName": {
@@ -107,6 +107,20 @@
           "functionamplifyIdentityBrokerAccountConfirmationArn": {
             "Type": "String",
             "Default": "functionamplifyIdentityBrokerAccountConfirmationArn"
+          },
+        
+          
+          
+    
+          "functionamplifyIdentityBrokerClientsName": {
+            "Type": "String",
+            "Default": "functionamplifyIdentityBrokerClientsName"
+          },
+        
+          
+          "functionamplifyIdentityBrokerClientsArn": {
+            "Type": "String",
+            "Default": "functionamplifyIdentityBrokerClientsArn"
           }
         
           
@@ -124,10 +138,29 @@
         }
     },
     "Resources": {
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
       "amplifyIdentityBrokerApi": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
-          "Description": "Backend API of the AWS Amplify Identity Broker",
+          "Description": "",
           "Name": "amplifyIdentityBrokerApi",
           "Body": {
             "swagger": "2.0",
@@ -198,7 +231,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'GET,HEAD,OPTIONS'",
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -297,7 +330,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'GET,HEAD,OPTIONS'",
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -397,7 +430,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -496,7 +529,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -596,7 +629,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'POST'",
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -695,7 +728,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'POST'",
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -795,7 +828,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'GET,HEAD,OPTIONS'",
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -894,7 +927,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'GET,HEAD,OPTIONS'",
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -994,7 +1027,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'GET,HEAD,OPTIONS'",
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -1093,7 +1126,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'GET,HEAD,OPTIONS'",
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -1193,7 +1226,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'GET,HEAD,OPTIONS'",
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -1292,7 +1325,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'GET,HEAD,OPTIONS'",
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -1369,7 +1402,7 @@
                     "application/json"
                   ],
                   "produces": [
-                    "text/html"
+                    "application/json"
                   ],
                   "responses": {
                     "200": {
@@ -1392,7 +1425,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'GET,HEAD,OPTIONS'",
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -1405,7 +1438,7 @@
                     "type": "mock"
                   }
                 },
-                "get": {
+                "x-amazon-apigateway-any-method": {
                   "consumes": [
                     "application/json"
                   ],
@@ -1423,23 +1456,18 @@
                     }
                   ],
                   "responses": {
-                    "302": {
-                      "description": "302 responses only",    
-                      "headers": {
-                        "Location": {
-                        "type": "string"
-                        }
-                    }
+                    "200": {
+                      "description": "200 response",
+                      "schema": {
+                        "$ref": "#/definitions/ResponseSchema"
+                      }
                     }
                   },
                   
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
-                        "statusCode": "302",
-                        "responseParameters" : {
-                          "method.response.header.Location": "integration.response.body.location"
-                      }
+                        "statusCode": "200"
                       }
                     },
                     "uri": {
@@ -1461,15 +1489,311 @@
                           ]
                         ]
                       },
-                    "requestTemplates": {
-                        "application/json": " { \"code\" : \"$input.params('code')\", \"username\" : \"$input.params('username')\", \"clientId\" : \"$input.params('clientId')\", \"region\" : \"$input.params('region')\", \"email\" : \"$input.params('email')\" }"
-                    },  
-                    "passthroughBehavior": "when_no_templates",
+                    "passthroughBehavior": "when_no_match",
                     "httpMethod": "POST",
-                    "type": "aws"
+                    "type": "aws_proxy"
                   }
                 }
-              }
+              },
+              "/accountConfirmation/{proxy+}": {
+                "options": {
+                  "consumes": [
+                    "application/json"
+                  ],
+                  "produces": [
+                    "application/json"
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "200 response",
+                      "headers": {
+                        "Access-Control-Allow-Origin": {
+                          "type": "string"
+                        },
+                        "Access-Control-Allow-Methods": {
+                          "type": "string"
+                        },
+                        "Access-Control-Allow-Headers": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "x-amazon-apigateway-integration": {
+                    "responses": {
+                      "default": {
+                        "statusCode": "200",
+                        "responseParameters": {
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                          "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                          "method.response.header.Access-Control-Allow-Origin": "'*'"
+                        }
+                      }
+                    },
+                    "requestTemplates": {
+                      "application/json": "{\"statusCode\": 200}"
+                    },
+                    "passthroughBehavior": "when_no_match",
+                    "type": "mock"
+                  }
+                },
+                "x-amazon-apigateway-any-method": {
+                  "consumes": [
+                    "application/json"
+                  ],
+                  "produces": [
+                    "application/json"
+                  ],
+                  "parameters": [
+                    {
+                      "in": "body",
+                      "name": "RequestSchema",
+                      "required": false,
+                      "schema": {
+                        "$ref": "#/definitions/RequestSchema"
+                      }
+                    }
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "200 response",
+                      "schema": {
+                        "$ref": "#/definitions/ResponseSchema"
+                      }
+                    }
+                  },
+                  
+                  "x-amazon-apigateway-integration": {
+                    "responses": {
+                      "default": {
+                        "statusCode": "200"
+                      }
+                    },
+                    "uri": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:apigateway:",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ":lambda:path/2015-03-31/functions/",
+                          
+                          {
+                            
+                            "Ref": "functionamplifyIdentityBrokerAccountConfirmationArn"
+                          },
+                          
+                          "/invocations"
+                        ]
+                      ]
+                    },
+                    "passthroughBehavior": "when_no_match",
+                    "httpMethod": "POST",
+                    "type": "aws_proxy"
+                  }
+                }
+              },   
+              
+              "/clients": {
+                "options": {
+                  "consumes": [
+                    "application/json"
+                  ],
+                  "produces": [
+                    "application/json"
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "200 response",
+                      "headers": {
+                        "Access-Control-Allow-Origin": {
+                          "type": "string"
+                        },
+                        "Access-Control-Allow-Methods": {
+                          "type": "string"
+                        },
+                        "Access-Control-Allow-Headers": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "x-amazon-apigateway-integration": {
+                    "responses": {
+                      "default": {
+                        "statusCode": "200",
+                        "responseParameters": {
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                          "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                          "method.response.header.Access-Control-Allow-Origin": "'*'"
+                        }
+                      }
+                    },
+                    "requestTemplates": {
+                      "application/json": "{\"statusCode\": 200}"
+                    },
+                    "passthroughBehavior": "when_no_match",
+                    "type": "mock"
+                  }
+                },
+                "x-amazon-apigateway-any-method": {
+                  "consumes": [
+                    "application/json"
+                  ],
+                  "produces": [
+                    "application/json"
+                  ],
+                  "parameters": [
+                    {
+                      "in": "body",
+                      "name": "RequestSchema",
+                      "required": false,
+                      "schema": {
+                        "$ref": "#/definitions/RequestSchema"
+                      }
+                    }
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "200 response",
+                      "schema": {
+                        "$ref": "#/definitions/ResponseSchema"
+                      }
+                    }
+                  },
+                  
+                  "x-amazon-apigateway-integration": {
+                    "responses": {
+                      "default": {
+                        "statusCode": "200"
+                      }
+                    },
+                    "uri": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:aws:apigateway:",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            ":lambda:path/2015-03-31/functions/",
+                            
+                            {
+                                
+                                "Ref": "functionamplifyIdentityBrokerClientsArn"
+                            },
+                            
+                            "/invocations"
+                          ]
+                        ]
+                      },
+                    "passthroughBehavior": "when_no_match",
+                    "httpMethod": "POST",
+                    "type": "aws_proxy"
+                  }
+                }
+              },
+              "/clients/{proxy+}": {
+                "options": {
+                  "consumes": [
+                    "application/json"
+                  ],
+                  "produces": [
+                    "application/json"
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "200 response",
+                      "headers": {
+                        "Access-Control-Allow-Origin": {
+                          "type": "string"
+                        },
+                        "Access-Control-Allow-Methods": {
+                          "type": "string"
+                        },
+                        "Access-Control-Allow-Headers": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "x-amazon-apigateway-integration": {
+                    "responses": {
+                      "default": {
+                        "statusCode": "200",
+                        "responseParameters": {
+                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                          "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                          "method.response.header.Access-Control-Allow-Origin": "'*'"
+                        }
+                      }
+                    },
+                    "requestTemplates": {
+                      "application/json": "{\"statusCode\": 200}"
+                    },
+                    "passthroughBehavior": "when_no_match",
+                    "type": "mock"
+                  }
+                },
+                "x-amazon-apigateway-any-method": {
+                  "consumes": [
+                    "application/json"
+                  ],
+                  "produces": [
+                    "application/json"
+                  ],
+                  "parameters": [
+                    {
+                      "in": "body",
+                      "name": "RequestSchema",
+                      "required": false,
+                      "schema": {
+                        "$ref": "#/definitions/RequestSchema"
+                      }
+                    }
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "200 response",
+                      "schema": {
+                        "$ref": "#/definitions/ResponseSchema"
+                      }
+                    }
+                  },
+                  
+                  "x-amazon-apigateway-integration": {
+                    "responses": {
+                      "default": {
+                        "statusCode": "200"
+                      }
+                    },
+                    "uri": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:apigateway:",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ":lambda:path/2015-03-31/functions/",
+                          
+                          {
+                            
+                            "Ref": "functionamplifyIdentityBrokerClientsArn"
+                          },
+                          
+                          "/invocations"
+                        ]
+                      ]
+                    },
+                    "passthroughBehavior": "when_no_match",
+                    "httpMethod": "POST",
+                    "type": "aws_proxy"
+                  }
+                }
+              }   
+              
             },
             "securityDefinitions": {
               "sigv4": {
@@ -1751,8 +2075,42 @@
         },
         
         
+        "functionamplifyIdentityBrokerClientsPermissionamplifyIdentityBrokerApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+                "FunctionName": 
+                    {
+                        "Ref":  "functionamplifyIdentityBrokerClientsName"
+                    },
+                    
+                    "Action": "lambda:InvokeFunction",
+                "Principal": "apigateway.amazonaws.com",
+                "SourceArn": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            "arn:aws:execute-api:",
+                            {
+                                "Ref": "AWS::Region"
+                            },
+                            ":",
+                            {
+                                "Ref": "AWS::AccountId"
+                            },
+                            ":",
+                            {
+                                "Ref": "amplifyIdentityBrokerApi"
+                            },
+                            "/*/*/*"
+                        ]
+                    ]
+                }
+            }
+        },
         
-      "DeploymentAPIGWamplifyIdentityBrokerApi64bfe6f9": {
+        
+        
+      "DeploymentAPIGWamplifyIdentityBrokerApi23d84c09": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",
@@ -1781,21 +2139,12 @@
           "Value": "amplifyIdentityBrokerApi"
         },
         "ApiDomain": {
-          "Description": "Domain of the API gateway",
+          "Description": "API Friendly domain",
           "Value": {
-            "Fn::Join": [
-              "",
-              [
-                {
-                  "Ref": "amplifyIdentityBrokerApi"
-                },
-                ".execute-api.",
-                {
-                  "Ref": "AWS::Region"
-                },
-                ".amazonaws.com"
-              ]
-            ]
+            "Fn::Join": [ "", [ { "Ref": "amplifyIdentityBrokerApi" }, ".execute-api.", { "Ref": "AWS::Region" }, ".amazonaws.com"]]
+          },
+          "Export": {
+            "Name": "ApiDomain"
           }
         },
         "ApiId": {
