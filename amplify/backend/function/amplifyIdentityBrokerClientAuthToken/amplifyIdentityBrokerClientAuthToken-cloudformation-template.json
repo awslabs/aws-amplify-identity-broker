@@ -10,13 +10,13 @@
     "env": {
       "Type": "String"
     },
-    "storageamplifyIdentityBrokerClientsTableName": {
+    "storageamplifyIdentityBrokerCodesTableName": {
       "Type": "String",
-      "Default": "storageamplifyIdentityBrokerClientsTableName"
+      "Default": "storageamplifyIdentityBrokerCodesTableName"
     },
-    "storageamplifyIdentityBrokerClientsTableArn": {
+    "storageamplifyIdentityBrokerCodesTableArn": {
       "Type": "String",
-      "Default": "storageamplifyIdentityBrokerClientsTableArn"
+      "Default": "storageamplifyIdentityBrokerCodesTableArn"
     }
   },
   "Conditions": {
@@ -41,12 +41,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "amplifyIdentityBrokerClients",
+            "amplifyIdentityBrokerClientAuthToken",
             {
               "Fn::Join": [
                 "",
                 [
-                  "amplifyIdentityBrokerClients",
+                  "amplifyIdentityBrokerClientAuthToken",
                   "-",
                   {
                     "Ref": "env"
@@ -77,7 +77,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-amplify-identity-broker-ilyasdev-132315-deployment",
-          "S3Key": "amplify-builds/amplifyIdentityBrokerClients-377371506e46596c336d-build.zip"
+          "S3Key": "amplify-builds/amplifyIdentityBrokerClientAuthToken-6c415679537866566942-build.zip"
         }
       }
     },
@@ -87,12 +87,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "amplifyidentitybrokerLambdaRole1917d6b1",
+            "amplifyidentitybrokerLambdaRole1706b750",
             {
               "Fn::Join": [
                 "",
                 [
-                  "amplifyidentitybrokerLambdaRole1917d6b1",
+                  "amplifyidentitybrokerLambdaRole1706b750",
                   "-",
                   {
                     "Ref": "env"
@@ -172,14 +172,14 @@
               ],
               "Resource": [
                 {
-                  "Ref": "storageamplifyIdentityBrokerClientsTableArn"
+                  "Ref": "storageamplifyIdentityBrokerCodesTableArn"
                 },
                 {
                   "Fn::Join": [
                     "/",
                     [
                       {
-                        "Ref": "storageamplifyIdentityBrokerClientsTableArn"
+                        "Ref": "storageamplifyIdentityBrokerCodesTableArn"
                       },
                       "index/*"
                     ]
