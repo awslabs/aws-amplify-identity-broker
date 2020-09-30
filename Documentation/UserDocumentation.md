@@ -10,24 +10,24 @@ This document explains how to use the broker:
 
 The AWS Amplify Identity Broker is a centralized login solution. It is a component you can use to authenticate your user on all your websites and applications:
 
-![Projet Scope Image](./Images/SimplifiedProjectScope.png "Simplified Project Scope")
+![Project Scope Image](./Images/SimplifiedProjectScope.png "Simplified Project Scope")
 
 The broker will be deployed within your own AWS account and will be in your full control (see _Deployment_ section).
 
-Using the broker your users will have the same unique identity accross all your websites and applications. The broker provides Single Sign On (SSO): your users will have to login only once to be authenticated on all your services (but can have different permission levels specific to every application).
+Using the broker your users will have the same unique identity across all your websites and applications. The broker provides Single Sign On (SSO): your users will have to login only once to be authenticated on all your services (but can have different permission levels specific to every application).
 
-Optionaly you can add external IdP (Identity Providers) to the broker. Which means that the user can sign-in using your corporate (or your customer corporate) Active Directory or using Facebook, Google or Amazon login or any OIDC and SAML IdP. Technically you can add up to 300 IdPs to your broker (limit coming from Amazon Cognito documented [here](https://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)). Today user coming from any client will see the same list of IdPs but you can fork the broker project and customize the behavior to make the list dynamic and for example:
+Optionally you can add external IdP (Identity Providers) to the broker. Which means that the user can sign-in using your corporate (or your customer corporate) Active Directory or using Facebook, Google or Amazon login or any OIDC and SAML IdP. Technically you can add up to 300 IdPs to your broker (limit coming from Amazon Cognito documented [here](https://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)). Today user coming from any client will see the same list of IdPs but you can fork the broker project and customize the behavior to make the list dynamic and for example:
 
 * show the corporate IdP to people accessing the broker from your office private network
 * show a list of IdP specific to a customer by giving them a special URL (like a link with a get parameter flag)
 * show a list of IdP specific to a client application
 
-__Note that even if your users login in with a 3rd party IdP they will have a unique and peristent identity within the broker__ (under the hood a Amazon Cognito user pool identity).
+__Note that even if your users login in with a 3rd party IdP they will have a unique and persistent identity within the broker__ (under the hood a Amazon Cognito user pool identity).
 
 In term of UI customization because you are in control of the source code and the deployment infrastructure you can make any change you like.
 The same applies for flow customization where all the front end part are customizable using the broker and backend flows can be customized using [Amazon Cognito Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html). The broker already leverage some of these triggers to introduce special feature like i18n (internationalization).
 
-Finaly the broker is a living open source project and your contributions are welcome if you see a missing feature that can be useful to all the broker users. Please see the [Developer Documentation](./DeveloperDocumentation.md) if you are interested by contributing.
+Finally the broker is a living open source project and your contributions are welcome if you see a missing feature that can be useful to all the broker users. Please see the [Developer Documentation](./DeveloperDocumentation.md) if you are interested by contributing.
 
 ### Choose your flow
 
@@ -90,7 +90,7 @@ The project architecture is the following:
 
 ![Project Architecture Image](Images/DeployedArchitecture.png "Project Architecture")
 
-See __[Developer Documentation](DeveloperDocumentation.md)__ to see more detailed information on every component. 
+See __[Developer Documentation](DeveloperDocumentation.md)__ to see more detailed information on every component.
 
 __COST__ The project architecture is Serverless, you only pay when there is user activity plus a small amount of storage (website static assets, dynamodb tables). Overall the solution is very cost effective. Amazon Cognito will be the primary source of cost, see [Amazon Cognito pricing](https://aws.amazon.com/cognito/pricing/) to estimate your costs.
 
@@ -174,7 +174,7 @@ This command will create all the backend resources and the hosting bucket plus c
 amplify publish
 ```
 
-__9. Setup your own domain (optionnal)__
+__9. Setup your own domain (optional)__
 
 If you use Cloudfront directly (by default), you should setup your own domain following [this guide](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-alternate-domain-names.html).
 
@@ -215,7 +215,7 @@ _To verify if the change have been propagated you can open one of the AWS Lambda
 
 ### Step 1: Environment Variables|
 
-If you want to use the AWS Amplify console as your CI/CD pipeline to qutomate the deployment of the solution, you will need to set the following environment variable inside your AWS Amplify console app: (You would need to add only the variables corresponding to the social platforms you have configured during the Auth CLI setup):
+If you want to use the AWS Amplify console as your CI/CD pipeline to automate the deployment of the solution, you will need to set the following environment variable inside your AWS Amplify console app: (You would need to add only the variables corresponding to the social platforms you have configured during the Auth CLI setup):
 
 __AMPLIFY_FACEBOOK_CLIENT_ID__
 
@@ -229,7 +229,7 @@ __AMPLIFY_AMAZON_CLIENT_ID__
 
 __AMPLIFY_AMAZON_CLIENT_SECRET__
 
-__Note:__ This variable requirement is a temporary workaround that may disapear in the future. We'll update this documentation accordingly.
+__Note:__ This variable requirement is a temporary workaround that may disappear in the future. We'll update this documentation accordingly.
 
 ### Step 2: Redirect rules
 
@@ -294,7 +294,7 @@ amplify push --force
 _To verify if the change have been propagated you can open one of the AWS Lambda within teh AWS console and look at the value of the environment variable `HOSTING_DOMAIN`_
 
 ## Register a client
-To use the identity broker you must register a client_id, redirect_uri, and logout_uri with the `amplifyIdentityBrokerClients` DynamoDB table. These values are passed as query string paramters when a request is made to the /oauth2/authorize endpoint and then checked agaisnt the table.
+To use the identity broker you must register a client_id, redirect_uri, and logout_uri with the `amplifyIdentityBrokerClients` DynamoDB table. These values are passed as query string parameters when a request is made to the /oauth2/authorize endpoint and then checked against the table.
 
 You can decide any client id you like. For example `my_application_1` or `7b5a0ffb1dc505d5fddff331af665fb9f6d90e58` are valid client ids.
 
@@ -307,7 +307,7 @@ __IMPORTANT__ The client ids have to match what you use in the clientId paramete
 
 ## CSS & UI components customization instruction
 
-The Broker code is based on _React_, _aws-amplify_ and _@aws-amplify/ui-react_. While you can customize the CSS, JS and HTML anyway you want, we provide here several tips to make your change more efficients and easier to maintain.
+The Broker code is based on _React_, _aws-amplify_ and _@aws-amplify/ui-react_. While you can customize the CSS, JS and HTML anyway you want, we provide here several tips to make your change more efficient and easier to maintain.
 
 We use CSS Variables to setup the color of the project.
 
@@ -317,22 +317,22 @@ In the file _src/index.css_ we set the root color like that:
 :root{
 
   --amplify-primary-color: #008000;
-  --amplify-primary-tint: #0000FF; 
+  --amplify-primary-tint: #0000FF;
   --amplify-primary-shade: #008000;
 }
 ```
 
 For more option on the AWS Amplify UI component look at the [Documentation](https://docs.amplify.aws/ui/customization/theming/q/framework/react)
 
-We've define all CSS extra properties in _src/index.css_, look at this file before any overide.
+We've define all CSS extra properties in _src/index.css_, look at this file before any override.
 
 ## Identity Providers
 
-The setup of federation with 3rd party Identity Providers has to be done within the Amazon Cognito User Pool associated with your running broker and a small change is to make on the broker itseld to let him aware of the additionnal IdPs to display (see PREREQUISITE down below).
+The setup of federation with 3rd party Identity Providers has to be done within the Amazon Cognito User Pool associated with your running broker and a small change is to make on the broker itself to let him aware of the additional IdPs to display (see PREREQUISITE down below).
 
 The changes made against the Amazon Cognito User Pool should be done within the AWS console.
 
-__PREREQUISITE__: 
+__PREREQUISITE__:
 
 To add identity providers, you need to insert these providers under the file _config-overrides.js_ which is at the root of the project.
 You have to add the settings on the environment you like to modify.
@@ -366,7 +366,7 @@ __AFTER ANY IDP ADDITION__:
 After adding any IdP, make sure you __Enable__ your provider on the app settings of the broker inside the Amazon Cognito user pool.
 On the AWS console, on the Amazon Cognito User Pool page, go on `App settings` and check the box you want to activate.
 
-Your settings should look like somethink like this:
+Your settings should look like something like this:
 
 ![Active IdP settings](Images/active-idp-app-settings.png "Active IdP settings")
 
@@ -380,16 +380,16 @@ Follow the [Amazon Cognito User Pool SAML IDP documentation](https://docs.aws.am
 
 ### Social Providers
 
-Social Provider instructions taken from [Amazon Cognito Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html). 
+Social Provider instructions taken from [Amazon Cognito Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html).
 
 <details>
   <summary>Facebook</summary>
 
 ### Step 1: Register with Facebook to get a App ID and App Secret
 
-1. Create a developer account with [Facebook](https://developers.facebook.com/docs/facebook-login). 
-2. [Sign in](https://developers.facebook.com) with your Facebook credentials. 
-3. From the __My Apps__ menu, choose __Create New App.__ 
+1. Create a developer account with [Facebook](https://developers.facebook.com/docs/facebook-login).
+2. [Sign in](https://developers.facebook.com) with your Facebook credentials.
+3. From the __My Apps__ menu, choose __Create New App.__
 
 
 ![Facebook-CreateApp](Images/FacebookSetupInstructions/Facebook-CreateApp.png "Facebook-CreateApp")
@@ -406,9 +406,9 @@ Social Provider instructions taken from [Amazon Cognito Documentation](https://d
 
 ### Step 2: Finish registering with Facebook
 
-7. Choose __+ Add Platform__ from the bottom of the page. 
+7. Choose __+ Add Platform__ from the bottom of the page.
 8. Choose __Website__
-9. Under __Website,__ type your user pool domain with the /oauth2/idpresponse endpoint into Site URL. 
+9. Under __Website,__ type your user pool domain with the /oauth2/idpresponse endpoint into Site URL.
 
 
 ![Facebook-WebsitePlatform](Images/FacebookSetupInstructions/Facebook-WebsitePlatform.png "Facebook-WebsitePlatform")
@@ -422,9 +422,9 @@ Social Provider instructions taken from [Amazon Cognito Documentation](https://d
 
 
 12. Choose __Save changes.__
-13. From the navigation bar choose __Products__ and then __Set up__ from __Facebook Login.__ 
-14. From the navigation bar choose __Facebook Login__ and then __Settings.__ 
-Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of your user pool domain with the /oauth2/idpresponse endpoint. 
+13. From the navigation bar choose __Products__ and then __Set up__ from __Facebook Login.__
+14. From the navigation bar choose __Facebook Login__ and then __Settings.__
+Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of your user pool domain with the /oauth2/idpresponse endpoint.
 
 
 ![Facebook-OauthRedirectURI](Images/FacebookSetupInstructions/Facebook-OauthRedirectURI.png "Facebook-OauthRedirectURI")
@@ -440,14 +440,14 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 ### Step 1: Register with Google to get a OAuth client ID and client secret
 
 1. Create a [developer account with Google.](https://developers.google.com/identity)
-2. [Sign in](https://console.developers.google.com) with your Google credentials. 
+2. [Sign in](https://console.developers.google.com) with your Google credentials.
 3. Choose __Create Project__
 
 
 ![Google-CreateProject](Images/GoogleSetupInstructions/Google-CreateProject.png "Google-CreateProject")
 
 
-4. Type in a project name and choose __Create__ 
+4. Type in a project name and choose __Create__
 5. On the left navigation bar, choose __OAuth consent screen__
 6. Select your User Type and choose __Create__
 
@@ -482,7 +482,7 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 <details>
   <summary>Amazon</summary>
-  
+
 ### Step 1: Register with Amazon to get a Client ID and Client Secret
 
 1. Create a [developer account with Amazon.](https://developer.amazon.com/login-with-amazon)
@@ -499,8 +499,8 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 
 ### Step 2: Finish registering with Amazon
 
-8. Hover over the gear and choose __Web Settings,__ and then choose __Edit.__ 
-9. Type your user pool domain into __Allowed Origins.__ 
+8. Hover over the gear and choose __Web Settings,__ and then choose __Edit.__
+9. Type your user pool domain into __Allowed Origins.__
 10. Type your user pool domain with the __/oauth2/idpresponse__ endpoint into __Allowed Return URLs.__
 
 
@@ -514,7 +514,7 @@ Type your redirect URL into __Valid OAuth Redirect URIs.__ It will consist of yo
 ## Migration instructions
 
 __DISCLAIMER__:
-Migrating credentials from an existing system to Amazon Cognito comes with the risk that these credentials have been exposed in the past. For better security it is recommended to force the users to recreate passwords. The documentation below shows how to migrate users and credentials for learning puspose only.
+Migrating credentials from an existing system to Amazon Cognito comes with the risk that these credentials have been exposed in the past. For better security it is recommended to force the users to recreate passwords. The documentation below shows how to migrate users and credentials for learning purpose only.
 
 In this project we provide an example of a Lambda function that migrate users one at a time. For our demo we migrate the users from a _legacy_ Amazon Cognito user pool to the broker user pool. If your pool of user is not Amazon Cognito you'll have to adapt the source code to match with your system APIs.
 
@@ -522,13 +522,13 @@ In this project we provide an example of a Lambda function that migrate users on
 
 [Migration Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-migrate-user.html#cognito-user-pools-lambda-trigger-syntax-user-migration)
 
-[Cognito SDK Documention](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html)
+[Cognito SDK Documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html)
 
 
 __Linking the Trigger__:
 To use the user migration that is labeled `amplifyIdentityBrokerMigration`, the following setting needs to be enable
 
-1. In the AWS console go to _Amazon Cognito_ -> _User Pool_ -> _brokeruserpool 
+1. In the AWS console go to _Amazon Cognito_ -> _User Pool_ -> _brokeruserpool
 
 2. On the left side menu navigate to Triggers
 
@@ -544,13 +544,13 @@ __Important__:
 Your app sends the username and password to Amazon Cognito. If your app has a native sign-in UI and uses the Amazon Cognito Identity Provider SDK, your app must use the USER_PASSWORD_AUTH flow, in which the SDK sends the password to the server (your app must not use the default USER_SRP_AUTH flow since the SDK does not send the password to the server in the SRP authentication flow). The USER_PASSWORD_AUTH flow is enabled by setting AuthenticationDetails.authenticationType to "USER_PASSWORD".
  [Switch Authentication Flows](https://docs.amplify.aws/lib/auth/switch-auth/q/platform/js)
 
- If you like to set a migration flow for a specfic enviroment, follow the these steps:
+ If you like to set a migration flow for a specific environment, follow the these steps:
 
  1. After your calling your imports in src/App.js of your react frontend, the use the following example.
 
     Example:
     ```
-    Amplify.configure({...awsconfig, 
+    Amplify.configure({...awsconfig,
       Auth: {
         // OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
         authenticationFlowType: Config.authenticationFlowType !== undefined ? Config.authenticationFlowType : "USER_SRP_AUTH",
@@ -559,7 +559,7 @@ Your app sends the username and password to Amazon Cognito. If your app has a na
     ```
     This will detect if your authenticationFlowType have been set or not yet, if the authenticationFlowType has not been set then USER_SRP_AUTH will be the assigned flow.
 
-  2. Lastly we need to set the "USER_PASSWORD" flow to the desired enviroment, navigate to config-overrides.js in the root folder and set code with the following example.
+  2. Lastly we need to set the "USER_PASSWORD" flow to the desired environment, navigate to config-overrides.js in the root folder and set code with the following example.
 
       Example:
       ```
@@ -569,11 +569,11 @@ Your app sends the username and password to Amazon Cognito. If your app has a na
         };
             break;
       ```
-      This will set your specfic enviroment to USER_PASSWORD_AUTH.
+      This will set your specific environment to USER_PASSWORD_AUTH.
 
 ## Uninstall
 
-> __Important note:__ the stack deletion will not delete all the ressources to prevent accidental data loss. Especially, the UserPool won't be deleted by a stack deletion. If you really want to delete the user pool do the Step2 after the Step1.
+> __Important note:__ the stack deletion will not delete all the resources to prevent accidental data loss. Especially, the UserPool won't be deleted by a stack deletion. If you really want to delete the user pool do the Step2 after the Step1.
 
 ### Step 1 : stack deletion
 
@@ -582,13 +582,13 @@ To delete the broker, you have to run the following command:
 amplify delete
 ```
 
-Or if you have multiple environements in your _amplify/team-provider-info.json_ you will run multiple time commands like:
+Or if you have multiple environments in your _amplify/team-provider-info.json_ you will run multiple time commands like:
 ```
 amplify env remove <name-of-your-env>
 ```
 _Note: You cannot delete an environment currently checkout, you'll have to switch env before with `amplify env checkout <my-other-env>`. At anytime you can see the list of env by typing `amplify env list`_
 
-> __Possible cause of failure:__ 
+> __Possible cause of failure:__
 > * __S3 bucket not empty:__ To solve this, in the AWS console, go to Amazon S3, open the S3 bucket that fail to delete, check all items and click delete. Then redo the stack deletion (using the AWS Amplify CLI or AWS CloudFormation)
 
 __Alternative method: AWS Cloudformation__
@@ -601,7 +601,7 @@ If you deployed your environment through the AWS Amplify console, then you shoul
 
 ### Step 2 : delete the user pool
 
-> __WARNING:__ Doing this will delete all your user identities and credentials. There is no way to restore this after (the AWS support can't do it neither). Make sure you know what you are doing before proceding.
+> __WARNING:__ Doing this will delete all your user identities and credentials. There is no way to restore this after (the AWS support can't do it neither). Make sure you know what you are doing before proceeding.
 
 On the AWS Console, go to Amazon Cognito service page, then go to _User Pool_, select the user pool you want to delete anc click on _Delete pool_ button at the top right corner:
 
