@@ -143,7 +143,7 @@ class App extends React.Component {
         window.location.replace(redirect_uri + '/?id_token=' + idToken + ((clientState !== undefined) ? "&state=" + clientState : ""));
       }
       else { // Sign in directly to broker (not from redirect from client as part of oauth2 flow)
-        window.location.href = '/settings';
+        window.location.href = '/dashboard';
       }
     }
     else if (authState === AuthState.SignedOut) {
