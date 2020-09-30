@@ -57,7 +57,12 @@ class Dashboard extends React.Component {
             (Attribute.Name !== "identities") &&
             <div className="grid-container">
                 <div className="grid-item">
-                    <a href={"/" + process.env.HOSTING_DOMAIN + "?client_id=" + Attribute.client_id.S + "&redirect_uri=" + Attribute.redirect_uri.S + ((Attribute.auth_type.S == "pkce") ? "&authorization_code=" + Attribute.client_id.S : "")}>
+                    {/* <a href={"/" + process.env.HOSTING_DOMAIN + "?client_id=" + Attribute.client_id.S + "&redirect_uri=" + Attribute.redirect_uri.S + ((Attribute.auth_type.S == "pkce") ? "&authorization_code=" + Attribute.client_id.S : "")}>
+                        <img className="logos" src={"/logos/" + Attribute.client_id.S + ".png"} alt=""></img>
+                        <br></br>
+                        <label>Login to {Attribute.client_name.S}</label>
+                    </a> */}
+                    <a href={"?client_id=" + Attribute.client_id.S + "&redirect_uri=" + Attribute.redirect_uri.S + ((Attribute.auth_type.S == "pkce") ? "&authorization_code=" + Attribute.client_id.S : "")}>
                         <img className="logos" src={"/logos/" + Attribute.client_id.S + ".png"} alt=""></img>
                         <br></br>
                         <label>Login to {Attribute.client_name.S}</label>
