@@ -76,7 +76,7 @@ exports.handler = async (event) => {
     }
 
     if (grant_type === "authorization_code") {
-        var authorization_code = jsonBody.authorization_code;
+        var authorization_code = jsonBody.code;
         var redirect_uri = jsonBody.redirect_uri;
         var code_verifier = jsonBody.code_verifier;
         if (redirect_uri === undefined || authorization_code === undefined || code_verifier == undefined) {
