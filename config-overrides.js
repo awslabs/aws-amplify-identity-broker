@@ -40,8 +40,8 @@ if(amplifyTeams[AMPLIFY_ENV].categories.function.amplifyIdentityBrokerPostDeploy
     process.exit();
 }
 
-if(appHostingDomain) {
-    const redirectSignIn = appHostingDomain;
+if (appHostingDomain) {
+    const redirectSignIn  = appHostingDomain;
     const redirectSignOut = appHostingDomain + "/logout";
 
     var rawdata = fs.readFileSync('./src/aws-exports.js', 'utf-8');
