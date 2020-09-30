@@ -9,6 +9,7 @@
 
 import React from 'react';
 import './dashboard.css';
+import { API } from 'aws-amplify';
 import { AmplifyButton } from '@aws-amplify/ui-react';
 
 class Dashboard extends React.Component {
@@ -21,22 +22,24 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://pvaewuakua.execute-api.us-east-2.amazonaws.com/ilyasdev/clients")
-            .then(res => res.json())
-            .then((result) => {
-                    console.log(result);
+        const apiName = 'amplifyIdentityBrokerApi';
+        const path = '/clients';
+
+        API
+            .get(apiName, path)
+            .then(response => {
+                console.log(response);
                     this.setState({
                         isLoaded: true,
-                        registeredClients: result
+                        registeredClients: response
                     });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+            })
+            .catch(error => {
+                this.setState({
+                    isLoaded: true,
+                    error
+                });
+            });
     }
 
     Logout = () => {
@@ -51,10 +54,10 @@ class Dashboard extends React.Component {
 
         var registeredClientsList = this.state.registeredClients.map(Attribute =>
             (Attribute.Name !== "identities") &&
-            <div class="grid-container">
-                <div class="grid-item">
+            <div className="grid-container">
+                <div className="grid-item">
                     <a href={Attribute.redirect_uri.S}>
-                        <img className="logos" src={"/logos/" + Attribute.client_id.S + ".png"}></img>
+                        <img className="logos" src={"/logos/" + Attribute.client_id.S + ".png"} alt=""></img>
                     </a>
                 </div>
             </div>
