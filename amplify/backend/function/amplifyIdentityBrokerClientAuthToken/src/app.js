@@ -63,9 +63,8 @@ app.get(path, function(req, res) {
       res.json({error: 'Could not load items: ' + err.message});
     } else {
       if (data.Item) {
-        res.json(data.Item);
+        res.json(data.Item.authorization_code);
       } else {
-        console.debug("items");
         res.json(data.Items[0].authorization_code);
       }
     }
