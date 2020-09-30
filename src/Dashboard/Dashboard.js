@@ -28,11 +28,10 @@ class Dashboard extends React.Component {
         API
             .get(apiName, path)
             .then(response => {
-                console.log(response);
-                    this.setState({
-                        isLoaded: true,
-                        registeredClients: response
-                    });
+                this.setState({
+                    isLoaded: true,
+                    registeredClients: response
+                });
             })
             .catch(error => {
                 this.setState({
@@ -48,6 +47,8 @@ class Dashboard extends React.Component {
 
     render() {
         console.log("this.state.registeredClients: " + this.state.registeredClients);
+        console.log("HOSTING_DOMAIN: " + process.env.HOSTING_DOMAIN);
+
         if (this.state.registeredClients.length === 0) {
             return null
         }
@@ -56,10 +57,10 @@ class Dashboard extends React.Component {
             (Attribute.Name !== "identities") &&
             <div className="grid-container">
                 <div className="grid-item">
-                    <a href={Attribute.redirect_uri.S}>
+                    <a href={"/" + process.env.HOSTING_DOMAIN + "?client_id=" + Attribute.client_id.S + "&redirect_uri=" + Attribute.redirect_uri.S + ((Attribute.auth_type.S == "pkce") ? "&authorization_code=" + Attribute.client_id.S : "")}>
                         <img className="logos" src={"/logos/" + Attribute.client_id.S + ".png"} alt=""></img>
                         <br></br>
-                        <label>{Attribute.client_name.S}</label>
+                        <label>Login to {Attribute.client_name.S}</label>
                     </a>
                 </div>
             </div>
