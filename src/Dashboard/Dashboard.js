@@ -58,6 +58,8 @@ class Dashboard extends React.Component {
                 <div className="grid-item">
                     <a href={Attribute.redirect_uri.S}>
                         <img className="logos" src={"/logos/" + Attribute.client_id.S + ".png"} alt=""></img>
+                        <br></br>
+                        <label>{Attribute.client_name.S}</label>
                     </a>
                 </div>
             </div>
