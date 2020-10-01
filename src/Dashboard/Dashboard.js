@@ -46,11 +46,6 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        console.log("this.state.registeredClients: " + this.state.registeredClients);
-        console.log("HOSTING_DOMAIN: " + process.env.HOSTING_DOMAIN);
-        const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
-        console.log("PUBLIC_URL: " + publicUrl);
-
         if (this.state.registeredClients.length === 0) {
             return null
         }
