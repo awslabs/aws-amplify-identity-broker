@@ -55,13 +55,6 @@
             "privacy": {
                 "open": true
             }
-        },
-        {
-            "name": "/client/{clientid}/authtoken",
-            "lambdaFunction": "amplifyIdentityBrokerClientAuthToken",
-            "privacy": {
-                "open": true
-            }
         }
     ],
     "resourceName": "amplifyIdentityBrokerApi",
@@ -90,9 +83,6 @@
         },
         {
             "lambdaFunction": "amplifyIdentityBrokerClients"
-        },
-        {
-            "lambdaFunction": "amplifyIdentityBrokerClientAuthToken"
         }
     ],
     "privacy": {
@@ -165,15 +155,7 @@
                 "Name",
                 "Arn"
             ]
-        },
-        {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerClientAuthToken",
-            "attributes": [
-                "Name",
-                "Arn"
-            ]
         }
     ],
-    "uuid": "5e1440f2"
+    "uuid": "d0814473"
 }
