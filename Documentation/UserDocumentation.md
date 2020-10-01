@@ -243,6 +243,7 @@ Once the environment is created you'll need to add the necessary redirect rules 
 | /verifyClient  | ...api-gateway-url.../verifyClient  | 200 |
 | /accountConfirmation  | ...api-gateway-url.../accountConfirmation  | 200 |
 | /logout  | /index.html  | 200 |
+| /settings  | /index.html  | 200 |
 | /<*>  | /index.html  | 404 |
   
 __Note:__ The `...api-gateway-url...` needs to be replaced by the entry point url of the API Gateway associated with your broker. You can find the value by going to the Amazon API Gateway service or by looking at the AWS CloudFormation service and reading at the output parameter `RootUrl` of the template `amplify-amplify-identity-broker-<env>-xxxxxx-apiamplifyIdentityBrokerApi-XXXXXXXXXXX`.
