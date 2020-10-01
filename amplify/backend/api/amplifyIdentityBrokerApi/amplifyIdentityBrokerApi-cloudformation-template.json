@@ -1,166 +1,97 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "API Gateway resource stack creation using Amplify CLI",
-    
+    "Description": "API Gateway resource for the AWS Amplify Identity Broker",
+
     "Parameters": {
-        "authRoleName": {
-            "Type":  "String"
-        },
-        "unauthRoleName": {
-            "Type":  "String"
-        },
-        "env": {
-            "Type": "String"
-        },
-    
-    
-          "functionamplifyIdentityBrokerAuthorizeName": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerAuthorizeName"
-          },
-        
-          
-          "functionamplifyIdentityBrokerAuthorizeArn": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerAuthorizeArn"
-          },
-        
-          
-          
-    
-          "functionamplifyIdentityBrokerTokenName": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerTokenName"
-          },
-        
-          
-          "functionamplifyIdentityBrokerTokenArn": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerTokenArn"
-          },
-        
-          
-          
-    
-          "functionamplifyIdentityBrokerStorageName": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerStorageName"
-          },
-        
-          
-          "functionamplifyIdentityBrokerStorageArn": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerStorageArn"
-          },
-        
-          
-          
-    
-          "functionamplifyIdentityBrokerUserInfoName": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerUserInfoName"
-          },
-        
-          
-          "functionamplifyIdentityBrokerUserInfoArn": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerUserInfoArn"
-          },
-        
-          
-          
-    
-          "functionamplifyIdentityBrokerExposeJWKSName": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerExposeJWKSName"
-          },
-        
-          
-          "functionamplifyIdentityBrokerExposeJWKSArn": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerExposeJWKSArn"
-          },
-        
-          
-          
-    
-          "functionamplifyIdentityBrokerVerifyClientName": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerVerifyClientName"
-          },
-        
-          
-          "functionamplifyIdentityBrokerVerifyClientArn": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerVerifyClientArn"
-          },
-        
-          
-          
-    
-          "functionamplifyIdentityBrokerAccountConfirmationName": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerAccountConfirmationName"
-          },
-        
-          
-          "functionamplifyIdentityBrokerAccountConfirmationArn": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerAccountConfirmationArn"
-          },
-        
-          
-          
-    
-          "functionamplifyIdentityBrokerClientsName": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerClientsName"
-          },
-        
-          
-          "functionamplifyIdentityBrokerClientsArn": {
-            "Type": "String",
-            "Default": "functionamplifyIdentityBrokerClientsArn"
-          }
-        
-          
-          
-    
+      "authRoleName": {
+        "Type":  "String"
+      },
+      "unauthRoleName": {
+        "Type":  "String"
+      },
+      "env": {
+        "Type": "String"
+      },
+      "functionamplifyIdentityBrokerAuthorizeName": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerAuthorizeName"
+      },
+      "functionamplifyIdentityBrokerAuthorizeArn": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerAuthorizeArn"
+      },
+      "functionamplifyIdentityBrokerTokenName": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerTokenName"
+      },
+      "functionamplifyIdentityBrokerTokenArn": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerTokenArn"
+      },
+      "functionamplifyIdentityBrokerStorageName": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerStorageName"
+      },
+      "functionamplifyIdentityBrokerStorageArn": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerStorageArn"
+      },
+      "functionamplifyIdentityBrokerUserInfoName": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerUserInfoName"
+      },
+      "functionamplifyIdentityBrokerUserInfoArn": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerUserInfoArn"
+      },
+      "functionamplifyIdentityBrokerExposeJWKSName": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerExposeJWKSName"
+      },
+      "functionamplifyIdentityBrokerExposeJWKSArn": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerExposeJWKSArn"
+      },
+      "functionamplifyIdentityBrokerVerifyClientName": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerVerifyClientName"
+      },
+      "functionamplifyIdentityBrokerVerifyClientArn": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerVerifyClientArn"
+      },
+      "functionamplifyIdentityBrokerAccountConfirmationName": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerAccountConfirmationName"
+      },
+      "functionamplifyIdentityBrokerAccountConfirmationArn": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerAccountConfirmationArn"
+      },
+      "functionamplifyIdentityBrokerClientsName": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerClientsName"
+      },
+      "functionamplifyIdentityBrokerClientsArn": {
+        "Type": "String",
+        "Default": "functionamplifyIdentityBrokerClientsArn"
+      }
     },
      "Conditions": {
-        "ShouldNotCreateEnvResources": {
-            "Fn::Equals": [
-                {
-                    "Ref": "env"
-                },
-                "NONE"
-            ]
-        }
+      "ShouldNotCreateEnvResources": {
+        "Fn::Equals": [
+          {
+            "Ref": "env"
+          },
+          "NONE"
+        ]
+      }
     },
     "Resources": {
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
       "amplifyIdentityBrokerApi": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
-          "Description": "",
+          "Description": "Backend API of the AWS Amplify Identity Broker",
           "Name": "amplifyIdentityBrokerApi",
           "Body": {
             "swagger": "2.0",
@@ -186,22 +117,21 @@
                 "/Prod",
                 {
                   "Fn::Join": [
-                      "",
-                      [
-                          "/",
-                          {
-                              "Ref": "env"
-                          }
-                      ]
+                    "",
+                    [
+                      "/",
+                      {
+                        "Ref": "env"
+                      }
+                    ]
                   ]
-                } 
+                }
               ]
             },
             "schemes": [
               "https"
             ],
             "paths": {
-              
               "/oauth2/authorize": {
                 "options": {
                   "consumes": [
@@ -231,7 +161,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                          "method.response.header.Access-Control-Allow-Methods": "'GET,HEAD,OPTIONS'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -269,7 +199,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -277,24 +206,21 @@
                       }
                     },
                     "uri": {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:aws:apigateway:",
-                            {
-                              "Ref": "AWS::Region"
-                            },
-                            ":lambda:path/2015-03-31/functions/",
-                            
-                            {
-                                
-                                "Ref": "functionamplifyIdentityBrokerAuthorizeArn"
-                            },
-                            
-                            "/invocations"
-                          ]
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:apigateway:",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ":lambda:path/2015-03-31/functions/",
+                          {
+                            "Ref": "functionamplifyIdentityBrokerAuthorizeArn"
+                          },
+                          "/invocations"
                         ]
-                      },
+                      ]
+                    },
                     "passthroughBehavior": "when_no_match",
                     "httpMethod": "POST",
                     "type": "aws_proxy"
@@ -368,7 +294,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -384,12 +309,9 @@
                             "Ref": "AWS::Region"
                           },
                           ":lambda:path/2015-03-31/functions/",
-                          
                           {
-                            
                             "Ref": "functionamplifyIdentityBrokerAuthorizeArn"
                           },
-                          
                           "/invocations"
                         ]
                       ]
@@ -399,8 +321,7 @@
                     "type": "aws_proxy"
                   }
                 }
-              },   
-              
+              },
               "/oauth2/token": {
                 "options": {
                   "consumes": [
@@ -468,7 +389,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -484,12 +404,9 @@
                               "Ref": "AWS::Region"
                             },
                             ":lambda:path/2015-03-31/functions/",
-                            
                             {
-                                
-                                "Ref": "functionamplifyIdentityBrokerTokenArn"
+                              "Ref": "functionamplifyIdentityBrokerTokenArn"
                             },
-                            
                             "/invocations"
                           ]
                         ]
@@ -567,7 +484,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -583,12 +499,9 @@
                             "Ref": "AWS::Region"
                           },
                           ":lambda:path/2015-03-31/functions/",
-                          
                           {
-                            
                             "Ref": "functionamplifyIdentityBrokerTokenArn"
                           },
-                          
                           "/invocations"
                         ]
                       ]
@@ -598,8 +511,7 @@
                     "type": "aws_proxy"
                   }
                 }
-              },   
-              
+              },
               "/storage": {
                 "options": {
                   "consumes": [
@@ -667,7 +579,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -675,24 +586,21 @@
                       }
                     },
                     "uri": {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:aws:apigateway:",
-                            {
-                              "Ref": "AWS::Region"
-                            },
-                            ":lambda:path/2015-03-31/functions/",
-                            
-                            {
-                                
-                                "Ref": "functionamplifyIdentityBrokerStorageArn"
-                            },
-                            
-                            "/invocations"
-                          ]
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:apigateway:",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ":lambda:path/2015-03-31/functions/",
+                          {
+                            "Ref": "functionamplifyIdentityBrokerStorageArn"
+                          },
+                          "/invocations"
                         ]
-                      },
+                      ]
+                    },
                     "passthroughBehavior": "when_no_match",
                     "httpMethod": "POST",
                     "type": "aws_proxy"
@@ -766,7 +674,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -782,12 +689,9 @@
                             "Ref": "AWS::Region"
                           },
                           ":lambda:path/2015-03-31/functions/",
-                          
                           {
-                            
                             "Ref": "functionamplifyIdentityBrokerStorageArn"
                           },
-                          
                           "/invocations"
                         ]
                       ]
@@ -797,8 +701,7 @@
                     "type": "aws_proxy"
                   }
                 }
-              },   
-              
+              },
               "/oauth2/userInfo": {
                 "options": {
                   "consumes": [
@@ -866,7 +769,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -874,24 +776,21 @@
                       }
                     },
                     "uri": {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:aws:apigateway:",
-                            {
-                              "Ref": "AWS::Region"
-                            },
-                            ":lambda:path/2015-03-31/functions/",
-                            
-                            {
-                                
-                                "Ref": "functionamplifyIdentityBrokerUserInfoArn"
-                            },
-                            
-                            "/invocations"
-                          ]
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:apigateway:",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ":lambda:path/2015-03-31/functions/",
+                          {
+                            "Ref": "functionamplifyIdentityBrokerUserInfoArn"
+                          },
+                          "/invocations"
                         ]
-                      },
+                      ]
+                    },
                     "passthroughBehavior": "when_no_match",
                     "httpMethod": "POST",
                     "type": "aws_proxy"
@@ -965,7 +864,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -981,12 +879,9 @@
                             "Ref": "AWS::Region"
                           },
                           ":lambda:path/2015-03-31/functions/",
-                          
                           {
-                            
                             "Ref": "functionamplifyIdentityBrokerUserInfoArn"
                           },
-                          
                           "/invocations"
                         ]
                       ]
@@ -996,8 +891,7 @@
                     "type": "aws_proxy"
                   }
                 }
-              },   
-              
+              },
               "/.well-known/jwks.json": {
                 "options": {
                   "consumes": [
@@ -1065,7 +959,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -1073,24 +966,21 @@
                       }
                     },
                     "uri": {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:aws:apigateway:",
-                            {
-                              "Ref": "AWS::Region"
-                            },
-                            ":lambda:path/2015-03-31/functions/",
-                            
-                            {
-                                
-                                "Ref": "functionamplifyIdentityBrokerExposeJWKSArn"
-                            },
-                            
-                            "/invocations"
-                          ]
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:apigateway:",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ":lambda:path/2015-03-31/functions/",
+                          {
+                            "Ref": "functionamplifyIdentityBrokerExposeJWKSArn"
+                          },
+                          "/invocations"
                         ]
-                      },
+                      ]
+                    },
                     "passthroughBehavior": "when_no_match",
                     "httpMethod": "POST",
                     "type": "aws_proxy"
@@ -1146,16 +1036,14 @@
                   "produces": [
                     "application/json"
                   ],
-                  "parameters": [
-                    {
+                  "parameters": [{
                       "in": "body",
                       "name": "RequestSchema",
                       "required": false,
                       "schema": {
                         "$ref": "#/definitions/RequestSchema"
                       }
-                    }
-                  ],
+                  }],
                   "responses": {
                     "200": {
                       "description": "200 response",
@@ -1164,7 +1052,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -1180,12 +1067,9 @@
                             "Ref": "AWS::Region"
                           },
                           ":lambda:path/2015-03-31/functions/",
-                          
                           {
-                            
                             "Ref": "functionamplifyIdentityBrokerExposeJWKSArn"
                           },
-                          
                           "/invocations"
                         ]
                       ]
@@ -1195,8 +1079,7 @@
                     "type": "aws_proxy"
                   }
                 }
-              },   
-              
+              },
               "/verifyClient": {
                 "options": {
                   "consumes": [
@@ -1264,7 +1147,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -1280,12 +1162,9 @@
                               "Ref": "AWS::Region"
                             },
                             ":lambda:path/2015-03-31/functions/",
-                            
                             {
-                                
-                                "Ref": "functionamplifyIdentityBrokerVerifyClientArn"
+                              "Ref": "functionamplifyIdentityBrokerVerifyClientArn"
                             },
-                            
                             "/invocations"
                           ]
                         ]
@@ -1363,7 +1242,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -1379,12 +1257,9 @@
                             "Ref": "AWS::Region"
                           },
                           ":lambda:path/2015-03-31/functions/",
-                          
                           {
-                            
                             "Ref": "functionamplifyIdentityBrokerVerifyClientArn"
                           },
-                          
                           "/invocations"
                         ]
                       ]
@@ -1394,8 +1269,7 @@
                     "type": "aws_proxy"
                   }
                 }
-              },   
-              
+              },
               "/accountConfirmation": {
                 "options": {
                   "consumes": [
@@ -1463,7 +1337,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -1479,12 +1352,9 @@
                               "Ref": "AWS::Region"
                             },
                             ":lambda:path/2015-03-31/functions/",
-                            
                             {
-                                
-                                "Ref": "functionamplifyIdentityBrokerAccountConfirmationArn"
+                              "Ref": "functionamplifyIdentityBrokerAccountConfirmationArn"
                             },
-                            
                             "/invocations"
                           ]
                         ]
@@ -1562,7 +1432,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -1578,12 +1447,9 @@
                             "Ref": "AWS::Region"
                           },
                           ":lambda:path/2015-03-31/functions/",
-                          
                           {
-                            
                             "Ref": "functionamplifyIdentityBrokerAccountConfirmationArn"
                           },
-                          
                           "/invocations"
                         ]
                       ]
@@ -1593,8 +1459,7 @@
                     "type": "aws_proxy"
                   }
                 }
-              },   
-              
+              },
               "/clients": {
                 "options": {
                   "consumes": [
@@ -1624,7 +1489,7 @@
                       "default": {
                         "statusCode": "200",
                         "responseParameters": {
-                          "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                          "method.response.header.Access-Control-Allow-Methods": "'GET,HEAD,OPTIONS'",
                           "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
                           "method.response.header.Access-Control-Allow-Origin": "'*'"
                         }
@@ -1637,7 +1502,7 @@
                     "type": "mock"
                   }
                 },
-                "x-amazon-apigateway-any-method": {
+                "get": {
                   "consumes": [
                     "application/json"
                   ],
@@ -1662,7 +1527,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -1678,12 +1542,9 @@
                               "Ref": "AWS::Region"
                             },
                             ":lambda:path/2015-03-31/functions/",
-                            
                             {
-                                
-                                "Ref": "functionamplifyIdentityBrokerClientsArn"
+                              "Ref": "functionamplifyIdentityBrokerClientsArn"
                             },
-                            
                             "/invocations"
                           ]
                         ]
@@ -1761,7 +1622,6 @@
                       }
                     }
                   },
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -1777,12 +1637,9 @@
                             "Ref": "AWS::Region"
                           },
                           ":lambda:path/2015-03-31/functions/",
-                          
                           {
-                            
                             "Ref": "functionamplifyIdentityBrokerClientsArn"
                           },
-                          
                           "/invocations"
                         ]
                       ]
@@ -1792,8 +1649,7 @@
                     "type": "aws_proxy"
                   }
                 }
-              }   
-              
+              }
             },
             "securityDefinitions": {
               "sigv4": {
@@ -1833,323 +1689,287 @@
           "FailOnWarnings": true
         }
       },
-
-                  
-        
-        
-        "functionamplifyIdentityBrokerAuthorizePermissionamplifyIdentityBrokerApi": {
-            "Type": "AWS::Lambda::Permission",
-            "Properties": {
-                "FunctionName": 
-                    {
-                        "Ref":  "functionamplifyIdentityBrokerAuthorizeName"
-                    },
-                    
-                    "Action": "lambda:InvokeFunction",
-                "Principal": "apigateway.amazonaws.com",
-                "SourceArn": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "arn:aws:execute-api:",
-                            {
-                                "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                                "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                                "Ref": "amplifyIdentityBrokerApi"
-                            },
-                            "/*/*/*"
-                        ]
-                    ]
-                }
-            }
-        },
-        
-        
-        "functionamplifyIdentityBrokerTokenPermissionamplifyIdentityBrokerApi": {
-            "Type": "AWS::Lambda::Permission",
-            "Properties": {
-                "FunctionName": 
-                    {
-                        "Ref":  "functionamplifyIdentityBrokerTokenName"
-                    },
-                    
-                    "Action": "lambda:InvokeFunction",
-                "Principal": "apigateway.amazonaws.com",
-                "SourceArn": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "arn:aws:execute-api:",
-                            {
-                                "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                                "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                                "Ref": "amplifyIdentityBrokerApi"
-                            },
-                            "/*/*/*"
-                        ]
-                    ]
-                }
-            }
-        },
-        
-        
-        "functionamplifyIdentityBrokerStoragePermissionamplifyIdentityBrokerApi": {
-            "Type": "AWS::Lambda::Permission",
-            "Properties": {
-                "FunctionName": 
-                    {
-                        "Ref":  "functionamplifyIdentityBrokerStorageName"
-                    },
-                    
-                    "Action": "lambda:InvokeFunction",
-                "Principal": "apigateway.amazonaws.com",
-                "SourceArn": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "arn:aws:execute-api:",
-                            {
-                                "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                                "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                                "Ref": "amplifyIdentityBrokerApi"
-                            },
-                            "/*/*/*"
-                        ]
-                    ]
-                }
-            }
-        },
-        
-        
-        "functionamplifyIdentityBrokerUserInfoPermissionamplifyIdentityBrokerApi": {
-            "Type": "AWS::Lambda::Permission",
-            "Properties": {
-                "FunctionName": 
-                    {
-                        "Ref":  "functionamplifyIdentityBrokerUserInfoName"
-                    },
-                    
-                    "Action": "lambda:InvokeFunction",
-                "Principal": "apigateway.amazonaws.com",
-                "SourceArn": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "arn:aws:execute-api:",
-                            {
-                                "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                                "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                                "Ref": "amplifyIdentityBrokerApi"
-                            },
-                            "/*/*/*"
-                        ]
-                    ]
-                }
-            }
-        },
-        
-        
-        "functionamplifyIdentityBrokerExposeJWKSPermissionamplifyIdentityBrokerApi": {
-            "Type": "AWS::Lambda::Permission",
-            "Properties": {
-                "FunctionName": 
-                    {
-                        "Ref":  "functionamplifyIdentityBrokerExposeJWKSName"
-                    },
-                    
-                    "Action": "lambda:InvokeFunction",
-                "Principal": "apigateway.amazonaws.com",
-                "SourceArn": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "arn:aws:execute-api:",
-                            {
-                                "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                                "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                                "Ref": "amplifyIdentityBrokerApi"
-                            },
-                            "/*/*/*"
-                        ]
-                    ]
-                }
-            }
-        },
-        
-        
-        "functionamplifyIdentityBrokerVerifyClientPermissionamplifyIdentityBrokerApi": {
-            "Type": "AWS::Lambda::Permission",
-            "Properties": {
-                "FunctionName": 
-                    {
-                        "Ref":  "functionamplifyIdentityBrokerVerifyClientName"
-                    },
-                    
-                    "Action": "lambda:InvokeFunction",
-                "Principal": "apigateway.amazonaws.com",
-                "SourceArn": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "arn:aws:execute-api:",
-                            {
-                                "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                                "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                                "Ref": "amplifyIdentityBrokerApi"
-                            },
-                            "/*/*/*"
-                        ]
-                    ]
-                }
-            }
-        },
-        
-        
-        "functionamplifyIdentityBrokerAccountConfirmationPermissionamplifyIdentityBrokerApi": {
-            "Type": "AWS::Lambda::Permission",
-            "Properties": {
-                "FunctionName": 
-                    {
-                        "Ref":  "functionamplifyIdentityBrokerAccountConfirmationName"
-                    },
-                    
-                    "Action": "lambda:InvokeFunction",
-                "Principal": "apigateway.amazonaws.com",
-                "SourceArn": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "arn:aws:execute-api:",
-                            {
-                                "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                                "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                                "Ref": "amplifyIdentityBrokerApi"
-                            },
-                            "/*/*/*"
-                        ]
-                    ]
-                }
-            }
-        },
-        
-        
-        "functionamplifyIdentityBrokerClientsPermissionamplifyIdentityBrokerApi": {
-            "Type": "AWS::Lambda::Permission",
-            "Properties": {
-                "FunctionName": 
-                    {
-                        "Ref":  "functionamplifyIdentityBrokerClientsName"
-                    },
-                    
-                    "Action": "lambda:InvokeFunction",
-                "Principal": "apigateway.amazonaws.com",
-                "SourceArn": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "arn:aws:execute-api:",
-                            {
-                                "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                                "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                                "Ref": "amplifyIdentityBrokerApi"
-                            },
-                            "/*/*/*"
-                        ]
-                    ]
-                }
-            }
-        },
-        
-        
-        
-      "DeploymentAPIGWamplifyIdentityBrokerApid0814473": {
-        "Type": "AWS::ApiGateway::Deployment",
+      "functionamplifyIdentityBrokerAuthorizePermissionamplifyIdentityBrokerApi": {
+        "Type": "AWS::Lambda::Permission",
         "Properties": {
-          "Description": "The Development stage deployment of your API.",
-          "StageName": {
-            "Fn::If": [
-              "ShouldNotCreateEnvResources",
-              "Prod", 
-              {
-                "Ref": "env"
-              } 
-            ]
+          "FunctionName": {
+            "Ref": "functionamplifyIdentityBrokerAuthorizeName"
           },
-          "RestApiId": {
-            "Ref": "amplifyIdentityBrokerApi"
+          "Action": "lambda:InvokeFunction",
+          "Principal": "apigateway.amazonaws.com",
+          "SourceArn": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:execute-api:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":",
+                {
+                  "Ref": "AWS::AccountId"
+                },
+                ":",
+                {
+                  "Ref": "amplifyIdentityBrokerApi"
+                },
+                "/*/*/*"
+              ]
+            ]
           }
+      }
+    },
+    "functionamplifyIdentityBrokerTokenPermissionamplifyIdentityBrokerApi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Ref":  "functionamplifyIdentityBrokerTokenName"
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "amplifyIdentityBrokerApi"
+              },
+              "/*/*/*"
+            ]
+          ]
         }
       }
     },
-    "Outputs": {
-        "RootUrl": {
-            "Description": "Root URL of the API gateway",
-            "Value": {"Fn::Join": ["", ["https://", {"Ref": "amplifyIdentityBrokerApi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
-        },
-        "ApiName": {
-          "Description": "API Friendly name",
-          "Value": "amplifyIdentityBrokerApi"
-        },
-        "ApiDomain": {
-          "Description": "API Friendly domain",
-          "Value": {
-            "Fn::Join": [ "", [ { "Ref": "amplifyIdentityBrokerApi" }, ".execute-api.", { "Ref": "AWS::Region" }, ".amazonaws.com"]]
+    "functionamplifyIdentityBrokerStoragePermissionamplifyIdentityBrokerApi": {
+        "Type": "AWS::Lambda::Permission",
+        "Properties": {
+          "FunctionName": {
+            "Ref":  "functionamplifyIdentityBrokerStorageName"
           },
-          "Export": {
-            "Name": "ApiDomain"
+          "Action": "lambda:InvokeFunction",
+          "Principal": "apigateway.amazonaws.com",
+          "SourceArn": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:execute-api:",
+                {
+                    "Ref": "AWS::Region"
+                },
+                ":",
+                {
+                    "Ref": "AWS::AccountId"
+                },
+                ":",
+                {
+                    "Ref": "amplifyIdentityBrokerApi"
+                },
+                "/*/*/*"
+              ]
+            ]
           }
-        },
-        "ApiId": {
-          "Description": "API ID (prefix of API URL)",
-          "Value": {"Ref": "amplifyIdentityBrokerApi"}
         }
+    },
+    "functionamplifyIdentityBrokerUserInfoPermissionamplifyIdentityBrokerApi": {
+        "Type": "AWS::Lambda::Permission",
+        "Properties": {
+          "FunctionName": {
+              "Ref":  "functionamplifyIdentityBrokerUserInfoName"
+            },
+            "Action": "lambda:InvokeFunction",
+            "Principal": "apigateway.amazonaws.com",
+            "SourceArn": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:aws:execute-api:",
+                  {
+                      "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                      "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                      "Ref": "amplifyIdentityBrokerApi"
+                  },
+                  "/*/*/*"
+                ]
+              ]
+            }
+        }
+    },
+    "functionamplifyIdentityBrokerExposeJWKSPermissionamplifyIdentityBrokerApi": {
+        "Type": "AWS::Lambda::Permission",
+        "Properties": {
+          "FunctionName": {
+            "Ref":  "functionamplifyIdentityBrokerExposeJWKSName"
+          },
+          "Action": "lambda:InvokeFunction",
+          "Principal": "apigateway.amazonaws.com",
+          "SourceArn": {
+            "Fn::Join": [
+              "",
+              [
+                  "arn:aws:execute-api:",
+                  {
+                      "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                      "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                      "Ref": "amplifyIdentityBrokerApi"
+                  },
+                  "/*/*/*"
+              ]
+            ]
+          }
+        }
+    },
+    "functionamplifyIdentityBrokerVerifyClientPermissionamplifyIdentityBrokerApi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Ref":  "functionamplifyIdentityBrokerVerifyClientName"
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                  "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                  "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                  "Ref": "amplifyIdentityBrokerApi"
+              },
+              "/*/*/*"
+            ]
+          ]
+        }
+      }
+    },
+      "functionamplifyIdentityBrokerAccountConfirmationPermissionamplifyIdentityBrokerApi": {
+          "Type": "AWS::Lambda::Permission",
+          "Properties": {
+            "FunctionName": {
+              "Ref": "functionamplifyIdentityBrokerAccountConfirmationName"
+            },
+            "Action": "lambda:InvokeFunction",
+            "Principal": "apigateway.amazonaws.com",
+            "SourceArn": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:aws:execute-api:",
+                  {
+                      "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                      "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                      "Ref": "amplifyIdentityBrokerApi"
+                  },
+                  "/*/*/*"
+                ]
+              ]
+            }
+        }
+      },
+      "functionamplifyIdentityBrokerClientsPermissionamplifyIdentityBrokerApi": {
+          "Type": "AWS::Lambda::Permission",
+          "Properties": {
+              "FunctionName":
+                  {
+                      "Ref":  "functionamplifyIdentityBrokerClientsName"
+                  },
+                  "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                  "Fn::Join": [
+                      "",
+                      [
+                          "arn:aws:execute-api:",
+                          {
+                              "Ref": "AWS::Region"
+                          },
+                          ":",
+                          {
+                              "Ref": "AWS::AccountId"
+                          },
+                          ":",
+                          {
+                              "Ref": "amplifyIdentityBrokerApi"
+                          },
+                          "/*/*/*"
+                      ]
+                  ]
+              }
+          }
+      },
+    "DeploymentAPIGWamplifyIdentityBrokerApid0814473": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "Properties": {
+        "Description": "The Development stage deployment of your API.",
+        "StageName": {
+          "Fn::If": [
+            "ShouldNotCreateEnvResources",
+            "Prod",
+            {
+              "Ref": "env"
+            }
+          ]
+        },
+        "RestApiId": {
+          "Ref": "amplifyIdentityBrokerApi"
+        }
+      }
+    }
+  },
+  "Outputs": {
+      "RootUrl": {
+          "Description": "Root URL of the API gateway",
+          "Value": {"Fn::Join": ["", ["https://", {"Ref": "amplifyIdentityBrokerApi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
+      },
+      "ApiName": {
+        "Description": "API Friendly name",
+        "Value": "amplifyIdentityBrokerApi"
+      },
+      "ApiDomain": {
+        "Description": "Domain of the API gateway",
+        "Value": {
+          "Fn::Join": [ "", [ { "Ref": "amplifyIdentityBrokerApi" }, ".execute-api.", { "Ref": "AWS::Region" }, ".amazonaws.com"]]
+        },
+        "Export": {
+          "Name": "ApiDomain"
+        }
+      },
+      "ApiId": {
+        "Description": "API ID (prefix of API URL)",
+        "Value": {"Ref": "amplifyIdentityBrokerApi"}
+      }
     }
   }
