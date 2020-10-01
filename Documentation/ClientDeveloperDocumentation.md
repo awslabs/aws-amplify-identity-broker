@@ -12,22 +12,22 @@ The AWS Amplify identity broker exposes two standard Oauth2 authentication flows
 
 ### Implicit flow
 
-This is the simpler flow. It require just a link from your app and for you to read a GET parameter. 
+This is the simpler flow. It require just a link from your app and for you to read a GET parameter.
 
 This flow only returns an _id_token_ you __should not__ use an id_token to authenticate a user against a backend. This is a [recommendation from the Oauth2 BCP](https://tools.ietf.org/html/draft-ietf-oauth-security-topics-09#section-2.1.2)
 
 <details>
   <summary>Diagram of the flow (click to expand)</summary>
-  
+
   Flow entities are:
   * __User__: the user and his browser
   * __Client Application__: (like the one from our [client demo project](https://github.com/awslabs/aws-amplify-identity-broker-client))
   * __Identity Broker__ : the main project
   * __DynamoDB__: the broker storage layer
   * __Cognito__: The Cognito service and endpoints
-  
+
   __Implicit flow__
-  
+
   ![Implicit flow](Images/ImplicitFlow.png "Implicit flow")
 </details>
 
@@ -40,18 +40,18 @@ Expand the section below to see the detailed flows:
 
 <details>
   <summary>Diagram of the flow (click to expand)</summary>
-  
+
   Flow entities are:
   * __User__: the user and his browser
   * __Client Application__: (like the one from our [client demo project](https://github.com/awslabs/aws-amplify-identity-broker-client))
   * __Identity Broker__ : the main project
   * __DynamoDB__: the broker storage layer
   * __Cognito__: The Cognito service and endpoints
-  
+
   ![PKCE flow](Images/PKCEFlow.png "PKCE flow")
 </details>
 
-## How to create a login button/link 
+## How to create a login button/link
 
 Depending of the flow the steps will differ.
 
@@ -65,7 +65,7 @@ Depending of the flow the steps will differ.
 
   The _client_id_ and _redirect_uri_ has to be exactly the ones your registered in the broker DynamoDB table _amplifyIdentityBrokerCodesTable_ (see [How to register a client](./UserDocumentation.md#register-a-client))
 
-  Once the client logged in successfuly, the broker will redirect the browser of the client to your callback with the id_token as a GET parameter.
+  Once the client logged in successfully, the broker will redirect the browser of the client to your callback with the id_token as a GET parameter.
 
   ```
 https://<your-client-callback-URL>/?id_token=...JWT-token-base64 encoded...
@@ -73,7 +73,7 @@ https://<your-client-callback-URL>/?id_token=...JWT-token-base64 encoded...
 
   In your application store the JWT token with your favorite method (Cookie, local storage, ...).
 
-  You can decript the token content by reading the base64 content.
+  You can decrypt the token content by reading the base64 content.
 
   An example code in javascript to do that (using the library [jwt_decode](https://github.com/auth0/jwt-decode)):
 
@@ -82,9 +82,9 @@ https://<your-client-callback-URL>/?id_token=...JWT-token-base64 encoded...
   var idTokenDecoded = jwt_decode(idToken);
   var tokenExpiry = idTokenDecoded['exp'];  <-- an example field you can read
   ```
-  
+
   The token is only valid until an expiration date (```exp``` field in the previous code sample) this validity duration is customizable (see [feature description](https://aws.amazon.com/about-aws/whats-new/2020/08/amazon-cognito-user-pools-supports-customization-of-token-expiration/)).
-  
+
   __Note__: _By default the implicit flow returns only the id_token. You can read the information it contains to display custom information to the user but you __should not__ use an id_token to authenticate a user against a backend. This is a [recommendation from the Oauth2 BCP](https://tools.ietf.org/html/draft-ietf-oauth-security-topics-09#section-2.1.2)_
 </details>
 
@@ -94,13 +94,13 @@ https://<your-client-callback-URL>/?id_token=...JWT-token-base64 encoded...
   PKCE flow has been designed to secure Single Page Application and apps therefore you can execute all the following in the browser. You can also do some of the requests in your backend but this is not mandatory.
 
   Before redirecting the browser to the broker you need to generate a ```code_challenge``` and ```code_verifier```.
-  
+
   A ```code_verifier``` is just a random string encoded as base 64, this is a secret that only your application will know.
-  The ```code_challenge``` is derivated from the code verifier with a sha256 algorithm.
+  The ```code_challenge``` is derivate from the code verifier with a sha256 algorithm.
   There is no way to retrieve the ```code_verifier``` from the ```code_challenge```, but it is easy to calculate the ```code_challenge``` from the ```code_verifier```.
-  
+
   Here is the code to do so in Javascript:
-  
+
   ```
   import crypto from "crypto";
 
@@ -114,44 +114,44 @@ https://<your-client-callback-URL>/?id_token=...JWT-token-base64 encoded...
   function sha256(str: string): Buffer {
     return crypto.createHash("sha256").update(str).digest();
   }
-  
+
   // Generate a random 32 bytes string and encode
   var code_verifier = base64URLEncode(crypto.randomBytes(32));
-  
+
   // Generate the code challenge from the verifier
   var code_challenge = base64URLEncode(sha256(codeVerifier));
   ```
 
   Once these value are generated you can redirect the browser (webview in the case of a native mobile application) to an url of the following form:
-  
+
   ```
   https://<broker-domain>/oauth2/authorize?redirect_uri=<your-client-callback-URL>&client_id=<your-client-id>&response_type=code&code_challenge=<your-code-challenge>&code_challenge_method=S256
   ```
-  
-  After the user successfuly log in the broker will redirect to your client application using your redirect_uri and adding the ```code``` parameters:
-  
+
+  After the user successfully log in the broker will redirect to your client application using your redirect_uri and adding the ```code``` parameters:
+
   ```
   https://<your-client-callback-URL>?code=09cecb8f-cd25-462a-a3f2-fd6d73eb4da7
   ```
-  
+
   After that you can do a __POST request__ to the broker _/oauth2/token_ endpoint with the ```code``` and the original ```code_verifier``` from your application:
-  
+
   ```
   POST https://<broker-domain>/oauth2/token
   Content-Type='application/x-www-form-urlencoded'
- 
+
   grant_type=authorization_code&
   client_id=<your-client-id>&
   code=<your-code>&
   code_verifier=<your-code-verifier>
   ```
-  
+
   The broker response should look like that:
-  
+
   ```
   HTTP/1.1 200 OK
   Content-Type: application/json
- 
+
   {
   "access_token":"XXXXXXX",
   "refresh_token":"XXXXXXXX",
@@ -160,19 +160,19 @@ https://<your-client-callback-URL>/?id_token=...JWT-token-base64 encoded...
    "expires_in":3600
   }
   ```
-  
+
   In your application store the three tokens with your favorite method (Cookie, local storage, ...).
-  
+
   * __access_token__: Is the one you should use to get access to your backend APIs It contains only a user id and Oauth scopes.
   * __id_token__: Is the token that contains the description of your user (login, phone number, custom attributes, ... the exact list depend of your COgnito configuration)
-  * __refresh_token__: Is the token you should use to renew the two other token once expired without requireing your user to login again (here after one hour). See _How to refresh tokens_ section for details.
-  
+  * __refresh_token__: Is the token you should use to renew the two other token once expired without requiring your user to login again (here after one hour). See _How to refresh tokens_ section for details.
+
   Expiration duration is customizable (see [feature description](https://aws.amazon.com/about-aws/whats-new/2020/08/amazon-cognito-user-pools-supports-customization-of-token-expiration/)).
-  
+
 
   Once you get your tokens from the broker you can use them directly against your backend.
   In the backend you will need to verify the JWT token signature (see _How to verify a JWT token_ section below).
-  
+
   _Note: You can refer to the [OAuth 2.0 RFC 7636](https://tools.ietf.org/html/rfc7636) to check your implementation._
 </details>
 
@@ -196,11 +196,11 @@ Here is the url you have to redirect the browser to:
 https://<broker-domain>/logout?logout_uri=<your-client-redirect-uri>&client_id=<your-client-id>
 ```
 
-The _client_id_ and _logout_uri_ has to be exactly the ones your registered in the broker DynamoDB table _amplifyIdentityBrokerCodesTable_ (see [How to register a client](./UserDocumentation.md#register-a-client)). _logout_uri_ has to be equal to the _redirect_uri_ value of the table. 
+The _client_id_ and _logout_uri_ has to be exactly the ones your registered in the broker DynamoDB table _amplifyIdentityBrokerCodesTable_ (see [How to register a client](./UserDocumentation.md#register-a-client)). _logout_uri_ has to be equal to the _redirect_uri_ value of the table.
 
 ## How to create a switch user
 
-The switch user flow is almost the same than the logout flow. The difference is that after logout the logout flow redirect to your app immediatly where in the switch user flow the broker will show again the login form to the user and only redirect to your app if successful.
+The switch user flow is almost the same than the logout flow. The difference is that after logout the logout flow redirect to your app immediately where in the switch user flow the broker will show again the login form to the user and only redirect to your app if successful.
 
 ```
 https://<broker-domain>/logout?redirect_uri=<your-client-redirect-uri>&client_id=<your-client-id>&response_type=id_token
