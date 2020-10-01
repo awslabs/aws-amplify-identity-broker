@@ -242,6 +242,7 @@ Once the environment is created you'll need to add the necessary redirect rules 
 | /.well-known/jwks.json  | ...api-gateway-url.../.well-known/jwks.json  | 200 |
 | /verifyClient  | ...api-gateway-url.../verifyClient  | 200 |
 | /accountConfirmation  | ...api-gateway-url.../accountConfirmation  | 200 |
+| /dashboard  | /index.html  | 200 |
 | /logout  | /index.html  | 200 |
 | /<*>  | /index.html  | 404 |
   
