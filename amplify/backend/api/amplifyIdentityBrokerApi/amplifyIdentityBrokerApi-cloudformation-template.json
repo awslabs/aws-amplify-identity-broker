@@ -2138,6 +2138,15 @@
           "Description": "API Friendly name",
           "Value": "amplifyIdentityBrokerApi"
         },
+        "ApiDomain": {
+          "Description": "API Friendly domain",
+          "Value": {
+            "Fn::Join": [ "", [ { "Ref": "amplifyIdentityBrokerApi" }, ".execute-api.", { "Ref": "AWS::Region" }, ".amazonaws.com"]]
+          },
+          "Export": {
+            "Name": "ApiDomain"
+          }
+        },
         "ApiId": {
           "Description": "API ID (prefix of API URL)",
           "Value": {"Ref": "amplifyIdentityBrokerApi"}

@@ -12,11 +12,11 @@ If you need a client, you can use the [demo client project](https://github.com/a
 
 The project architecture is the following:
 
-![Projet Architecture Image](Images/DeployedArchitecture.png "Projet Architecture")
+![Project Architecture Image](Images/DeployedArchitecture.png "Project Architecture")
 
 ## Source code structure
 
-This is a standard AWS Amplify & React project. It has been bootstraped using [Create React App](https://github.com/facebook/create-react-app) and the dynamic configuration is injected by [react app rewired](https://github.com/timarney/react-app-rewired).
+This is a standard AWS Amplify & React project. It has been bootstrapped using [Create React App](https://github.com/facebook/create-react-app) and the dynamic configuration is injected by [react app rewired](https://github.com/timarney/react-app-rewired).
 
 Main code directories:
 
@@ -24,7 +24,7 @@ Main code directories:
 ./src                           <-- code of the SPA
 ./public                        <-- static files
 amplify/#current-cloud-backend  <-- current env (not in conf, in .gitignore)
-amplify/backend                 <-- reference environment definition 
+amplify/backend                 <-- reference environment definition
 amplify/backend/auth            <-- Cognito user pool configuration
 amplify/backend/function        <-- all Lambda function code are here
 amplify/backend/storage         <-- DynamoDB tables definition
@@ -36,7 +36,7 @@ amplify/backend/kms             <-- contain the cryptographic material setup (fo
 
 __Oauth2/OIDC functions__
 
-* __amplifyIdentityBrokerAuthorize__: Handle the Oauth2 flows. Is invoked behing the _/oauth2/authorize_ path on the API Gateway
+* __amplifyIdentityBrokerAuthorize__: Handle the Oauth2 flows. Is invoked behind the _/oauth2/authorize_ path on the API Gateway
 * __amplifyIdentityBrokerToken__: Answer to _/oauth2/token_ standard oauth calls.
 * __amplifyIdentityBrokerUserInfo__: Returns standard answer to _/oauth2/userinfo_. Needs a valid JWT token
 * __amplifyIdentityBrokerExposeJWKS__: Return the oauth public key used by Cognito. It is onvoked behind /.well-known/jwks.json
@@ -60,8 +60,8 @@ __Utils functions__
 
 <details>
   <summary>Click to expand!</summary>
-  
-  
+
+
   Flow entities are:
   * __User__: the user and his browser
   * __Client Application__: (like the one from our [client demo project](https://github.com/awslabs/aws-amplify-identity-broker-client))
@@ -69,22 +69,22 @@ __Utils functions__
   * __DynamoDB__: the broker storage layer
   * __Cognito__: The Cognito service and endpoints
   * __Cognito Hosted UI__: (not visible to the user)
-  * __Idp__: Any 3rd party idenity provider (in the case of federation)
-  
+  * __Idp__: Any 3rd party identity provider (in the case of federation)
+
   __PKCE flow__
-  
+
   ![PKCE flow](Images/PKCEFlow.png "PKCE flow")
-  
+
   __Implicit flow__
-  
+
   ![Implicit flow](Images/ImplicitFlow.png "Implicit flow")
-  
+
   _Note: Accordingly to the [what the Oauth2 BCP recommend](https://tools.ietf.org/html/draft-ietf-oauth-security-topics-09#section-2.1.2) we do not return the access_token in that flow but only the id_token._
-  
+
   __IDP federation flow__
-  
+
   ![IDP federation flow](Images/IdPFederation.png "IDP federation flow")
-  
+
   _Note: The end of the flow (the return to the AWS Amplify broker client will be done accordingly to the client selected flow: PKCE or Implicit)_
 </details>
 
