@@ -129,12 +129,6 @@
         "amplifyIdentityBrokerExposeJWKS": {},
         "amplifyIdentityBrokerVerifyClient": {},
         "amplifyIdentityBrokerAccountConfirmation": {}
-      },
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "d1djovla7lkbpb",
-          "type": "manual"
-        }
       }
     }
   }

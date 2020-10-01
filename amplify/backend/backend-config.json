@@ -29,11 +29,6 @@
           ]
         }
       ]
-    },
-    "amplifyhosting": {
-      "service": "amplifyhosting",
-      "providerPlugin": "awscloudformation",
-      "type": "manual"
     }
   },
   "kms": {
