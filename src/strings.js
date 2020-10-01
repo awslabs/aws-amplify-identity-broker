@@ -22,7 +22,8 @@ export const strings = {
         FACEBOOK_SIGNIN: "Sign In with Facebook",
         OR: "OR",
         WAIT_REDIRECTION: "You have successfully logged in, please wait while redirecting...",
-        VERIFY_EMAIL: "You have successfully created an account. Please check your email to confirm your registration..."
+        VERIFY_EMAIL: "You have successfully created an account. Please check your email to confirm your registration...",
+        "Custom auth lambda trigger is not configured for the user pool.": "Password cannot be empty." // Temporary: see https://github.com/aws-amplify/amplify-js/issues/5623
     },
     fr: {
         [Translations.NO_ACCOUNT_TEXT]: "Pas encore de compte ?",
@@ -48,7 +49,7 @@ export const strings = {
         [Translations.PHONE_PLACEHOLDER]: "(555) 555-1234",
         [Translations.CONFIRM_SIGN_UP_CODE_LABEL]: 'Code de confirmation',
         [Translations.CONFIRM_SIGN_UP_CODE_PLACEHOLDER]: 'entrez votre code',
-        [Translations.CONFIRM_SIGN_UP_HEADER_TEXT]: 'Confirmer linscription',
+        [Translations.CONFIRM_SIGN_UP_HEADER_TEXT]: "Confirmer l'inscription",
         [Translations.CONFIRM_SIGN_UP_LOST_CODE]: 'Vous avez perdu votre code?',
         [Translations.CONFIRM_SIGN_UP_RESEND_CODE]: 'Renvoyer le code',
         [Translations.CONFIRM_SIGN_UP_SUBMIT_BUTTON_TEXT]: 'Confirmer',
@@ -60,6 +61,15 @@ export const strings = {
         FACEBOOK_SIGNIN: "Connectez-vous avec Facebook",
         OR: "OU",
         WAIT_REDIRECTION: "Vous vous êtes connecté avec succès, attendez d'être redirigé...",
-        VERIFY_EMAIL: "Vous avez créé un compte avec succès. Veuillez vérifier votre email pour confirmer votre inscription..."
+        VERIFY_EMAIL: "Vous avez créé un compte avec succès. Veuillez vérifier votre email pour confirmer votre inscription...",
+        "Custom auth lambda trigger is not configured for the user pool.": "Veuillez renseigner le mot de passe.",
+
+        // This may change in the future: see https://github.com/aws-amplify/amplify-js/issues/6898
+        "1 validation error detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6": "Le mot de passe doit faire au moins 6 caractères.",
+        "Username cannot be empty": "Le nom d'utilisateur doit être renseigné",
+        "User does not exist." : "L'utilisateur n'existe pas.",
+        "An account with the given email already exists.": "Un compte avec cette adresse couriel existe déjà.",
+        "User is disabled.": "L'utilisateur est désectivé.",
+        "Access Token has been revoked": "Le jeton d'accès a été révoqué"
     },
 };
