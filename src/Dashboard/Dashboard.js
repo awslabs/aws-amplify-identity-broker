@@ -64,7 +64,7 @@ class Dashboard extends React.Component {
                         <br></br>
                         <label>Login to {Attribute.client_name.S}</label>
                     </a> */}
-                    <a href={publicUrl + "/oauth2/authorize?client_id=" + Attribute.client_id.S + "&response_type=code&identity_provider=COGNITO&redirect_uri=" + Attribute.redirect_uri.S}>
+                    <a href={"/oauth2/authorize?client_id=" + Attribute.client_id.S + "&response_type=code&identity_provider=COGNITO&redirect_uri=" + Attribute.redirect_uri.S}>
                         <img className="logos" src={"/logos/" + Attribute.client_id.S + ".png"} alt=""></img>
                         <br></br>
                         <label>Login to {Attribute.client_name.S}</label>
