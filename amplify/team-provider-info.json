@@ -58,7 +58,9 @@
         "amplifyIdentityBrokerMigration": {},
         "amplifyIdentityBrokerUserInfo": {},
         "amplifyIdentityBrokerExposeJWKS": {},
-        "amplifyIdentityBrokerVerifyClient": {}
+        "amplifyIdentityBrokerVerifyClient": {},
+        "amplifyIdentityBrokerPostDeployment": {},
+        "amplifyIdentityBrokerAccountConfirmation": {}
       }
     }
   },

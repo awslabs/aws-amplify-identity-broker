@@ -2,9 +2,39 @@
 
 This document explains how to use the broker as a login solution for your websites and mobile application.
 
-In addition from the explanation of this page you can find a working example [here](https://github.com/awslabs/aws-amplify-identity-broker-client) (this project uses AWS Amplify but you are free to use anything else).
-
 Before any client to be able to use the _AWS Amplify Identity Broker_ you'll need to [register your client](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/Documentation/UserDocumentation.md#register-a-client).
+
+# Instruction for an AWS Amplify client
+
+If you use Amplify, the replacement of a Cognito user pool (the default auth backend fro an Amplify app) by the broker is transparent.
+The only configuration your client need is the Auth configuration pointing to the AWS Amplify broker domain instead of a Cognito User Pool.
+
+Here is an example of configuration:
+
+```
+import { Auth } from "aws-amplify";
+
+Auth.configure({
+  userPoolId: "us-west-2_XXXXXXXXX",               // This won't be used, but needs to match Cognito User Pool ID format
+  userPoolWebClientId: "<your-app-client-id>",
+  oauth: {
+    domain: "<your-broker-domain>",                // do not include https://
+    scope: ["email", "profile", "openid"],
+    redirectSignIn: "<your-client-redirect-uri>",  // Something like https://client1.example.com
+    redirectSignOut: "<your-client-logout-uri>",   // Something like https://client1.example.com/logout
+    responseType: "code",
+  },
+})
+```
+
+Then the rest of you code can remain unchanged, you can use `Auth.federatedSignIn` to login.
+See the [AWS Amplify documentation](https://docs.amplify.aws/lib/auth/advanced/q/platform/js) for more information and the [API Doc](https://aws-amplify.github.io/amplify-js/api/classes/authclass.html) for all `Auth` methods.
+
+You can find a working example [here](https://github.com/awslabs/aws-amplify-identity-broker-client) (this project uses AWS Amplify but you are free to use anything else).
+
+___Note:__ AWS Amplify `Auth.federatedSignIn` uses PKCE flow by default._
+
+# Instruction for any other client (not using AWS Amplify)
 
 ## Choose your flow (Implicit, PKCE)
 
@@ -265,72 +295,4 @@ You may already have an existing application that is a OIDC standard client.
 If this is the case you can integrate your application with the broker but keep in mind that:
 * not all the flows and endpoint are implemented
 * the broker is not 100% standard see the [differences with the OIDC standard](./UserDocumentation.md#differences-with-the-oidc-standard) section.
-
-## If you use Amplify
-
-First, you should checkout out our [AWS Amplify client example](https://github.com/awslabs/aws-amplify-identity-broker-client).
-
-From any Amplify app you'll need to add our [Auth.tsx helper](https://github.com/awslabs/aws-amplify-identity-broker-client/blob/master/src/Auth.tsx).
-
-Then from any authenticated page you need to make sure that the Amplify auth framework is called:
-
-```
-import authClient from '../Auth';
-
-class MyPage extends React.Component<any> {
-    async componentDidMount() {
-        await authClient.handleAuth();   <-- this is what you need to add
-        ...
-    }
-    ...
-```
-
-_See and example [here](https://github.com/awslabs/aws-amplify-identity-broker-client/blob/master/src/HomePage/index.tsx)_
-
-After that ```authClient.isLoggedIn()``` will return true if you are logged in.
-
-The login link can be created with the following method from our Auth helper:
-
-```
-import authClient from '../Auth';
-
-class MyOtherPage extends React.Component<any> {
-
-    render() {
-        return (
-                {
-                    !authClient.isLoggedIn() &&
-                    < button className="btn btn-dark" onClick={() => { authClient.login() }}>Log In</button>
-                }
-```
-
-And this for logout:
-
-```
-import authClient from '../Auth';
-
-class MyOtherOtherPage extends React.Component<any> {
-    logout = () => {
-        authClient.logout();
-        this.props.history.replace('/');
-    };
-
-    render() {
-        return (
-                {
-                    authClient.isLoggedIn() &&
-                    < div >
-                        <label className="mr-2 text-white">You are logged in as: {authClient.getUserInfo().email}</label>
-                        <button className="btn btn-link" onClick={() => { authClient.login("/logout") }}>Switch User</button>&nbsp;&nbsp;
-                        <button className="btn btn-dark" onClick={() => { this.logout() }}>Log Out</button>
-                    </div >
-                }
-            </nav >
-        );
-    }
-}
-```
-
-_See and example [here](https://github.com/awslabs/aws-amplify-identity-broker-client/blob/master/src/NavBar/index.tsx)_
-
 
