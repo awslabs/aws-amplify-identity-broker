@@ -48,6 +48,8 @@ class Dashboard extends React.Component {
     render() {
         console.log("this.state.registeredClients: " + this.state.registeredClients);
         console.log("HOSTING_DOMAIN: " + process.env.HOSTING_DOMAIN);
+        const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
+        console.log("PUBLIC_URL: " + publicUrl);
 
         if (this.state.registeredClients.length === 0) {
             return null
@@ -57,7 +59,12 @@ class Dashboard extends React.Component {
             (Attribute.Name !== "identities") &&
             <div className="grid-container">
                 <div className="grid-item">
-                    <a href={"?client_id=" + Attribute.client_id.S + "&redirect_uri=" + Attribute.redirect_uri.S + ((Attribute.auth_type.S == "pkce") ? "&authorization_code=" + Attribute.client_id.S : "")}>
+                    {/* <a href={"?client_id=" + Attribute.client_id.S + "&redirect_uri=" + Attribute.redirect_uri.S + ((Attribute.auth_type.S == "pkce") ? "&authorization_code=" + Attribute.client_id.S : "")}>
+                        <img className="logos" src={"/logos/" + Attribute.client_id.S + ".png"} alt=""></img>
+                        <br></br>
+                        <label>Login to {Attribute.client_name.S}</label>
+                    </a> */}
+                    <a href={publicUrl + "/oauth2/authorize?client_id=" + Attribute.client_id.S + "&response_type=code&identity_provider=COGNITO&redirect_uri=" + Attribute.redirect_uri.S}>
                         <img className="logos" src={"/logos/" + Attribute.client_id.S + ".png"} alt=""></img>
                         <br></br>
                         <label>Login to {Attribute.client_name.S}</label>

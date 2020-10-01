@@ -2,7 +2,7 @@ label {
   margin-bottom: 0.5em;
   color: #444;
   font-weight: lighter;
-  margin-left: 20px;
+  margin-left: -10px;
 }
 
 a:hover {
@@ -39,6 +39,6 @@ a:hover {
   width: 100px;
 }
 
-.logout{
+.logout {
   margin-top: 20px;
 }
