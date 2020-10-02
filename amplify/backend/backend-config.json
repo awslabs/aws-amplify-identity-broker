@@ -272,6 +272,35 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "amplifyIdentityBrokerClients": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "hosting",
+          "resourceName": "S3AndCloudFront",
+          "attributes": [
+            "HostingBucketName"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "amplifyIdentityBrokerClientsTable",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "api",
+          "resourceName": "amplifyIdentityBrokerApi",
+          "attributes": [
+            "ApiDomain"
+          ]
+        }
+      ]
     }
   },
   "api": {
