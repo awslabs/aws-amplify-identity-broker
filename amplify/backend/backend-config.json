@@ -272,32 +272,6 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-    },
-    "amplifyIdentityBrokerClients": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "storage",
-          "resourceName": "amplifyIdentityBrokerClientsTable",
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "attributeEnvMap": {
-            "Name": "TABLE_NAME",
-            "Arn": "TABLE_ARN"
-          }
-        },
-        {
-          "category": "api",
-          "resourceName": "amplifyIdentityBrokerApi",
-          "attributes": [
-            "ApiDomain"
-          ]
-        }
-      ]
     }
   },
   "api": {
@@ -356,14 +330,6 @@
         {
           "category": "function",
           "resourceName": "amplifyIdentityBrokerAccountConfirmation",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "amplifyIdentityBrokerClients",
           "attributes": [
             "Name",
             "Arn"
