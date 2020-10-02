@@ -27,6 +27,9 @@ export const strings = {
     },
     fr: {
         [Translations.NO_ACCOUNT_TEXT]: "Pas encore de compte ?",
+        [Translations.RESET_YOUR_PASSWORD]: "Réinitialiser votre mot de passe",
+        [Translations.NEW_PASSWORD_LABEL]: "Nouveau mot de passe",
+        [Translations.NEW_PASSWORD_PLACEHOLDER]: "Entrez votre nouveau mot de passe",
         [Translations.CREATE_ACCOUNT_TEXT]: "créer un compte",
         [Translations.FORGOT_PASSWORD_TEXT]: "Mot de passe oublié ?",
         [Translations.RESET_PASSWORD_TEXT]: "Réinitialiser le mot de passe",
@@ -69,7 +72,7 @@ export const strings = {
         "Username cannot be empty": "Le nom d'utilisateur doit être renseigné",
         "User does not exist." : "L'utilisateur n'existe pas.",
         "An account with the given email already exists.": "Un compte avec cette adresse couriel existe déjà.",
-        "User is disabled.": "L'utilisateur est désectivé.",
+        "User is disabled.": "L'utilisateur est désactivé.",
         "Access Token has been revoked": "Le jeton d'accès a été révoqué"
     },
 };
