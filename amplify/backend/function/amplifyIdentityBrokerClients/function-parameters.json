@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "hosting": {
+      "S3AndCloudFront": [
+        "read"
+      ]
+    },
+    "storage": {
+      "amplifyIdentityBrokerClientsTable": [
+        "read"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}
