@@ -144,6 +144,13 @@
                     "attributes": [
                         "Name"
                     ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "amplifyIdentityBrokerClients",
+                    "attributes": [
+                        "Name"
+                    ]
                 }
             ]
         },
@@ -279,13 +286,6 @@
             "service": "Lambda",
             "dependsOn": [
                 {
-                    "category": "hosting",
-                    "resourceName": "S3AndCloudFront",
-                    "attributes": [
-                        "HostingBucketName"
-                    ]
-                },
-                {
                     "category": "storage",
                     "resourceName": "amplifyIdentityBrokerClientsTable",
                     "attributes": [
@@ -359,6 +359,14 @@
                 {
                     "category": "function",
                     "resourceName": "amplifyIdentityBrokerAccountConfirmation",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "amplifyIdentityBrokerClients",
                     "attributes": [
                         "Name",
                         "Arn"

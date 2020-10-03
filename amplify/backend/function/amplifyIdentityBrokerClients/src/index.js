@@ -35,9 +35,6 @@ exports.handler = async (event) => {
     }
 
     if (data.Items) {
-        console.debug("my response:");
-        console.debug(JSON.stringify(data));
-
         return {
             statusCode: 200,
             body: JSON.stringify(data.Items),
@@ -46,4 +43,11 @@ exports.handler = async (event) => {
             }
         };
     }
+
+    return {
+        statusCode: 500,
+        headers: {
+            "Access-Control-Allow-Origin": "*"
+        }
+    };
 };
