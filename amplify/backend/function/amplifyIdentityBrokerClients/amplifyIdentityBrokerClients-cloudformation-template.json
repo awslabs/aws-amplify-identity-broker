@@ -10,10 +10,6 @@
         "env": {
             "Type": "String"
         },
-        "hostingS3AndCloudFrontHostingBucketName": {
-            "Type": "String",
-            "Default": "hostingS3AndCloudFrontHostingBucketName"
-        },
         "storageamplifyIdentityBrokerClientsTableName": {
             "Type": "String",
             "Default": "storageamplifyIdentityBrokerClientsTableName"
@@ -67,9 +63,6 @@
                         },
                         "REGION": {
                             "Ref": "AWS::Region"
-                        },
-                        "HOSTING_S3ANDCLOUDFRONT_HOSTINGBUCKETNAME": {
-                            "Ref": "hostingS3AndCloudFrontHostingBucketName"
                         },
                         "STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME": {
                             "Ref": "storageamplifyIdentityBrokerClientsTableName"
@@ -194,33 +187,7 @@
                         {
                             "Effect": "Allow",
                             "Action": [
-                                "s3:GetObject",
-                                "s3:ListBucket"
-                            ],
-                            "Resource": [
-                                {
-                                    "Fn::Join": [
-                                        "",
-                                        [
-                                            "arn:aws:s3:::",
-                                            {
-                                                "Ref": "hostingS3AndCloudFrontHostingBucketName"
-                                            },
-                                            "/*"
-                                        ]
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "Effect": "Allow",
-                            "Action": [
-                                "dynamodb:Get*",
-                                "dynamodb:BatchGetItem",
-                                "dynamodb:List*",
-                                "dynamodb:Describe*",
-                                "dynamodb:Scan",
-                                "dynamodb:Query"
+                                "dynamodb:Scan"
                             ],
                             "Resource": [
                                 {

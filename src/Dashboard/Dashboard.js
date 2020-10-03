@@ -23,7 +23,7 @@ class Dashboard extends React.Component {
 
     componentDidMount() {
         const apiName = 'amplifyIdentityBrokerApi';
-        const path = '/clients';
+        const path    = '/clients';
 
         API
             .get(apiName, path)
@@ -54,7 +54,7 @@ class Dashboard extends React.Component {
             (Attribute.Name !== "identities") &&
             <div className="grid-container">
                 <div className="grid-item">
-                    <a href={"/logback_uri=" + Attribute.logback_uri.S }>
+                    <a href={ Attribute.logback_uri.S }>
                         <img className="logos" src={"/logos/" + Attribute.client_id.S + ".png"} alt=""></img>
                         <br></br>
                         <label>Login to {Attribute.client_name.S}</label>
