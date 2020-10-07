@@ -1,13 +1,15 @@
 {
   "mutableParametersState": {
     "permissions": {
+      "auth": {
+        "amplifyIdentityBrokerAuth": [
+          "read"
+        ]
+      },
       "storage": {
         "amplifyIdentityBrokerCodesTable": [
           "create",
           "update"
-        ],
-        "amplifyIdentityBrokerClientsTable": [
-          "read"
         ]
       }
     }

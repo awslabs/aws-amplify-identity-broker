@@ -10,8 +10,7 @@
 /* Amplify Params - DO NOT EDIT
 	ENV
 	REGION
-	STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_ARN
-	STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME
+    AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID
 	STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_ARN
 	STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME
 Amplify Params - DO NOT EDIT */
@@ -24,9 +23,10 @@ const RECORD_LIFE = 900000; // How long in milliseconds the record lasts in the 
 var kmsClient = new AWS.KMS();
 var keyIdAlias = "alias/amplifyIdentityBrokerTokenStorageKey-" + process.env.ENV;
 
+var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
+
 var docClient = new AWS.DynamoDB.DocumentClient();
 var codesTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCODESTABLE_NAME;
-var clientsTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME;
 
 async function encryptToken(token) {
     var params = {
@@ -71,19 +71,23 @@ async function getCookiesFromHeader(headers) {
 async function verifyClient(client_id, redirect_uri) {
     var data;
     var params = {
-        TableName: clientsTableName,
-        Key: {
-            client_id: client_id
-        }
+        ClientId: client_id,
+        UserPoolId: process.env.AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID
     };
+
     try {
-        data = await docClient.get(params).promise();
+        data = await cognitoidentityserviceprovider.describeUserPoolClient(params).promise();
+        if (data.UserPoolClient && data.UserPoolClient.CallbackURLs) {
+            for (var i = 0; i < data.UserPoolClient.CallbackURLs.length; i++) {
+                if(data.UserPoolClient.CallbackURLs[i] === redirect_uri) { // If we have a URL that match it is a success
+                    return true;
+                }
+            };
+        }
     } catch (error) {
-        console.error(error);
+        console.error(error); // Most probable reason, the client_id doesn't exist in the Cognito user pool
     }
-    if (data.Item && (data.Item.redirect_uri === redirect_uri)) {
-        return true;
-    }
+
     return false;
 }
 
