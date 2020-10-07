@@ -8,14 +8,12 @@
   */
 
 /* Amplify Params - DO NOT EDIT
-	STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_ARN
-	STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME
+    AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID
 Amplify Params - DO NOT EDIT */
 
 const AWS = require('aws-sdk');
 
-var docClient = new AWS.DynamoDB.DocumentClient();
-var clientsTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME;
+var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
 exports.handler = async (event) => {
     if (!(event && event.queryStringParameters)) {
@@ -24,6 +22,7 @@ exports.handler = async (event) => {
             body: JSON.stringify("Required parameters are missing")
         };
     }
+    var userPoolId = process.env.AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID;
     var client_id = event.queryStringParameters.client_id;
     var logout_uri = event.queryStringParameters.logout_uri;
     if (client_id === undefined || logout_uri === undefined) {
@@ -35,21 +34,24 @@ exports.handler = async (event) => {
 
     var data;
     var params = {
-        TableName: clientsTableName,
-        Key: {
-            client_id: client_id
-        }
+        ClientId: client_id,
+        UserPoolId: userPoolId
     };
+
     try {
-        data = await docClient.get(params).promise();
+        data = await cognitoidentityserviceprovider.describeUserPoolClient(params).promise();
+        if (data.UserPoolClient && data.UserPoolClient.LogoutURLs) {
+            for (var i = 0; i < data.UserPoolClient.LogoutURLs.length; i++) {
+                if(data.UserPoolClient.LogoutURLs[i] === logout_uri) { // If we have a URL that match it is a success
+                    return {
+                        statusCode: 200,
+                        body: JSON.stringify('Client and logout URI are valid'),
+                    };
+                }
+            };
+        }
     } catch (error) {
-        console.error(error);
-    }
-    if (data.Item && (data.Item.logout_uri === logout_uri)) {
-        return {
-            statusCode: 200,
-            body: JSON.stringify('Client and logout URI are valid'),
-        };
+        console.error(error); // Most probable reason, the client_id doesn't exist in the Cognito user pool
     }
 
     return {

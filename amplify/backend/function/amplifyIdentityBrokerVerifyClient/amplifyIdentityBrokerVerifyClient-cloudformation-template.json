@@ -10,13 +10,9 @@
     "env": {
       "Type": "String"
     },
-    "storageamplifyIdentityBrokerClientsTableName": {
+    "authamplifyIdentityBrokerAuthUserPoolId": {
       "Type": "String",
-      "Default": "storageamplifyIdentityBrokerClientsTableName"
-    },
-    "storageamplifyIdentityBrokerClientsTableArn": {
-      "Type": "String",
-      "Default": "storageamplifyIdentityBrokerClientsTableArn"
+      "Default": "authamplifyIdentityBrokerAuthUserPoolId"
     }
   },
   "Conditions": {
@@ -64,11 +60,8 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME": {
-              "Ref": "storageamplifyIdentityBrokerClientsTableName"
-            },
-            "STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_ARN": {
-              "Ref": "storageamplifyIdentityBrokerClientsTableArn"
+            "AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID": {
+              "Ref": "authamplifyIdentityBrokerAuthUserPoolId"
             }
           }
         },
@@ -82,8 +75,8 @@
         "Layers": [],
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-amplify-identity-broker-ilyasdev-132315-deployment",
-          "S3Key": "amplify-builds/amplifyIdentityBrokerVerifyClient-79755157454f4762357a-build.zip"
+          "S3Bucket": "amplify-amplify-identity-broker-switchone-144409-deployment",
+          "S3Key": "amplify-builds/amplifyIdentityBrokerVerifyClient-473041657835657a6e38-build.zip"
         }
       }
     },
@@ -187,24 +180,25 @@
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:Get*",
-                "dynamodb:BatchGetItem",
-                "dynamodb:List*",
-                "dynamodb:Describe*",
-                "dynamodb:Query"
+                "cognito-idp:DescribeUserPoolClient"
               ],
               "Resource": [
                 {
-                  "Ref": "storageamplifyIdentityBrokerClientsTableArn"
-                },
-                {
                   "Fn::Join": [
-                    "/",
+                    "",
                     [
+                      "arn:aws:cognito-idp:",
                       {
-                        "Ref": "storageamplifyIdentityBrokerClientsTableArn"
+                        "Ref": "AWS::Region"
                       },
-                      "index/*"
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":userpool/",
+                      {
+                        "Ref": "authamplifyIdentityBrokerAuthUserPoolId"
+                      }
                     ]
                   ]
                 }

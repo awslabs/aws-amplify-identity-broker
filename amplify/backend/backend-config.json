@@ -266,11 +266,10 @@
             "service": "Lambda",
             "dependsOn": [
                 {
-                    "category": "storage",
-                    "resourceName": "amplifyIdentityBrokerClientsTable",
+                    "category": "auth",
+                    "resourceName": "amplifyIdentityBrokerAuth",
                     "attributes": [
-                        "Name",
-                        "Arn"
+                        "UserPoolId"
                     ]
                 }
             ]
