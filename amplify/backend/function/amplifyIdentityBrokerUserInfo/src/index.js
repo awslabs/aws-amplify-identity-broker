@@ -8,7 +8,7 @@
   */
 
 const AWS = require('aws-sdk');
-var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider(); // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html
+var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
 exports.handler = async (event) => {
     // Reference here https://docs.aws.amazon.com/cognito/latest/developerguide/userinfo-endpoint.html
