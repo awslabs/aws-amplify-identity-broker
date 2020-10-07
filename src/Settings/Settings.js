@@ -10,6 +10,7 @@
 import React from 'react';
 import { Auth } from 'aws-amplify';
 import './settings.css';
+import { I18n } from '@aws-amplify/core';
 import { AmplifyButton } from '@aws-amplify/ui-react';
 
 class Settings extends React.Component {
