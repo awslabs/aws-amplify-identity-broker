@@ -292,13 +292,6 @@
                         "Name",
                         "Arn"
                     ]
-                },
-                {
-                    "category": "api",
-                    "resourceName": "amplifyIdentityBrokerApi",
-                    "attributes": [
-                        "ApiDomain"
-                    ]
                 }
             ]
         }
