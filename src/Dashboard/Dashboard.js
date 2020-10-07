@@ -55,7 +55,7 @@ class Dashboard extends React.Component {
             <div className="grid-container">
                 <div className="grid-item">
                     <a href={ Attribute.logback_uri }>
-                        <img className="logos" src={"/logos/" + Attribute.client_id + ".png"} alt=""></img>
+                        <img className="logos" src={"/logos/" + Attribute.client_id + ".png"} alt={Attribute.client_name + " logo"}></img>
                         <br></br>
                         <label>Login to {Attribute.client_name}</label>
                     </a>
