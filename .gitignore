@@ -37,3 +37,4 @@ amplifyconfiguration.json
 amplify-build-config.json
 amplify-gradle-config.json
 amplifyxc.config
+amplify/backend/function/amplifyIdentityBrokerClients/src/package-lock.json
