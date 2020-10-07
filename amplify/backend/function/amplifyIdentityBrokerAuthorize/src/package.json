@@ -5,6 +5,6 @@
   "main": "index.js",
   "license": "MIT License",
   "dependencies": {
-    "uuid": "^8.2.0"
+    "uuid": "^8.3.1"
   }
 }
