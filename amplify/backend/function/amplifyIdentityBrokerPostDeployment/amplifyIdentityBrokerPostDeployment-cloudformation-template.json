@@ -40,6 +40,9 @@
     "functionamplifyIdentityBrokerAccountConfirmationName": {
       "Type": "String"
     },
+    "functionamplifyIdentityBrokerClientsName": {
+      "Type": "String"
+    },
     "functionamplifyIdentityBrokerMigrationName": {
       "Type": "String"
     },
@@ -172,7 +175,7 @@
         "Runtime": "nodejs12.x",
         "Timeout": "300",
         "Code": {
-          "S3Bucket": "amplify-amplify-identity-broker-ilyasdev-132315-deployment",
+          "S3Bucket": "amplify-amplify-identity-broker-eastdev-141238-deployment",
           "S3Key": "amplify-builds/amplifyIdentityBrokerPostDeployment-6a30566f426738596436-build.zip"
         },
         "Layers": []
