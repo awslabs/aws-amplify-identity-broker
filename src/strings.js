@@ -22,7 +22,11 @@ export const strings = {
         FACEBOOK_SIGNIN: "Sign In with Facebook",
         OR: "OR",
         WAIT_REDIRECTION: "You have successfully logged in, please wait while redirecting...",
-        VERIFY_EMAIL: "You have successfully created an account. Please check your email to confirm your registration..."
+        VERIFY_EMAIL: "You have successfully created an account. Please check your email to confirm your registration...",
+        LOGO: "Logo",
+        YOUR_APPLICATIONS: "Your Applications",
+        LOGOUT: "Logout",
+        LOGIN_TO: "Login to"
     },
     fr: {
         [Translations.NO_ACCOUNT_TEXT]: "Pas encore de compte ?",
@@ -60,6 +64,10 @@ export const strings = {
         FACEBOOK_SIGNIN: "Connectez-vous avec Facebook",
         OR: "OU",
         WAIT_REDIRECTION: "Vous vous êtes connecté avec succès, attendez d'être redirigé...",
-        VERIFY_EMAIL: "Vous avez créé un compte avec succès. Veuillez vérifier votre email pour confirmer votre inscription..."
+        VERIFY_EMAIL: "Vous avez créé un compte avec succès. Veuillez vérifier votre email pour confirmer votre inscription...",
+        LOGO: "Logo",
+        YOUR_APPLICATIONS: "Vos Applications",
+        LOGOUT: "Se Deconnecter",
+        LOGIN_TO: "Se connecter à"
     },
 };

@@ -56,7 +56,7 @@ class Settings extends React.Component {
                             {userAttributeFields}
                         </div>
                         <div className='submit'>
-                            <AmplifyButton className='logout' onClick={this.Logout}>Logout</AmplifyButton>
+                            <AmplifyButton className='logout' onClick={this.Logout}>{I18n.get('Logout')}</AmplifyButton>
                         </div>
                     </form>
                 </div>
