@@ -20,6 +20,7 @@ const { v4: uuidv4 } = require('uuid');
 const CODE_LIFE = 600000; // How long in milliseconds the authorization code can be used to retrieve the tokens from the table (10 minutes)
 const RECORD_LIFE = 900000; // How long in milliseconds the record lasts in the dynamoDB table (15 minutes)
 const jwt_decode = require('jwt-decode');
+const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 
 var kmsClient = new AWS.KMS();
 var keyIdAlias = "alias/amplifyIdentityBrokerTokenStorageKey-" + process.env.ENV;
@@ -155,18 +156,18 @@ async function handlePKCE(event) {
         var authenticationData = {
             accessToken: cookies.access_token // This will be verified by the DefineAuthChallenge trigger Lambda
         };
-        var authenticationDetails = cognitoidentityserviceprovider.AuthenticationDetails(authenticationData);
+        var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
         var poolData = { 
             UserPoolId : process.env.AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID,
             ClientId : client_id
         };
-        var userPool = cognitoidentityserviceprovider.CognitoUserPool(poolData);
+        var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
         var userData = {
             Username : tokenUsername,
             Pool : userPool
         };
 
-        var cognitoUser = cognitoidentityserviceprovider.CognitoUser(userData);
+        var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
         cognitoUser.setAuthenticationFlowType("CUSTOM_AUTH");
 
         try {
