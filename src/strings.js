@@ -23,7 +23,11 @@ export const strings = {
         OR: "OR",
         WAIT_REDIRECTION: "You have successfully logged in, please wait while redirecting...",
         VERIFY_EMAIL: "You have successfully created an account. Please check your email to confirm your registration...",
-        "Custom auth lambda trigger is not configured for the user pool.": "Password cannot be empty." // Temporary: see https://github.com/aws-amplify/amplify-js/issues/5623
+        "Custom auth lambda trigger is not configured for the user pool.": "Password cannot be empty.", // Temporary: see https://github.com/aws-amplify/amplify-js/issues/5623
+        LOGO: "Logo",
+        YOUR_APPLICATIONS: "Your Applications",
+        LOGOUT: "Logout",
+        LOGIN_TO: "Login to"
     },
     fr: {
         [Translations.NO_ACCOUNT_TEXT]: "Pas encore de compte ?",
@@ -73,6 +77,10 @@ export const strings = {
         "User does not exist." : "L'utilisateur n'existe pas.",
         "An account with the given email already exists.": "Un compte avec cette adresse couriel existe déjà.",
         "User is disabled.": "L'utilisateur est désactivé.",
-        "Access Token has been revoked": "Le jeton d'accès a été révoqué"
+        "Access Token has been revoked": "Le jeton d'accès a été révoqué",
+        LOGO: "Logo",
+        YOUR_APPLICATIONS: "Vos Applications",
+        LOGOUT: "Se Deconnecter",
+        LOGIN_TO: "Se connecter à"
     },
 };

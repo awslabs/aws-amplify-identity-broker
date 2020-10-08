@@ -10,6 +10,7 @@
 import React from 'react';
 import './dashboard.css';
 import { API } from 'aws-amplify';
+import { I18n } from '@aws-amplify/core';
 import { AmplifyButton } from '@aws-amplify/ui-react';
 
 class Dashboard extends React.Component {
@@ -54,10 +55,10 @@ class Dashboard extends React.Component {
             (Attribute.Name !== "identities") &&
             <div className="grid-container">
                 <div className="grid-item">
-                    <a href={ Attribute.logback_uri.S }>
-                        <img className="logos" src={"/logos/" + Attribute.client_id.S + ".png"} alt=""></img>
+                    <a href={ Attribute.logback_uri }>
+                        <img className="logos" src={"/logos/" + Attribute.client_id + ".png"} alt={Attribute.client_name + " " + I18n.get('LOGO')}></img>
                         <br></br>
-                        <label>Login to {Attribute.client_name.S}</label>
+                        <label>{I18n.get('LOGIN_TO')} {Attribute.client_name}</label>
                     </a>
                 </div>
             </div>
@@ -66,12 +67,12 @@ class Dashboard extends React.Component {
         return (
             <div className='wrapper'>
                 <div className='clients-wrapper'>
-                    <h2>Your Applications:</h2>
+                    <h2>{I18n.get('YOUR_APPLICATIONS')}:</h2>
                     <div style={{ display: "grid", gridTemplateColumns: "auto auto auto auto" }}>
                         {registeredClientsList}
                     </div>
                     <div className='submit'>
-                        <AmplifyButton className='logout' onClick={this.Logout}>Logout</AmplifyButton>
+                        <AmplifyButton className='logout' onClick={this.Logout}>{I18n.get('Logout')}</AmplifyButton>
                     </div>
                 </div>
             </div>
