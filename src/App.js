@@ -18,13 +18,6 @@ import awsconfig from './aws-exports';
 
 var Config = require("Config");
 
-Amplify.configure({
-  ...awsconfig,
-  Auth: {
-    // OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
-    authenticationFlowType: Config.authenticationFlowType !== undefined ? Config.authenticationFlowType : "USER_SRP_AUTH",
-  }
-});
 I18n.putVocabularies(strings);
 
 const socialIdPs = ["LoginWithAmazon", "Facebook", "Google"];
@@ -39,6 +32,33 @@ class App extends React.Component {
     if (navigator.language === "fr" || navigator.language.startsWith("fr-")) {
       lang = { lang: "fr" };
     }
+
+    let amplifyConfig = {
+      ...awsconfig,
+      Auth: {
+        // OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
+        authenticationFlowType: Config.authenticationFlowType !== undefined ? Config.authenticationFlowType : "USER_SRP_AUTH",
+      }
+    }
+
+    // If we have a client-id stored or in parameter that means we are in the middle of a PKCE flow
+    // We switch the clientId to use to the one of the client website
+    let queryStringParams = new URLSearchParams(window.location.search);
+    // A client ID may come from a redirect from /oauth2/authorize
+    let clientId = queryStringParams.get('client_id');
+    if (clientId) {
+      // We save the client ID for step 2
+      localStorage.setItem(`client-id`, clientId);
+    } else {
+      // If we are at the second step 
+      clientId = localStorage.getItem('client-id');
+    }
+    if (clientId) {
+      // We configure the Amplify Auth component in the context of using a client website client-id
+      // if no clientId is found (direct login not from a client) the web client id of the broker will be used as default
+      amplifyConfig.aws_user_pools_web_client_id = clientId;
+    }
+    Amplify.configure(amplifyConfig);
 
     this.state = {
       lang: lang,
@@ -84,15 +104,6 @@ class App extends React.Component {
     if (clientState) {
       localStorage.setItem(`client-state`, clientState);
     }
-
-    // We change on the fly the client id to match the one from the client
-    let clientId = queryStringParams.get('client_id');
-    if (clientId) {
-      Amplify.configure({
-        ...awsconfig,
-        aws_user_pools_web_client_id: clientId
-      });
-    }
     Auth.federatedSignIn({ provider: identity_provider });
   }
 
@@ -119,6 +130,8 @@ class App extends React.Component {
         localStorage.removeItem(`authorization_code`);
         localStorage.removeItem(`client-state`);
       }
+      // In both cases (local or federated), we have to remove the client-id stored as the PKCE flow is over
+      localStorage.removeItem(`client-id`);
 
       let authInfo = await Auth.currentSession();
       let idToken = authInfo.idToken.jwtToken;
