@@ -255,11 +255,26 @@ The broker support MFA by SMS or OTP (One Time Password).
 
 ## How to direct to the SSO dashboard
 
-The broker offers a page that allow a user to see all the client he has access to.
+The broker offers a page that allow a user to see all the clients he has access to.
 
 _Note: All user will have the same list. If you want a custom list depending of the user you have to fork the broker project and do it yourself_
 
-... coming soon ...
+Upon login, all users will be automatically redirected to the dashboard page
+
+Alternatively, you can access the dashboard page through this link
+
+Broker URL:
+
+```
+https://<broker-domain>/dashboard
+```
+
+The part of the code that setup the redirection after login is available in `App.js` under `handleAuthUIStateChange()` function:
+```js
+else { // Sign in directly to broker (not from redirect from client as part of oauth2 flow)
+  window.location.href = '/dashboard';
+}
+```
 
 ## How to verify a JWT token
 
