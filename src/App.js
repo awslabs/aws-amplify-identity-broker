@@ -84,6 +84,15 @@ class App extends React.Component {
     if (clientState) {
       localStorage.setItem(`client-state`, clientState);
     }
+
+    // We change on the fly the client id to match the one from the client
+    let clientId = queryStringParams.get('client_id');
+    if (clientId) {
+      Amplify.configure({
+        ...awsconfig,
+        aws_user_pools_web_client_id: clientId
+      });
+    }
     Auth.federatedSignIn({ provider: identity_provider });
   }
 
