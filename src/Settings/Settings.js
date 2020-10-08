@@ -51,7 +51,7 @@ class Settings extends React.Component {
         return (
             <div className='wrapper'>
                 <div className='form-wrapper'>
-                    <h2>User Attributes:</h2>
+                    <h2>{I18n.get('USER_ATTRIBUTES')}:</h2>
                     <form onSubmit={this.handleSubmit} noValidate>
                         <div style={{ display: "grid", gridTemplateColumns: "repeat(1, 1fr)" }}>
                             {userAttributeFields}
