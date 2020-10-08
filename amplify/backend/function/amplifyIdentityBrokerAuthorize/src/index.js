@@ -19,6 +19,7 @@ const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
 const CODE_LIFE = 600000; // How long in milliseconds the authorization code can be used to retrieve the tokens from the table (10 minutes)
 const RECORD_LIFE = 900000; // How long in milliseconds the record lasts in the dynamoDB table (15 minutes)
+const jwt_decode = require('jwt-decode');
 
 var kmsClient = new AWS.KMS();
 var keyIdAlias = "alias/amplifyIdentityBrokerTokenStorageKey-" + process.env.ENV;
@@ -91,6 +92,16 @@ async function verifyClient(client_id, redirect_uri) {
     return false;
 }
 
+async function asyncAuthenticateUser(cognitoUser, cognitoAuthenticationDetails) {
+    return new Promise(function(resolve, reject) {
+      cognitoUser.authenticateUser(cognitoAuthenticationDetails, {
+        onSuccess: resolve,
+        onFailure: reject,
+        customChallenge: reject // We should not need an additionnal challenge: see DefineAuthChallenge implementation
+      })
+    })
+  }
+
 async function handlePKCE(event) {
     var client_id = event.queryStringParameters.client_id;
     var redirect_uri = event.queryStringParameters.redirect_uri;
@@ -116,45 +127,75 @@ async function handlePKCE(event) {
     const currentTime = Date.now();
     const codeExpiry = currentTime + CODE_LIFE;
     const recordExpiry = Math.floor((currentTime + RECORD_LIFE) / 1000); // TTL must be in seconds
-    var params;
+    var params = {
+        TableName: codesTableName,
+        Item: {
+            authorization_code: authorizationCode,
+            code_challenge: code_challenge,
+            client_id: client_id,
+            redirect_uri: redirect_uri,
+            code_expiry: codeExpiry,
+            record_expiry: recordExpiry
+        }
+    };
 
     var cookies = await getCookiesFromHeader(event.headers);
     var canReturnTokensDirectly = cookies.id_token && cookies.access_token && cookies.refresh_token ? true : false; // If there are already token cookies we can return the tokens directly
 
     if (canReturnTokensDirectly) {
 
-        var encrypted_id_token = await encryptToken(cookies.id_token);
-        var encrypted_access_token = await encryptToken(cookies.access_token);
-        var encrypted_refresh_token = await encryptToken(cookies.refresh_token);
+        // We have tokens as cookie already that means a successful login previously succeeded
+        // but this login has probably been done from a different client with a different client_id
+        // We call the custom auth flow along with the token we have to get a new one for the current client_id
+        // For this to work we need to extract the username from the cookie
 
-        params = { // Add tokens from cookie to what is being stored in dynamodb
-            TableName: codesTableName,
-            Item: {
-                authorization_code: authorizationCode,
-                code_challenge: code_challenge,
-                client_id: client_id,
-                redirect_uri: redirect_uri,
-                code_expiry: codeExpiry,
-                record_expiry: recordExpiry,
-                id_token: encrypted_id_token,
-                access_token: encrypted_access_token,
-                refresh_token: encrypted_refresh_token
+        let tokenDecoded = jwt_decode(cookies.access_token);
+        let tokenUsername = tokenDecoded['username'];
 
-            }
+        var authenticationData = {
+            accessToken: cookies.access_token // This will be verified by the DefineAuthChallenge trigger Lambda
         };
-    }
-    else {
-        params = {
-            TableName: codesTableName,
-            Item: {
-                authorization_code: authorizationCode,
-                code_challenge: code_challenge,
-                client_id: client_id,
-                redirect_uri: redirect_uri,
-                code_expiry: codeExpiry,
-                record_expiry: recordExpiry
-            }
+        var authenticationDetails = cognitoidentityserviceprovider.AuthenticationDetails(authenticationData);
+        var poolData = { 
+            UserPoolId : process.env.AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID,
+            ClientId : client_id
         };
+        var userPool = cognitoidentityserviceprovider.CognitoUserPool(poolData);
+        var userData = {
+            Username : tokenUsername,
+            Pool : userPool
+        };
+
+        var cognitoUser = cognitoidentityserviceprovider.CognitoUser(userData);
+        cognitoUser.setAuthenticationFlowType("CUSTOM_AUTH");
+
+        try {
+            var result = await asyncAuthenticateUser(cognitoUser, authenticationDetails);
+
+            // TODO delete all these logs
+            console.log("Success ----");
+            console.log(result);
+            console.log("idToken = " + result.getIdToken().getJwtToken());
+            console.log("accessToken = " + result.getAccessToken().getJwtToken());
+            console.log("refreshToken = " + result.getRefreshToken().getJwtToken());
+
+            var encrypted_id_token = await encryptToken(result.getIdToken().getJwtToken());
+            var encrypted_access_token = await encryptToken(result.getAccessToken().getJwtToken());
+            var encrypted_refresh_token = await encryptToken(result.getRefreshToken().getJwtToken());
+
+            params.id_token = encrypted_id_token;
+            params.access_token = encrypted_access_token;
+            params.refresh_token = encrypted_refresh_token;
+        }
+        catch (error) {
+          console.log("Token swap fail, this may be a tentative of token stealing");
+          return { // Redirect to login page with forced pre-logout
+            statusCode: 302,
+            headers: {
+                Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&authorization_code=' + authorizationCode + '&forceAuth=true' + insertStateIfAny(event),
+            }
+          };
+        }
     }
 
     try {

@@ -65,10 +65,24 @@ class App extends React.Component {
       authState: AuthState.SignIn
     };
 
+    // If the token swap failed in Authorize lambda then we logout before continuing PKCE
+    let forceAuth = queryStringParams.get('forceAuth');
+    if (forceAuth) {
+      // If we are here someone may be trying to steal a token, we destroy them all
+      eraseCookie("id_token");
+      eraseCookie("access_token");
+      eraseCookie("refresh_token");
+      Auth.signOut();
+    }
+
     onAuthUIStateChange(newAuthState => {
       this.handleAuthUIStateChange(newAuthState)
     })
 
+    // You can make this selection of IdP different between clients
+    // for that do a describeUserPoolClient API call to Cognito with the client_id from the query
+    // uses the defined IdP from SupportedIdentityProviders array
+    // See: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_DescribeUserPoolClient.html
     this.IdPLogin = Config.providers.length !== 0 ? true : false;
     this.amazonLogin = Config.providers.includes("LoginWithAmazon");
     this.facebookLogin = Config.providers.includes("Facebook");
@@ -174,7 +188,6 @@ class App extends React.Component {
       eraseCookie("refresh_token");
     }
     this.setState({ authState: authState });
-    console.log("New authState = " + authState);
   }
 
   render() {
