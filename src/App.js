@@ -41,16 +41,16 @@ class App extends React.Component {
       }
     }
 
-    // If we have a client-id stored or in parameter that means we are in the middle of a PKCE flow
-    // We switch the clientId to use to the one of the client website
+    // If we have in parameter that means start a PKCE or Implict flow
+    // We switch the clientId to submit the one from the client website
     let queryStringParams = new URLSearchParams(window.location.search);
-    // A client ID may come from a redirect from /oauth2/authorize
     let clientId = queryStringParams.get('client_id');
     if (clientId) {
-      // We save the client ID for step 2
-      localStorage.setItem(`client-id`, clientId);
+      // We save the client ID, our Amplify auth will be based on that one
+      localStorage.setItem('client-id', clientId);
     } else {
-      // If we are at the second step 
+      // If there is no client-Id in query, we set back the last one used for login
+      // it may be undefined if we never logged in
       clientId = localStorage.getItem('client-id');
     }
     if (clientId) {
@@ -72,6 +72,7 @@ class App extends React.Component {
       eraseCookie("id_token");
       eraseCookie("access_token");
       eraseCookie("refresh_token");
+      localStorage.removeItem('client-id');
       Auth.signOut();
     }
 
@@ -144,8 +145,6 @@ class App extends React.Component {
         localStorage.removeItem(`authorization_code`);
         localStorage.removeItem(`client-state`);
       }
-      // In both cases (local or federated), we have to remove the client-id stored as the PKCE flow is over
-      localStorage.removeItem(`client-id`);
 
       let authInfo = await Auth.currentSession();
       let idToken = authInfo.idToken.jwtToken;

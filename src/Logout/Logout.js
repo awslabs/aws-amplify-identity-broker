@@ -80,6 +80,8 @@ class Logout extends React.Component {
             }
             localStorage.setItem('redirectInfo', JSON.stringify(redirectObject));
 
+            // We remove the client-id used for last login
+            localStorage.removeItem('client-id');
 
             Auth.signOut(); // Sign the user out
             window.location.reload(); // Reload the page to handle the client redirect
