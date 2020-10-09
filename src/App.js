@@ -8,13 +8,12 @@
   */
 
 import React from 'react';
-import { Auth, Amplify } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifyForgotPassword, AmplifyConfirmSignUp } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
-import awsconfig from './aws-exports';
 
 var Config = require("Config");
 
@@ -33,38 +32,12 @@ class App extends React.Component {
       lang = { lang: "fr" };
     }
 
-    let amplifyConfig = {
-      ...awsconfig,
-      Auth: {
-        // OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
-        authenticationFlowType: Config.authenticationFlowType !== undefined ? Config.authenticationFlowType : "USER_SRP_AUTH",
-      }
-    }
-
-    // If we have in parameter that means start a PKCE or Implict flow
-    // We switch the clientId to submit the one from the client website
-    let queryStringParams = new URLSearchParams(window.location.search);
-    let clientId = queryStringParams.get('client_id');
-    if (clientId) {
-      // We save the client ID, our Amplify auth will be based on that one
-      localStorage.setItem('client-id', clientId);
-    } else {
-      // If there is no client-Id in query, we set back the last one used for login
-      // it may be undefined if we never logged in
-      clientId = localStorage.getItem('client-id');
-    }
-    if (clientId) {
-      // We configure the Amplify Auth component in the context of using a client website client-id
-      // if no clientId is found (direct login not from a client) the web client id of the broker will be used as default
-      amplifyConfig.aws_user_pools_web_client_id = clientId;
-    }
-    Amplify.configure(amplifyConfig);
-
     this.state = {
       lang: lang,
       authState: AuthState.SignIn
     };
 
+    let queryStringParams = new URLSearchParams(window.location.search);
     // If the token swap failed in Authorize lambda then we logout before continuing PKCE
     let forceAuth = queryStringParams.get('forceAuth');
     if (forceAuth) {
