@@ -98,7 +98,7 @@ async function asyncAuthenticateUser(cognitoUser, cognitoAuthenticationDetails) 
         cognitoUser.initiateAuth(cognitoAuthenticationDetails, {
             onSuccess: resolve,
             onFailure: reject,
-            customChallenge: reject // We should not need an additionnal challenge: see DefineAuthChallenge implementation
+            customChallenge: resolve
         })
     })
 }
@@ -108,7 +108,7 @@ async function asyncCustomChallengeAnswer(cognitoUser, challengeResponse) {
         cognitoUser.sendCustomChallengeAnswer(challengeResponse, {
             onSuccess: resolve,
             onFailure: reject,
-            customChallenge: reject
+            customChallenge: reject // We do not expect a second challenge
         },
         { name : "value" }) // We could have use that field to pass information
     })
