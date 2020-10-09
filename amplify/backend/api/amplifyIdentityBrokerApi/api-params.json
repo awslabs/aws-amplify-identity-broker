@@ -48,6 +48,13 @@
             "privacy": {
                 "open": true
             }
+        },
+        {
+            "name": "/clients",
+            "lambdaFunction": "amplifyIdentityBrokerAccountClients",
+            "privacy": {
+                "open": true
+            }
         }
     ],
     "resourceName": "amplifyIdentityBrokerApi",
@@ -73,6 +80,9 @@
         },
         {
             "lambdaFunction": "amplifyIdentityBrokerAccountConfirmation"
+        },
+        {
+            "lambdaFunction": "amplifyIdentityBrokerClients"
         }
     ],
     "privacy": {
@@ -133,6 +143,14 @@
         {
             "category": "function",
             "resourceName": "amplifyIdentityBrokerAccountConfirmation",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerClients",
             "attributes": [
                 "Name",
                 "Arn"
