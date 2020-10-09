@@ -170,7 +170,7 @@ async function handlePKCE(event) {
                 Username: tokenUsername,
             }
         };
-å
+
         var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
         var poolData = { 
             UserPoolId : process.env.AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID,
