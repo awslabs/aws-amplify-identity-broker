@@ -95,13 +95,24 @@ async function verifyClient(client_id, redirect_uri) {
 
 async function asyncAuthenticateUser(cognitoUser, cognitoAuthenticationDetails) {
     return new Promise(function(resolve, reject) {
-      cognitoUser.authenticateUser(cognitoAuthenticationDetails, {
-        onSuccess: resolve,
-        onFailure: reject,
-        customChallenge: reject // We should not need an additionnal challenge: see DefineAuthChallenge implementation
-      })
+        cognitoUser.initiateAuth(cognitoAuthenticationDetails, {
+            onSuccess: resolve,
+            onFailure: reject,
+            customChallenge: reject // We should not need an additionnal challenge: see DefineAuthChallenge implementation
+        })
     })
-  }
+}
+
+async function asyncCustomChallengeAnswer(cognitoUser, challengeResponse) {
+    return new Promise(function(resolve, reject) {
+        cognitoUser.sendCustomChallengeAnswer(challengeResponse, {
+            onSuccess: resolve,
+            onFailure: reject,
+            customChallenge: reject
+        },
+        { name : "value" }) // We could have use that field to pass information
+    })
+}
 
 async function handlePKCE(event) {
     var client_id = event.queryStringParameters.client_id;
@@ -154,8 +165,12 @@ async function handlePKCE(event) {
         let tokenUsername = tokenDecoded['username'];
 
         var authenticationData = {
-            accessToken: cookies.access_token // This will be verified by the DefineAuthChallenge trigger Lambda
+            Username: tokenUsername,
+            AuthParameters: { 
+                Username: tokenUsername,
+            }
         };
+å
         var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
         var poolData = { 
             UserPoolId : process.env.AUTH_AMPLIFYIDENTITYBROKERAUTH_USERPOOLID,
@@ -171,31 +186,29 @@ async function handlePKCE(event) {
         cognitoUser.setAuthenticationFlowType("CUSTOM_AUTH");
 
         try {
-            var result = await asyncAuthenticateUser(cognitoUser, authenticationDetails);
 
-            // TODO delete all these logs
-            console.log("Success ----");
-            console.log(result);
-            console.log("idToken = " + result.getIdToken().getJwtToken());
-            console.log("accessToken = " + result.getAccessToken().getJwtToken());
-            console.log("refreshToken = " + result.getRefreshToken().getJwtToken());
+            // Initiate the custom flow
+            await asyncAuthenticateUser(cognitoUser, authenticationDetails);
+
+            // Answer the custom challenge by providing the token
+            var result = await asyncCustomChallengeAnswer(cognitoUser, cookies.access_token);
 
             var encrypted_id_token = await encryptToken(result.getIdToken().getJwtToken());
             var encrypted_access_token = await encryptToken(result.getAccessToken().getJwtToken());
-            var encrypted_refresh_token = await encryptToken(result.getRefreshToken().getJwtToken());
+            var encrypted_refresh_token = await encryptToken(result.getRefreshToken().getToken());
 
-            params.id_token = encrypted_id_token;
-            params.access_token = encrypted_access_token;
-            params.refresh_token = encrypted_refresh_token;
+            params.Item.id_token = encrypted_id_token;
+            params.Item.access_token = encrypted_access_token;
+            params.Item.refresh_token = encrypted_refresh_token;
         }
         catch (error) {
-          console.log("Token swap fail, this may be a tentative of token stealing");
-          return { // Redirect to login page with forced pre-logout
-            statusCode: 302,
-            headers: {
-                Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&authorization_code=' + authorizationCode + '&forceAuth=true' + insertStateIfAny(event),
-            }
-          };
+            console.log("Token swap fail, this may be a tentative of token stealing");
+            return { // Redirect to login page with forced pre-logout
+                statusCode: 302,
+                headers: {
+                    Location: '/?client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&authorization_code=' + authorizationCode + '&forceAuth=true' + insertStateIfAny(event),
+                }
+            };
         }
     }
 
