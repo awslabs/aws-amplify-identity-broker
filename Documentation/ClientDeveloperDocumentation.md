@@ -2,7 +2,7 @@
 
 This document explains how to use the broker as a login solution for your websites and mobile application.
 
-Before any client to be able to use the _AWS Amplify Identity Broker_ you'll need to [register your client](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/Documentation/UserDocumentation.md#register-a-client).
+Before any client to be able to use the _AWS Amplify Identity Broker_ you'll need to [register your client](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/Documentation/UserDocumentation.md#register-a-client) and get a `client_id` as a result.
 
 # Instruction for an AWS Amplify client
 
