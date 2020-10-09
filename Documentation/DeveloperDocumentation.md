@@ -52,6 +52,9 @@ __Cognito Trigger functions__
 
 * __amplifyIdentityBrokerCustomMessage__: Is invoked before sending any email to the user. It is associated to the [Custom message Lambda Trigger](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-custom-message.html) of the Cognito user pool.
 * __amplifyIdentityBrokerMigration__: Is not invoked by default. This is just an example of how to do a migration. Can be associated to the [Migrate user trigger](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-migrate-user.html)
+* __amplifyIdentityBrokerDefineAuthChallenge__: Is invoked during the token swap operation (see detail in _SSO Token Swap_ section). This one define the challenge execution order.
+* __amplifyIdentityBrokerVerifyAuthChallenge__: Is invoked during the token swap operation (see detail in _SSO Token Swap_ section). This one validate the original token and return success if the username (sub, the Amazon Cognito ID) from the current flow is the same than the one in the token. 
+* __amplifyIdentityBrokerCreateAuthChallenge__: Is invoked during the token swap operation (see detail in _SSO Token Swap_ section). This does nothing but is required in a custom flow.
 
 __Utils functions__
 * __amplifyIdentityBrokerPostDeployment__: Is a CloudFormation custom resources that depends on most of Api, Auth and all Functions. It receive the balue of the hosting (the cloudfront domain) the UserPool ID and apps and update the configuration of Cognito app with callback that match. It also inject the HOSTING_DOMAIN environment variable for all functions. The domain value can be override in `team-provider-info.json` with `hostingDomain` (see user documentation). Also this domain is propagated to frontend by `config-overrides.js`
@@ -87,6 +90,17 @@ __Utils functions__
 
   _Note: The end of the flow (the return to the AWS Amplify broker client will be done accordingly to the client selected flow: PKCE or Implicit)_
 </details>
+
+## SSO Token Swap
+
+Every client application will get a token associated to the client_id he owns. Doing this make sure that the token are distributed to the right OIDC Audience, and also allow users to customize the scope and list of IdP they want to activate for a given client.
+
+When a login happen in the broker it is always done with a given client_id. This client_id maybe one from the client application the user came from, or the one of the broker if the user navigate directly to the brokjer domain. Once a user login, the broker store the tokens (ID, access, refresh) in localstorage and in a cookie on the broker domain.
+
+Now, if after a first successfull login, the same user come from another client application. Because of SSO he will be considered logged in but we cannot give him the current token since it is not a token matching with the client_id of the client application. Thanks to Amazon Cognito triggers and custom auth flow exchanging a token from one client_id to another is possible.
+This is the flow followed during this swap (here when coming from a PKCE client):
+
+  ![Token Swap PKCE flow](Images/TokenClienIdSwap.png "Token Swap PKCE flow")
 
 ## Contribute
 
