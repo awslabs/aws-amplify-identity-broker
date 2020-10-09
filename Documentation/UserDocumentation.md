@@ -294,16 +294,50 @@ amplify push --force
 _To verify if the change have been propagated you can open one of the AWS Lambda within teh AWS console and look at the value of the environment variable `HOSTING_DOMAIN`_
 
 ## Register a client
-To use the identity broker you must register a client_id, redirect_uri, and logout_uri with the `amplifyIdentityBrokerClients` DynamoDB table. These values are passed as query string parameters when a request is made to the /oauth2/authorize endpoint and then checked against the table.
 
-You can decide any client id you like. For example `my_application_1` or `7b5a0ffb1dc505d5fddff331af665fb9f6d90e58` are valid client ids.
+To use the identity broker you must:
+* create a Cognito App and configure it
+* (only for if you want the SSO dashboard) register your app in the Amazon DynamoDB table `amplifyIdentityBrokerClients`
 
-To register your client, create an item in the `amplifyIdentityBrokerClients` DynamoDB with a client_id and the redirect_uri and logout_uri of your client application. Below is an example of a registered client
+So the very first operation is to open your AWS console and to go to Amazon Cognito and open the UserPool associated with your broker. On the menu left go to _App clients_ then at the bottom of the page clic on the link _Add another app client_. Enter a name (the exact name doesn't mater this is only for you), uncheck _Generate client secret_ and clic on the button _Create app client_:
+
+![App Client creation](Images/ClientAppCreation.PNG "App Client creation")
+
+_At this point make sure you take note of the __client id__. This client id is very important: you need to give it to the admin of the client application._
+
+Once the app client created you need to configure it. On the left menu go to _App client settings_, look for your app client and do the following settings:
+
+* Add your client redirect_uri (the one from your client website or app) and __add also the URL of your broker as a redirect_uri__
+* Add your client logout URI (the one from your client website or app) and __add also the URL + /logout of your broker as a logout uri__
+* Select the identity providers you want the broker to show when a user will come from that client app to login (you don't have to check all)
+* Select Authorization code grant
+* Select the scope you want to retrieve in the access_token delivered to this client app
+
+Your setting page should look like this:
+
+![App Client creation](Images/ClientAppSettings.PNG "App Client creation")
+
+__Registering an app for the dashboard__
+
+You don't need to do this if you do not want to use the SSO dashboard.
+
+On the AWS console, go to Amazon DynamoDB and look at the table named  `amplifyIdentityBrokerClients-yourAmplifyEnv`. Then click on _Items_ and _Create Item_ button.
+
+Enter an item like:
+
+```
+{
+  "client_id": "your-cognito-app-clien-id",
+  "client_name": "App name to be displayed on Dashboard",
+  "logback_uri": "https://yourclient.url.for.auto/login"
+}
+```
+
+Click _Create_, your page should look like this:
 
 ![Clients Table Example](Images/ClientsTableExample.png "Clients Table Example")
 
-__IMPORTANT__ The client ids have to match what you use in the clientId parameter on your client applications.
-
+A _logback_uri_ is just a URL on your client app that start immediatly a PKCE flow (exactly has if the user had clicked on the login button).
 
 ## CSS & UI components customization instruction
 
