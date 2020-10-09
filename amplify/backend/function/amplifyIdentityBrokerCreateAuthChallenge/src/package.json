@@ -1,0 +1,7 @@
+{
+  "name": "amplifyIdentityBrokerCreateAuthChallenge",
+  "version": "2.0.0",
+  "description": "CreateAuthChallenge Lambda for the AWS Amplify Identity Broker",
+  "main": "index.js",
+  "license": "MIT License"
+}

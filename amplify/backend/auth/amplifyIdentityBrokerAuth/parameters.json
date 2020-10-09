@@ -65,6 +65,33 @@
                 "Arn",
                 "Name"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerDefineAuthChallenge",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerVerifyAuthChallenge",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyIdentityBrokerCreateAuthChallenge",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
         }
     ],
     "hostedUIDomainName": "amplifyidbroker",
