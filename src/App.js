@@ -15,6 +15,10 @@ import { strings } from './strings';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 
+import DesktopBreakpoint from './responsive_utilities/desktop_breakpoint';
+import TabletBreakpoint from './responsive_utilities/tablet_breakpoint';
+import PhoneBreakpoint from './responsive_utilities/phone_breakpoint';
+
 var Config = require("Config");
 
 I18n.putVocabularies(strings);
