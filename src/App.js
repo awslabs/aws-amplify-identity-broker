@@ -27,7 +27,7 @@ const socialIdPs = ["LoginWithAmazon", "Facebook", "Google"];
 
 // See doc for customization here: https://docs.amplify.aws/ui/auth/authenticator/q/framework/react#slots
 
-class App extends React.Component {
+export default class App extends React.Component {
 
   constructor(props, context) {
     super(props, context);
@@ -249,17 +249,16 @@ class App extends React.Component {
                   }
                 }
                 /**  Here an example of a custom attribute insertion:
-                 * 
-                 * This assume that the custom field customer-type 
+                 *
+                 * This assume that the custom field customer-type
                  * is defined in file amplify/backend/auth/amplifyIdentityBrokerAuth/amplifyIdentityBrokerAuth-cloudformation-template.yml
-                 * 
+                 *
                  *         - Name: customer-type
                  *           Mutable: true
                  *           Required: false
                  *           AttributeDataType: String
-                 * 
+                 *
                 ,{
-                  
                   label: I18n.get("YOUR_LABEL"),
                   type: "custom:customer-type",
                   value: "anything",
@@ -291,5 +290,3 @@ class App extends React.Component {
     );
   }
 }
-
-export default App;
