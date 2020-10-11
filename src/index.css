@@ -102,3 +102,8 @@ input:hover,
 	line-height: 0px;
   margin: 0px 8px;
 }
+
+.ver-sect {
+  border-left: 1px solid rgba(0, 0, 0, 0.35);
+  height: 350px;
+}

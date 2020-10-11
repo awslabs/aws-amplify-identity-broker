@@ -15,9 +15,9 @@ import { strings } from './strings';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 
-import DesktopBreakpoint from './responsive_utilities/desktop_breakpoint';
-import TabletBreakpoint from './responsive_utilities/tablet_breakpoint';
-import PhoneBreakpoint from './responsive_utilities/phone_breakpoint';
+import DesktopBreakpoint from './components/responsive_utilities/desktop_breakpoint';
+import TabletBreakpoint from './components/responsive_utilities/tablet_breakpoint';
+import PhoneBreakpoint from './components/responsive_utilities/phone_breakpoint';
 
 var Config = require("Config");
 
@@ -171,121 +171,150 @@ export default class App extends React.Component {
     var SAMLLoginButtons = this.SAMLIdPs.map(IdP => <button className="saml btn" key={IdP} onClick={() => this.handleIdPLogin(IdP)}>{I18n.get(IdP)}</button>);
     return (
       <div>
-        <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
-        <div className="container">
-          {
-            this.state.authState === AuthState.SignIn &&
-            this.SAMLLogin &&
-            <div>
-              {SAMLLoginButtons}
-            </div>
-          }
-          {
-            this.state.authState === AuthState.SignIn &&
-            this.amazonLogin &&
-            <button className="amazon btn" onClick={() => this.handleIdPLogin('LoginWithAmazon')}> <i className="fa fa-amazon fa-fw"></i>{I18n.get("AMAZON_SIGNIN")}</button>
-          }
-          {
-            this.state.authState === AuthState.SignIn &&
-            this.googleLogin &&
-            <button className="google btn" onClick={() => this.handleIdPLogin('Google')}> <i className="fa fa-google fa-fw"></i>{I18n.get("GOOGLE_SIGNIN")}</button>
-          }
-          {
-            this.state.authState === AuthState.SignIn &&
-            this.facebookLogin &&
-            <button className="fb btn" onClick={() => this.handleIdPLogin('Facebook')}> <i className="fa fa-facebook fa-fw"></i>{I18n.get("FACEBOOK_SIGNIN")}</button>
-          }
-          {
-            this.state.authState === AuthState.SignIn &&
-            this.IdPLogin &&
-            <div className="hr-sect">{I18n.get("OR")}</div>
-          }
-          <AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
-            <AmplifyForgotPassword
-              usernameAlias="email"
-              slot="forgot-password"
-              formFields={[
-                {
-                  type: "email",
-                  required: true,
-                },
-              ]}></AmplifyForgotPassword>
-            <AmplifySignIn
-              usernameAlias="email"
-              slot="sign-in"
-              formFields={[
-                {
-                  type: "email",
-                  required: true,
-                },
-                {
-                  type: "password",
-                  required: true,
-                }
-              ]}>
-              <div slot="federated-buttons"></div>
-            </AmplifySignIn>
-            <AmplifySignUp
-              usernameAlias="email"
-              slot="sign-up"
-              formFields={[
-                {
-                  type: "email",
-                  required: true,
-                },
-                {
-                  type: "password",
-                  required: true,
-                },
-                {
-                  type: "phone_number",
-                  required: false,
-                },
-                {
-                  type: "locale",
-                  value: this.state.lang,
-                  inputProps: {
-                    type: 'hidden',
-                  }
-                }
-                /**  Here an example of a custom attribute insertion:
-                 *
-                 * This assume that the custom field customer-type
-                 * is defined in file amplify/backend/auth/amplifyIdentityBrokerAuth/amplifyIdentityBrokerAuth-cloudformation-template.yml
-                 *
-                 *         - Name: customer-type
-                 *           Mutable: true
-                 *           Required: false
-                 *           AttributeDataType: String
-                 *
-                ,{
-                  label: I18n.get("YOUR_LABEL"),
-                  type: "custom:customer-type",
-                  value: "anything",
-                  required: false,
-                }
-                */
-              ]}></AmplifySignUp>
-            <AmplifyConfirmSignUp
-              usernameAlias="email"
-              slot="confirm-sign-up"
-              formFields={[
-                {
-                  type: "email",
-                  required: false,
-                  label: I18n.get("VERIFY_EMAIL"),
-                  inputProps: {
-                    type: 'hidden',
-                  }
-                }
-              ]}></AmplifyConfirmSignUp>
+        {/* To test */}
+        <DesktopBreakpoint>
+          <h3>DesktopBreakpoint!</h3>
+        </DesktopBreakpoint>
 
-            <div>
-              {I18n.get("WAIT_REDIRECTION")}
-              <AmplifySignOut />
+        <TabletBreakpoint>
+          <h3>TabletBreakpoint!</h3>
+        </TabletBreakpoint>
+
+        <PhoneBreakpoint>
+          <h3>PhoneBreakpoint</h3>
+        </PhoneBreakpoint>
+        {/* End To test */}
+
+          <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
+          <div className="container">
+            <div className="federates">
+              {
+                this.state.authState === AuthState.SignIn &&
+                this.SAMLLogin &&
+                <div>
+                  {SAMLLoginButtons}
+                </div>
+              }
+              {
+                this.state.authState === AuthState.SignIn &&
+                this.amazonLogin &&
+                <button className="amazon btn" onClick={() => this.handleIdPLogin('LoginWithAmazon')}> <i className="fa fa-amazon fa-fw"></i>{I18n.get("AMAZON_SIGNIN")}</button>
+              }
+              {
+                this.state.authState === AuthState.SignIn &&
+                this.googleLogin &&
+                <button className="google btn" onClick={() => this.handleIdPLogin('Google')}> <i className="fa fa-google fa-fw"></i>{I18n.get("GOOGLE_SIGNIN")}</button>
+              }
+              {
+                this.state.authState === AuthState.SignIn &&
+                this.facebookLogin &&
+                <button className="fb btn" onClick={() => this.handleIdPLogin('Facebook')}> <i className="fa fa-facebook fa-fw"></i>{I18n.get("FACEBOOK_SIGNIN")}</button>
+              }
             </div>
-          </AmplifyAuthenticator>
-        </div>
+
+
+              {/* <DesktopBreakpoint>
+                {
+                this.state.authState === AuthState.SignIn &&
+                this.IdPLogin &&
+                  <div className="ver-sect"></div>
+                }
+              </DesktopBreakpoint>
+
+              <PhoneBreakpoint>
+                {
+                this.state.authState === AuthState.SignIn &&
+                this.IdPLogin &&
+                  <div className="hr-sect">{I18n.get("OR")}</div>
+                }
+              </PhoneBreakpoint> */}
+
+            <AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
+              <AmplifyForgotPassword
+                usernameAlias="email"
+                slot="forgot-password"
+                formFields={[
+                  {
+                    type: "email",
+                    required: true,
+                  },
+                ]}></AmplifyForgotPassword>
+              <AmplifySignIn
+                usernameAlias="email"
+                slot="sign-in"
+                formFields={[
+                  {
+                    type: "email",
+                    required: true,
+                  },
+                  {
+                    type: "password",
+                    required: true,
+                  }
+                ]}>
+                <div slot="federated-buttons"></div>
+              </AmplifySignIn>
+              <AmplifySignUp
+                usernameAlias="email"
+                slot="sign-up"
+                formFields={[
+                  {
+                    type: "email",
+                    required: true,
+                  },
+                  {
+                    type: "password",
+                    required: true,
+                  },
+                  {
+                    type: "phone_number",
+                    required: false,
+                  },
+                  {
+                    type: "locale",
+                    value: this.state.lang,
+                    inputProps: {
+                      type: 'hidden',
+                    }
+                  }
+                  /**  Here an example of a custom attribute insertion:
+                   *
+                   * This assume that the custom field customer-type
+                   * is defined in file amplify/backend/auth/amplifyIdentityBrokerAuth/amplifyIdentityBrokerAuth-cloudformation-template.yml
+                   *
+                   *         - Name: customer-type
+                   *           Mutable: true
+                   *           Required: false
+                   *           AttributeDataType: String
+                   *
+                  ,{
+                    label: I18n.get("YOUR_LABEL"),
+                    type: "custom:customer-type",
+                    value: "anything",
+                    required: false,
+                  }
+                  */
+                ]}></AmplifySignUp>
+              <AmplifyConfirmSignUp
+                usernameAlias="email"
+                slot="confirm-sign-up"
+                formFields={[
+                  {
+                    type: "email",
+                    required: false,
+                    label: I18n.get("VERIFY_EMAIL"),
+                    inputProps: {
+                      type: 'hidden',
+                    }
+                  }
+                ]}></AmplifyConfirmSignUp>
+
+              <div>
+                {I18n.get("WAIT_REDIRECTION")}
+                <AmplifySignOut />
+              </div>
+            </AmplifyAuthenticator>
+          </div>
       </div>
     );
   }
