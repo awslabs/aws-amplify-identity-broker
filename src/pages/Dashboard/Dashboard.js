@@ -13,6 +13,9 @@ import { API } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 import { AmplifyButton } from '@aws-amplify/ui-react';
 
+// common components
+import Header from '../../components/Header';
+
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
@@ -65,14 +68,18 @@ class Dashboard extends React.Component {
         );
 
         return (
-            <div className='wrapper'>
-                <div className='clients-wrapper'>
-                    <h2>{I18n.get('YOUR_APPLICATIONS')}:</h2>
-                    <div style={{ display: "grid", gridTemplateColumns: "auto auto auto auto" }}>
-                        {registeredClientsList}
-                    </div>
-                    <div className='submit'>
-                        <AmplifyButton className='logout' onClick={this.Logout}>{I18n.get('Logout')}</AmplifyButton>
+            <div>
+                <Header />
+
+                <div className='wrapper'>
+                    <div className='clients-wrapper'>
+                        <h2>{I18n.get('YOUR_APPLICATIONS')}:</h2>
+                        <div style={{ display: "grid", gridTemplateColumns: "auto auto auto auto" }}>
+                            {registeredClientsList}
+                        </div>
+                        <div className='submit'>
+                            <AmplifyButton className='logout' onClick={this.Logout}>{I18n.get('Logout')}</AmplifyButton>
+                        </div>
                     </div>
                 </div>
             </div>

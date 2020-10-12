@@ -9,15 +9,19 @@
 
 import React from 'react';
 import { Auth } from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifyForgotPassword, AmplifyConfirmSignUp } from '@aws-amplify/ui-react';
+import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyForgotPassword, AmplifyConfirmSignUp } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 
-import DesktopBreakpoint from './components/responsive_utilities/desktop_breakpoint';
-import TabletBreakpoint from './components/responsive_utilities/tablet_breakpoint';
-import PhoneBreakpoint from './components/responsive_utilities/phone_breakpoint';
+// common components
+import Header from './components/Header';
+
+// responsive utilities
+import DesktopBreakpoint from './responsive_utilities/desktop_breakpoint';
+import TabletBreakpoint from './responsive_utilities/tablet_breakpoint';
+import PhoneBreakpoint from './responsive_utilities/phone_breakpoint';
 
 var Config = require("Config");
 
@@ -31,13 +35,8 @@ export default class App extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    let lang = "en";
-    if (navigator.language === "fr" || navigator.language.startsWith("fr-")) {
-      lang = { lang: "fr" };
-    }
 
     this.state = {
-      lang: lang,
       authState: AuthState.SignIn
     };
 
@@ -69,16 +68,6 @@ export default class App extends React.Component {
     this.SAMLLogin = this.SAMLIdPs.length !== 0 ? true : false;
 
     this.handleIdPLogin = this.handleIdPLogin.bind(this);
-  }
-
-  toggleLang = () => {
-    if (this.state.lang === "en") {
-      I18n.setLanguage("fr");
-      this.setState({ lang: "fr" });
-    } else {
-      I18n.setLanguage("en");
-      this.setState({ lang: "en" });
-    }
   }
 
   handleIdPLogin(identity_provider) {
@@ -184,8 +173,7 @@ export default class App extends React.Component {
           <h3>PhoneBreakpoint</h3>
         </PhoneBreakpoint>
         {/* End To test */}
-
-          <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
+          <Header />
           <div className="container">
             <div className="federates">
               {

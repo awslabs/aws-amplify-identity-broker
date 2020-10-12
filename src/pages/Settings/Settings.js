@@ -13,6 +13,9 @@ import './settings.css';
 import { AmplifyButton } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 
+// common components
+import Header from '../../components/Header';
+
 class Settings extends React.Component {
     constructor(props) {
         super(props);
@@ -33,7 +36,7 @@ class Settings extends React.Component {
         this.props.history.push('/logout');
     }
 
-    // Currently only displaying current user attributes 
+    // Currently only displaying current user attributes
     // To update user attributes use Auth.updateUserAttributes() https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#updateuserattributes
     render() {
         if (this.state.userAttributes.length === 0) {
@@ -49,17 +52,21 @@ class Settings extends React.Component {
         );
 
         return (
-            <div className='wrapper'>
-                <div className='form-wrapper'>
-                    <h2>{I18n.get('USER_ATTRIBUTES')}:</h2>
-                    <form onSubmit={this.handleSubmit} noValidate>
-                        <div style={{ display: "grid", gridTemplateColumns: "repeat(1, 1fr)" }}>
-                            {userAttributeFields}
-                        </div>
-                        <div className='submit'>
-                            <AmplifyButton className='logout' onClick={this.Logout}>{I18n.get('Logout')}</AmplifyButton>
-                        </div>
-                    </form>
+            <div>
+                <Header />
+
+                <div className='wrapper'>
+                    <div className='form-wrapper'>
+                        <h2>{I18n.get('USER_ATTRIBUTES')}:</h2>
+                        <form onSubmit={this.handleSubmit} noValidate>
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(1, 1fr)" }}>
+                                {userAttributeFields}
+                            </div>
+                            <div className='submit'>
+                                <AmplifyButton className='logout' onClick={this.Logout}>{I18n.get('Logout')}</AmplifyButton>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         );
