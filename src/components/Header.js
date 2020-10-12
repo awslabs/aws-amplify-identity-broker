@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { AmplifyButton } from '@aws-amplify/ui-react';
-import { I18n } from '@aws-amplify/core';
 
 class Header extends Component {
 
   constructor(props) {
     super(props);
+
     let lang = "en";
-    if (navigator.language === "fr" || navigator.language.startsWith("fr-")) {
+    if (navigator.language.startsWith("fr")) {
       lang = { lang: "fr" };
     }
 
@@ -16,13 +16,16 @@ class Header extends Component {
     }
   }
 
+  /**
+   * callback for parent to change language
+   */
   toggleLang = () => {
     if (this.state.lang === "en") {
-      I18n.setLanguage("fr");
       this.setState({ lang: "fr" });
+      this.props.onChange("fr");
     } else {
-      I18n.setLanguage("en");
       this.setState({ lang: "en" });
+      this.props.onChange("en");
     }
   }
 

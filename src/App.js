@@ -14,9 +14,8 @@ import { strings } from './strings';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 
-import ResponsiveLanding from './components/ResponsiveLanding';
-
 import Header from './components/Header';
+import ResponsiveLanding from './components/ResponsiveLanding';
 
 // responsive utilities
 import DesktopBreakpoint from './responsive_utilities/desktop_breakpoint';
@@ -141,12 +140,26 @@ export default class App extends React.Component {
     this.setState({ authState: authState });
   }
 
+  /**
+   * change page language
+   */
+  toggleLang = () => {
+    if (this.state.lang === "en") {
+      I18n.setLanguage("fr");
+      this.setState({ lang: "fr" });
+
+    } else {
+      I18n.setLanguage("en");
+      this.setState({ lang: "en" });
+    }
+  }
+
   render() {
     console.log(Auth);
 
     return (
       <div>
-        <Header />
+        <Header pageLang={this.state.lang} onChange={this.toggleLang} />
 
         <DesktopBreakpoint>
           <ResponsiveLanding dynamicClassName="desktop" authState={this.state.authState} />
