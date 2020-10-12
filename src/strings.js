@@ -28,7 +28,9 @@ export const strings = {
         YOUR_APPLICATIONS: "Your Applications",
         LOGOUT: "Logout",
         LOGIN_TO: "Login to",
-        USER_ATTRIBUTES: "User Attributes"
+        USER_ATTRIBUTES: "User Attributes",
+        EMAILL_ADDRESS: "Email Address",
+        PASSWORD: "Password"
     },
     fr: {
         [Translations.NO_ACCOUNT_TEXT]: "Pas encore de compte ?",
@@ -83,6 +85,8 @@ export const strings = {
         YOUR_APPLICATIONS: "Vos Applications",
         LOGOUT: "Se Deconnecter",
         LOGIN_TO: "Se connecter à",
-        USER_ATTRIBUTES: "Attributs d'utilisateur"
+        USER_ATTRIBUTES: "Attributs d'utilisateur",
+        EMAILL_ADDRESS: "Addresse Email",
+        PASSWORD: "Mot de passe"
     },
 };

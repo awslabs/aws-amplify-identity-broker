@@ -91,6 +91,7 @@ const ResponsiveLanding = (props) => {
           formFields={[
             {
               type: "email",
+              label: I18n.get("EMAILL_ADDRESS"),
               required: true,
             },
           ]}>

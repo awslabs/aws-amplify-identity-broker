@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { AmplifySignIn } from '@aws-amplify/ui-react';
+import { I18n } from '@aws-amplify/core';
 
 class Login extends Component {
   render() {
@@ -11,10 +12,12 @@ class Login extends Component {
           formFields={[
             {
               type: "email",
+              label: I18n.get("EMAILL_ADDRESS"),
               required: true,
             },
             {
               type: "password",
+              label: I18n.get("PASSWORD"),
               required: true,
             }
           ]}>
