@@ -165,5 +165,41 @@
         "amplifyIdentityBrokerCreateAuthChallenge": {}
       }
     }
+  },
+  "macdev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplify-identity-broker-macdev-150559-authRole",
+      "UnauthRoleArn": "arn:aws:iam::521625030517:role/amplify-amplify-identity-broker-macdev-150559-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::521625030517:role/amplify-amplify-identity-broker-macdev-150559-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-amplify-identity-broker-macdev-150559-deployment",
+      "UnauthRoleName": "amplify-amplify-identity-broker-macdev-150559-unauthRole",
+      "StackName": "amplify-amplify-identity-broker-macdev-150559",
+      "StackId": "arn:aws:cloudformation:us-east-2:521625030517:stack/amplify-amplify-identity-broker-macdev-150559/cd2175e0-0bf4-11eb-b0fc-02f0e70e687e",
+      "AmplifyAppId": "d2iqfg93n7eulg"
+    },
+    "categories": {
+      "auth": {
+        "amplifyIdentityBrokerAuth": {
+          "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"123456\",\"client_secret\":\"123456\"},{\"ProviderName\":\"Google\",\"client_id\":\"123456\",\"client_secret\":\"123456\"},{\"ProviderName\":\"LoginWithAmazon\",\"client_id\":\"123456\",\"client_secret\":\"123456\"}]"
+        }
+      },
+      "function": {
+        "amplifyIdentityBrokerPostDeployment": {},
+        "amplifyIdentityBrokerCustomMessage": {},
+        "amplifyIdentityBrokerAuthorize": {},
+        "amplifyIdentityBrokerToken": {},
+        "amplifyIdentityBrokerStorage": {},
+        "amplifyIdentityBrokerMigration": {},
+        "amplifyIdentityBrokerUserInfo": {},
+        "amplifyIdentityBrokerExposeJWKS": {},
+        "amplifyIdentityBrokerVerifyClient": {},
+        "amplifyIdentityBrokerAccountConfirmation": {},
+        "amplifyIdentityBrokerClients": {},
+        "amplifyIdentityBrokerDefineAuthChallenge": {},
+        "amplifyIdentityBrokerVerifyAuthChallenge": {},
+        "amplifyIdentityBrokerCreateAuthChallenge": {}
+      }
+    }
   }
 }
