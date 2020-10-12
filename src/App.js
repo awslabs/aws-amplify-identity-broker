@@ -60,12 +60,12 @@ export default class App extends React.Component {
     // for that do a describeUserPoolClient API call to Cognito with the client_id from the query
     // uses the defined IdP from SupportedIdentityProviders array
     // See: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_DescribeUserPoolClient.html
-    this.IdPLogin = Config.providers.length !== 0 ? true : false;
-    this.amazonLogin = Config.providers.includes("LoginWithAmazon");
+    this.IdPLogin      = Config.providers.length !== 0 ? true : false;
+    this.amazonLogin   = Config.providers.includes("LoginWithAmazon");
     this.facebookLogin = Config.providers.includes("Facebook");
-    this.googleLogin = Config.providers.includes("Google");
-    this.SAMLIdPs = Config.providers.filter(value => !socialIdPs.includes(value));
-    this.SAMLLogin = this.SAMLIdPs.length !== 0 ? true : false;
+    this.googleLogin   = Config.providers.includes("Google");
+    this.SAMLIdPs      = Config.providers.filter(value => !socialIdPs.includes(value));
+    this.SAMLLogin     = this.SAMLIdPs.length !== 0 ? true : false;
 
     this.handleIdPLogin = this.handleIdPLogin.bind(this);
   }
@@ -200,22 +200,11 @@ export default class App extends React.Component {
               }
             </div>
 
-
-              {/* <DesktopBreakpoint>
-                {
-                this.state.authState === AuthState.SignIn &&
-                this.IdPLogin &&
-                  <div className="ver-sect"></div>
-                }
-              </DesktopBreakpoint>
-
-              <PhoneBreakpoint>
-                {
-                this.state.authState === AuthState.SignIn &&
-                this.IdPLogin &&
-                  <div className="hr-sect">{I18n.get("OR")}</div>
-                }
-              </PhoneBreakpoint> */}
+            {
+              this.state.authState === AuthState.SignIn &&
+              this.IdPLogin &&
+                <div className="hr-sect">{I18n.get("OR")}</div>
+            }
 
             <AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
               <AmplifyForgotPassword
@@ -242,6 +231,7 @@ export default class App extends React.Component {
                 ]}>
                 <div slot="federated-buttons"></div>
               </AmplifySignIn>
+
               <AmplifySignUp
                 usernameAlias="email"
                 slot="sign-up"

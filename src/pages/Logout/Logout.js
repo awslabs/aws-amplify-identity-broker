@@ -10,7 +10,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
-import { eraseCookie } from '../../../helpers'
+import { eraseCookie } from '../../helpers'
 
 class Logout extends React.Component {
     componentDidMount() {
