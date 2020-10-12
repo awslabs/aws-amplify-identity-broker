@@ -9,17 +9,13 @@
 
 import React from 'react';
 import { Auth } from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifySignOut, AmplifyForgotPassword } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 
-// layout components
-import Login from './components/Login';
-import Register from './components/Register';
+import ResponsiveLanding from './components/ResponsiveLanding';
 
-// common components
 import Header from './components/Header';
 
 // responsive utilities
@@ -27,11 +23,7 @@ import DesktopBreakpoint from './responsive_utilities/desktop_breakpoint';
 import TabletBreakpoint from './responsive_utilities/tablet_breakpoint';
 import PhoneBreakpoint from './responsive_utilities/phone_breakpoint';
 
-var Config = require("Config");
-
 I18n.putVocabularies(strings);
-
-const socialIdPs = ["LoginWithAmazon", "Facebook", "Google"];
 
 // See doc for customization here: https://docs.amplify.aws/ui/auth/authenticator/q/framework/react#slots
 
@@ -60,26 +52,16 @@ export default class App extends React.Component {
       this.handleAuthUIStateChange(newAuthState)
     })
 
-    // You can make this selection of IdP different between clients
-    // for that do a describeUserPoolClient API call to Cognito with the client_id from the query
-    // uses the defined IdP from SupportedIdentityProviders array
-    // See: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_DescribeUserPoolClient.html
-    this.IdPLogin      = Config.providers.length !== 0 ? true : false;
-    this.amazonLogin   = Config.providers.includes("LoginWithAmazon");
-    this.facebookLogin = Config.providers.includes("Facebook");
-    this.googleLogin   = Config.providers.includes("Google");
-    this.SAMLIdPs      = Config.providers.filter(value => !socialIdPs.includes(value));
-    this.SAMLLogin     = this.SAMLIdPs.length !== 0 ? true : false;
-
     this.handleIdPLogin = this.handleIdPLogin.bind(this);
   }
 
   handleIdPLogin(identity_provider) {
     // Store redirect_uri/authorization_code in local storage to be used to later
-    let queryStringParams = new URLSearchParams(window.location.search);
-    let redirect_uri = queryStringParams.get('redirect_uri');
+    let queryStringParams  = new URLSearchParams(window.location.search);
+    let redirect_uri       = queryStringParams.get('redirect_uri');
     let authorization_code = queryStringParams.get('authorization_code');
-    let clientState = queryStringParams.get('state');
+    let clientState        = queryStringParams.get('state');
+
     if (redirect_uri) {
       localStorage.setItem(`client-redirect-uri`, redirect_uri);
     }
@@ -161,76 +143,22 @@ export default class App extends React.Component {
 
   render() {
     console.log(Auth);
-    var SAMLLoginButtons = this.SAMLIdPs.map(IdP => <button className="saml btn" key={IdP} onClick={() => this.handleIdPLogin(IdP)}>{I18n.get(IdP)}</button>);
+
     return (
       <div>
-        {/* To test */}
+        <Header />
+
         <DesktopBreakpoint>
-          <h3>DesktopBreakpoint!</h3>
+          <ResponsiveLanding dynamicClassName="desktop" authState={this.state.authState} />
         </DesktopBreakpoint>
 
         <TabletBreakpoint>
-          <h3>TabletBreakpoint!</h3>
+          <ResponsiveLanding dynamicClassName="tablet" authState={this.state.authState} />
         </TabletBreakpoint>
 
         <PhoneBreakpoint>
-          <h3>PhoneBreakpoint</h3>
+          <ResponsiveLanding dynamicClassName="mobile" authState={this.state.authState} />
         </PhoneBreakpoint>
-        {/* End To test */}
-          <Header />
-          <div className="container">
-            <div className="federates">
-              {
-                this.state.authState === AuthState.SignIn &&
-                this.SAMLLogin &&
-                <div>
-                  {SAMLLoginButtons}
-                </div>
-              }
-              {
-                this.state.authState === AuthState.SignIn &&
-                this.amazonLogin &&
-                <button className="amazon btn" onClick={() => this.handleIdPLogin('LoginWithAmazon')}> <i className="fa fa-amazon fa-fw"></i>{I18n.get("AMAZON_SIGNIN")}</button>
-              }
-              {
-                this.state.authState === AuthState.SignIn &&
-                this.googleLogin &&
-                <button className="google btn" onClick={() => this.handleIdPLogin('Google')}> <i className="fa fa-google fa-fw"></i>{I18n.get("GOOGLE_SIGNIN")}</button>
-              }
-              {
-                this.state.authState === AuthState.SignIn &&
-                this.facebookLogin &&
-                <button className="fb btn" onClick={() => this.handleIdPLogin('Facebook')}> <i className="fa fa-facebook fa-fw"></i>{I18n.get("FACEBOOK_SIGNIN")}</button>
-              }
-            </div>
-
-            {
-              this.state.authState === AuthState.SignIn &&
-              this.IdPLogin &&
-                <div className="hr-sect">{I18n.get("OR")}</div>
-            }
-
-            <AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
-              <AmplifyForgotPassword
-                usernameAlias="email"
-                slot="forgot-password"
-                formFields={[
-                  {
-                    type: "email",
-                    required: true,
-                  },
-                ]}>
-            </AmplifyForgotPassword>
-
-            <Login />
-            <Register />
-
-              <div>
-                {I18n.get("WAIT_REDIRECTION")}
-                <AmplifySignOut />
-              </div>
-            </AmplifyAuthenticator>
-          </div>
       </div>
     );
   }
