@@ -43,13 +43,6 @@ code {
   align-items: center;
 }
 
-.container {
-  width: 580px;
-  margin-right: auto;
-  margin-left: auto;
-  padding-top: 20px;
-}
-
 input,
 .btn {
   width: 80%;
@@ -90,26 +83,6 @@ input:hover,
 .google {
   background-color: #dd4b39;
   color: white;
-}
-
-.hr-sect {
-	display: flex;
-	flex-basis: 100%;
-	align-items: center;
-	color: rgba(0, 0, 0, 0.35);
-  margin: 8px 30px;
-  padding-bottom: 15px;
-}
-
-.hr-sect::before,
-.hr-sect::after {
-	content: "";
-	flex-grow: 1;
-	background: rgba(0, 0, 0, 0.35);
-	height: 1px;
-	font-size: 0px;
-	line-height: 0px;
-  margin: 0px 8px;
 }
 
 .ver-sect {

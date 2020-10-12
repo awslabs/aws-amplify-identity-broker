@@ -3,11 +3,92 @@ import { AmplifyAuthenticator, AmplifySignOut, AmplifyForgotPassword } from '@aw
 import { AuthState } from '@aws-amplify/ui-components';
 import { I18n } from '@aws-amplify/core';
 import { Auth } from 'aws-amplify';
+import styled from "styled-components";
 
 import Login from './Login';
 import Register from './Register';
 
 var Config = require("Config");
+
+const ResponsiveWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+  }
+
+  .container-desktop {
+    width: 1200px;
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 20px;
+  }
+  .social-login-desktop {
+    flex: 50%;
+    justify-content: center;
+    margin-top:10%;
+  }
+  .form-login-desktop {
+    flex: 50%;
+    justify-content: center;
+  }
+  .separator-desktop {
+    border-left: 1px solid rgba(0, 0, 0, 0.35);
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    margin-left: 5px;
+  }
+
+  .container-tablet {
+    width: 700px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 20px;
+  }
+
+  .container-phone {
+    width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 20px;
+  }
+`;
+
+const Separator = styled.div`
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.35);
+    margin: 8px 30px;
+    padding-bottom: 15px;
+  }
+`;
+
+const BeforeSeparator = styled.div`
+    content: "";
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.35);
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+    margin: 0px 8px;
+  }
+`;
+
+const AfterSeparator = styled.div`
+    content: "";
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.35);
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+    margin: 0px 8px;
+  }
+`;
 
 const handleIdPLogin = (identity_provider) => {
   // Store redirect_uri/authorization_code in local storage to be used to later
@@ -51,62 +132,70 @@ const ResponsiveLanding = (props) => {
   );
 
   return(
-    <div className={`container ${dynamicClassName}`}>
-      <div className="federates">
-        {
-          authState === AuthState.SignIn &&
-          SAMLLogin &&
-          <div>
-            {SAMLLoginButtons}
-          </div>
-        }
-        {
-          authState === AuthState.SignIn &&
-          amazonLogin &&
-          <button className="amazon btn" onClick={() => handleIdPLogin('LoginWithAmazon')}> <i className="fa fa-amazon fa-fw"></i>{I18n.get("AMAZON_SIGNIN")}</button>
-        }
-        {
-          authState === AuthState.SignIn &&
-          googleLogin &&
-          <button className="google btn" onClick={() => handleIdPLogin('Google')}> <i className="fa fa-google fa-fw"></i>{I18n.get("GOOGLE_SIGNIN")}</button>
-        }
-        {
-          authState === AuthState.SignIn &&
-          facebookLogin &&
-          <button className="fb btn" onClick={() => handleIdPLogin('Facebook')}> <i className="fa fa-facebook fa-fw"></i>{I18n.get("FACEBOOK_SIGNIN")}</button>
-        }
-      </div>
-
-      {
-        authState === AuthState.SignIn &&
-        IdPLogin &&
-          <div className="hr-sect">{I18n.get("OR")}</div>
-      }
-
-      <AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
-
-        <AmplifyForgotPassword
-          usernameAlias="email"
-          slot="forgot-password"
-          formFields={[
-            {
-              type: "email",
-              label: I18n.get("EMAILL_ADDRESS"),
-              required: true,
-            },
-          ]}>
-        </AmplifyForgotPassword>
-
-        <Login />
-        <Register />
-
-        <div>
-          {I18n.get("WAIT_REDIRECTION")}
-          <AmplifySignOut />
+    <ResponsiveWrapper>
+      <div className={`container-${dynamicClassName}`}>
+        <div className={`social-login-${dynamicClassName}`}>
+          {
+            authState === AuthState.SignIn &&
+            SAMLLogin &&
+            <div>
+              {SAMLLoginButtons}
+            </div>
+          }
+          {
+            authState === AuthState.SignIn &&
+            amazonLogin &&
+            <button className="amazon btn" onClick={() => handleIdPLogin('LoginWithAmazon')}> <i className="fa fa-amazon fa-fw"></i>{I18n.get("AMAZON_SIGNIN")}</button>
+          }
+          {
+            authState === AuthState.SignIn &&
+            googleLogin &&
+            <button className="google btn" onClick={() => handleIdPLogin('Google')}> <i className="fa fa-google fa-fw"></i>{I18n.get("GOOGLE_SIGNIN")}</button>
+          }
+          {
+            authState === AuthState.SignIn &&
+            facebookLogin &&
+            <button className="fb btn" onClick={() => handleIdPLogin('Facebook')}> <i className="fa fa-facebook fa-fw"></i>{I18n.get("FACEBOOK_SIGNIN")}</button>
+          }
         </div>
 
-      </AmplifyAuthenticator>
-    </div>
+        {
+          authState === AuthState.SignIn &&
+          IdPLogin &&
+            <Separator className={`separator-${dynamicClassName}`}>
+              <BeforeSeparator />
+              {dynamicClassName == "mobile" || dynamicClassName == "tablet" ? I18n.get("OR") : ""}
+              <AfterSeparator />
+            </Separator>
+        }
+
+        <div className={`form-login-${dynamicClassName}`}>
+          <AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
+
+            <AmplifyForgotPassword
+              usernameAlias="email"
+              slot="forgot-password"
+              formFields={[
+                {
+                  type: "email",
+                  label: I18n.get("EMAILL_ADDRESS"),
+                  required: true,
+                },
+              ]}>
+            </AmplifyForgotPassword>
+
+            <Login />
+            <Register />
+
+            <div>
+              {I18n.get("WAIT_REDIRECTION")}
+              <AmplifySignOut />
+            </div>
+
+          </AmplifyAuthenticator>
+        </div>
+      </div>
+    </ResponsiveWrapper>
   );
 }
 export default ResponsiveLanding;
