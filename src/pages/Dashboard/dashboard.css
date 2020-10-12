@@ -10,16 +10,6 @@ a:hover {
   cursor: pointer;
 }
 
-.wrapper {
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #4A4E69;
-}
-
 .clients-wrapper {
   display: flex;
   flex-direction: column;
@@ -29,9 +19,8 @@ a:hover {
   min-width: 100px;
   min-height: 450px;
   padding: 20px 40px;
-  border-radius: 6px;
-  box-shadow: 0px 8px 36px #222;
-  background-color: #fefefe;
+  border-radius: 2px;
+  border: #cacaca solid 1px;
 }
 
 .logos {

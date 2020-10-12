@@ -9,11 +9,15 @@
 
 import React from 'react';
 import { Auth } from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyForgotPassword, AmplifyConfirmSignUp } from '@aws-amplify/ui-react';
+import { AmplifyAuthenticator, AmplifySignOut, AmplifyForgotPassword } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
+
+// layout components
+import Login from './components/Login';
+import Register from './components/Register';
 
 // common components
 import Header from './components/Header';
@@ -215,77 +219,11 @@ export default class App extends React.Component {
                     type: "email",
                     required: true,
                   },
-                ]}></AmplifyForgotPassword>
-              <AmplifySignIn
-                usernameAlias="email"
-                slot="sign-in"
-                formFields={[
-                  {
-                    type: "email",
-                    required: true,
-                  },
-                  {
-                    type: "password",
-                    required: true,
-                  }
                 ]}>
-                <div slot="federated-buttons"></div>
-              </AmplifySignIn>
+            </AmplifyForgotPassword>
 
-              <AmplifySignUp
-                usernameAlias="email"
-                slot="sign-up"
-                formFields={[
-                  {
-                    type: "email",
-                    required: true,
-                  },
-                  {
-                    type: "password",
-                    required: true,
-                  },
-                  {
-                    type: "phone_number",
-                    required: false,
-                  },
-                  {
-                    type: "locale",
-                    value: this.state.lang,
-                    inputProps: {
-                      type: 'hidden',
-                    }
-                  }
-                  /**  Here an example of a custom attribute insertion:
-                   *
-                   * This assume that the custom field customer-type
-                   * is defined in file amplify/backend/auth/amplifyIdentityBrokerAuth/amplifyIdentityBrokerAuth-cloudformation-template.yml
-                   *
-                   *         - Name: customer-type
-                   *           Mutable: true
-                   *           Required: false
-                   *           AttributeDataType: String
-                   *
-                  ,{
-                    label: I18n.get("YOUR_LABEL"),
-                    type: "custom:customer-type",
-                    value: "anything",
-                    required: false,
-                  }
-                  */
-                ]}></AmplifySignUp>
-              <AmplifyConfirmSignUp
-                usernameAlias="email"
-                slot="confirm-sign-up"
-                formFields={[
-                  {
-                    type: "email",
-                    required: false,
-                    label: I18n.get("VERIFY_EMAIL"),
-                    inputProps: {
-                      type: 'hidden',
-                    }
-                  }
-                ]}></AmplifyConfirmSignUp>
+            <Login />
+            <Register />
 
               <div>
                 {I18n.get("WAIT_REDIRECTION")}

@@ -34,6 +34,15 @@ code {
   --amplify-primary-shade: #008000;
 }
 
+.wrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .container {
   width: 580px;
   margin-right: auto;
