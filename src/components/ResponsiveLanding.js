@@ -29,9 +29,6 @@ const handleIdPLogin = (identity_provider) => {
 }
 
 const ResponsiveLanding = (props) => {
-  console.log("props:");
-  console.log(props.dynamicClassName);
-  console.log(props.authState);
 
   var dynamicClassName = props.dynamicClassName;
   let authState        = props.authState;
@@ -49,7 +46,9 @@ const ResponsiveLanding = (props) => {
   let SAMLIdPs      = Config.providers.filter(value => !socialIdPs.includes(value));
   let SAMLLogin     = SAMLIdPs.length !== 0 ? true : false;
 
-  var SAMLLoginButtons = SAMLIdPs.map(IdP => <button className="saml btn" key={IdP} onClick={() => handleIdPLogin(IdP)}>{I18n.get(IdP)}</button>);
+  var SAMLLoginButtons = SAMLIdPs.map( IdP =>
+    <button className="saml btn" key={IdP} onClick={() => handleIdPLogin(IdP)}>{I18n.get(IdP)}</button>
+  );
 
   return(
     <div className={`container ${dynamicClassName}`}>
@@ -85,6 +84,7 @@ const ResponsiveLanding = (props) => {
       }
 
       <AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
+
         <AmplifyForgotPassword
           usernameAlias="email"
           slot="forgot-password"
@@ -94,15 +94,16 @@ const ResponsiveLanding = (props) => {
               required: true,
             },
           ]}>
-      </AmplifyForgotPassword>
+        </AmplifyForgotPassword>
 
-      <Login />
-      <Register />
+        <Login />
+        <Register />
 
         <div>
           {I18n.get("WAIT_REDIRECTION")}
           <AmplifySignOut />
         </div>
+
       </AmplifyAuthenticator>
     </div>
   );

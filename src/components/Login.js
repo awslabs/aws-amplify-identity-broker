@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { AmplifySignIn } from '@aws-amplify/ui-react';
-import { I18n } from '@aws-amplify/core';
 
 class Login extends Component {
   render() {
