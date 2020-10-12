@@ -11,7 +11,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-responsive": "^8.1.0",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "styled-components": "^5.2.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -27,6 +28,9 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   },
   "browserslist": {
     "production": [
