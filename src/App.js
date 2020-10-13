@@ -162,15 +162,15 @@ export default class App extends React.Component {
         <Header pageLang={this.state.lang} onChange={this.toggleLang} />
 
         <DesktopBreakpoint>
-          <ResponsiveLanding dynamicClassName="desktop" authState={this.state.authState} />
+          <ResponsiveLanding dynamicClassName="desktop" authState={this.state.authState} pageLang={this.state.lang} />
         </DesktopBreakpoint>
 
         <TabletBreakpoint>
-          <ResponsiveLanding dynamicClassName="tablet" authState={this.state.authState} />
+          <ResponsiveLanding dynamicClassName="tablet" authState={this.state.authState} pageLang={this.state.lang} />
         </TabletBreakpoint>
 
         <PhoneBreakpoint>
-          <ResponsiveLanding dynamicClassName="mobile" authState={this.state.authState} />
+          <ResponsiveLanding dynamicClassName="mobile" authState={this.state.authState} pageLang={this.state.lang} />
         </PhoneBreakpoint>
       </div>
     );
