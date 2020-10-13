@@ -34,13 +34,17 @@ const ResponsiveWrapper = styled.div`
   .form-login-desktop {
     flex: 50%;
     justify-content: center;
+    border-left: 1px solid rgba(0, 0, 0, 0.35);
   }
   .separator-desktop {
-    border-left: 1px solid rgba(0, 0, 0, 0.35);
-    height: 500px;
     position: absolute;
-    left: 50%;
+    left: 48%;
+    top: 50%;
     margin-left: 5px;
+    background-color: #fff;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: rgba(0, 0, 0, 0.35);
   }
 
   .container-tablet {
@@ -90,29 +94,27 @@ const AfterSeparator = styled.div`
   }
 `;
 
-const handleIdPLogin = (identity_provider) => {
-  // Store redirect_uri/authorization_code in local storage to be used to later
-  let queryStringParams  = new URLSearchParams(window.location.search);
-  let redirect_uri       = queryStringParams.get('redirect_uri');
-  let authorization_code = queryStringParams.get('authorization_code');
-  let clientState        = queryStringParams.get('state');
 
-  if (redirect_uri) {
-    localStorage.setItem(`client-redirect-uri`, redirect_uri);
-  }
-  if (authorization_code) {
-    localStorage.setItem(`authorization_code`, authorization_code);
-  }
-  if (clientState) {
-    localStorage.setItem(`client-state`, clientState);
-  }
-  Auth.federatedSignIn({ provider: identity_provider });
-}
+const ResponsiveLanding = ({dynamicClassName, authState}) => {
 
-const ResponsiveLanding = (props) => {
+  const handleIdPLogin = (identity_provider) => {
+    // Store redirect_uri/authorization_code in local storage to be used to later
+    let queryStringParams  = new URLSearchParams(window.location.search);
+    let redirect_uri       = queryStringParams.get('redirect_uri');
+    let authorization_code = queryStringParams.get('authorization_code');
+    let clientState        = queryStringParams.get('state');
 
-  var dynamicClassName = props.dynamicClassName;
-  let authState        = props.authState;
+    if (redirect_uri) {
+      localStorage.setItem(`client-redirect-uri`, redirect_uri);
+    }
+    if (authorization_code) {
+      localStorage.setItem(`authorization_code`, authorization_code);
+    }
+    if (clientState) {
+      localStorage.setItem(`client-state`, clientState);
+    }
+    Auth.federatedSignIn({ provider: identity_provider });
+  }
 
   const socialIdPs = ["LoginWithAmazon", "Facebook", "Google"];
 
@@ -164,7 +166,7 @@ const ResponsiveLanding = (props) => {
           IdPLogin &&
             <Separator className={`separator-${dynamicClassName}`}>
               <BeforeSeparator />
-              {dynamicClassName == "mobile" || dynamicClassName == "tablet" ? I18n.get("OR") : ""}
+                { I18n.get("OR") }
               <AfterSeparator />
             </Separator>
         }
