@@ -1,3 +1,12 @@
+/*
+* Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+*
+* Licensed under the MIT License. See the LICENSE accompanying this file
+* for the specific language governing permissions and limitations under
+* the License.
+*/
+
 import React from 'react';
 import { AmplifyAuthenticator, AmplifySignOut, AmplifyForgotPassword } from '@aws-amplify/ui-react';
 import { AuthState } from '@aws-amplify/ui-components';
@@ -95,7 +104,25 @@ const AfterSeparator = styled.div`
 `;
 
 
-const ResponsiveLanding = ({dynamicClassName, authState}) => {
+const ResponsiveLanding = ({dynamicClassName, authState, langState}) => {
+
+  console.log("langState: " + langState);
+  const socialIdPs = ["LoginWithAmazon", "Facebook", "Google"];
+
+  // You can make this selection of IdP different between clients
+  // for that do a describeUserPoolClient API call to Cognito with the client_id from the query
+  // uses the defined IdP from SupportedIdentityProviders array
+  // See: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_DescribeUserPoolClient.html
+  let IdPLogin      = Config.providers.length !== 0 ? true : false;
+  let amazonLogin   = Config.providers.includes("LoginWithAmazon");
+  let facebookLogin = Config.providers.includes("Facebook");
+  let googleLogin   = Config.providers.includes("Google");
+  let SAMLIdPs      = Config.providers.filter(value => !socialIdPs.includes(value));
+  let SAMLLogin     = SAMLIdPs.length !== 0 ? true : false;
+
+  var SAMLLoginButtons = SAMLIdPs.map( IdP =>
+    <button className="saml btn" key={IdP} onClick={() => handleIdPLogin(IdP)}>{I18n.get(IdP)}</button>
+  );
 
   const handleIdPLogin = (identity_provider) => {
     // Store redirect_uri/authorization_code in local storage to be used to later
@@ -115,23 +142,6 @@ const ResponsiveLanding = ({dynamicClassName, authState}) => {
     }
     Auth.federatedSignIn({ provider: identity_provider });
   }
-
-  const socialIdPs = ["LoginWithAmazon", "Facebook", "Google"];
-
-  // You can make this selection of IdP different between clients
-  // for that do a describeUserPoolClient API call to Cognito with the client_id from the query
-  // uses the defined IdP from SupportedIdentityProviders array
-  // See: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_DescribeUserPoolClient.html
-  let IdPLogin      = Config.providers.length !== 0 ? true : false;
-  let amazonLogin   = Config.providers.includes("LoginWithAmazon");
-  let facebookLogin = Config.providers.includes("Facebook");
-  let googleLogin   = Config.providers.includes("Google");
-  let SAMLIdPs      = Config.providers.filter(value => !socialIdPs.includes(value));
-  let SAMLLogin     = SAMLIdPs.length !== 0 ? true : false;
-
-  var SAMLLoginButtons = SAMLIdPs.map( IdP =>
-    <button className="saml btn" key={IdP} onClick={() => handleIdPLogin(IdP)}>{I18n.get(IdP)}</button>
-  );
 
   return(
     <ResponsiveWrapper>
@@ -187,7 +197,7 @@ const ResponsiveLanding = ({dynamicClassName, authState}) => {
             </AmplifyForgotPassword>
 
             <Login />
-            <Register />
+            <Register langState={langState}  />
 
             <div>
               {I18n.get("WAIT_REDIRECTION")}
