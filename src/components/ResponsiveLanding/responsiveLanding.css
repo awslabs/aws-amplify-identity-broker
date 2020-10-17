@@ -29,9 +29,8 @@
 
 .separator-desktop {
     position: absolute;
-    left: 48%;
-    top: 50%;
-    margin-left: 5px;
+    top: 60%;
+    margin-left: -27px;
     background-color: #fff;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -57,8 +56,7 @@
     flex-basis: 100%;
     align-items: center;
     color: rgba(0, 0, 0, 0.35);
-    margin: 8px 30px;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
 }
 
 .hr-sect::before,
