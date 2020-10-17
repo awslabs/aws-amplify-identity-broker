@@ -16,6 +16,19 @@
         "amplifyIdentityBrokerAuth": {
           "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"123456\",\"client_secret\":\"123456\"},{\"ProviderName\":\"Google\",\"client_id\":\"123456\",\"client_secret\":\"123456\"},{\"ProviderName\":\"LoginWithAmazon\",\"client_id\":\"123456\",\"client_secret\":\"123456\"}]"
         }
+      },
+      "function": {
+        "amplifyIdentityBrokerPostDeployment": {
+          "hostingDomain": "https://devdiali.d28xnsjfwmxpm8.amplifyapp.com"
+        },
+        "amplifyIdentityBrokerCustomMessage": {},
+        "amplifyIdentityBrokerAuthorize": {},
+        "amplifyIdentityBrokerToken": {},
+        "amplifyIdentityBrokerStorage": {},
+        "amplifyIdentityBrokerMigration": {},
+        "amplifyIdentityBrokerUserInfo": {},
+        "amplifyIdentityBrokerExposeJWKS": {},
+        "amplifyIdentityBrokerVerifyClient": {}
       }
     }
   },
