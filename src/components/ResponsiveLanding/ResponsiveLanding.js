@@ -8,102 +8,16 @@
 */
 
 import React from 'react';
+import './responsiveLanding.css';
 import { AmplifyAuthenticator, AmplifySignOut, AmplifyForgotPassword } from '@aws-amplify/ui-react';
 import { AuthState } from '@aws-amplify/ui-components';
 import { I18n } from '@aws-amplify/core';
 import { Auth } from 'aws-amplify';
-import styled from "styled-components";
 
-import Login from './Login';
-import Register from './Register';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
 
 var Config = require("Config");
-
-const ResponsiveWrapper = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5%;
-  }
-
-  .container-desktop {
-    width: 1200px;
-    display: flex;
-    margin-right: auto;
-    margin-left: auto;
-    padding-top: 20px;
-  }
-  .social-login-desktop {
-    flex: 50%;
-    justify-content: center;
-    margin-top:10%;
-  }
-  .form-login-desktop {
-    flex: 50%;
-    justify-content: center;
-    border-left: 1px solid rgba(0, 0, 0, 0.35);
-  }
-  .separator-desktop {
-    position: absolute;
-    left: 48%;
-    top: 50%;
-    margin-left: 5px;
-    background-color: #fff;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    color: rgba(0, 0, 0, 0.35);
-  }
-
-  .container-tablet {
-    width: 700px;
-    margin-right: auto;
-    margin-left: auto;
-    padding-top: 20px;
-  }
-
-  .container-phone {
-    width: 500px;
-    margin-right: auto;
-    margin-left: auto;
-    padding-top: 20px;
-  }
-`;
-
-const Separator = styled.div`
-    display: flex;
-    flex-basis: 100%;
-    align-items: center;
-    color: rgba(0, 0, 0, 0.35);
-    margin: 8px 30px;
-    padding-bottom: 15px;
-  }
-`;
-
-const BeforeSeparator = styled.div`
-    content: "";
-    flex-grow: 1;
-    background: rgba(0, 0, 0, 0.35);
-    height: 1px;
-    font-size: 0px;
-    line-height: 0px;
-    margin: 0px 8px;
-  }
-`;
-
-const AfterSeparator = styled.div`
-    content: "";
-    flex-grow: 1;
-    background: rgba(0, 0, 0, 0.35);
-    height: 1px;
-    font-size: 0px;
-    line-height: 0px;
-    margin: 0px 8px;
-  }
-`;
-
-
 const ResponsiveLanding = ({dynamicClassName, authState, langState}) => {
 
   console.log("langState: " + langState);
@@ -144,7 +58,7 @@ const ResponsiveLanding = ({dynamicClassName, authState, langState}) => {
   }
 
   return(
-    <ResponsiveWrapper>
+    <div className="wrapper">
       <div className={`container-${dynamicClassName}`}>
         <div className={`social-login-${dynamicClassName}`}>
           {
@@ -174,11 +88,11 @@ const ResponsiveLanding = ({dynamicClassName, authState, langState}) => {
         {
           authState === AuthState.SignIn &&
           IdPLogin &&
-            <Separator className={`separator-${dynamicClassName}`}>
-              <BeforeSeparator />
-                { I18n.get("OR") }
-              <AfterSeparator />
-            </Separator>
+            <div className="separator">
+              <div className={`separator-${dynamicClassName}`}>
+                <div className="hr-sect">{I18n.get("OR")}</div>
+              </div>
+            </div>
         }
 
         <div className={`form-login-${dynamicClassName}`}>
@@ -207,7 +121,7 @@ const ResponsiveLanding = ({dynamicClassName, authState, langState}) => {
           </AmplifyAuthenticator>
         </div>
       </div>
-    </ResponsiveWrapper>
+    </div>
   );
 }
 export default ResponsiveLanding;

@@ -14,7 +14,7 @@ import { I18n } from '@aws-amplify/core';
 import { AmplifyButton } from '@aws-amplify/ui-react';
 
 // common components
-import Header from '../../components/Header';
+import Header from '../../components/Header/Header';
 
 class Dashboard extends React.Component {
     constructor(props) {

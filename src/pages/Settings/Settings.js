@@ -14,7 +14,7 @@ import { AmplifyButton } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 
 // common components
-import Header from '../../components/Header';
+import Header from '../../components/Header/Header';
 
 class Settings extends React.Component {
     constructor(props) {

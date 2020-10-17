@@ -14,8 +14,8 @@ import { strings } from './strings';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 
-import Header from './components/Header';
-import ResponsiveLanding from './components/ResponsiveLanding';
+import Header from './components/Header/Header';
+import ResponsiveLanding from './components/ResponsiveLanding/ResponsiveLanding';
 
 // responsive utilities
 import DesktopBreakpoint from './responsive_utilities/desktop_breakpoint';
