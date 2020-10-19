@@ -15,6 +15,8 @@ import { strings } from './strings';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 
+import { LanguageSelect } from './Componets/LanguageSelect/languageSelect';
+
 var Config = require("Config");
 
 I18n.putVocabularies(strings);
@@ -162,11 +164,17 @@ class App extends React.Component {
     this.setState({ authState: authState });
   }
 
+  handleLanguage = (languageValue) => {
+    this.setState({ lang: languageValue });
+  }
+
   render() {
     console.log(Auth);
     var SAMLLoginButtons = this.SAMLIdPs.map(IdP => <button className="saml btn" key={IdP} onClick={() => this.handleIdPLogin(IdP)}>{I18n.get(IdP)}</button>);
     return (
       <div>
+        <LanguageSelect initLangValue={this.lang} newLangValue={this.handleLanguage} />
+        
         <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
         <div className="container">
           {
