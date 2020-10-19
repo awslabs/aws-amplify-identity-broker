@@ -1,0 +1,20 @@
+{
+  "types": [
+    {
+      "code": "en",
+      "lang": "English"
+    },
+    {
+      "code": "fr",
+      "lang": "France"
+    },
+    {
+      "code": "de",
+      "lang": "German"
+    },
+    {
+      "code": "nl",
+      "lang": "Dutch"
+    }
+  ]
+}
