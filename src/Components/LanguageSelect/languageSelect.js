@@ -38,7 +38,7 @@ export class LanguageSelect extends Component {
     return (
     <div className="languageSelect">
       <FormControl>
-        <InputLabel id="demo-simple-select-label">{ I18n.get("SELECT_LABEL") }</InputLabel>
+        <InputLabel id="languageSelectInputLabel">{ I18n.get("SELECT_LABEL") }</InputLabel>
         <Select
           labelId="languageSelectLabel"
           id="languageSelectId"
