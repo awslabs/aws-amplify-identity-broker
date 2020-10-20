@@ -1,9 +1,10 @@
 {
-    "cSpell.words": [
-        "facebook",
-        "facebook signin",
-        "signin"
-    ],
-    "editor.formatOnPaste": true,
-    "editor.minimap.enabled": false,
+  "cSpell.words": [
+    "facebook",
+    "facebook signin",
+    "signin"
+  ],
+  "editor.formatOnPaste": true,
+  "editor.minimap.enabled": false,
+  "editor.formatOnSave": true,
 }
