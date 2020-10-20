@@ -8,12 +8,7 @@
 */
 
 import React, { Component } from 'react';
-import { I18n } from '@aws-amplify/core';
-
-import LanguageSelect from '../../Components/LanguageSelect/languageSelect';
-
-import { strings } from './languageStrings';
-I18n.putVocabularies(strings);
+import TosContent from './content';
 
 class TermsOfService extends Component { 
   constructor(props) {
@@ -23,15 +18,10 @@ class TermsOfService extends Component {
     }
   }
 
-  handleLanguage = (languageValue) => {
-    this.setState({ lang: languageValue });
-  }
-
   render() {
     return (
       <div>
-        <LanguageSelect lang={this.state.lang} newLang={this.handleLanguage}/>
-        <p>{I18n.get("TITLE")}</p>
+        <TosContent />
       </div>
     );
   }
