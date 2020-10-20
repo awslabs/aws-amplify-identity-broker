@@ -3,5 +3,7 @@
         "facebook",
         "facebook signin",
         "signin"
-    ]
+    ],
+    "editor.formatOnPaste": true,
+    "editor.minimap.enabled": false,
 }
