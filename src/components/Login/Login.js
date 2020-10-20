@@ -13,27 +13,27 @@ import { I18n } from '@aws-amplify/core';
 
 const Login = () => {
 
-  return (
-    <div className="login">
-      <AmplifySignIn
-        usernameAlias="email"
-        slot="sign-in"
-        formFields={[
-          {
-            type: "email",
-            label: I18n.get("EMAILL_ADDRESS"),
-            required: true,
-          },
-          {
-            type: "password",
-            label: I18n.get("PASSWORD"),
-            required: true,
-          }
-        ]}>
-        <div slot="federated-buttons"></div>
-      </AmplifySignIn>
-    </div>
-  );
+	return (
+		<div className="login">
+			<AmplifySignIn
+				usernameAlias="email"
+				slot="sign-in"
+				formFields={[
+					{
+						type: "email",
+						label: I18n.get("EMAILL_ADDRESS"),
+						required: true,
+					},
+					{
+						type: "password",
+						label: I18n.get("PASSWORD"),
+						required: true,
+					}
+				]}>
+				<div slot="federated-buttons"></div>
+			</AmplifySignIn>
+		</div>
+	);
 }
 
 export default Login;

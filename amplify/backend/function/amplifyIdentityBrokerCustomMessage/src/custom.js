@@ -7,48 +7,48 @@
   * the License.
   */
 
- function I18N() {
-    this.strings = {
-        en: {
-            EMAIL_GREETING: "Hello",
-            EMAIL_MESSAGE: "Thank you for creating an account with us. Please click on the below link to confirm the registration!",
-            SMS_MESSAGE: "Click on this link to verify your contact info: ",
-            EMAIL_SUBJECT: "Action Required: Verify your contact info.",
-            EMAIL_LINK: "Click Here"
-        },
-        fr: {
-            EMAIL_GREETING: "Bonjour",
-            EMAIL_MESSAGE: "d'avoir créé un compte avec nous. Veuillez cliquer sur le lien ci-dessous pour confirmer l'inscription!",
-            SMS_MESSAGE: "Cliquez sur ce lien pour vérifier vos coordonnées: ",
-            EMAIL_SUBJECT: "Action Requise: Vérifiez vos coordonnées",
-            EMAIL_LINK: "Cliquez ici"
-        },
-    };
-    this.language = "en" // default language
+function I18N() {
+	this.strings = {
+		en: {
+			EMAIL_GREETING: "Hello",
+			EMAIL_MESSAGE: "Thank you for creating an account with us. Please click on the below link to confirm the registration!",
+			SMS_MESSAGE: "Click on this link to verify your contact info: ",
+			EMAIL_SUBJECT: "Action Required: Verify your contact info.",
+			EMAIL_LINK: "Click Here"
+		},
+		fr: {
+			EMAIL_GREETING: "Bonjour",
+			EMAIL_MESSAGE: "d'avoir créé un compte avec nous. Veuillez cliquer sur le lien ci-dessous pour confirmer l'inscription!",
+			SMS_MESSAGE: "Cliquez sur ce lien pour vérifier vos coordonnées: ",
+			EMAIL_SUBJECT: "Action Requise: Vérifiez vos coordonnées",
+			EMAIL_LINK: "Cliquez ici"
+		},
+	};
+	this.language = "en" // default language
 }
 
-I18N.prototype.setLanguage = function(language){
-    // If language not known in list we set English
-    switch(language){
-        case "fr":
-        case "en":
-            this.language = language;
-            break;
-        default:
-            console.log("Unsupported language " + language + " set English");
-            this.language = "en";
-    }
+I18N.prototype.setLanguage = function (language) {
+	// If language not known in list we set English
+	switch (language) {
+		case "fr":
+		case "en":
+			this.language = language;
+			break;
+		default:
+			console.log("Unsupported language " + language + " set English");
+			this.language = "en";
+	}
 }
 
-I18N.prototype.get = function(key){
-    let languageDict = this.strings[this.language];
-    return languageDict[key];
+I18N.prototype.get = function (key) {
+	let languageDict = this.strings[this.language];
+	return languageDict[key];
 }
-    
+
 exports.handler = (event, context, callback) => {
 
-    // Template used to generate HTML email
-    const template = (email, link) => `<html>
+	// Template used to generate HTML email
+	const template = (email, link) => `<html>
 
  <head>
      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -111,25 +111,25 @@ exports.handler = (event, context, callback) => {
  
  </html>`
 
-    const url = process.env.HOSTING_DOMAIN + "/accountConfirmation";
-    const userName = event.userName;
-    const region = event.region;
-    const email = event.request.userAttributes.email;
-    const codeParameter = event.request.codeParameter;
-    const clientId = event.callerContext.clientId;
-    const translator = new I18N();
-    const link = url + "?code=" + codeParameter + "&username=" + userName + "&clientId=" + clientId + "&region=" + region + "&email=" + email;
+	const url = process.env.HOSTING_DOMAIN + "/accountConfirmation";
+	const userName = event.userName;
+	const region = event.region;
+	const email = event.request.userAttributes.email;
+	const codeParameter = event.request.codeParameter;
+	const clientId = event.callerContext.clientId;
+	const translator = new I18N();
+	const link = url + "?code=" + codeParameter + "&username=" + userName + "&clientId=" + clientId + "&region=" + region + "&email=" + email;
 
-    // Identify why was this function invoked
-    if (event.triggerSource === "CustomMessage_SignUp") {
-        let lang = event.request.userAttributes["locale"]; // Access the event data of custom user Attribute lang
-        translator.setLanguage(lang);
-        
-        event.response.smsMessage   = translator.get("SMS_MESSAGE") + " " + link;
-        event.response.emailSubject = translator.get("EMAIL_SUBJECT");
-        event.response.emailMessage = template(email, link);
-    }
+	// Identify why was this function invoked
+	if (event.triggerSource === "CustomMessage_SignUp") {
+		let lang = event.request.userAttributes["locale"]; // Access the event data of custom user Attribute lang
+		translator.setLanguage(lang);
 
-    // Return to Amazon Cognito
-    callback(null, event);
+		event.response.smsMessage = translator.get("SMS_MESSAGE") + " " + link;
+		event.response.emailSubject = translator.get("EMAIL_SUBJECT");
+		event.response.emailMessage = template(email, link);
+	}
+
+	// Return to Amazon Cognito
+	callback(null, event);
 };
