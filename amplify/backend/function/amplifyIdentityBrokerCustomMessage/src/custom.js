@@ -31,7 +31,7 @@
             EMAIL_LINK: "Hier klicken"
         },
         nl: {
-            EMAIL_GREETING: "Bonjour",
+            EMAIL_GREETING: "Hallo",
             EMAIL_MESSAGE: "dBedankt voor het aanmaken van een account bij ons. Klik op de onderstaande link om de registratie te bevestigen.",
             SMS_MESSAGE: "Klik op deze link om uw contactgegevens te verifiëren: ",
             EMAIL_SUBJECT: "Actie vereist: Verifieer uw contactgegevens.",
