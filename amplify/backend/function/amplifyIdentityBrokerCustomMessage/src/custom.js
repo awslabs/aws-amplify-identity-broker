@@ -14,7 +14,7 @@
             EMAIL_MESSAGE: "Thank you for creating an account with us. Please click on the below link to confirm the registration!",
             SMS_MESSAGE: "Click on this link to verify your contact info: ",
             EMAIL_SUBJECT: "Action Required: Verify your contact info.",
-            EMAIL_LINK: "Click Here"
+            EMAIL_LINK: "Click here"
         },
         fr: {
             EMAIL_GREETING: "Bonjour",
@@ -22,6 +22,20 @@
             SMS_MESSAGE: "Cliquez sur ce lien pour vérifier vos coordonnées: ",
             EMAIL_SUBJECT: "Action Requise: Vérifiez vos coordonnées",
             EMAIL_LINK: "Cliquez ici"
+        },
+        de: {
+            EMAIL_GREETING: "Hallo",
+            EMAIL_MESSAGE: "Vielen Dank, dass Sie ein Account bei uns erstellt haben. Bitte klicken Sie auf den unten stehenden Link, um die Registrierung zu bestätigen.",
+            SMS_MESSAGE: "Klicken Sie auf den folgenden Link, um Ihre Angaben zu überprüfen: ",
+            EMAIL_SUBJECT: "Erforderliche Aktion: Überprüfen Sie Ihre Kontaktinformationen.",
+            EMAIL_LINK: "Hier klicken"
+        },
+        nl: {
+            EMAIL_GREETING: "Bonjour",
+            EMAIL_MESSAGE: "dBedankt voor het aanmaken van een account bij ons. Klik op de onderstaande link om de registratie te bevestigen.",
+            SMS_MESSAGE: "Klik op deze link om uw contactgegevens te verifiëren: ",
+            EMAIL_SUBJECT: "Actie vereist: Verifieer uw contactgegevens.",
+            EMAIL_LINK: "Klik hier"
         },
     };
     this.language = "en" // default language
@@ -31,6 +45,8 @@ I18N.prototype.setLanguage = function(language){
     // If language not known in list we set English
     switch(language){
         case "fr":
+        case "de":
+        case "nl":
         case "en":
             this.language = language;
             break;
