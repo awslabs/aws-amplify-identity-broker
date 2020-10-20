@@ -16,6 +16,7 @@ import App from './App';
 import Logout from './Logout/Logout';
 import Settings from './Settings/Settings';
 import Dashboard from './Dashboard/Dashboard';
+import TermsOfService from './Pages/TermsOfService/termsOfService'
 import * as serviceWorker from './serviceWorker';
 import awsconfig from './aws-exports';
 var Config = require("Config");
@@ -53,6 +54,7 @@ ReactDOM.render(
       <Route exact path="/settings" component={Settings} />
       <Route exact path="/dashboard" component={Dashboard} />
       <Route exact path="/logout" component={Logout} />
+      <Route exact path="/tos" component={TermsOfService} />
       <Route exact path="/" component={App} />
     </BrowserRouter>
   </React.StrictMode>,
