@@ -9,13 +9,13 @@
 
 import React from 'react';
 import { Auth } from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyButton, AmplifyForgotPassword, AmplifyConfirmSignUp } from '@aws-amplify/ui-react';
+import { AmplifyAuthenticator, AmplifySignOut, AmplifySignIn, AmplifySignUp, AmplifyForgotPassword, AmplifyConfirmSignUp } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 import { strings } from './strings';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 
-import { LanguageSelect } from './Componets/LanguageSelect/languageSelect';
+import LanguageSelect from './Components/LanguageSelect/languageSelect';
 
 var Config = require("Config");
 
@@ -69,16 +69,6 @@ class App extends React.Component {
     this.handleIdPLogin = this.handleIdPLogin.bind(this);
   }
 
-  toggleLang = () => {
-    if (this.state.lang === "en") {
-      I18n.setLanguage("fr");
-      this.setState({ lang: "fr" });
-    } else {
-      I18n.setLanguage("en");
-      this.setState({ lang: "en" });
-    }
-  }
-
   handleIdPLogin(identity_provider) {
     // Store redirect_uri/authorization_code in local storage to be used to later
     let queryStringParams = new URLSearchParams(window.location.search);
@@ -96,7 +86,6 @@ class App extends React.Component {
     }
     Auth.federatedSignIn({ provider: identity_provider });
   }
-
 
   async handleAuthUIStateChange(authState) {
     if (authState === AuthState.SignedIn) {
@@ -173,9 +162,7 @@ class App extends React.Component {
     var SAMLLoginButtons = this.SAMLIdPs.map(IdP => <button className="saml btn" key={IdP} onClick={() => this.handleIdPLogin(IdP)}>{I18n.get(IdP)}</button>);
     return (
       <div>
-        <LanguageSelect initLangValue={this.lang} newLangValue={this.handleLanguage} />
-        
-        <AmplifyButton onClick={this.toggleLang}>langue {this.state.lang}</AmplifyButton>
+        <LanguageSelect lang={this.state.lang} newLang={this.handleLanguage}/>
         <div className="container">
           {
             this.state.authState === AuthState.SignIn &&
