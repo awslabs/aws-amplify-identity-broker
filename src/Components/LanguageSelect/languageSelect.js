@@ -1,56 +1,78 @@
-import React, { Component } from "react";
+import React from 'react';
 import { I18n } from '@aws-amplify/core';
-
+import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+//import FormHelperText from '@material-ui/core/FormHelperText';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 import languages from './languages.json';
-
 import { strings } from './languageStrings';
-
 I18n.putVocabularies(strings);
 
-export class LanguageSelect extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      lang: this.props.initLangValue || "en"
-    }
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+    textAlign: 'left'
+  },
+  inputLabel: {
+    marginLeft: 0,
+  },
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(1),
+    textAlign: 'right',
+    boxShadow: '0 0 black'
   }
-    
-  handleLangChange = (event) => {
-    let lang = event.target.value;
+}));
 
-    if (!lang) lang = "en";
-    
-    if (event.target.value === this.state.lang)
-      return;
+export default function LanguageSelect(props) {
+  const classes = useStyles();
+  const [lang, setLang] = React.useState(props.lang);
 
-    I18n.setLanguage(lang);
-    this.setState({ lang: lang });
-    this.props.newLangValue(lang);
-  }
+  const handleChange = (event) => {
+    let _lang = 'en';
 
-  render() {
-    return (
-    <div className="languageSelect">
-      <FormControl>
-        <InputLabel id="languageSelectInputLabel">{ I18n.get("SELECT_LABEL") }</InputLabel>
-        <Select
-          labelId="languageSelectLabel"
-          id="languageSelectId"
-          value={ this.state.lang }
-          onChange={ this.handleLangChange }
-        >
-          {languages.types.map((item, index) => 
-            <MenuItem key={index} value={item.code}>{ I18n.get(item.code.toLocaleUpperCase()) }</MenuItem>
-          )}
-        </Select>
-      </FormControl>
+    if (event.target.value === lang) return;
+
+    !event.target.value ? _lang = 'en' : _lang = event.target.value;
+
+    setLang(_lang);
+    I18n.setLanguage(_lang);
+    props.newLang(_lang);
+  };
+
+  return (
+    <div className={classes.root}>
+      <Grid container spacing={1}>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <FormControl className={classes.formControl}>
+              <InputLabel className={classes.inputLabel} id="languageSelectInputLabel">{I18n.get("SELECT_LABEL")}</InputLabel>
+              <Select
+                labelId="languageSelectLabel"
+                id="languageSelect"
+                value={lang}
+                onChange={handleChange}
+              >
+                {languages.types.map((item, index) => 
+                  <MenuItem key={index} value={item.code}>{I18n.get(item.code.toLocaleUpperCase())}</MenuItem>
+                )}
+              </Select>
+              
+              {/*
+              <FormHelperText>{I18n.get("HELPER_TEXT")}</FormHelperText>
+              */}
+            </FormControl>
+          </Paper>
+        </Grid>
+      </Grid>
     </div>
-)
-  }
+  );
 }
