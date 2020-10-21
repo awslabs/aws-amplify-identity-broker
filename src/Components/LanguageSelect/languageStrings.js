@@ -1,34 +1,39 @@
+/*
+* Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+*
+* Licensed under the MIT License. See the LICENSE accompanying this file
+* for the specific language governing permissions and limitations under
+* the License.
+*/
+
 export const strings = {
   en: {
     SELECT_LABEL: "Language",
-    HELPER_TEXT: "Select your preferred language",
     EN: "English",
-    FR: "France",
-    DE: "German",
-    NL: "Dutch"   
+    FR: "Français",
+    DE: "Deutsch",
+    NL: "Nederlands"   
   },
   fr: {
     SELECT_LABEL: "Langue",
-    HELPER_TEXT: "Sélectionnez votre langue préférée",
-    EN: "Anglais",
+    EN: "English",
     FR: "Français",
-    DE: "Allemand",
-    NL: "Néerlandais"    
+    DE: "Deutsch",
+    NL: "Nederlands"   
   },
   de: {
     SELECT_LABEL: "Sprache",
-    HELPER_TEXT: "Wähle Deine bevorzugte Sprache",
-    EN: "Englisch",
-    FR: "Französisch",
+    EN: "English",
+    FR: "Français",
     DE: "Deutsch",
-    NL: "Niederländisch"    
+    NL: "Nederlands"    
   },
   nl: {
     SELECT_LABEL: "Taal",
-    HELPER_TEXT: "Kies uw voorkeurstaal",
-    EN: "Engles",
-    FR: "Frans",
-    DE: "Duitse",
+    EN: "English",
+    FR: "Français",
+    DE: "Deutsch",
     NL: "Nederlands"    
   }
 }
