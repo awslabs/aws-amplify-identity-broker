@@ -1,3 +1,12 @@
+/*
+* Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+*
+* Licensed under the MIT License. See the LICENSE accompanying this file
+* for the specific language governing permissions and limitations under
+* the License.
+*/
+
 import React from 'react';
 import { I18n } from '@aws-amplify/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -5,7 +14,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-//import FormHelperText from '@material-ui/core/FormHelperText';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
@@ -65,10 +73,6 @@ export default function LanguageSelect(props) {
                   <MenuItem key={index} value={item.code}>{I18n.get(item.code.toLocaleUpperCase())}</MenuItem>
                 )}
               </Select>
-              
-              {/*
-              <FormHelperText>{I18n.get("HELPER_TEXT")}</FormHelperText>
-              */}
             </FormControl>
           </Paper>
         </Grid>
