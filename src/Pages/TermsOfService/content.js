@@ -1,8 +1,18 @@
+/*
+* Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+*
+* Licensed under the MIT License. See the LICENSE accompanying this file
+* for the specific language governing permissions and limitations under
+* the License.
+*/
+
 import React from 'react';
 import { I18n } from '@aws-amplify/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 import LanguageSelect from '../../Components/LanguageSelect/languageSelect';
 
@@ -33,16 +43,55 @@ const useStyles = makeStyles((theme) => ({
   },
   contentFooter: {
     boxShadow: '0 0 black'
+  },
+  gridRowActions: {
+    paddingBottom: theme.spacing(1),
+    textAlign: 'center',
+    boxShadow: '0 0 black'
+  },
+  btnYes: {
+    margin: theme.spacing(1),
+    color: 'green',
+    border: '2px solid green',
+    fontWeight: 'bold',
+    minWidth: 120,
+    '&:hover': {
+      color: 'white',
+      backgroundColor: 'green'
+    }
+  },
+  btnNo: {
+    margin: theme.spacing(1),
+    color: 'red',
+    border: '2px solid red',
+    fontWeight: 'bold',
+    minWidth: 120,
+    '&:hover': {
+      color: 'white',
+      backgroundColor: 'red'
+    }
   }
 }));
 
-export default function TosContent() {
+export default function TosContent(props) {
   const classes = useStyles();
   const [lang, setLang] = React.useState('en');
-  const version = '1.0.0';
+
+  const queryStringParams = new URLSearchParams(window.location.search);
+  const signToS = queryStringParams.get('signToS');
+
+  const showActions = props.signedIn && signToS && (signToS.toLocaleLowerCase() === 'true');
 
   const handleChange = (event) => {
     setLang(event);
+  }
+
+  const acceptToS = () => {
+    console.log('Accept')
+  }
+
+  const declineToS = () => {
+    console.log('Decline');
   }
 
   return (
@@ -70,9 +119,19 @@ export default function TosContent() {
           <Paper className={classes.title}>
             ...
           </Paper>
+          {showActions && (
+            <Paper className={classes.gridRowActions}>
+              <Button className={classes.btnYes} variant="outlined" color="primary" onClick={acceptToS}>
+                {I18n.get("BTN_ACCEPT_LABEL")}
+              </Button>
+              <Button className={classes.btnNo} variant="outlined" color="primary" onClick={declineToS}>
+                {I18n.get("BTN_DECLINE_LABEL")}
+              </Button>
+            </Paper> 
+          )}
           <Paper className={classes.contentFooter}>
             <hr />
-            Version: {version}
+            {I18n.get("VERSION_LABEL")}: {I18n.get("VERSION_ID")}
           </Paper>
         </Grid>
         <Grid item xs={1} />
