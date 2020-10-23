@@ -8,47 +8,127 @@
 */
 
 import React, { Component } from 'react';
+import { I18n } from '@aws-amplify/core';
 import { Auth } from 'aws-amplify';
 import TosContent from './content';
+
+import LanguageSelect from '../../Components/LanguageSelect/languageSelect';
+import AppSnackbar from '../../Components/Snackbar/snackbar';
+
+import { strings } from './languageStrings';
+I18n.putVocabularies(strings);
 
 class TermsOfService extends Component { 
   constructor(props) {
     super(props);
     this.state = { 
       lang: 'en',
-      signedIn: false,
-      tos_signed: false,
-      tos_version: ''    
+      tos_resign: false,
+      snackBarOps: {
+        type: 'info',
+        open: false,
+        vertical: 'top',
+        horizontal: 'center',
+        autoHide: 0,
+        message: ''
+      }
     }
   }
 
   componentDidMount() {
+    this.checkTos();
+  }
+
+  getTosInfo = () => new Promise((resolve, reject) => {
     Auth.currentAuthenticatedUser()
-    .then(CognitoUser => {
-      this.setState({signedIn: true});
-      Auth.userAttributes(CognitoUser)
-      .then(CognitoUserAttribute => {
-        CognitoUserAttribute.forEach(item => {
-          switch (item.Name) {
-            case 'custom:tos_signed':
-              this.setState({ tos_signed: item.Value === 'true' });
-              break;
-            case 'custom:tos_version': 
-              this.setState({ tos_version: item.Value });
-              break;
-            default:
-              break;         
-          }
-        })
-        console.log(this.state)
-      })
+      .then(CognitoUser => {
+        Auth.userAttributes(CognitoUser)
+          .then(CognitoUserAttribute => {
+            let tosSigned = false;
+            let tosSignedVersion = '';
+            CognitoUserAttribute.forEach(item => {
+              switch (item.Name) {
+                case 'locale':
+                  this.setState({ lang: item.Value });
+                  break;
+                case 'custom:tos_signed':
+                  tosSigned = (item.Value === 'true');
+                  break;
+                case 'custom:tos_version':
+                  tosSignedVersion = item.Value;
+                  break;
+                default:
+                  break;
+              };
+            })
+
+            const tosSignedVersionInt = parseInt(tosSignedVersion) || 0;
+            const tosVersion = I18n.get("VERSION_ID") || 1;
+            if (tosVersion > tosSignedVersionInt) this.setState({ tos_resign: true });
+
+            if (!tosSigned) this.setState({ tos_resign: true });
+            resolve()
+          }).catch(err => { console.log(err); reject(err)});
+      }).catch(err => { if (err !== 'not authenticated') console.log(err); reject(err) });  
+  })
+
+  checkTos = async (reload = true) => {
+    if (reload) await this.getTosInfo();
+
+    if (this.state.tos_resign === true) {
+      this.setState({
+        snackBarOps: {
+          type: 'error',
+          open: true,
+          vertical: 'top',
+          horizontal: 'center',
+          autoHide: null,
+          message: I18n.get("MSG_TOS_RESIGN")
+        }
+      })   
+    }
+  }
+
+  handleLangChange = (event) => {
+    this.setState({lang: event});
+    this.checkTos(false);
+  }
+
+  handleTosAccepted = () => {
+    this.setState({ 
+      tos_resign: false,
+      snackBarOps: {
+        type: 'success',
+        open: true,
+        vertical: 'top',
+        horizontal: 'center',
+        autoHide: 3000,
+        message: I18n.get('MSG_TOS_ACCEPTED')
+      }
+    })    
+  }
+
+  handleTosDecline = () => {
+    this.setState({
+      snackBarOps: {
+        type: 'error',
+        open: true,
+        vertical: 'top',
+        horizontal: 'center',
+        autoHide: null,
+        message: I18n.get('MSG_TOS_DECLINE')
+      }
     })
   }
 
-  render() {
+  render() {    
     return (
       <div>
-        <TosContent signedIn={this.state.signedIn} />
+        <LanguageSelect lang={this.state.lang} newLang={this.handleLangChange} />
+        
+        <TosContent reSign={this.state.tos_resign} tosAccept={this.handleTosAccepted} tosDecline={this.handleTosDecline} />
+
+        <AppSnackbar ops={this.state.snackBarOps}/>
       </div>
     );
   }

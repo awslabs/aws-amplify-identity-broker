@@ -14,8 +14,6 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-import LanguageSelect from '../../Components/LanguageSelect/languageSelect';
-
 import { strings } from './languageStrings';
 I18n.putVocabularies(strings);
 
@@ -75,29 +73,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TosContent(props) {
   const classes = useStyles();
-  const [lang, setLang] = React.useState('en');
 
-  const queryStringParams = new URLSearchParams(window.location.search);
-  const signToS = queryStringParams.get('signToS');
-
-  const showActions = props.signedIn && signToS && (signToS.toLocaleLowerCase() === 'true');
-
-  const handleChange = (event) => {
-    setLang(event);
-  }
+  const showActions = props.reSign || false;
 
   const acceptToS = () => {
-    console.log('Accept')
+    props.tosAccept();
   }
 
   const declineToS = () => {
-    console.log('Decline');
+    props.tosDecline();
   }
 
   return (
     <div className={classes.root}>
-      <LanguageSelect lang={lang} newLang={handleChange}/>
-
       <Grid container justify="center" spacing={2}>
         <Grid item xs={1} />
         <Grid item xs={10}>
@@ -131,7 +119,7 @@ export default function TosContent(props) {
           )}
           <Paper className={classes.contentFooter}>
             <hr />
-            {I18n.get("VERSION_LABEL")}: {I18n.get("VERSION_ID")}
+            {I18n.get("VERSION_LABEL")}
           </Paper>
         </Grid>
         <Grid item xs={1} />
