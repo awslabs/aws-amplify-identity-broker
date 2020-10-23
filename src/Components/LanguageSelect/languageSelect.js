@@ -36,6 +36,11 @@ export default function LanguageSelect(props) {
   const classes = useStyles();
   const [lang, setLang] = React.useState(props.lang);
 
+  if (props.lang !== lang) {
+    setLang(props.lang);
+    I18n.setLanguage(props.lang);
+  }
+
   const handleChange = (event) => {
     let _lang = 'en';
 
