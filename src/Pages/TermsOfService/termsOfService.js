@@ -23,7 +23,8 @@ class TermsOfService extends Component {
     super(props);
     this.state = { 
       lang: 'en',
-      tos_resign: false,
+      tosResign: false,
+      tosCurrentVersion: 0,
       snackBarOps: {
         type: 'info',
         open: false,
@@ -36,6 +37,7 @@ class TermsOfService extends Component {
   }
 
   componentDidMount() {
+    this.setState({tosCurrentVersion: I18n.get("VERSION_ID") || 0})
     this.checkTos();
   }
 
@@ -43,10 +45,10 @@ class TermsOfService extends Component {
     Auth.currentAuthenticatedUser()
       .then(CognitoUser => {
         Auth.userAttributes(CognitoUser)
-          .then(CognitoUserAttribute => {
+          .then(CognitoUserAttributes => {
             let tosSigned = false;
             let tosSignedVersion = '';
-            CognitoUserAttribute.forEach(item => {
+            CognitoUserAttributes.forEach(item => {
               switch (item.Name) {
                 case 'locale':
                   this.setState({ lang: item.Value });
@@ -63,19 +65,19 @@ class TermsOfService extends Component {
             })
 
             const tosSignedVersionInt = parseInt(tosSignedVersion) || 0;
-            const tosVersion = I18n.get("VERSION_ID") || 1;
-            if (tosVersion > tosSignedVersionInt) this.setState({ tos_resign: true });
+            
+            if (this.state.tosCurrentVersion > tosSignedVersionInt) this.setState({ tosResign: true });
 
-            if (!tosSigned) this.setState({ tos_resign: true });
+            if (!tosSigned) this.setState({ tosResign: true });
             resolve()
-          }).catch(err => { console.log(err); reject(err)});
+          }).catch(err => {console.log(err); reject(err)});
       }).catch(err => { if (err !== 'not authenticated') console.log(err); reject(err) });  
   })
 
   checkTos = async (reload = true) => {
     if (reload) await this.getTosInfo();
 
-    if (this.state.tos_resign === true) {
+    if (this.state.tosResign === true) {
       this.setState({
         snackBarOps: {
           type: 'error',
@@ -89,23 +91,53 @@ class TermsOfService extends Component {
     }
   }
 
+  updateTosAttribute = () => new Promise((resolve, reject) => {
+    let attributes = {'custom:tos_version' : this.state.tosCurrentVersion.toString(), 'custom:tos_signed' : 'true'};
+
+    Auth.currentAuthenticatedUser()
+      .then(CognitoUser => {
+        Auth.updateUserAttributes(CognitoUser, attributes)
+          .then(() => {resolve()})
+          .catch(err => {console.log(err); reject(err)})
+      })
+      .catch(err => {console.log(err); reject(err)})
+  })
+
   handleLangChange = (event) => {
     this.setState({lang: event});
     this.checkTos(false);
   }
 
-  handleTosAccepted = () => {
-    this.setState({ 
-      tos_resign: false,
-      snackBarOps: {
-        type: 'success',
-        open: true,
-        vertical: 'top',
-        horizontal: 'center',
-        autoHide: 3000,
-        message: I18n.get('MSG_TOS_ACCEPTED')
-      }
-    })    
+  handleTosAccepted = async () => {
+    this.updateTosAttribute()
+      .then(async () => {
+        await this.checkTos();
+        this.setState({
+          tosResign: false,
+          snackBarOps: {
+            type: 'success',
+            open: true,
+            vertical: 'top',
+            horizontal: 'center',
+            autoHide: 5000,
+            message: I18n.get('MSG_TOS_ACCEPTED')
+          }
+        }) 
+      })
+      .catch((err) => {
+        console.log(err);
+
+        this.setState({
+          snackBarOps: {
+            type: 'error',
+            open: true,
+            vertical: 'top',
+            horizontal: 'center',
+            autoHide: 5000,
+            message: I18n.get('MSG_TOS_ACCEPTED_ERROR')
+          }
+        }) 
+      })
   }
 
   handleTosDecline = () => {
@@ -126,7 +158,7 @@ class TermsOfService extends Component {
       <div>
         <LanguageSelect lang={this.state.lang} newLang={this.handleLangChange} />
         
-        <TosContent reSign={this.state.tos_resign} tosAccept={this.handleTosAccepted} tosDecline={this.handleTosDecline} />
+        <TosContent reSign={this.state.tosResign} tosAccept={this.handleTosAccepted} tosDecline={this.handleTosDecline} />
 
         <AppSnackbar ops={this.state.snackBarOps}/>
       </div>

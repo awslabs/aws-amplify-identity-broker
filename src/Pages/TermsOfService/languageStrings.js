@@ -10,7 +10,8 @@ export const strings = {
     BTN_DECLINE_LABEL: "Decline",
     MSG_TOS_RESIGN: "Please read and accept the Terms of Service",
     MSG_TOS_DECLINE: "The Terms of Service must be accepted.",
-    MSG_TOS_ACCEPTED: "The Terms of Service successfully accepted."
+    MSG_TOS_ACCEPTED: "The Terms of Service successfully accepted.",
+    MSG_TOS_ACCEPTED_ERROR: "An error occurred, please try again"
   },
   fr: {
     VERSION_ID: 2,
@@ -23,7 +24,8 @@ export const strings = {
     BTN_DECLINE_LABEL: "Déclin",
     MSG_TOS_RESIGN: "Veuillez lire et accepter les conditions d'utilisation",
     MSG_TOS_DECLINE: "Les conditions d'utilisation doivent être acceptées.",
-    MSG_TOS_ACCEPTED: "Les conditions d'utilisation ont été acceptées avec succès."
+    MSG_TOS_ACCEPTED: "Les conditions d'utilisation ont été acceptées avec succès.",
+    MSG_TOS_ACCEPTED_ERROR: "Une erreur s'est produite, veuillez réessayer"
   },
   de: {
     VERSION_ID: 2,
@@ -36,7 +38,8 @@ export const strings = {
     BTN_DECLINE_LABEL: "Ablehnen",
     MSG_TOS_RESIGN: "Bitte lese und akzeptiere die Nutzungsbedingungen",
     MSG_TOS_DECLINE: "Die Nutzungsbedingungen müssen akzeptiert werden.",
-    MSG_TOS_ACCEPTED: "Du hast die Nutzungsbedingungen erfolgreich akzeptiert."
+    MSG_TOS_ACCEPTED: "Du hast die Nutzungsbedingungen erfolgreich akzeptiert.",
+    MSG_TOS_ACCEPTED_ERROR: "Es ist ein Fehler aufgetreten, bitte versuche es erneut"
   },
   nl: {
     VERSION_ID: 2,
@@ -49,6 +52,7 @@ export const strings = {
     BTN_DECLINE_LABEL: "Afwijzen",
     MSG_TOS_RESIGN: "Lees en accepteer de Servicevoorwaarden",
     MSG_TOS_DECLINE: "De gebruiksvoorwaarden moeten worden geaccepteerd.",
-    MSG_TOS_ACCEPTED: "De Servicevoorwaarden zijn geaccepteerd."
+    MSG_TOS_ACCEPTED: "De Servicevoorwaarden zijn geaccepteerd.",
+    MSG_TOS_ACCEPTED_ERROR: "Er is een fout opgetreden, probeer het opnieuw"
   }
 }
