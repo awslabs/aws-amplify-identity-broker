@@ -1,6 +1,6 @@
 export const strings = {
   en: {
-    VERSION_ID: 2,
+    VERSION_ID: 1,
     VERSION_LABEL: "Version: 1.0.0",
     TITLE: "Terms of Service",
     P1: "1. General regulations",
@@ -14,7 +14,7 @@ export const strings = {
     MSG_TOS_ACCEPTED_ERROR: "An error occurred, please try again"
   },
   fr: {
-    VERSION_ID: 2,
+    VERSION_ID: 1,
     VERSION_LABEL: "Version: 1.0.0",
     TITLE: "Conditions d'utilisation",
     P1: "1. Règlement général",
@@ -28,7 +28,7 @@ export const strings = {
     MSG_TOS_ACCEPTED_ERROR: "Une erreur s'est produite, veuillez réessayer"
   },
   de: {
-    VERSION_ID: 2,
+    VERSION_ID: 1,
     VERSION_LABEL: "Version: 1.0.0",
     TITLE: "Nutzungsbedingungen",
     P1: "1. Allgemeine Vorschriften",
@@ -42,7 +42,7 @@ export const strings = {
     MSG_TOS_ACCEPTED_ERROR: "Es ist ein Fehler aufgetreten, bitte versuche es erneut"
   },
   nl: {
-    VERSION_ID: 2,
+    VERSION_ID: 1,
     VERSION_LABEL: "Versie: 1.0.0",
     TITLE: "Servicevoorwaarden",
     P1: "1. Algemene voorschriften",
