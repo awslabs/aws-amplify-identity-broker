@@ -97,31 +97,29 @@ const ResponsiveLanding = ({ dynamicClassName, authState, langState }) => {
 					</div>
 				}
 
-				<div className={`form-login-${dynamicClassName}`}>
-					<AmplifyAuthenticator usernameAlias="email" style={{ textAlign: 'center' }}>
+				<AmplifyAuthenticator className={`form-login-${dynamicClassName}`} usernameAlias="email" style={{ textAlign: 'center' }}>
 
-						<AmplifyForgotPassword
-							usernameAlias="email"
-							slot="forgot-password"
-							formFields={[
-								{
-									type: "email",
-									label: I18n.get("EMAIL_ADDRESS"),
-									required: true,
-								},
-							]}>
-						</AmplifyForgotPassword>
+					<AmplifyForgotPassword
+						usernameAlias="email"
+						slot="forgot-password"
+						formFields={[
+							{
+								type: "email",
+								label: I18n.get("EMAIL_ADDRESS"),
+								required: true,
+							},
+						]}>
+					</AmplifyForgotPassword>
 
-						<Login />
-						<Register langState={langState} />
+					<Login />
+					<Register langState={langState} />
 
-						<div>
-							{I18n.get("WAIT_REDIRECTION")}
-							<AmplifySignOut />
-						</div>
+					<div>
+						{I18n.get("WAIT_REDIRECTION")}
+						<AmplifySignOut />
+					</div>
 
-					</AmplifyAuthenticator>
-				</div>
+				</AmplifyAuthenticator>
 			</div>
 		</div>
 	);

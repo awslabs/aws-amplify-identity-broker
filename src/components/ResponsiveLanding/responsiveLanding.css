@@ -24,13 +24,12 @@
 .form-login-desktop {
 	flex: 50%;
 	justify-content: center;
-	border-left: 1px solid rgba(0, 0, 0, 0.35);
 }
 
 .separator-desktop {
 	position: absolute;
-	top: 60%;
-	margin-left: -27px;
+	top: 50%;
+	margin-left: -55px;
 	background-color: #fff;
 	padding-top: 15px;
 	padding-bottom: 15px;
