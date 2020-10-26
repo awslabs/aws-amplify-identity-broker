@@ -8,27 +8,27 @@
 */
 
 import React from 'react';
-import { AmplifySignIn } from '@aws-amplify/ui-react';
+import { AmplifyConfirmSignUp } from '@aws-amplify/ui-react';
+import { I18n } from '@aws-amplify/core';
 
-const Login = () => {
+const RegisterConfirm = ({ pageLang }) => {
 
 	return (
-		<AmplifySignIn className="login"
+		<AmplifyConfirmSignUp className="register-confirm"
 			usernameAlias="email"
-			slot="sign-in"
+			slot="confirm-sign-up"
 			formFields={[
 				{
 					type: "email",
-					required: true,
-				},
-				{
-					type: "password",
-					required: true,
+					required: false,
+					label: I18n.get("VERIFY_EMAIL"),
+					inputProps: {
+						type: 'hidden',
+					}
 				}
 			]}>
-			<div slot="federated-buttons"></div>
-		</AmplifySignIn>
+		</AmplifyConfirmSignUp>
 	);
 }
 
-export default Login;
+export default RegisterConfirm;

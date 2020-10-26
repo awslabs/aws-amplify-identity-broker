@@ -16,6 +16,7 @@ import { Auth } from 'aws-amplify';
 
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import RegisterConfirm from '../RegisterConfirm/RegisterConfirm';
 
 var Config = require("Config");
 const ResponsiveLanding = ({ dynamicClassName, authState, pageLang }) => {
@@ -113,6 +114,7 @@ const ResponsiveLanding = ({ dynamicClassName, authState, pageLang }) => {
 
 					<Login />
 					<Register pageLang={pageLang} />
+					<RegisterConfirm />
 
 					<div>
 						{I18n.get("WAIT_REDIRECTION")}
