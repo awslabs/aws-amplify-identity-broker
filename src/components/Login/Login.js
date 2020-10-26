@@ -9,7 +9,6 @@
 
 import React from 'react';
 import { AmplifySignIn } from '@aws-amplify/ui-react';
-import { I18n } from '@aws-amplify/core';
 
 const Login = () => {
 
@@ -21,12 +20,10 @@ const Login = () => {
 				formFields={[
 					{
 						type: "email",
-						label: I18n.get("EMAIL_ADDRESS"),
 						required: true,
 					},
 					{
 						type: "password",
-						label: I18n.get("PASSWORD"),
 						required: true,
 					}
 				]}>

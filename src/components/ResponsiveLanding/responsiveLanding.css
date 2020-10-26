@@ -21,9 +21,29 @@
 	margin-top: 10%;
 }
 
+.social-login-tablet, .social-login-mobile {
+	margin-bottom: 20px;
+}
+
 .form-login-desktop {
 	flex: 50%;
 	justify-content: center;
+}
+
+.form-login-tablet, .form-login-mobile {
+	justify-content: center;
+	display: block;
+	margin-top: 20px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.form-login-mobile {
+	width: 338px;
+}
+
+.form-login-tablet {
+	width: 458px;
 }
 
 .separator-desktop {

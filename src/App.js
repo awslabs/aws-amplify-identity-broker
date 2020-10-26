@@ -10,13 +10,11 @@
 import React from 'react';
 import { Auth } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
-import { strings } from './strings';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
-
-import Header from './components/Header/Header';
 import ResponsiveLanding from './components/ResponsiveLanding/ResponsiveLanding';
 import LanguageSelect from './components/LanguageSelect/LanguageSelect';
+import { strings } from './strings';
 
 // responsive utilities
 import DesktopBreakpoint from './responsive_utilities/desktop_breakpoint';
@@ -32,7 +30,13 @@ export default class App extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 
+		let lang = "en";
+		if (navigator.language === "fr" || navigator.language.startsWith("fr-")) {
+			lang = { lang: "fr" };
+		}
+
 		this.state = {
+			lang: lang,
 			authState: AuthState.SignIn
 		};
 
@@ -108,7 +112,7 @@ export default class App extends React.Component {
 				setTokenCookie("id_token", idToken);
 				setTokenCookie("access_token", accessToken);
 				// Set the refresh token cookie. Refresh token cannot be parsed for an an expiry so use the access token to get an expiry.
-				// Although the refresh token has a different (longer) expiry than the access token, this is for the purpose of fast SSO, 
+				// Although the refresh token has a different (longer) expiry than the access token, this is for the purpose of fast SSO,
 				// so the refresh token cookie will get set again when the id or access token cookie expires
 				setRefreshTokenCookie(refreshToken, accessToken);
 			}
@@ -144,17 +148,6 @@ export default class App extends React.Component {
 	/**
 	 * change page language
 	 */
-	toggleLang = () => {
-		if (this.state.lang === "en") {
-			I18n.setLanguage("fr");
-			this.setState({ lang: "fr" });
-
-		} else {
-			I18n.setLanguage("en");
-			this.setState({ lang: "en" });
-		}
-	}
-
 	handleLanguage = (languageValue) => {
 		this.setState({ lang: languageValue });
 	}

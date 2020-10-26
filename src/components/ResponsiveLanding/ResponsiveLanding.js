@@ -14,14 +14,15 @@ import { AuthState } from '@aws-amplify/ui-components';
 import { I18n } from '@aws-amplify/core';
 import { Auth } from 'aws-amplify';
 
-
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
 var Config = require("Config");
-const ResponsiveLanding = ({ dynamicClassName, authState, langState }) => {
+const ResponsiveLanding = ({ dynamicClassName, authState, pageLang }) => {
 
-	console.log("langState: " + langState);
+	console.log("dynamicClassName: " + dynamicClassName);
+	console.log("authState: " + authState);
+	console.log("pageLang: " + pageLang);
 	const socialIdPs = ["LoginWithAmazon", "Facebook", "Google"];
 
 	// You can make this selection of IdP different between clients
@@ -105,14 +106,13 @@ const ResponsiveLanding = ({ dynamicClassName, authState, langState }) => {
 						formFields={[
 							{
 								type: "email",
-								label: I18n.get("EMAIL_ADDRESS"),
 								required: true,
 							},
 						]}>
 					</AmplifyForgotPassword>
 
 					<Login />
-					<Register langState={langState} />
+					<Register pageLang={pageLang} />
 
 					<div>
 						{I18n.get("WAIT_REDIRECTION")}
