@@ -21,7 +21,7 @@ const Login = () => {
 				formFields={[
 					{
 						type: "email",
-						label: I18n.get("EMAILL_ADDRESS"),
+						label: I18n.get("EMAIL_ADDRESS"),
 						required: true,
 					},
 					{

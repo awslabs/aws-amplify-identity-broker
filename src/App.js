@@ -16,6 +16,7 @@ import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from 
 
 import Header from './components/Header/Header';
 import ResponsiveLanding from './components/ResponsiveLanding/ResponsiveLanding';
+import LanguageSelect from './components/LanguageSelect/LanguageSelect';
 
 // responsive utilities
 import DesktopBreakpoint from './responsive_utilities/desktop_breakpoint';
@@ -154,12 +155,16 @@ export default class App extends React.Component {
 		}
 	}
 
+	handleLanguage = (languageValue) => {
+		this.setState({ lang: languageValue });
+	}
+
 	render() {
 		console.log(Auth);
 
 		return (
 			<div>
-				<Header pageLang={this.state.lang} onChange={this.toggleLang} />
+				<LanguageSelect lang={this.state.lang} newLang={this.handleLanguage} />
 
 				<DesktopBreakpoint>
 					<ResponsiveLanding dynamicClassName="desktop" authState={this.state.authState} pageLang={this.state.lang} />

@@ -14,6 +14,7 @@ import { AuthState } from '@aws-amplify/ui-components';
 import { I18n } from '@aws-amplify/core';
 import { Auth } from 'aws-amplify';
 
+
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
@@ -59,6 +60,7 @@ const ResponsiveLanding = ({ dynamicClassName, authState, langState }) => {
 
 	return (
 		<div className="wrapper">
+
 			<div className={`container-${dynamicClassName}`}>
 				<div className={`social-login-${dynamicClassName}`}>
 					{
@@ -104,7 +106,7 @@ const ResponsiveLanding = ({ dynamicClassName, authState, langState }) => {
 							formFields={[
 								{
 									type: "email",
-									label: I18n.get("EMAILL_ADDRESS"),
+									label: I18n.get("EMAIL_ADDRESS"),
 									required: true,
 								},
 							]}>
