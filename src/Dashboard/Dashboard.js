@@ -13,6 +13,8 @@ import { API } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 import { AmplifyButton } from '@aws-amplify/ui-react';
 
+import { checkBeforeRouting } from '../Components/BeforeRouting/beforeRouting'
+
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
@@ -22,7 +24,9 @@ class Dashboard extends React.Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        await checkBeforeRouting();
+
         const apiName = 'amplifyIdentityBrokerApi';
         const path    = '/clients';
 

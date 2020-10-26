@@ -16,7 +16,6 @@ class ErrorPage extends React.Component {
   }
 
   render() {
-    console.log("Errro");
     return (
       <h1>Oops! Page not found!</h1>
     )

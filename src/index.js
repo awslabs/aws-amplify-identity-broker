@@ -46,11 +46,9 @@ if (clientId) {
 }
 Amplify.configure(amplifyConfig);
 
-// Direct Loading
-const Dashboard = import('./Dashboard/Dashboard');
-const ErrorPage = React.lazy(() => import('./Pages/ErrorPage/errorPage'));
-
 // Lazy Loading
+const Dashboard = React.lazy(() => import('./Dashboard/Dashboard'));
+const ErrorPage = React.lazy(() => import('./Pages/ErrorPage/errorPage'));
 const TermsOfService = React.lazy(() => import('./Pages/TermsOfService/termsOfService'));
 const Settings = React.lazy(() => import('./Settings/Settings'));
 const Logout = React.lazy(() => import('./Logout/Logout'));
@@ -77,11 +75,11 @@ ReactDOM.render(
     <BrowserRouter>
       <Suspense fallback={<Loader />}>
         <Switch>
-          <Route path="/settings" render={() => <Settings />} />
-          <Route path="/logout" render={() => <Logout />} />
-          <Route path="/tos" render={() => <TermsOfService />} />
-          <Route path="/dashboard" element={Dashboard} />
           <Route exact path="/" component={App} />
+          <Route path="/dashboard" render={() => <Dashboard />} />
+          <Route path="/settings" render={() => <Settings />} />
+          <Route path="/tos" render={() => <TermsOfService />} />
+          <Route path="/logout" render={() => <Logout />} />
           <Route render={() => <ErrorPage />}/>
         </Switch>
       </Suspense>
