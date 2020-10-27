@@ -12,9 +12,7 @@ import './dashboard.css';
 import { API } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 import { AmplifyButton } from '@aws-amplify/ui-react';
-
-// common components
-import Header from '../../components/Header/Header';
+import LanguageSelect from '../../components/LanguageSelect/LanguageSelect';
 
 class Dashboard extends React.Component {
 	constructor(props) {
@@ -69,7 +67,7 @@ class Dashboard extends React.Component {
 
 		return (
 			<div>
-				<Header />
+				<LanguageSelect lang={this.state.lang} newLang={this.handleLanguage} />
 
 				<div className='wrapper'>
 					<div className='clients-wrapper'>
