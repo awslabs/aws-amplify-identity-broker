@@ -22,9 +22,10 @@ import RegisterConfirm from '../RegisterConfirm/RegisterConfirm';
 var Config = require("Config");
 const ResponsiveLanding = ({ dynamicClassName, authState, pageLang }) => {
 
-	console.log("dynamicClassName: " + dynamicClassName);
-	console.log("authState: " + authState);
-	console.log("pageLang: " + pageLang);
+	console.debug("dynamicClassName: " + dynamicClassName);
+	console.debug("authState: " + authState);
+	console.debug("pageLang: " + pageLang);
+
 	const socialIdPs = ["LoginWithAmazon", "Facebook", "Google"];
 
 	// You can make this selection of IdP different between clients

@@ -76,7 +76,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-amplify-identity-broker-devdiali-144102-deployment",
-          "S3Key": "amplify-builds/amplifyIdentityBrokerVerifyClient-473041657835657a6e38-build.zip"
+          "S3Key": "amplify-builds/amplifyIdentityBrokerVerifyClient-76743163656d2f666446-build.zip"
         }
       }
     },
