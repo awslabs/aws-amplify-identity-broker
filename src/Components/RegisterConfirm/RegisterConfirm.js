@@ -11,7 +11,7 @@ import React from 'react';
 import { AmplifyConfirmSignUp } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 
-const RegisterConfirm = ({ pageLang }) => {
+const RegisterConfirm = () => {
 
 	return (
 		<AmplifyConfirmSignUp className="register-confirm"
