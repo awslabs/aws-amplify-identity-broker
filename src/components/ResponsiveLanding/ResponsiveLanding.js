@@ -9,13 +9,14 @@
 
 import React from 'react';
 import './responsiveLanding.css';
-import { AmplifyAuthenticator, AmplifySignOut, AmplifyForgotPassword } from '@aws-amplify/ui-react';
+import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import { AuthState } from '@aws-amplify/ui-components';
 import { I18n } from '@aws-amplify/core';
 import { Auth } from 'aws-amplify';
 
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import RegisterConfirm from '../RegisterConfirm/RegisterConfirm';
 
 var Config = require("Config");
@@ -101,17 +102,7 @@ const ResponsiveLanding = ({ dynamicClassName, authState, pageLang }) => {
 
 				<AmplifyAuthenticator className={`form-login-${dynamicClassName}`} usernameAlias="email" style={{ textAlign: 'center' }}>
 
-					<AmplifyForgotPassword
-						usernameAlias="email"
-						slot="forgot-password"
-						formFields={[
-							{
-								type: "email",
-								required: true,
-							},
-						]}>
-					</AmplifyForgotPassword>
-
+					<ForgotPassword />
 					<Login />
 					<Register pageLang={pageLang} />
 					<RegisterConfirm />
