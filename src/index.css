@@ -1,14 +1,14 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- 
+
 Licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License.
 A copy of the License is located at
- 
+
     http://www.apache.org/licenses/LICENSE-2.0
- 
-or in the "license" file accompanying this file. This file is distributed 
-on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either 
-express or implied. See the License for the specific language governing 
+
+or in the "license" file accompanying this file. This file is distributed
+on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+express or implied. See the License for the specific language governing
 permissions and limitations under the License. */
 
 body {
@@ -30,15 +30,17 @@ code {
 :root{
 
   --amplify-primary-color: #008000;
-  --amplify-primary-tint: #0000FF; 
+  --amplify-primary-tint: #0000FF;
   --amplify-primary-shade: #008000;
 }
 
-.container {
-  width: 580px;
-  margin-right: auto;
-  margin-left: auto;
-  padding-top: 20px;
+.wrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 input,
@@ -83,22 +85,7 @@ input:hover,
   color: white;
 }
 
-.hr-sect {
-	display: flex;
-	flex-basis: 100%;
-	align-items: center;
-	color: rgba(0, 0, 0, 0.35);
-  margin: 8px 30px;
-  padding-bottom: 15px;
-  
-}
-.hr-sect::before,
-.hr-sect::after {
-	content: "";
-	flex-grow: 1;
-	background: rgba(0, 0, 0, 0.35);
-	height: 1px;
-	font-size: 0px;
-	line-height: 0px;
-  margin: 0px 8px;
+.ver-sect {
+  border-left: 1px solid rgba(0, 0, 0, 0.35);
+  height: 350px;
 }

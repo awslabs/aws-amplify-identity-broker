@@ -1,161 +1,161 @@
 {
-    "paths": [
-        {
-            "name": "/oauth2/authorize",
-            "lambdaFunction": "amplifyIdentityBrokerAuthorize",
-            "privacy": {
-                "open": true
-            }
-        },
-        {
-            "name": "/oauth2/token",
-            "lambdaFunction": "amplifyIdentityBrokerToken",
-            "privacy": {
-                "open": true
-            }
-        },
-        {
-            "name": "/storage",
-            "lambdaFunction": "amplifyIdentityBrokerStorage",
-            "privacy": {
-                "open": true
-            }
-        },
-        {
-            "name": "/oauth2/userInfo",
-            "lambdaFunction": "amplifyIdentityBrokerUserInfo",
-            "privacy": {
-                "open": true
-            }
-        },
-        {
-            "name": "/.well-known/jwks.json",
-            "lambdaFunction": "amplifyIdentityBrokerExposeJWKS",
-            "privacy": {
-                "open": true
-            }
-        },
-        {
-            "name": "/verifyClient",
-            "lambdaFunction": "amplifyIdentityBrokerVerifyClient",
-            "privacy": {
-                "open": true
-            }
-        },
-        {
-            "name": "/accountConfirmation",
-            "lambdaFunction": "amplifyIdentityBrokerAccountConfirmation",
-            "privacy": {
-                "open": true
-            }
-        },
-        {
-            "name": "/clients",
-            "lambdaFunction": "amplifyIdentityBrokerAccountClients",
-            "privacy": {
-                "open": true
-            }
-        }
-    ],
-    "resourceName": "amplifyIdentityBrokerApi",
-    "apiName": "amplifyIdentityBrokerApi",
-    "functionArns": [
-        {
-            "lambdaFunction": "amplifyIdentityBrokerAuthorize"
-        },
-        {
-            "lambdaFunction": "amplifyIdentityBrokerToken"
-        },
-        {
-            "lambdaFunction": "amplifyIdentityBrokerStorage"
-        },
-        {
-            "lambdaFunction": "amplifyIdentityBrokerUserInfo"
-        },
-        {
-            "lambdaFunction": "amplifyIdentityBrokerExposeJWKS"
-        },
-        {
-            "lambdaFunction": "amplifyIdentityBrokerVerifyClient"
-        },
-        {
-            "lambdaFunction": "amplifyIdentityBrokerAccountConfirmation"
-        },
-        {
-            "lambdaFunction": "amplifyIdentityBrokerClients"
-        }
-    ],
-    "privacy": {
-        "auth": 0,
-        "unauth": 0,
-        "authRoleName": "amplify-amplify-identity-broker-ilyasdev-132315-authRole",
-        "unAuthRoleName": "amplify-amplify-identity-broker-ilyasdev-132315-unauthRole"
+  "paths": [
+    {
+      "name": "/oauth2/authorize",
+      "lambdaFunction": "amplifyIdentityBrokerAuthorize",
+      "privacy": {
+        "open": true
+      }
     },
-    "dependsOn": [
-        {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerAuthorize",
-            "attributes": [
-                "Name",
-                "Arn"
-            ]
-        },
-        {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerToken",
-            "attributes": [
-                "Name",
-                "Arn"
-            ]
-        },
-        {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerStorage",
-            "attributes": [
-                "Name",
-                "Arn"
-            ]
-        },
-        {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerUserInfo",
-            "attributes": [
-                "Name",
-                "Arn"
-            ]
-        },
-        {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerExposeJWKS",
-            "attributes": [
-                "Name",
-                "Arn"
-            ]
-        },
-        {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerVerifyClient",
-            "attributes": [
-                "Name",
-                "Arn"
-            ]
-        },
-        {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerAccountConfirmation",
-            "attributes": [
-                "Name",
-                "Arn"
-            ]
-        },
-        {
-            "category": "function",
-            "resourceName": "amplifyIdentityBrokerClients",
-            "attributes": [
-                "Name",
-                "Arn"
-            ]
-        }
-    ],
-    "uuid": "556bb7c0"
+    {
+      "name": "/oauth2/token",
+      "lambdaFunction": "amplifyIdentityBrokerToken",
+      "privacy": {
+        "open": true
+      }
+    },
+    {
+      "name": "/storage",
+      "lambdaFunction": "amplifyIdentityBrokerStorage",
+      "privacy": {
+        "open": true
+      }
+    },
+    {
+      "name": "/oauth2/userInfo",
+      "lambdaFunction": "amplifyIdentityBrokerUserInfo",
+      "privacy": {
+        "open": true
+      }
+    },
+    {
+      "name": "/.well-known/jwks.json",
+      "lambdaFunction": "amplifyIdentityBrokerExposeJWKS",
+      "privacy": {
+        "open": true
+      }
+    },
+    {
+      "name": "/verifyClient",
+      "lambdaFunction": "amplifyIdentityBrokerVerifyClient",
+      "privacy": {
+        "open": true
+      }
+    },
+    {
+      "name": "/accountConfirmation",
+      "lambdaFunction": "amplifyIdentityBrokerAccountConfirmation",
+      "privacy": {
+        "open": true
+      }
+    },
+    {
+      "name": "/clients",
+      "lambdaFunction": "amplifyIdentityBrokerAccountClients",
+      "privacy": {
+        "open": true
+      }
+    }
+  ],
+  "resourceName": "amplifyIdentityBrokerApi",
+  "apiName": "amplifyIdentityBrokerApi",
+  "functionArns": [
+    {
+      "lambdaFunction": "amplifyIdentityBrokerAuthorize"
+    },
+    {
+      "lambdaFunction": "amplifyIdentityBrokerToken"
+    },
+    {
+      "lambdaFunction": "amplifyIdentityBrokerStorage"
+    },
+    {
+      "lambdaFunction": "amplifyIdentityBrokerUserInfo"
+    },
+    {
+      "lambdaFunction": "amplifyIdentityBrokerExposeJWKS"
+    },
+    {
+      "lambdaFunction": "amplifyIdentityBrokerVerifyClient"
+    },
+    {
+      "lambdaFunction": "amplifyIdentityBrokerAccountConfirmation"
+    },
+    {
+      "lambdaFunction": "amplifyIdentityBrokerClients"
+    }
+  ],
+  "privacy": {
+    "auth": 0,
+    "unauth": 0,
+    "authRoleName": "amplify-amplify-identity-broker-ilyasdev-132315-authRole",
+    "unAuthRoleName": "amplify-amplify-identity-broker-ilyasdev-132315-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "amplifyIdentityBrokerAuthorize",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    },
+    {
+      "category": "function",
+      "resourceName": "amplifyIdentityBrokerToken",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    },
+    {
+      "category": "function",
+      "resourceName": "amplifyIdentityBrokerStorage",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    },
+    {
+      "category": "function",
+      "resourceName": "amplifyIdentityBrokerUserInfo",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    },
+    {
+      "category": "function",
+      "resourceName": "amplifyIdentityBrokerExposeJWKS",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    },
+    {
+      "category": "function",
+      "resourceName": "amplifyIdentityBrokerVerifyClient",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    },
+    {
+      "category": "function",
+      "resourceName": "amplifyIdentityBrokerAccountConfirmation",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    },
+    {
+      "category": "function",
+      "resourceName": "amplifyIdentityBrokerClients",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ],
+  "uuid": "556bb7c0"
 }
