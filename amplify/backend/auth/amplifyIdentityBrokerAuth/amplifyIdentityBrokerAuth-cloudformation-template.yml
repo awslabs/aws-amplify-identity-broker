@@ -202,6 +202,15 @@ Resources:
           Required: false
           Mutable: true
 
+        - Name: tos_signed
+          Required: false
+          Mutable: true
+          AttributeDataType: Boolean
+
+        - Name: tos_version
+          Required: false
+          Mutable: true
+          AttributeDataType: String
 
       LambdaConfig:
         CustomMessage: !Ref functionamplifyIdentityBrokerCustomMessageArn
