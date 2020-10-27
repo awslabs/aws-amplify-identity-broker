@@ -9,7 +9,7 @@
 
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Amplify } from 'aws-amplify';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -72,18 +72,18 @@ function Loader() {
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <Router>
       <Suspense fallback={<Loader />}>
         <Switch>
           <Route exact path="/" component={App} />
-          <Route path="/dashboard" render={() => <Dashboard />} />
-          <Route path="/settings" render={() => <Settings />} />
-          <Route path="/tos" render={() => <TermsOfService />} />
-          <Route path="/logout" render={() => <Logout />} />
+          <Route exact path="/dashboard" render={() => <Dashboard />} />
+          <Route exact path="/settings" render={() => <Settings />} />
+          <Route exact path="/tos" render={() => <TermsOfService />} />
+          <Route exact path="/logout" render={() => <Logout />} />
           <Route render={() => <ErrorPage />}/>
         </Switch>
       </Suspense>
-    </BrowserRouter>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

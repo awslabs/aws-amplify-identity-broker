@@ -23,6 +23,7 @@ class TermsOfService extends Component {
     super(props);
     this.state = { 
       lang: 'en',
+      redirect: null,
       tosResign: false,
       tosCurrentVersion: 0,
       snackBarOps: {
@@ -32,12 +33,15 @@ class TermsOfService extends Component {
         horizontal: 'center',
         autoHide: 0,
         message: ''
-      }
+      },
     }
   }
 
   componentDidMount() {
-    this.setState({tosCurrentVersion: I18n.get("VERSION_ID") || 0})
+    let redirect = new URLSearchParams(window.location.search).get("redirect") || null;
+    if (redirect) this.setState({ redirect: redirect });
+
+    this.setState({ tosCurrentVersion: I18n.get("VERSION_ID") || 0 })
     this.checkTos();
   }
 
@@ -50,9 +54,6 @@ class TermsOfService extends Component {
             let tosSignedVersion = '';
             CognitoUserAttributes.forEach(item => {
               switch (item.Name) {
-                case 'locale':
-                  this.setState({ lang: item.Value });
-                  break;
                 case 'custom:tos_signed':
                   tosSigned = (item.Value === 'true');
                   break;
@@ -69,6 +70,7 @@ class TermsOfService extends Component {
             if (this.state.tosCurrentVersion > tosSignedVersionInt) this.setState({ tosResign: true });
 
             if (!tosSigned) this.setState({ tosResign: true });
+
             resolve()
           }).catch(err => {console.log(err); reject(err)});
       }).catch(err => { if (err !== 'not authenticated') console.log(err); reject(err) });  
@@ -123,6 +125,8 @@ class TermsOfService extends Component {
             message: I18n.get('MSG_TOS_ACCEPTED')
           }
         }) 
+
+        if (this.state.redirect) window.location.href = this.state.redirect;
       })
       .catch((err) => {
         console.log(err);
@@ -153,7 +157,7 @@ class TermsOfService extends Component {
     })
   }
 
-  render() {    
+  render() {   
     return (
       <div>
         <LanguageSelect lang={this.state.lang} newLang={this.handleLangChange} />

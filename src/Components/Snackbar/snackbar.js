@@ -1,3 +1,19 @@
+/*
+  * Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
+  * SPDX-License-Identifier: MIT
+  *
+  * Licensed under the MIT License. See the LICENSE accompanying this file
+  * for the specific language governing permissions and limitations under
+  * the License.
+  */
+
+/*
+ * Snackbars inform users of a process that an app has performed or will perform.
+ * They appear temporarily, towards the bottom of the screen. 
+ * They shouldn’t interrupt the user experience, and they don’t require user input to disappear.
+ * https://https://material-ui.com/components/snackbars/
+ */
+
 import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
@@ -8,6 +24,14 @@ import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined'
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 
 import { makeStyles } from '@material-ui/core/styles';
+
+/*
+ * Snackbar Colors
+ */
+const errorColor = '#E15141';
+const warnColor = '#FC9900';
+const infoColor = '#2297F4';
+const successColor = '#4CAF50';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,14 +53,14 @@ export default function AppSnackbar(props) {
 
   function setColor() {
     switch (props.ops.type) {
-      case 'error':
-        return '#E15141';
+      case 'error': 
+        return errorColor;
       case 'warn':
-        return '#FC9900';
+        return warnColor;
       case 'info':
-        return '#2297F4';
+        return infoColor;
       case 'success':
-        return '#4CAF50';     
+        return successColor;     
       default:
         return 'primary'
     }
