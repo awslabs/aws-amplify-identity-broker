@@ -13,8 +13,6 @@ import './settings.css';
 import { AmplifyButton } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 
-import { checkBeforeRouting } from '../Components/BeforeRouting/beforeRouting'
-
 class Settings extends React.Component {
     constructor(props) {
         super(props);
@@ -23,12 +21,7 @@ class Settings extends React.Component {
         }
     }
 
-    async componentDidMount() {
-      /*
-       * check that the user already signed in and accepted the current "Terms of Service"
-       */
-      await checkBeforeRouting('settings');
-
+    componentDidMount() {
       Auth.currentAuthenticatedUser().then(CognitoUser => {
           Auth.userAttributes(CognitoUser).then(CognitoUserAttribute => {
               this.setState({ userAttributes: CognitoUserAttribute })

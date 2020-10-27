@@ -7,16 +7,24 @@
   * the License.
   */
 
-import React, { Suspense } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Amplify } from 'aws-amplify';
-import { makeStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import './index.css';
+
+import ProtectedRoute from './Components/ProtecetedRoute/portectedRoute';
 import App from './App';
+import Dashboard from './Dashboard/Dashboard';
+import Settings from './Settings/Settings';
+import TermsOfService from './Pages/TermsOfService/termsOfService';
+import Logout from './Logout/Logout';
+import ErrorPage from './Pages/ErrorPage/errorPage';
+
 import * as serviceWorker from './serviceWorker';
 import awsconfig from './aws-exports';
+
+import './index.css';
+
 var Config = require("Config");
 
 let amplifyConfig = {
@@ -46,43 +54,17 @@ if (clientId) {
 }
 Amplify.configure(amplifyConfig);
 
-// Lazy Loading
-const Dashboard = React.lazy(() => import('./Dashboard/Dashboard'));
-const ErrorPage = React.lazy(() => import('./Pages/ErrorPage/errorPage'));
-const TermsOfService = React.lazy(() => import('./Pages/TermsOfService/termsOfService'));
-const Settings = React.lazy(() => import('./Settings/Settings'));
-const Logout = React.lazy(() => import('./Logout/Logout'));
-
-// Lazy Loading Fallback
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-}));
-
-function Loader() {
-  const classes = useStyles();
-  return (
-    <div className={classes.root}>
-      <CircularProgress />
-    </div>
- );
-}
-
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <Suspense fallback={<Loader />}>
-        <Switch>
-          <Route exact path="/" component={App} />
-          <Route exact path="/dashboard" render={() => <Dashboard />} />
-          <Route exact path="/settings" render={() => <Settings />} />
-          <Route exact path="/tos" render={() => <TermsOfService />} />
-          <Route exact path="/logout" render={() => <Logout />} />
-          <Route render={() => <ErrorPage />}/>
-        </Switch>
-      </Suspense>
+      <Switch>
+        <ProtectedRoute exact path="/dashboard" component={Dashboard} /> 
+        <ProtectedRoute exact path="/settings" component={Settings} />
+        <Route exact path="/tos" component={TermsOfService} />
+        <Route exact path="/logout" component={Logout} />
+        <Route exact path="/" component={App} />
+        <Route component={ErrorPage}/>
+      </Switch>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
