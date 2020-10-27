@@ -72,8 +72,18 @@ class TermsOfService extends Component {
             if (!tosSigned) this.setState({ tosResign: true });
 
             resolve()
-          }).catch(err => {console.log(err); reject(err)});
-      }).catch(err => { if (err !== 'not authenticated') console.log(err); reject(err) });  
+          })
+        .catch(err => {
+          console.log(err);
+          reject(err)}
+        );
+      })
+      .catch(err => { 
+        if (err !== 'not authenticated')
+          console.log(err);
+
+        reject(err);
+      });  
   })
 
   checkTos = async (reload = true) => {

@@ -25,7 +25,7 @@ class Dashboard extends React.Component {
     }
 
     async componentDidMount() {
-        await checkBeforeRouting();
+        await checkBeforeRouting('dashboard');
 
         const apiName = 'amplifyIdentityBrokerApi';
         const path    = '/clients';

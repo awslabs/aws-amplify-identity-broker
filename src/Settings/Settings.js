@@ -27,7 +27,7 @@ class Settings extends React.Component {
       /*
        * check that the user already signed in and accepted the current "Terms of Service"
        */
-      await checkBeforeRouting();
+      await checkBeforeRouting('settings');
 
       Auth.currentAuthenticatedUser().then(CognitoUser => {
           Auth.userAttributes(CognitoUser).then(CognitoUserAttribute => {

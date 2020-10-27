@@ -18,7 +18,7 @@ import { I18n } from '@aws-amplify/core';
 import { strings } from '../../Pages/TermsOfService/languageStrings';
 I18n.putVocabularies(strings);
 
-export const checkBeforeRouting = () => new Promise((resolve, reject) => {
+export const checkBeforeRouting = (redirectTo) => new Promise((resolve, reject) => {
   Auth.currentAuthenticatedUser() 
     .then(CognitoUser => {
       Auth.userAttributes(CognitoUser)
@@ -54,12 +54,8 @@ export const checkBeforeRouting = () => new Promise((resolve, reject) => {
            * To redirect the user back to '/settings' after sign the ToS we add Query Param 'redirect'
            */
           if ((tosCurrentVersionInt > tosSignedVersionInt) || !tosSigned) {
-            //Route Sign ToS
-            let redirectTo = 'settings';
-            window.location.href = `/tos?redirect=${redirectTo}`;
+            if (redirectTo) window.location.href = `/tos?redirect=${redirectTo}`;
           }
-
-          console.log('resolve');
 
           resolve();
         })
