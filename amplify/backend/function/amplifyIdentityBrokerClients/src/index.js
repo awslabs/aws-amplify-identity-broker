@@ -8,7 +8,7 @@
   */
 
 /* Amplify Params - DO NOT EDIT
-    API_AMPLIFYIDENTITYBROKERAPI_APIID
+	API_AMPLIFYIDENTITYBROKERAPI_APIID
 	API_AMPLIFYIDENTITYBROKERAPI_APINAME
 	ENV
 	REGION
@@ -16,31 +16,31 @@
 	STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME
 Amplify Params - DO NOT EDIT */
 
-const AWS              = require('aws-sdk');
-const docClient        = new AWS.DynamoDB.DocumentClient();
+const AWS = require('aws-sdk');
+const docClient = new AWS.DynamoDB.DocumentClient();
 const clientsTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_NAME;
 
 exports.handler = async (event) => {
-    let data;
-    let params = {
-        TableName: clientsTableName
-    };
+	let data;
+	let params = {
+		TableName: clientsTableName
+	};
 
-    console.debug("params: " + JSON.stringify(params));
+	console.debug("params: " + JSON.stringify(params));
 
-    try {
-        data = await docClient.scan(params).promise();
-    } catch (error) {
-        console.error(error);
-    }
+	try {
+		data = await docClient.scan(params).promise();
+	} catch (error) {
+		console.error(error);
+	}
 
-    if (data.Items) {
-        return {
-            statusCode: 200,
-            body: JSON.stringify(data.Items),
-            headers: {
-                "Access-Control-Allow-Origin": "*"
-            }
-        };
-    }
+	if (data.Items) {
+		return {
+			statusCode: 200,
+			body: JSON.stringify(data.Items),
+			headers: {
+				"Access-Control-Allow-Origin": "*"
+			}
+		};
+	}
 };

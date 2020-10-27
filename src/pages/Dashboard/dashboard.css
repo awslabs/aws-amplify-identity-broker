@@ -1,0 +1,33 @@
+label {
+	margin-bottom: 0.5em;
+	color: #444;
+	font-weight: lighter;
+	margin-left: -10px;
+}
+
+a:hover {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.clients-wrapper {
+	display: flex;
+	flex-direction: column;
+	width: 600px;
+	height: 300px;
+	max-width: 80%;
+	min-width: 100px;
+	min-height: 450px;
+	padding: 20px 40px;
+	border-radius: 2px;
+	border: #cacaca solid 1px;
+}
+
+.logos {
+	height: 100px;
+	width: 100px;
+}
+
+.logout {
+	margin-top: 20px;
+}
