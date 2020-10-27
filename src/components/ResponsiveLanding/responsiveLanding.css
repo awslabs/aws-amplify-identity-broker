@@ -25,9 +25,18 @@
 	margin-bottom: 20px;
 }
 
+.social-login-mobile {
+	margin-top: 280px;
+}
+
+.social-login-tablet {
+	margin-top: 220px;
+}
+
 .form-login-desktop {
 	flex: 50%;
 	justify-content: center;
+	margin-left: 10px;
 }
 
 .form-login-tablet, .form-login-mobile {
