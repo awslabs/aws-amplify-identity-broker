@@ -1,50 +1,43 @@
 /*
- * Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: MIT
- *
- * Licensed under the MIT License. See the LICENSE accompanying this file
- * for the specific language governing permissions and limitations under
- * the License.
- */
+  * Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
+  * SPDX-License-Identifier: MIT
+  *
+  * Licensed under the MIT License. See the LICENSE accompanying this file
+  * for the specific language governing permissions and limitations under
+  * the License.
+  */
 
-import React from "react";
-import { Auth } from "aws-amplify";
-import { I18n } from "@aws-amplify/core";
-import { onAuthUIStateChange, AuthState } from "@aws-amplify/ui-components";
-import {
-	eraseCookie,
-	storeTokens,
-	setTokenCookie,
-	setRefreshTokenCookie,
-} from "./helpers";
-import ResponsiveLanding from "./components/ResponsiveLanding/ResponsiveLanding";
-import LanguageSelect from "./components/LanguageSelect/LanguageSelect";
-import { strings } from "./strings";
+import React from 'react';
+import { Auth } from 'aws-amplify';
+import { I18n } from '@aws-amplify/core';
+import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
+import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
+import ResponsiveLanding from './components/ResponsiveLanding/ResponsiveLanding';
+import LanguageSelect from './components/LanguageSelect/LanguageSelect';
+import { strings } from './strings';
 
 // responsive utilities
-import DesktopBreakpoint from "./responsive_utilities/desktop_breakpoint";
-import TabletBreakpoint from "./responsive_utilities/tablet_breakpoint";
-import PhoneBreakpoint from "./responsive_utilities/phone_breakpoint";
+import DesktopBreakpoint from './responsive_utilities/desktop_breakpoint';
+import TabletBreakpoint from './responsive_utilities/tablet_breakpoint';
+import PhoneBreakpoint from './responsive_utilities/phone_breakpoint';
 
 I18n.putVocabularies(strings);
 
 // See doc for customization here: https://docs.amplify.aws/ui/auth/authenticator/q/framework/react#slots
 
 export default class App extends React.Component {
+
 	constructor(props, context) {
 		super(props, context);
 
 		let lang = "en";
-		if (
-			navigator.language === "fr" ||
-			navigator.language.startsWith("fr-")
-		) {
+		if (navigator.language === "fr" || navigator.language.startsWith("fr-")) {
 			lang = { lang: "fr" };
 		}
 
 		this.state = {
 			lang: lang,
-			authState: AuthState.SignIn,
+			authState: AuthState.SignIn
 		};
 
 		let queryStringParams = new URLSearchParams(window.location.search);
@@ -91,22 +84,18 @@ export default class App extends React.Component {
 			var authorization_code;
 			var clientState;
 			let queryStringParams = new URLSearchParams(window.location.search);
-			let qsRedirectUri = queryStringParams.get("redirect_uri");
-			let qsAuthorizationCode = queryStringParams.get(
-				"authorization_code"
-			);
-			let qsClientState = queryStringParams.get("state");
+			let qsRedirectUri = queryStringParams.get('redirect_uri');
+			let qsAuthorizationCode = queryStringParams.get('authorization_code');
+			let qsClientState = queryStringParams.get('state');
 
-			if (qsRedirectUri) {
-				// For a local sign in the redirect_uri/authorization_code will be in the query string params
+			if (qsRedirectUri) { // For a local sign in the redirect_uri/authorization_code will be in the query string params
 				redirect_uri = qsRedirectUri;
 				authorization_code = qsAuthorizationCode;
 				clientState = qsClientState;
-			} else {
-				// For a federated sign in the redirect_uri/authorization_code will be in the local storage
-				redirect_uri = localStorage.getItem("client-redirect-uri");
-				authorization_code = localStorage.getItem("authorization_code");
-				clientState = localStorage.getItem("client-state");
+			} else { // For a federated sign in the redirect_uri/authorization_code will be in the local storage
+				redirect_uri = localStorage.getItem('client-redirect-uri');
+				authorization_code = localStorage.getItem('authorization_code');
+				clientState = localStorage.getItem('client-state');
 				localStorage.removeItem(`client-redirect-uri`);
 				localStorage.removeItem(`authorization_code`);
 				localStorage.removeItem(`client-state`);
@@ -125,51 +114,29 @@ export default class App extends React.Component {
 				// Although the refresh token has a different (longer) expiry than the access token, this is for the purpose of fast SSO,
 				// so the refresh token cookie will get set again when the id or access token cookie expires
 				setRefreshTokenCookie(refreshToken, accessToken);
-			} else {
-				console.error(
-					"Inconsistent application state: Tokens missing from current session"
-				);
+			}
+			else {
+				console.error("Inconsistent application state: Tokens missing from current session");
 				return;
 			}
 
-			if (authorization_code && redirect_uri) {
-				// PKCE Flow
-				const response = await storeTokens(
-					authorization_code,
-					idToken,
-					accessToken,
-					refreshToken
-				); // Store tokens in dynamoDB
+			if (authorization_code && redirect_uri) { // PKCE Flow
+				const response = await storeTokens(authorization_code, idToken, accessToken, refreshToken) // Store tokens in dynamoDB
 				if (response.status === 200) {
-					window.location.replace(
-						redirect_uri +
-						"/?code=" +
-						authorization_code +
-						(clientState !== undefined
-							? "&state=" + clientState
-							: "")
-					);
-				} else {
-					console.error(
-						"Could not store tokens. Server response: " +
-						response.data
-					);
+					window.location.replace(redirect_uri + '/?code=' + authorization_code + ((clientState !== undefined) ? "&state=" + clientState : ""));
 				}
-			} else if (redirect_uri) {
-				// Implicit Flow
-				window.location.replace(
-					redirect_uri +
-					"/?id_token=" +
-					idToken +
-					(clientState !== undefined
-						? "&state=" + clientState
-						: "")
-				);
-			} else {
-				// Sign in directly to broker (not from redirect from client as part of oauth2 flow)
-				window.location.href = "/dashboard";
+				else {
+					console.error("Could not store tokens. Server response: " + response.data);
+				}
 			}
-		} else if (authState === AuthState.SignedOut) {
+			else if (redirect_uri) { // Implicit Flow
+				window.location.replace(redirect_uri + '/?id_token=' + idToken + ((clientState !== undefined) ? "&state=" + clientState : ""));
+			}
+			else { // Sign in directly to broker (not from redirect from client as part of oauth2 flow)
+				window.location.href = '/dashboard';
+			}
+		}
+		else if (authState === AuthState.SignedOut) {
 			eraseCookie("id_token");
 			eraseCookie("access_token");
 			eraseCookie("refresh_token");
@@ -189,33 +156,18 @@ export default class App extends React.Component {
 
 		return (
 			<div>
-				<LanguageSelect
-					lang={this.state.lang}
-					newLang={this.handleLanguage}
-				/>
+				<LanguageSelect lang={this.state.lang} newLang={this.handleLanguage} />
 
 				<DesktopBreakpoint>
-					<ResponsiveLanding
-						dynamicClassName="desktop"
-						authState={this.state.authState}
-						pageLang={this.state.lang}
-					/>
+					<ResponsiveLanding dynamicClassName="desktop" authState={this.state.authState} pageLang={this.state.lang} />
 				</DesktopBreakpoint>
 
 				<TabletBreakpoint>
-					<ResponsiveLanding
-						dynamicClassName="tablet"
-						authState={this.state.authState}
-						pageLang={this.state.lang}
-					/>
+					<ResponsiveLanding dynamicClassName="tablet" authState={this.state.authState} pageLang={this.state.lang} />
 				</TabletBreakpoint>
 
 				<PhoneBreakpoint>
-					<ResponsiveLanding
-						dynamicClassName="mobile"
-						authState={this.state.authState}
-						pageLang={this.state.lang}
-					/>
+					<ResponsiveLanding dynamicClassName="mobile" authState={this.state.authState} pageLang={this.state.lang} />
 				</PhoneBreakpoint>
 			</div>
 		);

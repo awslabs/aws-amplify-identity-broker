@@ -31,6 +31,16 @@ amplify/backend/storage         <-- DynamoDB tables definition
 amplify/backend/hosting         <-- specific Cloudfront and S3 setup
 amplify/backend/kms             <-- contain the cryptographic material setup (for token encryption in DynamoDB)
 ```
+### Coding conventions
+
+We use [EditorConfig](https://editorconfig.org/) to apply coding conventions across the project.
+If you use VSCode, make sure to install this [plugin](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) for the editor to pick it up. If you use another IDE, I'm certain you'll find a corresponding plugin for it with a bit of googling.
+
+After installing the plugin, every new file you create will follow the conventions setup [over here](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/.editorconfig): **tabs with size 4, no trailing whitespace and with a final newline**. These conventions have been chosen to match the Amplify framework coding conventions.
+You don't have to do anything else, but in case you want to make sure your document is properly formatted, you can call the "Format Document" in the commands palette
+
+![VSCode format document](Images/FormatDocument.png "VSCode format document")
+
 
 ### Lambda functions
 

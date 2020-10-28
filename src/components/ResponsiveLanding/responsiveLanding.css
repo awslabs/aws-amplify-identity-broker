@@ -25,9 +25,18 @@
 	margin-bottom: 20px;
 }
 
+.social-login-mobile {
+	margin-top: 280px;
+}
+
+.social-login-tablet {
+	margin-top: 220px;
+}
+
 .form-login-desktop {
 	flex: 50%;
 	justify-content: center;
+	margin-left: 9px;
 }
 
 .form-login-tablet, .form-login-mobile {
@@ -49,7 +58,7 @@
 .separator-desktop {
 	position: absolute;
 	top: 50%;
-	margin-left: -55px;
+	margin-left: -60px;
 	background-color: #fff;
 	padding-top: 15px;
 	padding-bottom: 15px;
