@@ -31,10 +31,7 @@ let amplifyConfig = {
 	...awsconfig,
 	Auth: {
 		// OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
-		authenticationFlowType:
-			Config.authenticationFlowType !== undefined
-				? Config.authenticationFlowType
-				: "USER_SRP_AUTH",
+		authenticationFlowType: Config.authenticationFlowType !== undefined ? Config.authenticationFlowType : "USER_SRP_AUTH",
 	},
 };
 
