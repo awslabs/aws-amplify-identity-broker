@@ -143,27 +143,27 @@ export default class App extends React.Component {
 				if (response.status === 200) {
 					window.location.replace(
 						redirect_uri +
-							"/?code=" +
-							authorization_code +
-							(clientState !== undefined
-								? "&state=" + clientState
-								: "")
+						"/?code=" +
+						authorization_code +
+						(clientState !== undefined
+							? "&state=" + clientState
+							: "")
 					);
 				} else {
 					console.error(
 						"Could not store tokens. Server response: " +
-							response.data
+						response.data
 					);
 				}
 			} else if (redirect_uri) {
 				// Implicit Flow
 				window.location.replace(
 					redirect_uri +
-						"/?id_token=" +
-						idToken +
-						(clientState !== undefined
-							? "&state=" + clientState
-							: "")
+					"/?id_token=" +
+					idToken +
+					(clientState !== undefined
+						? "&state=" + clientState
+						: "")
 				);
 			} else {
 				// Sign in directly to broker (not from redirect from client as part of oauth2 flow)

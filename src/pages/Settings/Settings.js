@@ -12,7 +12,6 @@ import { Auth } from 'aws-amplify';
 import './settings.css';
 import { AmplifyButton } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
-import LanguageSelect from '../../components/LanguageSelect/LanguageSelect';
 
 class Settings extends React.Component {
 	constructor(props) {
@@ -51,8 +50,6 @@ class Settings extends React.Component {
 
 		return (
 			<div>
-				<LanguageSelect lang={this.state.lang} newLang={this.handleLanguage} />
-
 				<div className='wrapper'>
 					<div className='form-wrapper'>
 						<h2>{I18n.get('USER_ATTRIBUTES')}:</h2>

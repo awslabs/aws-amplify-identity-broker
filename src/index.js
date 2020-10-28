@@ -9,16 +9,22 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Amplify } from "aws-amplify";
-import "./index.css";
-import App from "./App";
-import Logout from "./pages/Logout/Logout";
-import Settings from "./pages/Settings/Settings";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import TermsOfService from "./Pages/TermsOfService/termsOfService";
+
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import App from './App';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Settings from './pages/Settings/Settings';
+import TermsOfService from './pages/TermsOfService/TermsOfService';
+import Logout from './pages/Logout/Logout';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
+
 import * as serviceWorker from "./serviceWorker";
 import awsconfig from "./aws-exports";
+
+import "./index.css";
+
 var Config = require("Config");
 
 let amplifyConfig = {
@@ -51,17 +57,27 @@ if (clientId) {
 }
 Amplify.configure(amplifyConfig);
 
+/*
+ * App Routing
+ * With "ProtectedRoute" we redirect user to Login if they are not signed in and _
+ * we redirect user to Terms of Service (ToS) if a user not accepted the current ToS
+ * 
+ * If we route to a none existing page we will redirect to the "ErrorPage"
+ */
 ReactDOM.render(
 	<React.StrictMode>
-		<BrowserRouter>
-			<Route exact path="/settings" component={Settings} />
-			<Route exact path="/dashboard" component={Dashboard} />
-			<Route exact path="/logout" component={Logout} />
-			<Route exact path="/tos" component={TermsOfService} />
-			<Route exact path="/" component={App} />
-		</BrowserRouter>
+		<Router>
+			<Switch>
+				<ProtectedRoute exact path="/dashboard" component={Dashboard} />
+				<ProtectedRoute exact path="/settings" component={Settings} />
+				<Route exact path="/tos" component={TermsOfService} />
+				<Route exact path="/logout" component={Logout} />
+				<Route exact path="/" component={App} />
+				<Route component={ErrorPage} />
+			</Switch>
+		</Router>
 	</React.StrictMode>,
-	document.getElementById("root")
+	document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
