@@ -1,5 +1,5 @@
 {
-	"name": "AmplifyIdentityBroker",
+	"name": "aws-amplify-identity-broker",
 	"version": "1.0.0",
 	"license": "MIT License",
 	"private": true,
