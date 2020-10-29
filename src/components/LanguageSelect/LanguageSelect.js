@@ -17,8 +17,46 @@ import Select from '@material-ui/core/Select';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
-import languages from './languages.json';
-import { strings } from './languageStrings';
+/*
+ * Language-Types
+ * for each Language Type you need also the Loaclization
+ */
+const languageTypes = [
+	{
+		"code": "en",
+		"lang": "English"
+	},
+	{
+		"code": "fr",
+		"lang": "French"
+	},
+	{
+		"code": "de",
+		"lang": "Deutsch"
+	},
+	{
+		"code": "nl",
+		"lang": "Nederlands"
+	}
+]
+
+/*
+ * Localizations
+ */
+const strings = {
+	en: {
+		LANGUAGESELECT_SELECT_LABEL: "Language"
+	},
+	fr: {
+		LANGUAGESELECT_SELECT_LABEL: "Langue"
+	},
+	de: {
+		LANGUAGESELECT_SELECT_LABEL: "Sprache"
+	},
+	nl: {
+		LANGUAGESELECT_SELECT_LABEL: "Taal"
+	}
+}
 I18n.putVocabularies(strings);
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 	paper: {
 		padding: theme.spacing(1),
 		textAlign: 'right',
-		boxShadow: '0 0 black'
+		boxShadow: '0 0'
 	}
 }));
 
@@ -44,6 +82,9 @@ export default function LanguageSelect(props) {
 	const classes = useStyles();
 	const [lang, setLang] = React.useState(props.lang);
 
+	/*
+	 * Set new language after changed by user
+	 */
 	const handleChange = (event) => {
 		let _lang = 'en';
 
@@ -62,15 +103,15 @@ export default function LanguageSelect(props) {
 				<Grid item xs={12}>
 					<Paper className={classes.paper}>
 						<FormControl className={classes.formControl}>
-							<InputLabel className={classes.inputLabel} id="languageSelectInputLabel">{I18n.get("SELECT_LABEL")}</InputLabel>
+							<InputLabel className={classes.inputLabel} id="languageSelectInputLabel">{I18n.get("LANGUAGESELECT_SELECT_LABEL")}</InputLabel>
 							<Select
 								labelId="languageSelectLabel"
 								id="languageSelect"
 								value={lang}
 								onChange={handleChange}
 							>
-								{languages.types.map((item, index) =>
-									<MenuItem key={index} value={item.code}>{I18n.get(item.code.toLocaleUpperCase())}</MenuItem>
+								{languageTypes.map((item, index) =>
+									<MenuItem key={index} value={item.code}>{item.lang}</MenuItem>
 								)}
 							</Select>
 						</FormControl>
