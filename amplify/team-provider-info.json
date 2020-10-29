@@ -198,5 +198,41 @@
         "amplifyIdentityBrokerCreateAuthChallenge": {}
       }
     }
+  },
+  "nbaedev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplify-identity-broker-nbaedev-110912-authRole",
+      "UnauthRoleArn": "arn:aws:iam::031218960653:role/amplify-amplify-identity-broker-nbaedev-110912-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::031218960653:role/amplify-amplify-identity-broker-nbaedev-110912-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-amplify-identity-broker-nbaedev-110912-deployment",
+      "UnauthRoleName": "amplify-amplify-identity-broker-nbaedev-110912-unauthRole",
+      "StackName": "amplify-amplify-identity-broker-nbaedev-110912",
+      "StackId": "arn:aws:cloudformation:eu-central-1:031218960653:stack/amplify-amplify-identity-broker-nbaedev-110912/a1025e70-1905-11eb-b92e-023cc2de05b4",
+      "AmplifyAppId": "d1c3ohyt604pt7"
+    },
+    "categories": {
+      "auth": {
+        "amplifyIdentityBrokerAuth": {
+          "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"123456\",\"client_secret\":\"123456\"},{\"ProviderName\":\"Google\",\"client_id\":\"123456\",\"client_secret\":\"123456\"},{\"ProviderName\":\"LoginWithAmazon\",\"client_id\":\"123456\",\"client_secret\":\"123456\"}]"
+        }
+      },
+      "function": {
+        "amplifyIdentityBrokerPostDeployment": {},
+        "amplifyIdentityBrokerCustomMessage": {},
+        "amplifyIdentityBrokerAuthorize": {},
+        "amplifyIdentityBrokerToken": {},
+        "amplifyIdentityBrokerStorage": {},
+        "amplifyIdentityBrokerMigration": {},
+        "amplifyIdentityBrokerUserInfo": {},
+        "amplifyIdentityBrokerExposeJWKS": {},
+        "amplifyIdentityBrokerVerifyClient": {},
+        "amplifyIdentityBrokerAccountConfirmation": {},
+        "amplifyIdentityBrokerClients": {},
+        "amplifyIdentityBrokerDefineAuthChallenge": {},
+        "amplifyIdentityBrokerVerifyAuthChallenge": {},
+        "amplifyIdentityBrokerCreateAuthChallenge": {}
+      }
+    }
   }
 }

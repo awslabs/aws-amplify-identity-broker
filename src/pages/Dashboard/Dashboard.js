@@ -12,7 +12,6 @@ import './dashboard.css';
 import { API } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 import { AmplifyButton } from '@aws-amplify/ui-react';
-import LanguageSelect from '../../components/LanguageSelect/LanguageSelect';
 
 class Dashboard extends React.Component {
 	constructor(props) {
@@ -54,7 +53,7 @@ class Dashboard extends React.Component {
 
 		var registeredClientsList = this.state.registeredClients.map(Attribute =>
 			(Attribute.Name !== "identities") &&
-			<div className="grid-container">
+			<div className="grid-container" key={Attribute.client_id}>
 				<div className="grid-item">
 					<a href={Attribute.logback_uri}>
 						<img className="logos" src={"/logos/" + Attribute.client_logo} alt={Attribute.client_name + " " + I18n.get('LOGO')}></img>
@@ -67,8 +66,6 @@ class Dashboard extends React.Component {
 
 		return (
 			<div>
-				<LanguageSelect lang={this.state.lang} newLang={this.handleLanguage} />
-
 				<div className='wrapper'>
 					<div className='clients-wrapper'>
 						<h2>{I18n.get('YOUR_APPLICATIONS')}:</h2>

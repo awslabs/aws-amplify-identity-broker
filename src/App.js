@@ -42,19 +42,19 @@ export default class App extends React.Component {
 
 		let queryStringParams = new URLSearchParams(window.location.search);
 		// If the token swap failed in Authorize lambda then we logout before continuing PKCE
-		let forceAuth = queryStringParams.get('forceAuth');
+		let forceAuth = queryStringParams.get("forceAuth");
 		if (forceAuth) {
 			// If we are here someone may be trying to steal a token, we destroy them all
 			eraseCookie("id_token");
 			eraseCookie("access_token");
 			eraseCookie("refresh_token");
-			localStorage.removeItem('client-id');
+			localStorage.removeItem("client-id");
 			Auth.signOut();
 		}
 
-		onAuthUIStateChange(newAuthState => {
-			this.handleAuthUIStateChange(newAuthState)
-		})
+		onAuthUIStateChange((newAuthState) => {
+			this.handleAuthUIStateChange(newAuthState);
+		});
 
 		this.handleIdPLogin = this.handleIdPLogin.bind(this);
 	}
@@ -62,9 +62,9 @@ export default class App extends React.Component {
 	handleIdPLogin(identity_provider) {
 		// Store redirect_uri/authorization_code in local storage to be used to later
 		let queryStringParams = new URLSearchParams(window.location.search);
-		let redirect_uri = queryStringParams.get('redirect_uri');
-		let authorization_code = queryStringParams.get('authorization_code');
-		let clientState = queryStringParams.get('state');
+		let redirect_uri = queryStringParams.get("redirect_uri");
+		let authorization_code = queryStringParams.get("authorization_code");
+		let clientState = queryStringParams.get("state");
 
 		if (redirect_uri) {
 			localStorage.setItem(`client-redirect-uri`, redirect_uri);
@@ -77,7 +77,6 @@ export default class App extends React.Component {
 		}
 		Auth.federatedSignIn({ provider: identity_provider });
 	}
-
 
 	async handleAuthUIStateChange(authState) {
 		if (authState === AuthState.SignedIn) {
@@ -150,7 +149,7 @@ export default class App extends React.Component {
 	 */
 	handleLanguage = (languageValue) => {
 		this.setState({ lang: languageValue });
-	}
+	};
 
 	render() {
 		console.log(Auth);

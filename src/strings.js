@@ -1,14 +1,14 @@
 /*
-  * Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
-  * SPDX-License-Identifier: MIT
-  *
-  * Licensed under the MIT License. See the LICENSE accompanying this file
-  * for the specific language governing permissions and limitations under
-  * the License.
-  */
+ * Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
+ *
+ * Licensed under the MIT License. See the LICENSE accompanying this file
+ * for the specific language governing permissions and limitations under
+ * the License.
+ */
 
 // Impossible to find import for now
-import { Translations } from "@aws-amplify/ui-components"
+import { Translations } from "@aws-amplify/ui-components";
 
 // See official Amplify UI labels: https://github.com/aws-amplify/amplify-js/blob/master/packages/amplify-ui-components/src/common/Translations.ts
 export const strings = {
