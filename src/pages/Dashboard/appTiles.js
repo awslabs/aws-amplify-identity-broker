@@ -74,12 +74,12 @@ const useStyles = makeStyles((theme) => ({
  * if yes -> App-Logo Image
  * if not -> use Default Image
  */
-function getImage(clientId) {
-	let imgSrc = `/logos/${clientId}.png`
+function getImage(imgSrc) {
 	var http = new XMLHttpRequest();
 
 	http.open('GET', imgSrc, false);
 	http.send();
+
 	if (http.responseText.toLocaleLowerCase().startsWith('<!doctype html>')) imgSrc = '/logos/default.png'
 
 	return imgSrc;
@@ -109,7 +109,7 @@ export default function AppTiles(props) {
 				</GridListTile>
 				{props.appClients.map((tile) => (
 					<GridListTile key={tile.client_id} >
-						<img src={getImage(tile.client_id)} alt={tile.client_name + " " + I18n.get('DASHBOARD_LOGO')} />
+						<img src={getImage(tile.client_logo)} alt={tile.client_name + " " + I18n.get('DASHBOARD_LOGO')} />
 						<GridListTileBar
 							title={tile.client_name}
 							subtitle={tile.client_id}
