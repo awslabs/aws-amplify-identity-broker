@@ -23,7 +23,8 @@ const clientsTableName = process.env.STORAGE_AMPLIFYIDENTITYBROKERCLIENTSTABLE_N
 exports.handler = async (event) => {
 	let data;
 	let params = {
-		TableName: clientsTableName
+		TableName: clientsTableName,
+		AttributesToGet: ["logback_uri", "client_id", "client_name", "client_logo"]
 	};
 
 	console.debug("params: " + JSON.stringify(params));

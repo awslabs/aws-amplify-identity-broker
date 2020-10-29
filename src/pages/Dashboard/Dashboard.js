@@ -63,7 +63,6 @@ class Dashboard extends React.Component {
 	}
 
 	render() {
-
 		return (
 			<div>
 				<LanguageSelect lang={this.state.lang} newLang={this.handleLangChange} />
