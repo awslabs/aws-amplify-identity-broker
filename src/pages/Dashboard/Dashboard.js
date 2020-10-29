@@ -8,10 +8,13 @@
 */
 
 import React from 'react';
-import './dashboard.css';
+import { withRouter } from 'react-router-dom';
 import { API } from 'aws-amplify';
-import { I18n } from '@aws-amplify/core';
 import { AmplifyButton } from '@aws-amplify/ui-react';
+
+import { I18n } from '@aws-amplify/core';
+
+import './dashboard.css';
 
 class Dashboard extends React.Component {
 	constructor(props) {
@@ -82,4 +85,4 @@ class Dashboard extends React.Component {
 	}
 }
 
-export default Dashboard;
+export default withRouter(Dashboard);
