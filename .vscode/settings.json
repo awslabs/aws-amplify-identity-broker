@@ -7,4 +7,9 @@
   "editor.formatOnPaste": true,
   "editor.minimap.enabled": false,
   "editor.formatOnSave": true,
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.renderWhitespace": "all",
+    "editor.acceptSuggestionOnEnter": "off"
+  }
 }
