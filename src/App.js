@@ -8,6 +8,7 @@
   */
 
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
@@ -25,7 +26,7 @@ I18n.putVocabularies(strings);
 
 // See doc for customization here: https://docs.amplify.aws/ui/auth/authenticator/q/framework/react#slots
 
-export default class App extends React.Component {
+class App extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -133,7 +134,7 @@ export default class App extends React.Component {
 				window.location.replace(redirect_uri + '/?id_token=' + idToken + ((clientState !== undefined) ? "&state=" + clientState : ""));
 			}
 			else { // Sign in directly to broker (not from redirect from client as part of oauth2 flow)
-				window.location.href = '/dashboard';
+				this.props.history.push('/dashboard');
 			}
 		}
 		else if (authState === AuthState.SignedOut) {
@@ -173,3 +174,5 @@ export default class App extends React.Component {
 		);
 	}
 }
+
+export default withRouter(App);

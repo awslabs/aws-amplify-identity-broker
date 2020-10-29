@@ -8,21 +8,34 @@
 */
 
 import React from 'react';
-import './dashboard.css';
+import { withRouter } from 'react-router-dom';
 import { API } from 'aws-amplify';
-import { I18n } from '@aws-amplify/core';
-import { AmplifyButton } from '@aws-amplify/ui-react';
+
+import LanguageSelect from '../../components/LanguageSelect/LanguageSelect';
+import AppTiles from './appTiles';
+import Logout from '../../components/Logout/Logout';
+
+import './dashboard.css';
 
 class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			lang: 'en',
 			registeredClients: [],
-			isLoaded: []
+			isLoaded: false
 		}
 	}
 
 	componentDidMount() {
+		this.getClients();
+	}
+
+	/*
+	 * API call to get the Apps (Clients) for Single Sign On (SSO)
+	 * Each App will shown with Logo, Name and a Link to LogbackUri
+	 */
+	getClients() {
 		const apiName = 'amplifyIdentityBrokerApi';
 		const path = '/clients';
 
@@ -34,52 +47,34 @@ class Dashboard extends React.Component {
 					registeredClients: response
 				});
 			})
-			.catch(error => {
+			.catch(err => {
 				this.setState({
 					isLoaded: true,
-					error
+					err
 				});
 			});
 	}
 
-	Logout = () => {
-		this.props.history.push('/logout');
+	/*
+	 * Language Change
+	 */
+	handleLangChange = (event) => {
+		this.setState({ lang: event });
 	}
 
 	render() {
-		if (this.state.registeredClients.length === 0) {
-			return null
-		}
-
-		var registeredClientsList = this.state.registeredClients.map(Attribute =>
-			(Attribute.Name !== "identities") &&
-			<div className="grid-container" key={Attribute.client_id}>
-				<div className="grid-item">
-					<a href={Attribute.logback_uri}>
-						<img className="logos" src={"/logos/" + Attribute.client_id + ".png"} alt={Attribute.client_name + " " + I18n.get('LOGO')}></img>
-						<br></br>
-						<label>{I18n.get('LOGIN_TO')} {Attribute.client_name}</label>
-					</a>
-				</div>
-			</div>
-		);
 
 		return (
 			<div>
-				<div className='wrapper'>
-					<div className='clients-wrapper'>
-						<h2>{I18n.get('YOUR_APPLICATIONS')}:</h2>
-						<div style={{ display: "grid", gridTemplateColumns: "auto auto auto auto" }}>
-							{registeredClientsList}
-						</div>
-						<div className='submit'>
-							<AmplifyButton className='logout' onClick={this.Logout}>{I18n.get('Logout')}</AmplifyButton>
-						</div>
-					</div>
-				</div>
+				<LanguageSelect lang={this.state.lang} newLang={this.handleLangChange} />
+
+				<AppTiles appClients={this.state.registeredClients} />
+				<br />
+				<br />
+				<Logout />
 			</div>
-		);
+		)
 	}
 }
 
-export default Dashboard;
+export default withRouter(Dashboard);
