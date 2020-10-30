@@ -9,19 +9,40 @@
 
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { API } from 'aws-amplify';
 
-import LanguageSelect from '../../components/LanguageSelect/LanguageSelect';
+import { API } from 'aws-amplify';
+import { I18n } from '@aws-amplify/core';
+
 import AppTiles from './appTiles';
-import Logout from '../../components/Logout/Logout';
+import Header from '../../components/AppBar/AppBar';
 
 import './dashboard.css';
+
+/*
+ * Localization
+ */
+const strings = {
+	en: {
+		DASHBOARD_TITLE: "Dashboard",
+	},
+	fr: {
+		DASHBOARD_TITLE: "Tableau de bord",
+	},
+	de: {
+		DASHBOARD_TITLE: "Dashboard",
+	},
+	nl: {
+		DASHBOARD_TITLE: "Dashboard",
+	}
+}
+I18n.putVocabularies(strings);
 
 class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			lang: 'en',
+			auth: false,
 			registeredClients: [],
 			isLoaded: false
 		}
@@ -55,23 +76,19 @@ class Dashboard extends React.Component {
 			});
 	}
 
-	/*
-	 * Language Change
-	 */
-	handleLangChange = (event) => {
-		this.setState({ lang: event });
-	}
-
 	render() {
 
 		return (
 			<div>
-				<LanguageSelect lang={this.state.lang} newLang={this.handleLangChange} />
+				<Header
+					auth={this.state.auth}
+					pageTitle={I18n.get("DASHBOARD_TITLE")}
+					lang={this.state.lang}
+					changedLang={(newLang) => this.setState({ lang: newLang })}
+					routeTo={(newPath) => this.props.history.push(newPath)}
+				/>
 
 				<AppTiles appClients={this.state.registeredClients} />
-				<br />
-				<br />
-				<Logout />
 			</div>
 		)
 	}

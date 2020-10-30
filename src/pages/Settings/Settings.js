@@ -8,16 +8,39 @@
   */
 
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+
 import { Auth } from 'aws-amplify';
-import './settings.css';
-import { AmplifyButton } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
-import LanguageSelect from '../../components/LanguageSelect/LanguageSelect';
+
+import Header from '../../components/AppBar/AppBar';
+
+import './settings.css';
+
+/*
+ * Localization
+ */
+const strings = {
+	en: {
+		SETTINGS_TITLE: "Profile",
+	},
+	fr: {
+		SETTINGS_TITLE: "Profil",
+	},
+	de: {
+		SETTINGS_TITLE: "Profil",
+	},
+	nl: {
+		SETTINGS_TITLE: "Profiel",
+	}
+}
+I18n.putVocabularies(strings);
 
 class Settings extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			lang: 'en',
 			userAttributes: []
 		}
 	}
@@ -30,13 +53,10 @@ class Settings extends React.Component {
 		})
 	}
 
-	Logout = () => {
-		this.props.history.push('/logout');
-	}
-
 	// Currently only displaying current user attributes
 	// To update user attributes use Auth.updateUserAttributes() https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#updateuserattributes
 	render() {
+
 		if (this.state.userAttributes.length === 0) {
 			return null
 		}
@@ -51,7 +71,13 @@ class Settings extends React.Component {
 
 		return (
 			<div>
-				<LanguageSelect lang={this.state.lang} newLang={this.handleLanguage} />
+				<Header
+					auth={this.state.auth}
+					pageTitle={I18n.get("SETTINGS_TITLE")}
+					lang={this.state.lang}
+					changedLang={(newLang) => this.setState({ lang: newLang })}
+					routeTo={(newPath) => this.props.history.push(newPath)}
+				/>
 
 				<div className='wrapper'>
 					<div className='form-wrapper'>
@@ -60,16 +86,14 @@ class Settings extends React.Component {
 							<div style={{ display: "grid", gridTemplateColumns: "repeat(1, 1fr)" }}>
 								{userAttributeFields}
 							</div>
-							<div className='submit'>
-								<AmplifyButton className='logout' onClick={this.Logout}>{I18n.get('Logout')}</AmplifyButton>
-							</div>
 						</form>
 					</div>
 				</div>
+
 			</div>
 		);
 	}
 }
 
-export default Settings;
+export default withRouter(Settings);
 

@@ -9,18 +9,23 @@
 
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setAuth } from './redux/actions';
+
 import { Auth } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
+
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 import ResponsiveLanding from './components/ResponsiveLanding/ResponsiveLanding';
-import LanguageSelect from './components/LanguageSelect/LanguageSelect';
 import { strings } from './strings';
 
 // responsive utilities
 import DesktopBreakpoint from './responsive_utilities/desktop_breakpoint';
 import TabletBreakpoint from './responsive_utilities/tablet_breakpoint';
 import PhoneBreakpoint from './responsive_utilities/phone_breakpoint';
+
+import Header from './components/AppBar/AppBar';
 
 I18n.putVocabularies(strings);
 
@@ -30,7 +35,6 @@ class App extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-
 		let lang = "en";
 		if (navigator.language === "fr" || navigator.language.startsWith("fr-")) {
 			lang = { lang: "fr" };
@@ -38,6 +42,7 @@ class App extends React.Component {
 
 		this.state = {
 			lang: lang,
+			auth: false,
 			authState: AuthState.SignIn
 		};
 
@@ -81,6 +86,8 @@ class App extends React.Component {
 
 	async handleAuthUIStateChange(authState) {
 		if (authState === AuthState.SignedIn) {
+			this.props.setAuth(true);
+
 			var redirect_uri;
 			var authorization_code;
 			var clientState;
@@ -145,19 +152,14 @@ class App extends React.Component {
 		this.setState({ authState: authState });
 	}
 
-	/**
-	 * change page language
-	 */
-	handleLanguage = (languageValue) => {
-		this.setState({ lang: languageValue });
-	};
-
 	render() {
-		console.log(Auth);
-
 		return (
 			<div>
-				<LanguageSelect lang={this.state.lang} newLang={this.handleLanguage} />
+				<Header
+					auth={this.state.auth}
+					lang={this.state.lang}
+					changedLang={(newLang) => this.setState({ lang: newLang })}
+				/>
 
 				<DesktopBreakpoint>
 					<ResponsiveLanding dynamicClassName="desktop" authState={this.state.authState} pageLang={this.state.lang} />
@@ -175,4 +177,4 @@ class App extends React.Component {
 	}
 }
 
-export default withRouter(App);
+export default withRouter(connect(null, { setAuth })(App));

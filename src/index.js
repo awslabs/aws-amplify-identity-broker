@@ -10,6 +10,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Provider } from 'react-redux';
+import store from './redux/store';
 import { Amplify } from "aws-amplify";
 
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
@@ -63,16 +65,18 @@ Amplify.configure(amplifyConfig);
  */
 ReactDOM.render(
 	<React.StrictMode>
-		<Router>
-			<Switch>
-				<ProtectedRoute exact path="/dashboard" component={Dashboard} />
-				<ProtectedRoute exact path="/settings" component={Settings} />
-				<Route exact path="/tos" component={TermsOfService} />
-				<Route exact path="/logout" component={Logout} />
-				<Route exact path="/" component={App} />
-				<Route component={ErrorPage} />
-			</Switch>
-		</Router>
+		<Provider store={store}>
+			<Router>
+				<Switch>
+					<ProtectedRoute exact path="/dashboard" component={Dashboard} />
+					<ProtectedRoute exact path="/settings" component={Settings} />
+					<Route exact path="/tos" component={TermsOfService} />
+					<Route exact path="/logout" component={Logout} />
+					<Route exact path="/" component={App} />
+					<Route component={ErrorPage} />
+				</Switch>
+			</Router>
+		</Provider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );
