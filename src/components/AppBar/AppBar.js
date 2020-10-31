@@ -28,6 +28,7 @@ import { Branding } from '../../branding';
 import avatar from '../../assets/Avatar/avatar.png';
 import logo from '../../assets/Logos/logoDark.png';
 import LanguageSelect from '../LanguageSelect/LanguageSelect';
+import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 
 /*
  * Localization
@@ -76,7 +77,8 @@ const useStyles = makeStyles((theme) => ({
 	logo: {
 		width: '70px',
 		marginRight: theme.spacing(2),
-	}
+	},
+	offset: theme.mixins.toolbar,
 }));
 
 const mapStateToProps = (state) => {
@@ -98,6 +100,8 @@ const Header = (props) => {
 	}
 	const auth = props.auth || checkSignIn() || false;
 
+	const { width } = useWindowDimensions();
+
 	const handleLangChange = (lang) => {
 		I18n.setLanguage(lang);
 		setLang(lang);
@@ -117,23 +121,17 @@ const Header = (props) => {
 		if (routeTo) props.routeTo(routeTo);
 	};
 
-	const getTitle = () => {
-		let title = Branding.appName || "Amplify Identity Broker";
-
-		if (props.pageTitle) title += ` | ${props.pageTitle}`
-
-		return title
-	}
-
 	return (
 		<div className={classes.root}>
-			<AppBar position="static" className={classes.appBar}>
+			<AppBar position="fixed" className={classes.appBar} >
 				<Toolbar>
 					<img alt="" src={logo} className={classes.logo} />
 
-					<Typography variant="h5" className={classes.title}>
-						{getTitle()}
-					</Typography>
+					{(width > 610) && (
+						<Typography variant="h5" className={classes.title}>
+							{Branding.appName}
+						</Typography>
+					)}
 
 					<LanguageSelect lang={lang} changedLang={handleLangChange} themeShowLabel={false} themeColor={"white"} themeBackgroundColor={Branding.secondary} />
 
@@ -179,6 +177,7 @@ const Header = (props) => {
 					)}
 				</Toolbar>
 			</AppBar>
+			<div className={classes.offset} />
 		</div>
 	);
 }

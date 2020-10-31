@@ -15,8 +15,8 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Button from '@material-ui/core/Button';
 
-import useWindowDimensions from './useWindowDimensions';
 import { Branding } from '../../branding';
+import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 
 /*
  * Localization
@@ -66,21 +66,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /*
- * check if a App-Logo exists
- * if yes -> App-Logo Image
- * if not -> use Default Image
+ * if no Client Logo available load 'default.png'
  */
-function getImage(clientId) {
-	let imgSrc = `/logos/${clientId}.png`
-	var http = new XMLHttpRequest();
-
-	http.open('GET', imgSrc, false);
-	http.send();
-	if (http.responseText.toLocaleLowerCase().startsWith('<!doctype html>')) imgSrc = '/logos/default.png'
-
-	return imgSrc;
+function fallBackImage(e) {
+	e.target.src = 'logos/default.png';
 }
-
 export default function AppTiles(props) {
 	const classes = useStyles();
 
@@ -100,7 +90,12 @@ export default function AppTiles(props) {
 			<GridList cellHeight={180} spacing={20} cols={gridCols()} className={classes.gridList}>
 				{props.appClients.map((tile) => (
 					<GridListTile key={tile.client_id} >
-						<img src={getImage(tile.client_id)} alt={tile.client_name + " " + I18n.get('DASHBOARD_LOGO')} />
+						<img
+							src={`logos/${tile.client_logo}`}
+							alt={tile.client_name + " " + I18n.get('DASHBOARD_LOGO')}
+							onError={(e) => fallBackImage(e)}
+						/>
+
 						<GridListTileBar
 							title={tile.client_name}
 							subtitle={tile.client_id}
