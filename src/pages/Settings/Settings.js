@@ -14,8 +14,7 @@ import { Auth } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 
 import Header from '../../components/AppBar/AppBar';
-
-import './settings.css';
+import Content from './content';
 
 /*
  * Localization
@@ -60,7 +59,7 @@ class Settings extends React.Component {
 		if (this.state.userAttributes.length === 0) {
 			return null
 		}
-
+		/*
 		var userAttributeFields = this.state.userAttributes.map(Attribute =>
 			(Attribute.Name !== "identities") &&
 			<div>
@@ -68,6 +67,7 @@ class Settings extends React.Component {
 				{Attribute.Value}
 			</div>
 		);
+		*/
 
 		return (
 			<div>
@@ -79,6 +79,8 @@ class Settings extends React.Component {
 					routeTo={(newPath) => this.props.history.push(newPath)}
 				/>
 
+				<Content />
+				{/*
 				<div className='wrapper'>
 					<div className='form-wrapper'>
 						<h2>{I18n.get('USER_ATTRIBUTES')}:</h2>
@@ -89,7 +91,7 @@ class Settings extends React.Component {
 						</form>
 					</div>
 				</div>
-
+			*/}
 			</div>
 		);
 	}
