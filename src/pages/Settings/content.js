@@ -1,3 +1,12 @@
+/*
+  * Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
+  * SPDX-License-Identifier: MIT
+  *
+  * Licensed under the MIT License. See the LICENSE accompanying this file
+  * for the specific language governing permissions and limitations under
+  * the License.
+  */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -100,10 +109,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 	tabsIndicator: {
 		background: Branding.accent,
+	},
+	tabPanelBox: {
+		display: 'flex',
+		justifyContent: 'center'
 	}
 }));
 
-export default function Content() {
+export default function Content(userAttributes) {
 	const classes = useStyles();
 	const [value, setValue] = React.useState(0);
 	const { width } = useWindowDimensions();
@@ -133,16 +146,22 @@ export default function Content() {
 						</Tabs>
 					</AppBar>
 					<TabPanel value={value} index={0}>
-						<TabSignInData />
+						<Box className={classes.tabPanelBox}>
+							<TabSignInData userAttributes={userAttributes} />
+						</Box>
 					</TabPanel>
 					<TabPanel value={value} index={1}>
-						<TabUserData />
+						<Box className={classes.tabPanelBox}>
+							<TabUserData />
+						</Box>
 					</TabPanel>
 					<TabPanel value={value} index={2}>
-						<TabDeviceData />
+						<Box className={classes.tabPanelBox}>
+							<TabDeviceData />
+						</Box>
 					</TabPanel>
 				</Box>
 			</Grid>
-		</div>
+		</div >
 	);
 }
