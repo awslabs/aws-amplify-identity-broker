@@ -106,7 +106,7 @@ export default function TosContent(props) {
 					</Paper>
 					<Paper className={classes.title}>
 						...
-			</Paper>
+					</Paper>
 					{showActions && (
 						<Paper className={classes.gridRowActions}>
 							<Button className={classes.btnYes} variant="outlined" color="primary" onClick={acceptToS}>

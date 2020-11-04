@@ -56,34 +56,38 @@ class Settings extends React.Component {
 	};
 
 	loadUserAttributes = () => {
-		Auth.currentAuthenticatedUser().then(CognitoUser => {
-			Auth.userAttributes(CognitoUser).then(CognitoUserAttributes => {
-				let _userAttributes = []
+		Auth.currentAuthenticatedUser()
+			.then(CognitoUser => {
+				Auth.userAttributes(CognitoUser).then(CognitoUserAttributes => {
+					let _userAttributes = []
 
-				CognitoUserAttributes.forEach(Attribute => {
-					switch (Attribute.Name) {
-						case "username":
-							_userAttributes.username = Attribute.Value;
-							break;
-						case "email":
-							_userAttributes.email = Attribute.Value;
-							break;
-						case "email_verified":
-							_userAttributes.email_verified = Attribute.Value === "true";
-							break;
-						case "phone_number":
-							_userAttributes.phone_number = Attribute.Value;
-							break;
-						case "phone_number_verified":
-							_userAttributes.phone_number_verified = Attribute.Value === "true";
-							break;
-						default:
-							break;
-					}
-				});
-				this.props.setUser(_userAttributes);
+					CognitoUserAttributes.forEach(Attribute => {
+						switch (Attribute.Name) {
+							case "username":
+								_userAttributes.username = Attribute.Value;
+								break;
+							case "email":
+								_userAttributes.email = Attribute.Value;
+								break;
+							case "email_verified":
+								_userAttributes.email_verified = Attribute.Value === "true";
+								break;
+							case "phone_number":
+								_userAttributes.phone_number = Attribute.Value;
+								break;
+							case "phone_number_verified":
+								_userAttributes.phone_number_verified = Attribute.Value === "true";
+								break;
+							default:
+								break;
+						}
+					});
+					this.props.setUser(_userAttributes);
+				})
+					.catch(err => {
+						console.log(err);
+					})
 			})
-		})
 	}
 
 

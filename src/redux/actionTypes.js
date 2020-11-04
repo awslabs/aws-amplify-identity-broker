@@ -9,6 +9,7 @@
 
 export const SET_LANG = "SET_LANG";
 export const SET_AUTH = "SET_AUTH";
+export const SET_VERIFY_DIALOG = "SET_VERIFY_DIALOG";
 export const SET_USER = "SET_USER";
 export const SET_USER_EMAIL = "SET_USER_EMAIL";
 export const SET_USER_PHONENUMBER = "SET_USER_PHONENUMBER"

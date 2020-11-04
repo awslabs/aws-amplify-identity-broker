@@ -10,11 +10,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { Auth } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { Box } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
@@ -29,7 +30,9 @@ import { AccountBox, MailOutline, VpnKey, Smartphone } from '@material-ui/icons'
 
 import { Branding } from '../../branding';
 import LogOutButton from '../../components/LogoutButton/LogoutButton';
-import { setUser, setUserEmail, setUserPhonenumber } from '../../redux/actions';
+import VerifyDialog from '../../components/VerifyDialog/VerifyDialog';
+import AppSnackbar from '../../components/Snackbar/Snackbar';
+import { setVerifyDialog, setUser, setUserEmail, setUserPhonenumber } from '../../redux/actions';
 
 /*
  * Localization
@@ -146,153 +149,214 @@ const mapStateToProps = (state) => {
 
 const TabSignInData = (props) => {
 	const classes = useStyles();
-	const [values] = React.useState({
-		password: '********',
-		showPassword: false,
+	const [snackBarOps, setSnackBarOps] = React.useState({
+		type: 'info',
+		open: false,
+		vertical: 'top',
+		horizontal: 'center',
+		autoHide: 0,
+		message: ''
 	});
 
 	const deleteAccount = () => {
 		alert('deleteAccount')
 	};
 
+	// To initiate the process of verifying the attribute like 'phone_number' or 'email'
+	const verifyCurrentUserAttribute = (attr) => {
+
+		props.setVerifyDialog({ type: attr, open: true });
+		setSnackBarOps({
+			type: 'success',
+			open: true,
+			vertical: 'top',
+			horizontal: 'center',
+			autoHide: 3000,
+			message: 'YES'
+		})
+		return;
+		Auth.verifyCurrentUserAttribute(attr)
+			.then(() => {
+				console.log('a verification code is sent');
+			}).catch((e) => {
+				console.log('failed with error', e);
+			});
+	}
+
+	// To verify attribute with the code
+	const verifyCurrentUserAttributeSubmit = (attr, code) => {
+		// To verify attribute with the code
+		Auth.verifyCurrentUserAttributeSubmit(attr, code)
+			.then(() => {
+				console.log('phone_number verified');
+			}).catch(e => {
+				console.log('failed with error', e);
+			});
+	}
+
+	const updateUserAttributes = (attributes) => {
+		console.log(attributes);
+		let attr = JSON.parse(attributes)
+		Auth.currentAuthenticatedUser()
+			.then(CognitoUser => {
+				console.log(CognitoUser)
+				Auth.updateUserAttributes(CognitoUser, attr)
+					.then(result => {
+						console.log(result)
+					})
+					.catch(err => {
+						console.log(err)
+					})
+			})
+			.catch(err => {
+				console.log(err);
+			})
+
+	}
+
 	return (
-		<Card className={classes.root} variant="outlined">
-			<CardHeader
-				className={classes.header}
-				title={I18n.get('TAB_SIGNIN_LABEL')}
-			/>
-			<CardContent className={classes.cardContent}>
-				{/*
+		<div>
+			<AppSnackbar ops={snackBarOps} />
+			<VerifyDialog />
+
+			<Card className={classes.root} variant="outlined">
+				<CardHeader
+					className={classes.header}
+					title={I18n.get('TAB_SIGNIN_LABEL')}
+				/>
+				<CardContent className={classes.cardContent}>
+					{/*
 				 * Username - disabled
 				*/}
-				< Box className={classes.boxInputField} >
-					<FormControl className={classes.formControl}>
-						<InputLabel htmlFor="inputUsername">
-							{I18n.get('TAB_SIGNIN_DATA_USERNAME_INPUT_LABEL')}
-						</InputLabel>
-						<Input
-							value={values.username}
-							id="inputUsername"
-							disabled
-							startAdornment={
-								<InputAdornment position="start">
-									<AccountBox className={classes.textFieldIcon} />
-								</InputAdornment>
-							}
-							className={classes.input}
-						/>
-					</FormControl>
-				</Box >
-				{/*
+					< Box className={classes.boxInputField} >
+						<FormControl className={classes.formControl}>
+							<InputLabel htmlFor="inputUsername">
+								{I18n.get('TAB_SIGNIN_DATA_USERNAME_INPUT_LABEL')}
+							</InputLabel>
+							<Input
+								value={props.username}
+								id="inputUsername"
+								disabled
+								startAdornment={
+									<InputAdornment position="start">
+										<AccountBox className={classes.textFieldIcon} />
+									</InputAdornment>
+								}
+								className={classes.input}
+							/>
+						</FormControl>
+					</Box >
+					{/*
 				 * E-Mail
 				*/}
-				< Box className={classes.boxInputField} >
-					<FormControl className={classes.formControl}>
-						<InputLabel htmlFor="inputEmail">
-							{I18n.get('TAB_SIGNIN_DATA_EMAIL_INPUT_LABEL')}
-						</InputLabel>
-						<Input
-							value={props.email}
-							id="inputEmail"
-							disabled
-							startAdornment={
-								<InputAdornment position="start">
-									<MailOutline className={classes.textFieldIcon} />
-								</InputAdornment>
-							}
-							endAdornment={
-								<InputAdornment position="end">
-									{(props.email && props.emailVerified) && (
-										<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')} size="small" className={classes.chipVerified} />
-									)}
-									{(props.email && !props.emailVerified) && (
-										<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')} size="small" className={classes.chipUnverified} />
-									)}
-								</InputAdornment>
-							}
-							className={classes.input}
-						/>
-					</FormControl>
-					<Button variant="contained" onClick={deleteAccount} className={classes.buttonChange}>
-						{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
-					</Button>
-				</Box >
-				{/*
+					< Box className={classes.boxInputField} >
+						<FormControl className={classes.formControl}>
+							<InputLabel htmlFor="inputEmail">
+								{I18n.get('TAB_SIGNIN_DATA_EMAIL_INPUT_LABEL')}
+							</InputLabel>
+							<Input
+								value={props.email}
+								id="inputEmail"
+								disabled
+								startAdornment={
+									<InputAdornment position="start">
+										<MailOutline className={classes.textFieldIcon} />
+									</InputAdornment>
+								}
+								endAdornment={
+									<InputAdornment position="end">
+										{(props.email && props.emailVerified) && (
+											<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')} size="small" className={classes.chipVerified} />
+										)}
+										{(props.email && !props.emailVerified) && (
+											<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')} size="small" className={classes.chipUnverified} />
+										)}
+									</InputAdornment>
+								}
+								className={classes.input}
+							/>
+						</FormControl>
+						<Button variant="contained" onClick={deleteAccount} className={classes.buttonChange}>
+							{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
+						</Button>
+					</Box >
+					{/*
 				 * Phonenumber
 				*/}
-				< Box className={classes.boxInputField} >
-					<FormControl className={classes.formControl}>
-						<InputLabel htmlFor="inputPhoneNumber">
-							{I18n.get('TAB_SIGNIN_DATA_PHONENUMBER_INPUT_LABEL')}
-						</InputLabel>
-						<Input
-							value={props.phoneNumber}
-							id="inputPhoneNumber"
-							disabled
-							startAdornment={
-								<InputAdornment position="start">
-									<Smartphone className={classes.textFieldIcon} />
-								</InputAdornment>
-							}
-							endAdornment={
-								<InputAdornment position="end">
-									{(props.phoneNumber && props.phoneNumberVerified) && (
-										<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')} size="small" className={classes.chipVerified} />
-									)}
-									{(props.phoneNumber && !props.phoneNumberVerified) && (
-										<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')} size="small" onClick={deleteAccount} className={classes.chipUnverified} />
-									)}
-								</InputAdornment>
-							}
-							className={classes.input}
-						/>
-					</FormControl>
-					<Button variant="contained" onClick={deleteAccount} className={classes.buttonChange}>
-						{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
-					</Button>
-				</Box >
+					< Box className={classes.boxInputField} >
+						<FormControl className={classes.formControl}>
+							<InputLabel htmlFor="inputPhoneNumber">
+								{I18n.get('TAB_SIGNIN_DATA_PHONENUMBER_INPUT_LABEL')}
+							</InputLabel>
+							<Input
+								value={props.phoneNumber}
+								id="inputPhoneNumber"
+								disabled
+								startAdornment={
+									<InputAdornment position="start">
+										<Smartphone className={classes.textFieldIcon} />
+									</InputAdornment>
+								}
+								endAdornment={
+									<InputAdornment position="end">
+										{(props.phoneNumber && props.phoneNumberVerified) && (
+											<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')} size="small" className={classes.chipVerified} />
+										)}
+										{(props.phoneNumber && !props.phoneNumberVerified) && (
+											<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')} size="small" onClick={() => verifyCurrentUserAttribute('phone_number')} className={classes.chipUnverified} />
+										)}
+									</InputAdornment>
+								}
+								className={classes.input}
+							/>
+						</FormControl>
+						<Button variant="contained" onClick={deleteAccount} className={classes.buttonChange}>
+							{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
+						</Button>
+					</Box >
 
-				{/*
+					{/*
 				 * Password
 				*/}
-				< Box className={classes.boxInputField} >
-					<FormControl className={classes.formControl}>
-						<InputLabel htmlFor="inputPassword">
-							{I18n.get('TAB_SIGNIN_DATA_PASSWORD_INPUT_LABEL')}
-						</InputLabel>
-						<Input
-							type={'password'}
-							value={'********'}
-							id="inputPassword"
-							disabled
-							startAdornment={
-								<InputAdornment position="start">
-									<VpnKey className={classes.textFieldIcon} />
-								</InputAdornment>
-							}
-							className={classes.input}
-						/>
-					</FormControl>
-					<Button variant="contained" onClick={deleteAccount} className={classes.buttonChange}>
-						{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
-					</Button>
-				</Box >
+					< Box className={classes.boxInputField} >
+						<FormControl className={classes.formControl}>
+							<InputLabel htmlFor="inputPassword">
+								{I18n.get('TAB_SIGNIN_DATA_PASSWORD_INPUT_LABEL')}
+							</InputLabel>
+							<Input
+								type={'password'}
+								value={'********'}
+								id="inputPassword"
+								disabled
+								startAdornment={
+									<InputAdornment position="start">
+										<VpnKey className={classes.textFieldIcon} />
+									</InputAdornment>
+								}
+								className={classes.input}
+							/>
+						</FormControl>
+						<Button variant="contained" onClick={() => updateUserAttributes(`{"phone_number": "+491739799891"}`)} className={classes.buttonChange}>
+							{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
+						</Button>
+					</Box >
 
-			</CardContent >
-			<CardActions className={classes.cardActions}>
-				<LogOutButton />
-			</CardActions>
-			<CardActions className={classes.cardActions}>
-				<Button
-					variant="outlined"
-					onClick={deleteAccount}
-					className={classes.buttonAccountDelete}
-				>
-					{I18n.get('TAB_SIGNIN_DATA_ACCOUNT_DELETE_BUTTON_LABEL')}
-				</Button>
-			</CardActions>
-		</Card >
+				</CardContent >
+				<CardActions className={classes.cardActions}>
+					<LogOutButton />
+				</CardActions>
+				<CardActions className={classes.cardActions}>
+					<Button
+						variant="outlined"
+						onClick={deleteAccount}
+						className={classes.buttonAccountDelete}
+					>
+						{I18n.get('TAB_SIGNIN_DATA_ACCOUNT_DELETE_BUTTON_LABEL')}
+					</Button>
+				</CardActions>
+			</Card >
+		</div>
 	)
 }
 
-export default connect(mapStateToProps, { setUser, setUserEmail, setUserPhonenumber })(TabSignInData)
+export default connect(mapStateToProps, { setVerifyDialog, setUser, setUserEmail, setUserPhonenumber })(TabSignInData)
