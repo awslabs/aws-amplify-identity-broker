@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import { Auth } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
@@ -13,7 +12,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { setVerifyDialog } from '../../redux/actions';
 import { Branding } from '../../branding';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 
@@ -72,13 +70,7 @@ const useStyles = makeStyles(() => ({
 	}
 }));
 
-const mapStateToProps = (state) => {
-	return {
-		verifyDialog: state.app.verifyDialog
-	}
-}
-
-const VerifyAttribute = (props) => {
+const VerifyAttributeDialog = (props) => {
 	const classes = useStyles();
 	const [code, setCode] = React.useState();
 	const [snackBarOps, setSnackBarOps] = React.useState({
@@ -131,13 +123,13 @@ const VerifyAttribute = (props) => {
 	}
 
 	const handleClickVerify = () => {
-		verifyCurrentUserAttributeSubmit(props.verifyDialog.type, code);
+		verifyCurrentUserAttributeSubmit(props.attrType, code);
 	};
 
 	const handleClose = () => {
+		setCode('');
 		props.reloadUserData();
-
-		props.setVerifyDialog({ type: '', open: false })
+		props.close();
 	};
 
 	const handleChange = (value) => {
@@ -148,7 +140,7 @@ const VerifyAttribute = (props) => {
 		<div>
 			<AppSnackbar ops={snackBarOps} />
 			<Dialog
-				open={props.verifyDialog.open}
+				open={props.open}
 				onClose={handleClose}
 				disableBackdropClick
 				aria-labelledby="verify-dialog"
@@ -183,4 +175,4 @@ const VerifyAttribute = (props) => {
 	);
 }
 
-export default connect(mapStateToProps, { setVerifyDialog })(VerifyAttribute);
+export default VerifyAttributeDialog;

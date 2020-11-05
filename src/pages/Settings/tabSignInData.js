@@ -30,9 +30,10 @@ import { AccountBox, MailOutline, VpnKey, Smartphone } from '@material-ui/icons'
 
 import { Branding } from '../../branding';
 import LogOutButton from '../../components/LogoutButton/LogoutButton';
-import VerifyDialog from '../../components/VerifyDialog/VerifyDialog';
+import VerifyAttributeDialog from '../../components/VerifyAttributeDialog/VerifyAttributeDialog';
+import ChangePasswordDialog from '../../components/ChangePasswordDialog/ChangePasswordDialog';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
-import { setVerifyDialog, setUser, setUserEmail, setUserPhonenumber } from '../../redux/actions';
+import { setUser, setUserEmail, setUserPhonenumber } from '../../redux/actions';
 
 /*
  * Localization
@@ -47,9 +48,11 @@ const strings = {
 		TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL: 'verified',
 		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'unverified',
 		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Change",
-		TAB_SIGNIN_DATA_ACCOUNT_DELETE_BUTTON_LABEL: "Delete Account",
+		TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL: "Cancel",
+		TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL: "Save",
 		TAB_SIGNIN_DATA_MESSAGE_EROR: "An error has occurred",
 		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "The update was successful",
+		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Please verify your changes",
 	},
 	fr: {
 		TAB_SIGNIN_DATA_LABEL: "INFORMATIONS DE CONNEXION",
@@ -60,9 +63,11 @@ const strings = {
 		TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL: 'vérifié',
 		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'non vérifié',
 		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Changer",
-		TAB_SIGNIN_DATA_ACCOUNT_DELETE_BUTTON_LABEL: "Supprimer le compte",
+		TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL: "Avorter",
+		TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL: "Sauver",
 		TAB_SIGNIN_DATA_MESSAGE_EROR: "Une erreur est survenue",
 		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "La mise à jour a réussi",
+		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Veuillez vérifier vos modifications",
 	},
 	de: {
 		TAB_SIGNIN_DATA_LABEL: "ANMELDEINFORMATIONEN",
@@ -73,9 +78,11 @@ const strings = {
 		TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL: 'verifiziert',
 		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'nicht verifiziert',
 		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Ändern",
-		TAB_SIGNIN_DATA_ACCOUNT_DELETE_BUTTON_LABEL: "Konto löschen",
+		TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL: "Abbrechen",
+		TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL: "Speichern",
 		TAB_SIGNIN_DATA_MESSAGE_EROR: "Ist ein Fehler aufgetreten",
 		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "Das Update war erflogreich",
+		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Bitte verifizieren Sie Ihre Änderungen",
 	},
 	nl: {
 		TAB_SIGNIN_DATA_LABEL: "INLOGGEGEVENS",
@@ -86,9 +93,11 @@ const strings = {
 		TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL: 'geverifieerd',
 		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'niet geverifieerd',
 		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Veranderen",
-		TAB_SIGNIN_DATA_ACCOUNT_DELETE_BUTTON_LABEL: "Account verwijderen",
+		TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL: "Afbreken",
+		TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL: "Opslaan",
 		TAB_SIGNIN_DATA_MESSAGE_EROR: "Er is een fout opgetreden",
 		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "De update is gelukt",
+		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Controleer uw wijzigingen",
 	}
 }
 I18n.putVocabularies(strings);
@@ -142,6 +151,16 @@ const useStyles = makeStyles((theme) => ({
 		marginLeft: '8px',
 		background: Branding.secondary,
 		color: 'white',
+	},
+	buttonCancel: {
+		marginTop: '8px',
+		marginLeft: '8px',
+		color: Branding.negative,
+	},
+	buttonSave: {
+		marginTop: '8px',
+		marginLeft: '8px',
+		color: Branding.positive,
 	}
 }));
 
@@ -150,14 +169,21 @@ const mapStateToProps = (state) => {
 		...state,
 		username: state.user.attributes.username || '',
 		email: state.user.attributes.email || '',
-		emailVerified: state.user.attributes.email_verified || false,
-		phoneNumber: state.user.attributes.phone_number || '',
-		phoneNumberVerified: state.user.attributes.phone_number_verified,
+		email_verified: state.user.attributes.email_verified || false,
+		phone_number: state.user.attributes.phone_number || '',
+		phone_number_verified: state.user.attributes.phone_number_verified,
 	}
 }
 
 const TabSignInData = (props) => {
 	const classes = useStyles();
+	const [editEmail, setEditEmail] = React.useState(false);
+	const [editPhoneNumber, setEditPhoneNumber] = React.useState(false);
+	const [passwordChange, setPasswordChange] = React.useState(false);
+	const [verifyAttribute, setVerifyAttribute] = React.useState({
+		type: '',
+		open: false
+	});
 	const [snackBarOps, setSnackBarOps] = React.useState({
 		type: 'info',
 		open: false,
@@ -167,15 +193,11 @@ const TabSignInData = (props) => {
 		message: ''
 	});
 
-	const deleteAccount = () => {
-		alert('deleteAccount')
-	};
-
 	// To initiate the process of verifying the attribute like 'phone_number' or 'email'
 	const verifyCurrentUserAttribute = (attr) => {
 		Auth.verifyCurrentUserAttribute(attr)
 			.then(() => {
-				props.setVerifyDialog({ type: attr, open: true });
+				setVerifyAttribute({ type: attr, open: true });
 			}).catch((err) => {
 				console.log(err);
 				props.reloadUserData();
@@ -196,13 +218,11 @@ const TabSignInData = (props) => {
 	 * converted to JSON
 	 * Example: {"email": "your.name@example.com"}
 	 */
-	const updateUserAttributes = (attributes) => {
-		let attr = JSON.parse(attributes)
+	const updateUserAttributes = (attributes, attr = null) => {
+		let jsonAttributes = JSON.parse(attributes)
 		Auth.currentAuthenticatedUser()
 			.then(CognitoUser => {
-				props.reloadUserData();
-
-				Auth.updateUserAttributes(CognitoUser, attr)
+				Auth.updateUserAttributes(CognitoUser, jsonAttributes)
 					.then(() => {
 						setSnackBarOps({
 							type: 'success',
@@ -212,6 +232,20 @@ const TabSignInData = (props) => {
 							autoHide: 3000,
 							message: I18n.get('TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS')
 						})
+
+						if (attr === 'email') {
+							setVerifyAttribute({ type: attr, open: true })
+							setSnackBarOps({
+								type: 'info',
+								open: true,
+								vertical: 'top',
+								horizontal: 'center',
+								autoHide: 3000,
+								message: I18n.get('TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST')
+							})
+						}
+
+						props.reloadUserData();
 					})
 					.catch(err => {
 						console.log(err)
@@ -238,13 +272,79 @@ const TabSignInData = (props) => {
 					message: I18n.get('TAB_SIGNIN_DATA_MESSAGE_EROR')
 				})
 			})
-	}
+	};
+
+	const handleEmailChange = (value) => {
+		if (!value) return;
+
+		props.setUserEmail(value);
+	};
+
+	const handlePhoneNumberChange = (value) => {
+		if (!value) return;
+
+		props.setUserPhonenumber(value);
+	};
+
+	const handleAttributeChange = (attr) => {
+		switch (attr) {
+			case 'email':
+				setEditEmail(true);
+				break;
+			case 'phone_number':
+				setEditPhoneNumber(true);
+				break;
+			case 'password':
+				setVerifyAttribute({ type: attr, open: true });
+				//setPasswordChange(true);
+				break;
+			default:
+				break;
+		}
+	};
+
+	const handleAttributeCancel = (attr) => {
+		switch (attr) {
+			case 'email':
+				setEditEmail(false);
+				break;
+			case 'phone_number':
+				setEditPhoneNumber(false);
+				break;
+			default:
+				break;
+		}
+
+		props.reloadUserData();
+	};
+
+	const handleAttributeSave = (attr) => {
+		switch (attr) {
+			case 'email':
+				updateUserAttributes(`{"${attr}": "${props.email}"}`, attr)
+				setEditEmail(false);
+				break;
+			case 'phone_number':
+				updateUserAttributes(`{"${attr}": "${props.phone_number}"}`, attr)
+				setEditPhoneNumber(false);
+				break;
+			default:
+				break;
+		}
+	};
 
 	return (
 		<div>
 			<AppSnackbar ops={snackBarOps} />
 
-			<VerifyDialog reloadUserData={props.reloadUserData} />
+			<VerifyAttributeDialog
+				attrType={verifyAttribute.type}
+				open={verifyAttribute.open}
+				close={() => setVerifyAttribute({ type: '', open: false })}
+				reloadUserData={props.reloadUserData}
+			/>
+
+			<ChangePasswordDialog open={passwordChange} close={() => setPasswordChange(false)} />
 
 			<Card className={classes.root} variant="outlined">
 				<CardHeader
@@ -284,28 +384,42 @@ const TabSignInData = (props) => {
 							<Input
 								value={props.email}
 								id="inputEmail"
-								disabled
+								disabled={!editEmail}
+								onChange={(event) => handleEmailChange(event.target.value)}
 								startAdornment={
 									<InputAdornment position="start">
 										<MailOutline className={classes.textFieldIcon} />
 									</InputAdornment>
 								}
 								endAdornment={
-									<InputAdornment position="end">
-										{(props.email && props.emailVerified) && (
-											<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')} size="small" className={classes.chipVerified} />
-										)}
-										{(props.email && !props.emailVerified) && (
-											<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')} size="small" className={classes.chipUnverified} />
-										)}
-									</InputAdornment>
-								}
+									!editEmail && (
+										<InputAdornment position="end">
+											{(props.email && props.email_verified) && (
+												<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')} size="small" className={classes.chipVerified} />
+											)}
+											{(props.email && !props.email_verified) && (
+												<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')} size="small" className={classes.chipUnverified} onClick={() => verifyCurrentUserAttribute('email')} />
+											)}
+										</InputAdornment>
+									)}
 								className={classes.input}
 							/>
 						</FormControl>
-						<Button variant="contained" onClick={deleteAccount} className={classes.buttonChange}>
-							{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
-						</Button>
+						{!editEmail && (
+							<Button variant="contained" onClick={() => handleAttributeChange('email')} className={classes.buttonChange}>
+								{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
+							</Button>
+						)}
+						{editEmail && (
+							<div>
+								<Button variant="outlined" onClick={() => handleAttributeSave('email')} className={classes.buttonSave}>
+									{I18n.get('TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL')}
+								</Button>
+								<Button variant="outlined" onClick={() => handleAttributeCancel('email')} className={classes.buttonCancel}>
+									{I18n.get('TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL')}
+								</Button>
+							</div>
+						)}
 					</Box >
 					{/*
 					* Phonenumber
@@ -316,30 +430,44 @@ const TabSignInData = (props) => {
 								{I18n.get('TAB_SIGNIN_DATA_PHONENUMBER_INPUT_LABEL')}
 							</InputLabel>
 							<Input
-								value={props.phoneNumber}
+								value={props.phone_number}
+								onChange={(event) => handlePhoneNumberChange(event.target.value)}
 								id="inputPhoneNumber"
-								disabled
+								disabled={!editPhoneNumber}
 								startAdornment={
 									<InputAdornment position="start">
 										<Smartphone className={classes.textFieldIcon} />
 									</InputAdornment>
 								}
 								endAdornment={
-									<InputAdornment position="end">
-										{(props.phoneNumber && props.phoneNumberVerified) && (
-											<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')} size="small" className={classes.chipVerified} />
-										)}
-										{(props.phoneNumber && !props.phoneNumberVerified) && (
-											<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')} size="small" onClick={() => verifyCurrentUserAttribute('phone_number')} className={classes.chipUnverified} />
-										)}
-									</InputAdornment>
-								}
+									!editPhoneNumber && (
+										<InputAdornment position="end">
+											{(props.phone_number && props.phone_number_verified) && (
+												<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')} size="small" className={classes.chipVerified} />
+											)}
+											{(props.phone_number && !props.phone_number_verified) && (
+												<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')} size="small" onClick={() => verifyCurrentUserAttribute('phone_number')} className={classes.chipUnverified} />
+											)}
+										</InputAdornment>
+									)}
 								className={classes.input}
 							/>
 						</FormControl>
-						<Button variant="contained" onClick={deleteAccount} className={classes.buttonChange}>
-							{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
-						</Button>
+						{!editPhoneNumber && (
+							<Button variant="contained" onClick={() => handleAttributeChange('phone_number')} className={classes.buttonChange}>
+								{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
+							</Button>
+						)}
+						{editPhoneNumber && (
+							<div>
+								<Button variant="outlined" onClick={() => handleAttributeSave('phone_number')} className={classes.buttonSave}>
+									{I18n.get('TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL')}
+								</Button>
+								<Button variant="outlined" onClick={() => handleAttributeCancel('phone_number')} className={classes.buttonCancel}>
+									{I18n.get('TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL')}
+								</Button>
+							</div>
+						)}
 					</Box >
 
 					{/*
@@ -351,8 +479,7 @@ const TabSignInData = (props) => {
 								{I18n.get('TAB_SIGNIN_DATA_PASSWORD_INPUT_LABEL')}
 							</InputLabel>
 							<Input
-								type={'password'}
-								value={'********'}
+								value="******"
 								id="inputPassword"
 								disabled
 								startAdornment={
@@ -363,7 +490,7 @@ const TabSignInData = (props) => {
 								className={classes.input}
 							/>
 						</FormControl>
-						<Button variant="contained" onClick={() => updateUserAttributes(`{"phone_number": "+491739799891"}`)} className={classes.buttonChange}>
+						<Button variant="contained" onClick={() => handleAttributeChange('password')} className={classes.buttonChange}>
 							{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
 						</Button>
 					</Box >
@@ -372,18 +499,9 @@ const TabSignInData = (props) => {
 				<CardActions className={classes.cardActions}>
 					<LogOutButton />
 				</CardActions>
-				<CardActions className={classes.cardActions}>
-					<Button
-						variant="outlined"
-						onClick={deleteAccount}
-						className={classes.buttonAccountDelete}
-					>
-						{I18n.get('TAB_SIGNIN_DATA_ACCOUNT_DELETE_BUTTON_LABEL')}
-					</Button>
-				</CardActions>
 			</Card >
 		</div>
 	)
 }
 
-export default connect(mapStateToProps, { setVerifyDialog, setUser, setUserEmail, setUserPhonenumber })(TabSignInData)
+export default connect(mapStateToProps, { setUser, setUserEmail, setUserPhonenumber })(TabSignInData)

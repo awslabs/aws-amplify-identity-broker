@@ -7,14 +7,10 @@
   * the License.
   */
 
-import { SET_LANG, SET_AUTH, SET_VERIFY_DIALOG } from "../actionTypes";
+import { SET_LANG, SET_AUTH } from "../actionTypes";
 const initialState = {
 	lang: "en",
 	auth: false,
-	verifyDialog: {
-		type: '',
-		open: false
-	}
 };
 
 export default function (state = initialState, action) {
@@ -26,10 +22,6 @@ export default function (state = initialState, action) {
 		case SET_AUTH: {
 			const { auth } = action.payload;
 			return { ...state, auth: auth };
-		}
-		case SET_VERIFY_DIALOG: {
-			const { verifyDialog } = action.payload;
-			return { ...state, verifyDialog: verifyDialog };
 		}
 		default:
 			return state;
