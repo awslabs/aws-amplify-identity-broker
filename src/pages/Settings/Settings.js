@@ -104,7 +104,7 @@ class Settings extends React.Component {
 					routeTo={(newPath) => this.props.history.push(newPath)}
 				/>
 
-				<Content />
+				<Content reloadUserData={this.loadUserAttributes} />
 			</div>
 		);
 	}

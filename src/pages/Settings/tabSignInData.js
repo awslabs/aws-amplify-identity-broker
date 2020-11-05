@@ -48,6 +48,8 @@ const strings = {
 		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'unverified',
 		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Change",
 		TAB_SIGNIN_DATA_ACCOUNT_DELETE_BUTTON_LABEL: "Delete Account",
+		TAB_SIGNIN_DATA_MESSAGE_EROR: "An error has occurred",
+		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "The update was successful",
 	},
 	fr: {
 		TAB_SIGNIN_DATA_LABEL: "INFORMATIONS DE CONNEXION",
@@ -59,6 +61,8 @@ const strings = {
 		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'non vérifié',
 		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Changer",
 		TAB_SIGNIN_DATA_ACCOUNT_DELETE_BUTTON_LABEL: "Supprimer le compte",
+		TAB_SIGNIN_DATA_MESSAGE_EROR: "Une erreur est survenue",
+		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "La mise à jour a réussi",
 	},
 	de: {
 		TAB_SIGNIN_DATA_LABEL: "ANMELDEINFORMATIONEN",
@@ -70,6 +74,8 @@ const strings = {
 		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'nicht verifiziert',
 		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Ändern",
 		TAB_SIGNIN_DATA_ACCOUNT_DELETE_BUTTON_LABEL: "Konto löschen",
+		TAB_SIGNIN_DATA_MESSAGE_EROR: "Ist ein Fehler aufgetreten",
+		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "Das Update war erflogreich",
 	},
 	nl: {
 		TAB_SIGNIN_DATA_LABEL: "INLOGGEGEVENS",
@@ -81,6 +87,8 @@ const strings = {
 		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'niet geverifieerd',
 		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Veranderen",
 		TAB_SIGNIN_DATA_ACCOUNT_DELETE_BUTTON_LABEL: "Account verwijderen",
+		TAB_SIGNIN_DATA_MESSAGE_EROR: "Er is een fout opgetreden",
+		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "De update is gelukt",
 	}
 }
 I18n.putVocabularies(strings);
@@ -139,6 +147,7 @@ const useStyles = makeStyles((theme) => ({
 
 const mapStateToProps = (state) => {
 	return {
+		...state,
 		username: state.user.attributes.username || '',
 		email: state.user.attributes.email || '',
 		emailVerified: state.user.attributes.email_verified || false,
@@ -164,60 +173,78 @@ const TabSignInData = (props) => {
 
 	// To initiate the process of verifying the attribute like 'phone_number' or 'email'
 	const verifyCurrentUserAttribute = (attr) => {
-
-		props.setVerifyDialog({ type: attr, open: true });
-		setSnackBarOps({
-			type: 'success',
-			open: true,
-			vertical: 'top',
-			horizontal: 'center',
-			autoHide: 3000,
-			message: 'YES'
-		})
-		return;
 		Auth.verifyCurrentUserAttribute(attr)
 			.then(() => {
-				console.log('a verification code is sent');
-			}).catch((e) => {
-				console.log('failed with error', e);
+				props.setVerifyDialog({ type: attr, open: true });
+			}).catch((err) => {
+				console.log(err);
+				props.reloadUserData();
+
+				setSnackBarOps({
+					type: 'error',
+					open: true,
+					vertical: 'top',
+					horizontal: 'center',
+					autoHide: 3000,
+					message: I18n.get('TAB_SIGNIN_DATA_MESSAGE_EROR')
+				})
 			});
 	}
 
-	// To verify attribute with the code
-	const verifyCurrentUserAttributeSubmit = (attr, code) => {
-		// To verify attribute with the code
-		Auth.verifyCurrentUserAttributeSubmit(attr, code)
-			.then(() => {
-				console.log('phone_number verified');
-			}).catch(e => {
-				console.log('failed with error', e);
-			});
-	}
-
+	/*
+	 * attributes = String 
+	 * converted to JSON
+	 * Example: {"email": "your.name@example.com"}
+	 */
 	const updateUserAttributes = (attributes) => {
-		console.log(attributes);
 		let attr = JSON.parse(attributes)
 		Auth.currentAuthenticatedUser()
 			.then(CognitoUser => {
-				console.log(CognitoUser)
+				props.reloadUserData();
+
 				Auth.updateUserAttributes(CognitoUser, attr)
-					.then(result => {
-						console.log(result)
+					.then(() => {
+						setSnackBarOps({
+							type: 'success',
+							open: true,
+							vertical: 'top',
+							horizontal: 'center',
+							autoHide: 3000,
+							message: I18n.get('TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS')
+						})
 					})
 					.catch(err => {
 						console.log(err)
+
+						setSnackBarOps({
+							type: 'error',
+							open: true,
+							vertical: 'top',
+							horizontal: 'center',
+							autoHide: 3000,
+							message: I18n.get('TAB_SIGNIN_DATA_MESSAGE_EROR')
+						})
 					})
 			})
 			.catch(err => {
 				console.log(err);
-			})
 
+				setSnackBarOps({
+					type: 'error',
+					open: true,
+					vertical: 'top',
+					horizontal: 'center',
+					autoHide: 3000,
+					message: I18n.get('TAB_SIGNIN_DATA_MESSAGE_EROR')
+				})
+			})
 	}
 
 	return (
 		<div>
 			<AppSnackbar ops={snackBarOps} />
-			<VerifyDialog />
+
+			<VerifyDialog reloadUserData={props.reloadUserData} />
 
 			<Card className={classes.root} variant="outlined">
 				<CardHeader
@@ -226,8 +253,8 @@ const TabSignInData = (props) => {
 				/>
 				<CardContent className={classes.cardContent}>
 					{/*
-				 * Username - disabled
-				*/}
+					* Username - disabled
+					*/}
 					< Box className={classes.boxInputField} >
 						<FormControl className={classes.formControl}>
 							<InputLabel htmlFor="inputUsername">
@@ -247,8 +274,8 @@ const TabSignInData = (props) => {
 						</FormControl>
 					</Box >
 					{/*
-				 * E-Mail
-				*/}
+					* E-Mail
+					*/}
 					< Box className={classes.boxInputField} >
 						<FormControl className={classes.formControl}>
 							<InputLabel htmlFor="inputEmail">
@@ -281,8 +308,8 @@ const TabSignInData = (props) => {
 						</Button>
 					</Box >
 					{/*
-				 * Phonenumber
-				*/}
+					* Phonenumber
+					*/}
 					< Box className={classes.boxInputField} >
 						<FormControl className={classes.formControl}>
 							<InputLabel htmlFor="inputPhoneNumber">
@@ -316,8 +343,8 @@ const TabSignInData = (props) => {
 					</Box >
 
 					{/*
-				 * Password
-				*/}
+					* Password
+					*/}
 					< Box className={classes.boxInputField} >
 						<FormControl className={classes.formControl}>
 							<InputLabel htmlFor="inputPassword">

@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function Content(userAttributes) {
+export default function Content(props) {
 	const classes = useStyles();
 	const [value, setValue] = React.useState(0);
 	const { width } = useWindowDimensions();
@@ -147,7 +147,7 @@ export default function Content(userAttributes) {
 					</AppBar>
 					<TabPanel value={value} index={0}>
 						<Box className={classes.tabPanelBox}>
-							<TabSignInData userAttributes={userAttributes} />
+							<TabSignInData reloadUserData={props.reloadUserData} />
 						</Box>
 					</TabPanel>
 					<TabPanel value={value} index={1}>
