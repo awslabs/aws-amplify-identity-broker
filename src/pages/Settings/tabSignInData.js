@@ -295,8 +295,7 @@ const TabSignInData = (props) => {
 				setEditPhoneNumber(true);
 				break;
 			case 'password':
-				setVerifyAttribute({ type: attr, open: true });
-				//setPasswordChange(true);
+				setPasswordChange(true);
 				break;
 			default:
 				break;
