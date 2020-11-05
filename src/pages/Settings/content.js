@@ -152,7 +152,7 @@ export default function Content(props) {
 					</TabPanel>
 					<TabPanel value={value} index={1}>
 						<Box className={classes.tabPanelBox}>
-							<TabUserData />
+							<TabUserData reloadUserData={props.reloadUserData} />
 						</Box>
 					</TabPanel>
 					<TabPanel value={value} index={2}>

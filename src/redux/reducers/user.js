@@ -17,6 +17,14 @@ const initAttributes = () => {
 	attributes.email_verified = false;
 	attributes.phone_number = '';
 	attributes.phone_number_verified = false;
+	attributes.given_name = '';
+	attributes.family_name = '';
+	attributes.address = '';
+	attributes.birthdate = '';
+	attributes.gender = '';
+	attributes.picture = '';
+
+	attributes.custom_newsletter = false;
 
 	return attributes
 }

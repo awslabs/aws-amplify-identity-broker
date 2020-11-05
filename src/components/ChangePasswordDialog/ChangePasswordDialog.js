@@ -77,6 +77,9 @@ const useStyles = makeStyles(() => ({
 	input: {
 		minWidth: '300px',
 	},
+	textFieldIcon: {
+		color: Branding.secondary,
+	},
 	buttonSave: {
 		color: Branding.positive
 	},

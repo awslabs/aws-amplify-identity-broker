@@ -78,6 +78,27 @@ class Settings extends React.Component {
 							case "phone_number_verified":
 								_userAttributes.phone_number_verified = Attribute.Value === "true";
 								break;
+							case "given_name":
+								_userAttributes.given_name = Attribute.Value;
+								break;
+							case "family_name":
+								_userAttributes.family_name = Attribute.Value;
+								break;
+							case "address":
+								_userAttributes.address = Attribute.Value;
+								break;
+							case "birthdate":
+								_userAttributes.birthdate = Attribute.Value;
+								break;
+							case "gender":
+								_userAttributes.gender = Attribute.Value;
+								break;
+							case "picture":
+								_userAttributes.picture = Attribute.Value;
+								break;
+							case "custom:newsletter":
+								_userAttributes.custom_newsletter = Attribute.Value;
+								break;
 							default:
 								break;
 						}
