@@ -8,7 +8,9 @@
 */
 
 import React from 'react';
+
 import { I18n } from '@aws-amplify/core';
+
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';

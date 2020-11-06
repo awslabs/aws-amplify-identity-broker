@@ -102,7 +102,6 @@ const Header = (props) => {
 	const handleLangChange = (lang) => {
 		I18n.setLanguage(lang);
 		setLang(lang);
-		props.changedLang(lang);
 	};
 
 	const handleMenu = (event) => {

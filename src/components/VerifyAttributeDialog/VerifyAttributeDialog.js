@@ -22,7 +22,6 @@ const strings = {
 		VERIFY_DIALOG_INPUT_LABEL: "Code",
 		VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verify",
 		VERIFY_DIALOG_CLOSE_BUTTON_LABEL: "Close",
-		VERIFY_DIALOG_MESSAGE_SUCCESS: "The verification was successful",
 		VERIFY_DIALOG_MESSAGE_EROR: "An error has occurred",
 	},
 	fr: {
@@ -31,7 +30,6 @@ const strings = {
 		VERIFY_DIALOG_INPUT_LABEL: "Code",
 		VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verify",
 		VERIFY_DIALOG_CLOSE_BUTTON_LABEL: "Close",
-		VERIFY_DIALOG_MESSAGE_SUCCESS: "La vérification a réussi",
 		VERIFY_DIALOG_MESSAGE_EROR: "Une erreur est survenue",
 	},
 	de: {
@@ -40,7 +38,6 @@ const strings = {
 		VERIFY_DIALOG_INPUT_LABEL: "Code",
 		VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verifizieren",
 		VERIFY_DIALOG_CLOSE_BUTTON_LABEL: "Schließen",
-		VERIFY_DIALOG_MESSAGE_SUCCESS: "Die Verifizierung war erfolgreich",
 		VERIFY_DIALOG_MESSAGE_EROR: "Ist ein Fehler aufgetreten",
 	},
 	nl: {
@@ -49,7 +46,6 @@ const strings = {
 		VERIFY_DIALOG_INPUT_LABEL: "Code",
 		VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verify",
 		VERIFY_DIALOG_CLOSE_BUTTON_LABEL: "Close",
-		VERIFY_DIALOG_MESSAGE_SUCCESS: "De verificatie is gelukt",
 		VERIFY_DIALOG_MESSAGE_EROR: "Er is een fout opgetreden",
 	}
 }
@@ -72,7 +68,7 @@ const useStyles = makeStyles(() => ({
 
 const VerifyAttributeDialog = (props) => {
 	const classes = useStyles();
-	const [code, setCode] = React.useState();
+	const [code, setCode] = React.useState('');
 	const [snackBarOps, setSnackBarOps] = React.useState({
 		type: 'info',
 		open: false,
@@ -97,17 +93,8 @@ const VerifyAttributeDialog = (props) => {
 
 		// To verify attribute with the code
 		Auth.verifyCurrentUserAttributeSubmit(attr, code)
-			.then(() => {
-				setSnackBarOps({
-					type: 'success',
-					open: true,
-					vertical: 'top',
-					horizontal: 'center',
-					autoHide: 3000,
-					message: I18n.get('VERIFY_DIALOG_MESSAGE_SUCCESS')
-				});
-
-				handleClose();
+			.then((data) => {
+				handleClose(data === 'SUCCESS');
 			}).catch(err => {
 				console.log(err);
 
@@ -126,10 +113,10 @@ const VerifyAttributeDialog = (props) => {
 		verifyCurrentUserAttributeSubmit(props.attrType, code);
 	};
 
-	const handleClose = () => {
+	const handleClose = (successful = false) => {
 		setCode('');
 		props.reloadUserData();
-		props.close();
+		props.close(successful);
 	};
 
 	const handleChange = (value) => {
@@ -138,7 +125,10 @@ const VerifyAttributeDialog = (props) => {
 
 	return (
 		<div>
-			<AppSnackbar ops={snackBarOps} />
+			{snackBarOps.open && (
+				<AppSnackbar ops={snackBarOps} />
+			)}
+
 			<Dialog
 				open={props.open}
 				onClose={handleClose}

@@ -10,7 +10,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setAuth } from './redux/actions';
+import { setLang, setAuth } from './redux/actions';
 
 import { Auth } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
@@ -32,6 +32,14 @@ import PhoneBreakpoint from './responsive_utilities/phone_breakpoint';
 import { strings } from './strings';
 I18n.putVocabularies(strings);
 
+const mapStateToProps = (state) => {
+	return {
+		lang: state.app.lang,
+		auth: state.app.auth,
+		user: state.user,
+	}
+}
+
 // See doc for customization here: https://docs.amplify.aws/ui/auth/authenticator/q/framework/react#slots
 
 class App extends React.Component {
@@ -42,9 +50,9 @@ class App extends React.Component {
 		if (navigator.language === "fr" || navigator.language.startsWith("fr-")) {
 			lang = { lang: "fr" };
 		}
+		this.props.setLang(lang);
 
 		this.state = {
-			lang: lang,
 			auth: false,
 			authState: AuthState.SignIn
 		};
@@ -159,11 +167,9 @@ class App extends React.Component {
 		return (
 			<MuiThemeProvider theme={theme}>
 				<Header
-					auth={this.state.auth}
-					lang={this.state.lang}
-					changedLang={(newLang) => this.setState({ lang: newLang })}
+					auth={this.props.auth}
+					lang={this.props.lang}
 				/>
-
 
 				<DesktopBreakpoint>
 					<ResponsiveLanding dynamicClassName="desktop" authState={this.state.authState} pageLang={this.state.lang} />
@@ -181,4 +187,4 @@ class App extends React.Component {
 	}
 }
 
-export default withRouter(connect(null, { setAuth })(App));
+export default withRouter(connect(mapStateToProps, { setLang, setAuth })(App));

@@ -21,14 +21,17 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Checkbox from '@material-ui/core/Checkbox';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
 
 import { Branding } from '../../branding';
+import { setUser, setLang } from '../../redux/actions';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
-import { setUser } from '../../redux/actions';
-import { TextField } from '@material-ui/core';
 
 /*
  * Localization
@@ -42,6 +45,15 @@ const strings = {
 		TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL: "Birthdate",
 		TAB_USER_DATA_TEXTFIELD_GENDER_LABEL: "Gender",
 		TAB_USER_DATA_TEXTFIELD_CUSTOM_NEWSLETTER_LABEL: "Newsletter",
+		TAB_USER_DATA_SELECT_GENDER_0: "<Please Select>",
+		TAB_USER_DATA_SELECT_GENDER_1: "Male",
+		TAB_USER_DATA_SELECT_GENDER_2: "Female",
+		TAB_USER_DATA_SELECT_GENDER_3: "X-gender",
+		TAB_USER_DATA_TEXTFIELD_LANGUAGE_LABEL: "Preferred Language",
+		TAB_USER_DATA_SELECT_LANGUAGE_DE: "Deutsch",
+		TAB_USER_DATA_SELECT_LANGUAGE_EN: "English",
+		TAB_USER_DATA_SELECT_LANGUAGE_FR: "French",
+		TAB_USER_DATA_SELECT_LANGUAGE_NL: "Nederlands",
 		TAB_USER_DATA_CHANGE_BUTTON_LABEL: "Change",
 		TAB_USER_DATA_CANCEL_BUTTON_LABEL: "Cancel",
 		TAB_USER_DATA_SAVE_BUTTON_LABEL: "Save",
@@ -56,6 +68,11 @@ const strings = {
 		TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL: "Date de naissance",
 		TAB_USER_DATA_TEXTFIELD_GENDER_LABEL: "Le genre",
 		TAB_USER_DATA_TEXTFIELD_CUSTOM_NEWSLETTER_LABEL: "Bulletin",
+		TAB_USER_DATA_SELECT_GENDER_0: "<Veuillez sélectionner>",
+		TAB_USER_DATA_SELECT_GENDER_1: "Mâle",
+		TAB_USER_DATA_SELECT_GENDER_2: "Femelle",
+		TAB_USER_DATA_SELECT_GENDER_3: "X-genre",
+		TAB_USER_DATA_TEXTFIELD_LANGUAGE_LABEL: "Langue préférée",
 		TAB_USER_DATA_CHANGE_BUTTON_LABEL: "Changer",
 		TAB_USER_DATA_CANCEL_BUTTON_LABEL: "Avorter",
 		TAB_USER_DATA_SAVE_BUTTON_LABEL: "Sauver",
@@ -70,6 +87,11 @@ const strings = {
 		TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL: "Geburtsdatum",
 		TAB_USER_DATA_TEXTFIELD_GENDER_LABEL: "Geschlecht",
 		TAB_USER_DATA_TEXTFIELD_CUSTOM_NEWSLETTER_LABEL: "Newsletter",
+		TAB_USER_DATA_SELECT_GENDER_0: "<Bitte auswählen>",
+		TAB_USER_DATA_SELECT_GENDER_1: "Männlich",
+		TAB_USER_DATA_SELECT_GENDER_2: "Weiblich",
+		TAB_USER_DATA_SELECT_GENDER_3: "X-gender",
+		TAB_USER_DATA_TEXTFIELD_LANGUAGE_LABEL: "Bevorzugte Sprache",
 		TAB_USER_DATA_CHANGE_BUTTON_LABEL: "Ändern",
 		TAB_USER_DATA_CANCEL_BUTTON_LABEL: "Abbrechen",
 		TAB_USER_DATA_SAVE_BUTTON_LABEL: "Speichern",
@@ -84,6 +106,11 @@ const strings = {
 		TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL: "Geboortedatum",
 		TAB_USER_DATA_TEXTFIELD_GENDER_LABEL: "Geslacht",
 		TAB_USER_DATA_TEXTFIELD_CUSTOM_NEWSLETTER_LABEL: "Nieuwsbrief",
+		TAB_USER_DATA_SELECT_GENDER_0: "<Selecteer alstublieft>",
+		TAB_USER_DATA_SELECT_GENDER_1: "Mannetje",
+		TAB_USER_DATA_SELECT_GENDER_2: "Vrouw",
+		TAB_USER_DATA_SELECT_GENDER_3: "X-geslacht",
+		TAB_USER_DATA_TEXTFIELD_LANGUAGE_LABEL: "Voorkeurstaal",
 		TAB_USER_DATA_CHANGE_BUTTON_LABEL: "Veranderen",
 		TAB_USER_DATA_CANCEL_BUTTON_LABEL: "Afbreken",
 		TAB_USER_DATA_SAVE_BUTTON_LABEL: "Opslaan",
@@ -116,6 +143,9 @@ const useStyles = makeStyles((theme) => ({
 		margin: theme.spacing(2),
 		minWidth: '300px'
 	},
+	inputLableGender: {
+		marginLeft: theme.spacing(2),
+	},
 	checkBox: {
 		marginLeft: theme.spacing(2),
 	},
@@ -140,9 +170,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-
-
-
 const mapStateToProps = (state) => {
 	return {
 		...state,
@@ -151,9 +178,10 @@ const mapStateToProps = (state) => {
 		family_name: state.user.attributes.family_name || '',
 		address: state.user.attributes.address || '',
 		birthdate: state.user.attributes.birthdate || '',
-		gender: state.user.attributes.gender || '',
+		gender: state.user.attributes.gender || '0',
 		picture: state.user.attributes.picture || '',
 		custom_newsletter: state.user.attributes.custom_newsletter || false,
+		locale: state.user.attributes.locale || 'en',
 	}
 }
 
@@ -175,9 +203,7 @@ const TabUserData = (props) => {
 	 * Example: {"given_name": "John", "family_name": "Doo"}
 	 */
 	const updateUserAttributes = (attributes) => {
-		console.log(attributes)
 		let jsonAttributes = JSON.parse(attributes)
-		console.log(jsonAttributes);
 		Auth.currentAuthenticatedUser()
 			.then(CognitoUser => {
 				Auth.updateUserAttributes(CognitoUser, jsonAttributes)
@@ -238,6 +264,10 @@ const TabUserData = (props) => {
 			case 'gender':
 				props.setUser({ ...props.user, gender: value })
 				break;
+			case 'locale':
+				props.setUser({ ...props.user, locale: value })
+				props.setLang(value);
+				break;
 			case 'custom_newsletter':
 				props.setUser({ ...props.user, custom_newsletter: value })
 				break;
@@ -256,30 +286,56 @@ const TabUserData = (props) => {
 	};
 
 	const handleClickSave = () => {
+		const jsonEscape = (str) => {
+			return str
+				.replace(", }", "}")
+				.replace(/[\\]/g, '\\\\')
+				.replace(/[\b]/g, '\\b')
+				.replace(/[\f]/g, '\\f')
+				.replace(/[\n]/g, '\\n')
+				.replace(/[\r]/g, '\\r')
+				.replace(/[\t]/g, '\\t');
+		};
+
 		let attrList = "{";
+
 		if (props.given_name)
 			attrList += `"given_name": "${props.given_name}",`;
+
 		if (props.family_name)
 			attrList += `"family_name": "${props.family_name}", `;
+
 		if (props.address)
 			attrList += `"address": "${props.address}", `;
+
 		if (props.birthdate)
-			attrList += `"family_name": "${props.birthdate}", `;
-		if (props.birthdate)
-			attrList += `"family_name": "${props.family_name}", `;
-		if (props.gender)
+			attrList += `"birthdate": "${props.birthdate}", `;
+
+		//If no gender selected send O to update the current value	
+		if (props.gender) {
 			attrList += `"gender": "${props.gender}", `;
+		} else {
+			attrList += `"gender": "0", `;
+		}
+
+		if (props.locale) {
+			attrList += `"locale": "${props.locale}", `;
+		}
 
 		//attrList += `"custom:newsletter": "${props.custom_newsletter}", `;
 		attrList += "}"
-		attrList = attrList.replace(", }", "}")
+		attrList = jsonEscape(attrList);
 
 		updateUserAttributes(attrList);
 	};
 
+
+
 	return (
 		<div className={classes.root}>
-			<AppSnackbar ops={snackBarOps} />
+			{snackBarOps.open && (
+				<AppSnackbar ops={snackBarOps} />
+			)}
 
 			<Card className={classes.root} variant="outlined">
 				<CardHeader
@@ -311,6 +367,8 @@ const TabUserData = (props) => {
 						<TextField
 							id="textfield_address"
 							value={props.address}
+							multiline
+							rows={3}
 							disabled={!editAttributes}
 							label={I18n.get('TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL')}
 							className={classes.textField}
@@ -318,24 +376,60 @@ const TabUserData = (props) => {
 						/>
 					</Box>
 					<Box>
-						<TextField
-							id="textfield_birthdate"
-							value={props.birthdate}
-							disabled={!editAttributes}
-							label={I18n.get('TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL')}
-							className={classes.textField}
-							onChange={(event) => handleAttributeChange('birthdate', event.target.value)}
-						/>
+						<form className={classes.container} noValidate>
+							<TextField
+								id="textfield_birthday_date"
+								value={props.birthdate}
+								disabled={!editAttributes}
+								label={I18n.get('TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL')}
+								type="date"
+								onChange={(event) => handleAttributeChange('birthdate', event.target.value)}
+								className={classes.textField}
+								InputLabelProps={{
+									shrink: true,
+								}}
+							/>
+						</form>
 					</Box>
 					<Box>
-						<TextField
-							id="textfield_gender"
-							value={props.gender}
-							disabled={!editAttributes}
-							label={I18n.get('TAB_USER_DATA_TEXTFIELD_GENDER_LABEL')}
-							className={classes.textField}
-							onChange={(event) => handleAttributeChange('gender', event.target.value)}
-						/>
+						<FormControl className={classes.formControl}>
+							<InputLabel id="textfield_gender_label" className={classes.inputLableGender}>
+								{I18n.get('TAB_USER_DATA_TEXTFIELD_GENDER_LABEL')}
+							</InputLabel>
+							<Select
+								labelId="textfield_gender_select-label"
+								id="textfield_gender_select"
+								value={props.gender}
+								disabled={!editAttributes}
+								onChange={(event) => handleAttributeChange('gender', event.target.value)}
+								className={classes.textField}
+							>
+								<MenuItem value={0}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_0')}</MenuItem>
+								<MenuItem value={1}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_1')}</MenuItem>
+								<MenuItem value={2}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_2')}</MenuItem>
+								<MenuItem value={2}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_3')}</MenuItem>
+							</Select>
+						</FormControl>
+					</Box>
+					<Box>
+						<FormControl className={classes.formControl}>
+							<InputLabel id="textfield_language_label" className={classes.inputLableGender}>
+								{I18n.get('TAB_USER_DATA_TEXTFIELD_LANGUAGE_LABEL')}
+							</InputLabel>
+							<Select
+								labelId="textfield_language_select-label"
+								id="textfield_language_select"
+								value={props.locale}
+								disabled={!editAttributes}
+								onChange={(event) => handleAttributeChange('locale', event.target.value)}
+								className={classes.textField}
+							>
+								<MenuItem value={'de'}>{"Deutsch"}</MenuItem>
+								<MenuItem value={'en'}>{"English"}</MenuItem>
+								<MenuItem value={'fr'}>{"French"}</MenuItem>
+								<MenuItem value={'nl'}>{"Nederlands"}</MenuItem>
+							</Select>
+						</FormControl>
 					</Box>
 					<FormGroup row>
 						<FormControlLabel
@@ -350,9 +444,9 @@ const TabUserData = (props) => {
 							}
 							label={I18n.get('TAB_USER_DATA_TEXTFIELD_CUSTOM_NEWSLETTER_LABEL')}
 							className={classes.formControlLabel}
+							disabled={!editAttributes}
 						/>
 					</FormGroup>
-
 				</CardContent >
 				<CardActions className={classes.cardActions}>
 					{!editAttributes && (
@@ -376,4 +470,4 @@ const TabUserData = (props) => {
 	)
 }
 
-export default connect(mapStateToProps, { setUser })(TabUserData)
+export default connect(mapStateToProps, { setUser, setLang })(TabUserData)

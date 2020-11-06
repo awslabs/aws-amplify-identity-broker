@@ -30,7 +30,6 @@ const strings = {
 		CHANGE_PASSWORD_NEWPASSWORD_INPUT_LABEL: "New Password",
 		CHANGE_PASSWORD_SAVE_BUTTON_LABEL: "Save",
 		CHANGE_PASSWORD_CLOSE_BUTTON_LABEL: "Close",
-		CHANGE_PASSWORD_MESSAGE_SUCCESS: "The password was successful set",
 		CHANGE_PASSWORD_MESSAGE_EROR: "An error has occurred",
 	},
 	fr: {
@@ -40,7 +39,6 @@ const strings = {
 		CHANGE_PASSWORD_NEWPASSWORD_INPUT_LABEL: "Nouveau mot de passe",
 		CHANGE_PASSWORD_SAVE_BUTTON_LABEL: "Sauvegarder",
 		CHANGE_PASSWORD_CLOSE_BUTTON_LABEL: "Close",
-		CHANGE_PASSWORD_MESSAGE_SUCCESS: "Veuillez saisir votre nouveau mot de passe actuel",
 		CHANGE_PASSWORD_MESSAGE_EROR: "Une erreur est survenue",
 	},
 	de: {
@@ -50,7 +48,6 @@ const strings = {
 		CHANGE_PASSWORD_NEWPASSWORD_INPUT_LABEL: "Neues Password",
 		CHANGE_PASSWORD_SAVE_BUTTON_LABEL: "Speichern",
 		CHANGE_PASSWORD_CLOSE_BUTTON_LABEL: "Schließen",
-		CHANGE_PASSWORD_MESSAGE_SUCCESS: "Das Passwort wurde erfolgreich gesetzt",
 		CHANGE_PASSWORD_MESSAGE_EROR: "Ist ein Fehler aufgetreten",
 	},
 	nl: {
@@ -60,7 +57,6 @@ const strings = {
 		CHANGE_PASSWORD_NEWPASSWORD_INPUT_LABEL: "nieuw paswoord",
 		CHANGE_PASSWORD_SAVE_BUTTON_LABEL: "Opslaan",
 		CHANGE_PASSWORD_CLOSE_BUTTON_LABEL: "Dichtbij",
-		CHANGE_PASSWORD_MESSAGE_SUCCESS: "Voer uw huidige en nieuwe wachtwoord in",
 		CHANGE_PASSWORD_MESSAGE_EROR: "Er is een fout opgetreden",
 	}
 }
@@ -124,17 +120,8 @@ const ChangePasswordDialog = (props) => {
 		Auth.currentAuthenticatedUser()
 			.then(CognitoUser => {
 				Auth.changePassword(CognitoUser, oldPassword, newPassword)
-					.then(() => {
-						setSnackBarOps({
-							type: 'success',
-							open: true,
-							vertical: 'top',
-							horizontal: 'center',
-							autoHide: 3000,
-							message: I18n.get('CHANGE_PASSWORD_MESSAGE_SUCCESS')
-						});
-
-						handleClose();
+					.then((data) => {
+						handleClose(data === 'SUCCESS');
 					})
 					.catch((err) => {
 						console.log(err);
@@ -179,15 +166,18 @@ const ChangePasswordDialog = (props) => {
 		changePassword(oldPassword.password, newPassword.password)
 	};
 
-	const handleClose = () => {
+	const handleClose = (succesful = false) => {
 		setOldPassword({ ...oldPassword, password: '' });
 		setNewPassword({ ...newPassword, password: '' });
-		props.close();
+		props.close(succesful);
 	};
 
 	return (
 		<div>
-			<AppSnackbar ops={snackBarOps} />
+			{snackBarOps.open && (
+				<AppSnackbar ops={snackBarOps} />
+			)}
+
 			<Dialog
 				open={props.open}
 				onClose={handleClose}

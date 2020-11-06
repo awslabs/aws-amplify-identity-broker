@@ -64,9 +64,11 @@ export const theme = unstable_createMuiStrictModeTheme({
 	spacing: 8,
 	breakpoints: {
 		values: {
-			tablet: 640,
-			laptop: 1024,
-			desktop: 1280,
+			xs: 0,
+			sm: 600,
+			md: 960,
+			lg: 1280,
+			xl: 1920,
 		},
 	},
 	overrides: {

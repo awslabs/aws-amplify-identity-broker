@@ -21,8 +21,9 @@ const initAttributes = () => {
 	attributes.family_name = '';
 	attributes.address = '';
 	attributes.birthdate = '';
-	attributes.gender = '';
+	attributes.gender = 0;
 	attributes.picture = '';
+	attributes.locale = 'en';
 
 	attributes.custom_newsletter = false;
 

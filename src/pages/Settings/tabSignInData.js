@@ -53,6 +53,8 @@ const strings = {
 		TAB_SIGNIN_DATA_MESSAGE_EROR: "An error has occurred",
 		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "The update was successful",
 		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Please verify your changes",
+		TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "The password was successful set",
+		TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "The verification was successful",
 	},
 	fr: {
 		TAB_SIGNIN_DATA_LABEL: "INFORMATIONS DE CONNEXION",
@@ -68,6 +70,8 @@ const strings = {
 		TAB_SIGNIN_DATA_MESSAGE_EROR: "Une erreur est survenue",
 		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "La mise à jour a réussi",
 		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Veuillez vérifier vos modifications",
+		TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "Veuillez saisir votre nouveau mot de passe actuel",
+		TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "La vérification a réussi",
 	},
 	de: {
 		TAB_SIGNIN_DATA_LABEL: "ANMELDEINFORMATIONEN",
@@ -83,6 +87,8 @@ const strings = {
 		TAB_SIGNIN_DATA_MESSAGE_EROR: "Ist ein Fehler aufgetreten",
 		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "Das Update war erflogreich",
 		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Bitte verifizieren Sie Ihre Änderungen",
+		TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "Das Passwort wurde erfolgreich gesetzt",
+		TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "Die Verifizierung war erfolgreich",
 	},
 	nl: {
 		TAB_SIGNIN_DATA_LABEL: "INLOGGEGEVENS",
@@ -98,6 +104,8 @@ const strings = {
 		TAB_SIGNIN_DATA_MESSAGE_EROR: "Er is een fout opgetreden",
 		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "De update is gelukt",
 		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Controleer uw wijzigingen",
+		TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "Voer uw huidige en nieuwe wachtwoord in",
+		TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "De verificatie is gelukt",
 	}
 }
 I18n.putVocabularies(strings);
@@ -332,18 +340,56 @@ const TabSignInData = (props) => {
 		}
 	};
 
+	const handleCloseVerifyDialog = (successful = false) => {
+		if (successful === true) {
+			setSnackBarOps({
+				type: 'success',
+				open: true,
+				vertical: 'top',
+				horizontal: 'center',
+				autoHide: 3000,
+				message: I18n.get('TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS')
+			});
+		};
+
+		setVerifyAttribute({ type: '', open: false })
+	}
+
+	const handleClosePasswordDialog = (successful = false) => {
+		if (successful === true) {
+			setSnackBarOps({
+				type: 'success',
+				open: true,
+				vertical: 'top',
+				horizontal: 'center',
+				autoHide: 3000,
+				message: I18n.get('TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS')
+			});
+		};
+
+		setPasswordChange(false);
+	}
+
 	return (
 		<div>
-			<AppSnackbar ops={snackBarOps} />
+			{snackBarOps.open && (
+				<AppSnackbar ops={snackBarOps} />
+			)}
 
-			<VerifyAttributeDialog
-				attrType={verifyAttribute.type}
-				open={verifyAttribute.open}
-				close={() => setVerifyAttribute({ type: '', open: false })}
-				reloadUserData={props.reloadUserData}
-			/>
+			{verifyAttribute.open && (
+				<VerifyAttributeDialog
+					attrType={verifyAttribute.type}
+					open={verifyAttribute.open}
+					close={(successful) => handleCloseVerifyDialog(successful)}
+					reloadUserData={props.reloadUserData}
+				/>
+			)}
 
-			<ChangePasswordDialog open={passwordChange} close={() => setPasswordChange(false)} />
+			{passwordChange && (
+				<ChangePasswordDialog
+					open={passwordChange}
+					close={(successful) => handleClosePasswordDialog(successful)} />
+			)}
 
 			<Card className={classes.root} variant="outlined">
 				<CardHeader

@@ -20,7 +20,7 @@ import { theme } from '../../branding';
 
 import Header from '../../components/AppBar/AppBar';
 import Content from './content';
-import { setUser } from '../../redux/actions';
+import { setUser, setLang } from '../../redux/actions';
 
 /*
  * Localization
@@ -43,16 +43,16 @@ I18n.putVocabularies(strings);
 
 const mapStateToProps = (state) => {
 	return {
-		user: state.user
+		lang: state.app.lang,
+		auth: state.app.auth,
+		user: state.user,
 	}
 }
 
 class Settings extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			lang: 'en',
-		}
+		this.state = {}
 	}
 
 	componentDidMount() {
@@ -100,6 +100,11 @@ class Settings extends React.Component {
 							case "picture":
 								_userAttributes.picture = Attribute.Value;
 								break;
+							case "locale":
+								_userAttributes.locale = Attribute.Value;
+								if (_userAttributes.locale !== this.props.lang)
+									this.props.setLang(_userAttributes.locale)
+								break;
 							case "custom:newsletter":
 								_userAttributes.custom_newsletter = Attribute.Value;
 								break;
@@ -115,17 +120,13 @@ class Settings extends React.Component {
 			})
 	}
 
-
-	// Currently only displaying current user attributes
-	// To update user attributes use Auth.updateUserAttributes() https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#updateuserattributes
 	render() {
 		return (
 			<MuiThemeProvider theme={theme}>
 				<Header
-					auth={this.state.auth}
+					auth={this.props.auth}
 					pageTitle={I18n.get("SETTINGS_TITLE")}
-					lang={this.state.lang}
-					changedLang={(newLang) => this.setState({ lang: newLang })}
+					lang={this.props.lang}
 					routeTo={(newPath) => this.props.history.push(newPath)}
 				/>
 
@@ -135,5 +136,5 @@ class Settings extends React.Component {
 	}
 }
 
-export default withRouter(connect(mapStateToProps, { setUser })(Settings));
+export default withRouter(connect(mapStateToProps, { setUser, setLang })(Settings));
 
