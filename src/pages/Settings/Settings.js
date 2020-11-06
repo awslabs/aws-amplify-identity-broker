@@ -14,6 +14,10 @@ import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 
+//Branded Theme
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { theme } from '../../branding';
+
 import Header from '../../components/AppBar/AppBar';
 import Content from './content';
 import { setUser } from '../../redux/actions';
@@ -116,7 +120,7 @@ class Settings extends React.Component {
 	// To update user attributes use Auth.updateUserAttributes() https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#updateuserattributes
 	render() {
 		return (
-			<div>
+			<MuiThemeProvider theme={theme}>
 				<Header
 					auth={this.state.auth}
 					pageTitle={I18n.get("SETTINGS_TITLE")}
@@ -126,7 +130,7 @@ class Settings extends React.Component {
 				/>
 
 				<Content reloadUserData={this.loadUserAttributes} />
-			</div>
+			</MuiThemeProvider>
 		);
 	}
 }

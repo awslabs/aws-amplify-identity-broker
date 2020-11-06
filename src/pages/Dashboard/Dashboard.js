@@ -13,6 +13,10 @@ import { withRouter } from 'react-router-dom';
 import { API } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 
+//Branded Theme
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { theme } from '../../branding';
+
 import AppTiles from './appTiles';
 import Header from '../../components/AppBar/AppBar';
 
@@ -79,7 +83,7 @@ class Dashboard extends React.Component {
 	render() {
 
 		return (
-			<div>
+			<MuiThemeProvider theme={theme}>
 				<Header
 					auth={this.state.auth}
 					pageTitle={I18n.get("DASHBOARD_TITLE")}
@@ -89,7 +93,7 @@ class Dashboard extends React.Component {
 				/>
 
 				<AppTiles appClients={this.state.registeredClients} />
-			</div>
+			</MuiThemeProvider>
 		)
 	}
 }

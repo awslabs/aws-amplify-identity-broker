@@ -20,6 +20,10 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 
 import { Branding } from '../../branding';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
@@ -112,6 +116,12 @@ const useStyles = makeStyles((theme) => ({
 		margin: theme.spacing(2),
 		minWidth: '300px'
 	},
+	checkBox: {
+		marginLeft: theme.spacing(2),
+	},
+	formControlLabel: {
+		color: Branding.secondary
+	},
 	buttonChange: {
 		marginTop: '8px',
 		marginLeft: '8px',
@@ -127,8 +137,10 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: '8px',
 		marginLeft: '8px',
 		color: Branding.positive,
-	}
+	},
 }));
+
+
 
 
 const mapStateToProps = (state) => {
@@ -325,16 +337,21 @@ const TabUserData = (props) => {
 							onChange={(event) => handleAttributeChange('gender', event.target.value)}
 						/>
 					</Box>
-					<Box>
-						<TextField
-							id="textfield_custom_newsletter"
-							value={props.custom_newsletter}
-							disabled={!editAttributes}
+					<FormGroup row>
+						<FormControlLabel
+							control={
+								<Checkbox
+									checked={props.custom_newsletter}
+									onChange={(event) => handleAttributeChange('custom_newsletter', event.target.checked)}
+									name="checkbox_custom_newsletter"
+									color="secondary"
+									className={classes.checkBox}
+								/>
+							}
 							label={I18n.get('TAB_USER_DATA_TEXTFIELD_CUSTOM_NEWSLETTER_LABEL')}
-							className={classes.textField}
-							onChange={(event) => handleAttributeChange('custom_newsletter', event.target.value)}
+							className={classes.formControlLabel}
 						/>
-					</Box>
+					</FormGroup>
 
 				</CardContent >
 				<CardActions className={classes.cardActions}>

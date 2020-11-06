@@ -16,17 +16,20 @@ import { Auth } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
 
+//Branded Theme
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { theme } from './branding';
+
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 import ResponsiveLanding from './components/ResponsiveLanding/ResponsiveLanding';
-import { strings } from './strings';
+import Header from './components/AppBar/AppBar';
 
 // responsive utilities
 import DesktopBreakpoint from './responsive_utilities/desktop_breakpoint';
 import TabletBreakpoint from './responsive_utilities/tablet_breakpoint';
 import PhoneBreakpoint from './responsive_utilities/phone_breakpoint';
 
-import Header from './components/AppBar/AppBar';
-
+import { strings } from './strings';
 I18n.putVocabularies(strings);
 
 // See doc for customization here: https://docs.amplify.aws/ui/auth/authenticator/q/framework/react#slots
@@ -154,12 +157,13 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<MuiThemeProvider theme={theme}>
 				<Header
 					auth={this.state.auth}
 					lang={this.state.lang}
 					changedLang={(newLang) => this.setState({ lang: newLang })}
 				/>
+
 
 				<DesktopBreakpoint>
 					<ResponsiveLanding dynamicClassName="desktop" authState={this.state.authState} pageLang={this.state.lang} />
@@ -172,7 +176,7 @@ class App extends React.Component {
 				<PhoneBreakpoint>
 					<ResponsiveLanding dynamicClassName="mobile" authState={this.state.authState} pageLang={this.state.lang} />
 				</PhoneBreakpoint>
-			</div>
+			</MuiThemeProvider>
 		);
 	}
 }
