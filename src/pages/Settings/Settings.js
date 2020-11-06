@@ -106,7 +106,7 @@ class Settings extends React.Component {
 									this.props.setLang(_userAttributes.locale)
 								break;
 							case "custom:newsletter":
-								_userAttributes.custom_newsletter = Attribute.Value;
+								_userAttributes.custom_newsletter = (Attribute.Value === 'true');
 								break;
 							default:
 								break;

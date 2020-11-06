@@ -269,7 +269,8 @@ const TabUserData = (props) => {
 				props.setLang(value);
 				break;
 			case 'custom_newsletter':
-				props.setUser({ ...props.user, custom_newsletter: value })
+				console.log(value);
+				props.setUser({ ...props.user, custom_newsletter: !props.custom_newsletter })
 				break;
 			default:
 				break;
@@ -322,7 +323,11 @@ const TabUserData = (props) => {
 			attrList += `"locale": "${props.locale}", `;
 		}
 
-		//attrList += `"custom:newsletter": "${props.custom_newsletter}", `;
+		if (props.custom_newsletter)
+			attrList += `"custom:newsletter": "true", `;
+		else
+			attrList += `"custom:newsletter": "false", `;
+
 		attrList += "}"
 		attrList = jsonEscape(attrList);
 
