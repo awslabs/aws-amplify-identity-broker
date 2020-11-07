@@ -27,6 +27,7 @@ import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 import TabSignInData from './tabSignInData';
 import TabUserData from './tabUserData';
 import TabDeviceData from './tabDeviceData';
+import TabMfaData from './tabMfaData';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -69,21 +70,25 @@ const strings = {
 		TAB_SIGNIN_LABEL: "SIGN IN INFORMATION",
 		TAB_USER_DATA_LABEL: "USER DATA",
 		TAB_DEVICE_DATA_LABEL: "DEVICE DATA",
+		TAB_MFA_DATA_LABEL: "MFA DATA",
 	},
 	fr: {
 		TAB_SIGNIN_LABEL: "INFORMATIONS DE CONNEXION",
 		TAB_USER_DATA_LABEL: "DONNÉES D'UTILISATEUR",
 		TAB_DEVICE_DATA_LABEL: "DONNEES DE L'APPAREIL",
+		TAB_MFA_DATA_LABEL: "DONNEES DE MFA",
 	},
 	de: {
 		TAB_SIGNIN_LABEL: "ANMELDEINFORMATIONEN",
 		TAB_USER_DATA_LABEL: "BENUTZERINFORMATIONEN",
 		TAB_DEVICE_DATA_LABEL: "GERÄTEINFORMATIONEN",
+		TAB_MFA_DATA_LABEL: "MFA INFORMATIONEN",
 	},
 	nl: {
 		TAB_SIGNIN_LABEL: "INLOGGEGEVENS",
 		TAB_USER_DATA_LABEL: "GEBRUKERSGEGEVENS",
 		TAB_DEVICE_DATA_LABEL: "APPARAATGEGEVENS",
+		TAB_MFA_DATA_LABEL: "MFA GEGEVENS",
 	}
 }
 I18n.putVocabularies(strings);
@@ -143,6 +148,7 @@ export default function Content(props) {
 							<Tab label={I18n.get('TAB_SIGNIN_LABEL')} {...a11yProps(0)} className={classes.tab} />
 							<Tab label={I18n.get('TAB_USER_DATA_LABEL')}  {...a11yProps(1)} className={classes.tab} />
 							<Tab label={I18n.get('TAB_DEVICE_DATA_LABEL')}  {...a11yProps(2)} className={classes.tab} />
+							<Tab label={I18n.get('TAB_MFA_DATA_LABEL')}  {...a11yProps(3)} className={classes.tab} />
 						</Tabs>
 					</AppBar>
 					<TabPanel value={value} index={0}>
@@ -158,6 +164,11 @@ export default function Content(props) {
 					<TabPanel value={value} index={2}>
 						<Box className={classes.tabPanelBox}>
 							<TabDeviceData />
+						</Box>
+					</TabPanel>
+					<TabPanel value={value} index={3}>
+						<Box className={classes.tabPanelBox}>
+							<TabMfaData />
 						</Box>
 					</TabPanel>
 				</Box>
