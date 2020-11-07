@@ -1,0 +1,98 @@
+.wrapper {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 5%;
+}
+
+.container-desktop {
+	width: 1200px;
+	display: flex;
+	margin-right: auto;
+	margin-left: auto;
+	padding-top: 20px;
+}
+
+.social-login-desktop {
+	flex: 50%;
+	justify-content: center;
+	margin-top: 10%;
+}
+
+.social-login-tablet, .social-login-mobile {
+	margin-bottom: 20px;
+}
+
+.social-login-mobile {
+	margin-top: 280px;
+}
+
+.social-login-tablet {
+	margin-top: 220px;
+}
+
+.form-login-desktop {
+	flex: 50%;
+	justify-content: center;
+	margin-left: 9px;
+}
+
+.form-login-tablet, .form-login-mobile {
+	justify-content: center;
+	display: block;
+	margin-top: 20px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.form-login-mobile {
+	width: 338px;
+}
+
+.form-login-tablet {
+	width: 458px;
+}
+
+.separator-desktop {
+	position: absolute;
+	top: 50%;
+	margin-left: -60px;
+	background-color: #fff;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	color: rgba(0, 0, 0, 0.35);
+}
+
+.container-tablet {
+	width: 700px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-top: 20px;
+}
+
+.container-phone {
+	width: 500px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-top: 20px;
+}
+
+.hr-sect {
+	display: flex;
+	flex-basis: 100%;
+	align-items: center;
+	color: rgba(0, 0, 0, 0.35);
+	padding-bottom: 10px;
+}
+
+.hr-sect::before, .hr-sect::after {
+	content: "";
+	flex-grow: 1;
+	background: rgba(0, 0, 0, 0.35);
+	height: 1px;
+	font-size: 0px;
+	line-height: 0px;
+	margin: 0px 8px;
+}
