@@ -380,21 +380,19 @@ const TabUserData = (props) => {
 							/>
 						</Box>
 						<Box>
-							<form className={classes.container} noValidate>
-								<TextField
-									id="textfield_birthday_date"
-									value={props.birthdate}
-									disabled={!editAttributes}
-									label={I18n.get('TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL')}
-									type="date"
-									onChange={(event) => handleAttributeChange('birthdate', event.target.value)}
-									className={classes.textField}
-									InputLabelProps={{
-										shrink: true,
-									}}
-									inputProps={{ style: { left: 0 } }}
-								/>
-							</form>
+							<TextField
+								id="textfield_birthday_date"
+								value={props.birthdate}
+								disabled={!editAttributes}
+								label={I18n.get('TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL')}
+								type="date"
+								onChange={(event) => handleAttributeChange('birthdate', event.target.value)}
+								className={classes.textField}
+								InputLabelProps={{
+									shrink: true,
+								}}
+								inputProps={{ style: { left: 0 } }}
+							/>
 						</Box>
 						<Box>
 							<FormControl className={classes.formControl}>
