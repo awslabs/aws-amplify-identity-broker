@@ -127,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
 	header: {
 		backgroundColor: Branding.primary,
 		color: Branding.white,
-		height: '40px',
+		height: 50,
 		textAlign: 'center',
 	},
 	title: {
@@ -140,8 +140,8 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'center',
 	},
 	textField: {
-		margin: theme.spacing(2),
-		minWidth: '300px'
+		margin: theme.spacing(1),
+		minWidth: 300,
 	},
 	inputLableGender: {
 		marginLeft: theme.spacing(2),
@@ -150,18 +150,18 @@ const useStyles = makeStyles((theme) => ({
 		marginLeft: theme.spacing(2),
 	},
 	buttonChange: {
-		marginBottom: '8px',
+		marginBottom: theme.spacing(1),
 		background: Branding.secondary,
 		color: Branding.white,
 	},
 	buttonCancel: {
-		marginTop: '8px',
-		marginLeft: '8px',
+		marginTop: theme.spacing(1),
+		marginLeft: theme.spacing(1),
 		color: Branding.negative,
 	},
 	buttonSave: {
-		marginTop: '8px',
-		marginLeft: '8px',
+		marginTop: theme.spacing(1),
+		marginLeft: theme.spacing(1),
 		color: Branding.positive,
 	},
 }));
@@ -265,7 +265,6 @@ const TabUserData = (props) => {
 				props.setLang(value);
 				break;
 			case 'custom_newsletter':
-				console.log(value);
 				props.setUser({ ...props.user, custom_newsletter: !props.custom_newsletter })
 				break;
 			default:
@@ -344,109 +343,115 @@ const TabUserData = (props) => {
 					title={I18n.get('TAB_USER_DATA_LABEL')}
 				/>
 				<CardContent className={classes.cardContent}>
-					<Box>
-						<TextField
-							id="textfield_given_name"
-							value={props.given_name}
-							disabled={!editAttributes}
-							label={I18n.get('TAB_USER_DATA_TEXTFIELD_GIVEN_NAME_LABEL')}
-							className={classes.textField}
-							onChange={(event) => handleAttributeChange('given_name', event.target.value)}
-						/>
-					</Box>
-					<Box>
-						<TextField
-							id="textfield_family_name"
-							value={props.family_name}
-							disabled={!editAttributes}
-							label={I18n.get('TAB_USER_DATA_TEXTFIELD_FAMILY_NAME_LABEL')}
-							className={classes.textField}
-							onChange={(event) => handleAttributeChange('family_name', event.target.value)}
-						/>
-					</Box>
-					<Box>
-						<TextField
-							id="textfield_address"
-							value={props.address}
-							multiline
-							rows={3}
-							disabled={!editAttributes}
-							label={I18n.get('TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL')}
-							className={classes.textField}
-							onChange={(event) => handleAttributeChange('address', event.target.value)}
-						/>
-					</Box>
-					<Box>
-						<form className={classes.container} noValidate>
+					<form noValidate autoComplete="off">
+						<Box>
 							<TextField
-								id="textfield_birthday_date"
-								value={props.birthdate}
+								id="textfield_given_name"
+								value={props.given_name}
 								disabled={!editAttributes}
-								label={I18n.get('TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL')}
-								type="date"
-								onChange={(event) => handleAttributeChange('birthdate', event.target.value)}
+								label={I18n.get('TAB_USER_DATA_TEXTFIELD_GIVEN_NAME_LABEL')}
 								className={classes.textField}
-								InputLabelProps={{
-									shrink: true,
-								}}
+								onChange={(event) => handleAttributeChange('given_name', event.target.value)}
+								inputProps={{ style: { left: 0 } }}
 							/>
-						</form>
-					</Box>
-					<Box>
-						<FormControl className={classes.formControl}>
-							<InputLabel id="textfield_gender_label" className={classes.inputLableGender}>
-								{I18n.get('TAB_USER_DATA_TEXTFIELD_GENDER_LABEL')}
-							</InputLabel>
-							<Select
-								labelId="textfield_gender_select-label"
-								id="textfield_gender_select"
-								value={props.gender}
+						</Box>
+						<Box>
+							<TextField
+								id="textfield_family_name"
+								value={props.family_name}
 								disabled={!editAttributes}
-								onChange={(event) => handleAttributeChange('gender', event.target.value)}
+								label={I18n.get('TAB_USER_DATA_TEXTFIELD_FAMILY_NAME_LABEL')}
 								className={classes.textField}
-							>
-								<MenuItem value={0}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_0')}</MenuItem>
-								<MenuItem value={1}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_1')}</MenuItem>
-								<MenuItem value={2}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_2')}</MenuItem>
-								<MenuItem value={2}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_3')}</MenuItem>
-							</Select>
-						</FormControl>
-					</Box>
-					<Box>
-						<FormControl className={classes.formControl}>
-							<InputLabel id="textfield_language_label" className={classes.inputLableGender}>
-								{I18n.get('TAB_USER_DATA_TEXTFIELD_LANGUAGE_LABEL')}
-							</InputLabel>
-							<Select
-								labelId="textfield_language_select-label"
-								id="textfield_language_select"
-								value={props.locale}
+								onChange={(event) => handleAttributeChange('family_name', event.target.value)}
+								inputProps={{ style: { left: 0 } }}
+							/>
+						</Box>
+						<Box>
+							<TextField
+								id="textfield_address"
+								value={props.address}
+								multiline
+								rows={3}
 								disabled={!editAttributes}
-								onChange={(event) => handleAttributeChange('locale', event.target.value)}
+								label={I18n.get('TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL')}
 								className={classes.textField}
-							>
-								<MenuItem value={'de'}>{"Deutsch"}</MenuItem>
-								<MenuItem value={'en'}>{"English"}</MenuItem>
-								<MenuItem value={'fr'}>{"French"}</MenuItem>
-								<MenuItem value={'nl'}>{"Nederlands"}</MenuItem>
-							</Select>
-						</FormControl>
-					</Box>
-					<FormGroup row>
-						<FormControlLabel
-							control={
-								<Checkbox
-									checked={props.custom_newsletter}
-									onChange={(event) => handleAttributeChange('custom_newsletter', event.target.checked)}
-									name="checkbox_custom_newsletter"
-									color="primary"
-									className={classes.checkBox}
+								onChange={(event) => handleAttributeChange('address', event.target.value)}
+								inputProps={{ style: { left: 0 } }}
+							/>
+						</Box>
+						<Box>
+							<form className={classes.container} noValidate>
+								<TextField
+									id="textfield_birthday_date"
+									value={props.birthdate}
+									disabled={!editAttributes}
+									label={I18n.get('TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL')}
+									type="date"
+									onChange={(event) => handleAttributeChange('birthdate', event.target.value)}
+									className={classes.textField}
+									InputLabelProps={{
+										shrink: true,
+									}}
+									inputProps={{ style: { left: 0 } }}
 								/>
-							}
-							label={I18n.get('TAB_USER_DATA_TEXTFIELD_CUSTOM_NEWSLETTER_LABEL')}
-							disabled={!editAttributes}
-						/>
-					</FormGroup>
+							</form>
+						</Box>
+						<Box>
+							<FormControl className={classes.formControl}>
+								<InputLabel id="textfield_gender_label" className={classes.inputLableGender}>
+									{I18n.get('TAB_USER_DATA_TEXTFIELD_GENDER_LABEL')}
+								</InputLabel>
+								<Select
+									labelId="textfield_gender_select-label"
+									id="textfield_gender_select"
+									value={props.gender}
+									disabled={!editAttributes}
+									onChange={(event) => handleAttributeChange('gender', event.target.value)}
+									className={classes.textField}
+								>
+									<MenuItem value={0}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_0')}</MenuItem>
+									<MenuItem value={1}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_1')}</MenuItem>
+									<MenuItem value={2}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_2')}</MenuItem>
+									<MenuItem value={2}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_3')}</MenuItem>
+								</Select>
+							</FormControl>
+						</Box>
+						<Box>
+							<FormControl className={classes.formControl}>
+								<InputLabel id="textfield_language_label" className={classes.inputLableGender}>
+									{I18n.get('TAB_USER_DATA_TEXTFIELD_LANGUAGE_LABEL')}
+								</InputLabel>
+								<Select
+									labelId="textfield_language_select-label"
+									id="textfield_language_select"
+									value={props.locale}
+									disabled={!editAttributes}
+									onChange={(event) => handleAttributeChange('locale', event.target.value)}
+									className={classes.textField}
+								>
+									<MenuItem value={'de'}>{"Deutsch"}</MenuItem>
+									<MenuItem value={'en'}>{"English"}</MenuItem>
+									<MenuItem value={'fr'}>{"French"}</MenuItem>
+									<MenuItem value={'nl'}>{"Nederlands"}</MenuItem>
+								</Select>
+							</FormControl>
+						</Box>
+						<FormGroup row>
+							<FormControlLabel
+								control={
+									<Checkbox
+										checked={props.custom_newsletter}
+										onChange={(event) => handleAttributeChange('custom_newsletter', event.target.checked)}
+										name="checkbox_custom_newsletter"
+										color="primary"
+										className={classes.checkBox}
+									/>
+								}
+								label={I18n.get('TAB_USER_DATA_TEXTFIELD_CUSTOM_NEWSLETTER_LABEL')}
+								disabled={!editAttributes}
+							/>
+						</FormGroup>
+					</form>
 				</CardContent >
 				<CardActions className={classes.cardActions}>
 					{!editAttributes && (
