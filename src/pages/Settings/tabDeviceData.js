@@ -1,18 +1,39 @@
+/*
+ * Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
+ *
+ * Licensed under the MIT License. See the LICENSE accompanying this file
+ * for the specific language governing permissions and limitations under
+ * the License.
+*/
+
+/*
+ * Amplify miss Device Management for the Javascript SDK
+ * This solution works with "fake" data and for this reason will not visible in production
+*/
+
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Auth } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 
 import { makeStyles } from '@material-ui/core/styles';
-import PermDeviceInformationIcon from '@material-ui/icons/PermDeviceInformation';
-import { TextField, Box, Chip, Button, CardActions, Card, IconButton, CardContent, CardHeader, Collapse } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Chip from '@material-ui/core/Chip'
+import Collapse from '@material-ui/core/Collapse';
+import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
+
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
+import PermDeviceInformationIcon from '@material-ui/icons/PermDeviceInformation';
 
 import { Branding } from '../../branding';
-//import { setLang } from '../../redux/actions';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 
 /*
@@ -21,27 +42,74 @@ import AppSnackbar from '../../components/Snackbar/Snackbar';
 const strings = {
 	en: {
 		TAB_DEVICE_DATA_LABEL: "DEVICE DATA",
+		TAB_DEVICE_DATA_CHIP_CURRENT_LABEL: "This",
+		TAB_DEVICE_DATA_TEXTFIELD_STATUS_LABEL: "Status",
+		TAB_DEVICE_DATA_TEXTFIELD_NAME_LABEL: "Name",
+		TAB_DEVICE_DATA_TEXTFIELD_LAST_IP_LABEL: "Last used IP-Address",
+		TAB_DEVICE_DATA_TEXTFIELD_LAST_USED_LABEL: "Device last used at",
+		TAB_DEVICE_DATA_TEXTFIELD_LAST_MODIFIED_LABEL: "Device last times modified at",
+		TAB_DEVICE_DATA_TEXTFIELD_CREATED_LABEL: "Device entry created at",
+		TAB_DEVICE_DATA_BUTTON_REMEMBER_DEVICE_LABEL: "Remember Device",
+		TAB_DEVICE_DATA_BUTTON_FORGET_DEVICE_LABEL: "Forget Device",
+		TAB_DEVICE_DATA_REMEMBER_DEVICE_MESSAGE: "Device successful remembered",
+		TAB_DEVICE_DATA_FORGET_DEVICE_MESSAGE: "Device successful forgotten",
+		TAB_DEVICE_DATA_MESSAGE_EROR: "An error has occurred",
 	},
 	fr: {
 		TAB_DEVICE_DATA_LABEL: "DONNEES DE L'APPAREIL",
+		TAB_DEVICE_DATA_CHIP_CURRENT_LABEL: "Cette",
+		TAB_DEVICE_DATA_TEXTFIELD_STATUS_LABEL: "Statut",
+		TAB_DEVICE_DATA_TEXTFIELD_NAME_LABEL: "Nom",
+		TAB_DEVICE_DATA_TEXTFIELD_LAST_IP_LABEL: "Dernière adresse IP utilisée",
+		TAB_DEVICE_DATA_TEXTFIELD_LAST_USED_LABEL: "Appareil utilisé pour la dernière fois à",
+		TAB_DEVICE_DATA_TEXTFIELD_LAST_MODIFIED_LABEL: "Périphérique modifié pour la dernière fois à",
+		TAB_DEVICE_DATA_TEXTFIELD_CREATED_LABEL: "Entrée d'appareil créée à",
+		TAB_DEVICE_DATA_BUTTON_REMEMBER_DEVICE_LABEL: "Se souvenir de l'appareil",
+		TAB_DEVICE_DATA_BUTTON_FORGET_DEVICE_LABEL: "Oubliez l'appareil",
+		TAB_DEVICE_DATA_REMEMBER_DEVICE_MESSAGE: "Appareil réussi mémorisé",
+		TAB_DEVICE_DATA_FORGET_DEVICE_MESSAGE: "Oubliez l'appareil",
+		TAB_DEVICE_DATA_MESSAGE_EROR: "Une erreur est survenue",
 	},
 	de: {
 		TAB_DEVICE_DATA_LABEL: "GERÄTEINFORMATIONEN",
+		TAB_DEVICE_DATA_CHIP_CURRENT_LABEL: "Dieses",
+		TAB_DEVICE_DATA_TEXTFIELD_STATUS_LABEL: "Status",
+		TAB_DEVICE_DATA_TEXTFIELD_NAME_LABEL: "Name",
+		TAB_DEVICE_DATA_TEXTFIELD_LAST_IP_LABEL: "Letzte genutzte IP-Adresse",
+		TAB_DEVICE_DATA_TEXTFIELD_LAST_USED_LABEL: "Gerät zu letzt verwendet am",
+		TAB_DEVICE_DATA_TEXTFIELD_LAST_MODIFIED_LABEL: "Gerät zu letzt geändert am",
+		TAB_DEVICE_DATA_TEXTFIELD_CREATED_LABEL: "Geräteeintrag erzeugt am",
+		TAB_DEVICE_DATA_BUTTON_REMEMBER_DEVICE_LABEL: "Gerät speichern",
+		TAB_DEVICE_DATA_BUTTON_FORGET_DEVICE_LABEL: "Gerät entfernen",
+		TAB_DEVICE_DATA_REMEMBER_DEVICE_MESSAGE: "Gerät erfolgreich gespeichert",
+		TAB_DEVICE_DATA_FORGET_DEVICE_MESSAGE: "Gerät erfolgreich entfernt",
+		TAB_DEVICE_DATA_MESSAGE_EROR: "Ist ein Fehler aufgetreten",
 	},
 	nl: {
 		TAB_DEVICE_DATA_LABEL: "APPARAATGEGEVENS",
+		TAB_DEVICE_DATA_CHIP_CURRENT_LABEL: "Deze",
+		TAB_DEVICE_DATA_TEXTFIELD_STATUS_LABEL: "Toestand",
+		TAB_DEVICE_DATA_TEXTFIELD_NAME_LABEL: "Naam",
+		TAB_DEVICE_DATA_TEXTFIELD_LAST_IP_LABEL: "Laatst gebruikte IP-adres",
+		TAB_DEVICE_DATA_TEXTFIELD_LAST_USED_LABEL: "Apparaat laatst gebruikt om",
+		TAB_DEVICE_DATA_TEXTFIELD_LAST_MODIFIED_LABEL: "Apparaat laatst gewijzigd om",
+		TAB_DEVICE_DATA_TEXTFIELD_CREATED_LABEL: "Apparaatingang gemaakt op",
+		TAB_DEVICE_DATA_BUTTON_REMEMBER_DEVICE_LABEL: "Onthoud apparaat",
+		TAB_DEVICE_DATA_BUTTON_FORGET_DEVICE_LABEL: "Vergeet het apparaat",
+		TAB_DEVICE_DATA_REMEMBER_DEVICE_MESSAGE: "Apparaat succesvol onthouden",
+		TAB_DEVICE_DATA_FORGET_DEVICE_MESSAGE: "Apparaat succesvol vergeten",
+		TAB_DEVICE_DATA_MESSAGE_EROR: "Er is een fout opgetreden",
 	}
 }
 I18n.putVocabularies(strings);
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		'& > *': {
-			//margin: theme.spacing(1),
-		},
+	divCard: {
+		paddingBottom: theme.spacing(2),
 	},
 	card: {
 		minWidth: 450,
+		//paddingBottom: 0,
 	},
 	cardHeader: {
 		backgroundColor: Branding.primary,
@@ -50,6 +118,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	cardActions: {
 		justifyContent: 'center',
+		paddingBottom: theme.spacing(2),
 	},
 	cardHeaderAction: {
 		paddingLeft: theme.spacing(1)
@@ -66,25 +135,33 @@ const useStyles = makeStyles((theme) => ({
 const mapStateToProps = (state) => {
 	return {
 		...state,
+
+		lang: state.app.lang,
+
+		/*
+		 * Not used at this moment - Amplify did not support Device Management with Javascript SDK
+		 *
+		*/
+		/*
 		deviceList: [],
 		device: {
 			key: 'eu-central-1_c5a2120d-2e47-4990-9dd5-0a690bc08120',
-			name: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
-			lastIP: '54.239.6.187',
+			name: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.1 Safari/537.36',
+			lastIP: '127.0.0.1',
 			remembered: false,
 			sdk: 'aws-sdk-unknown-unknown',
-			created: 'created',
-			lastSeen: 'Jul 7, 2020 1:45:21 PM',
-			lastUpdate: 'lastUpdate',
+			created: new Date(parseFloat('1577836800') * 1000),
+			lastSeen: new Date(parseFloat('1593561600') * 1000),
+			lastUpdate: new Date(parseFloat('1604758462') * 1000),
 			current: true,
 			expanded: false,
 		}
+		*/
 	}
 }
 
 function TabDeviceData(props) {
 	const classes = useStyles();
-	const [expanded, setExpanded] = React.useState(true);
 	const [snackBarOps, setSnackBarOps] = React.useState({
 		type: 'info',
 		open: false,
@@ -94,132 +171,308 @@ function TabDeviceData(props) {
 		message: ''
 	});
 
-	const handleClickRemember = () => {
+	/*
+	* Faked Device and DeviceList
+	* Amplify does not support Devices in the Javascript SDK right now; iOS is supported
+	*/
+	const [device, setDevice] = React.useState({
+		key: 'eu-central-1_c5a2120d-2e47-4990-9dd5-0a690bc08120',
+		name: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.1 Safari/537.36',
+		status: 'valid',
+		lastIP: '127.0.0.1',
+		remembered: false,
+		sdk: 'aws-sdk-unknown-unknown',
+		created: new Date(parseFloat('1577836800') * 1000),
+		lastSeen: new Date(parseFloat('1593561600') * 1000),
+		lastUpdate: new Date(parseFloat('1604758462') * 1000),
+		current: true,
+		expanded: false,
+	});
+	const [deviceList, setDeviceList] = React.useState([
+		{
+			key: 'eu-central-1_946c3d8f-ba55-48b0-ae94-e26aa9352954',
+			name: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.1 Safari/537.36',
+			status: 'valid',
+			lastIP: '127.0.0.1',
+			sdk: 'aws-sdk-unknown-unknown',
+			created: new Date(parseFloat('1577836800') * 1000),
+			lastSeen: new Date(parseFloat('1593561600') * 1000),
+			lastUpdate: new Date(parseFloat('1604758462') * 1000),
+			current: false,
+			expanded: false,
+		},
+		{
+			key: 'eu-central-1_d1a465fd-d7e2-48a0-a0dd-b45c0638ed56',
+			name: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.1 Safari/537.36',
+			status: 'valid',
+			lastIP: '127.0.0.1',
+			sdk: 'aws-sdk-unknown-unknown',
+			created: new Date(parseFloat('1577836800') * 1000),
+			lastSeen: new Date(parseFloat('1593561600') * 1000),
+			lastUpdate: new Date(parseFloat('1604758462') * 1000),
+			current: false,
+			expanded: false,
+		},
+	]);
+	/*
+	* End Fake
+	*/
 
+	const handleClickRemember = () => {
+		try {
+			let remember = !device.remembered || false;
+			setDevice({ ...device, remembered: remember })
+
+			setSnackBarOps({
+				type: 'success',
+				open: true,
+				vertical: 'top',
+				horizontal: 'center',
+				autoHide: 3000,
+				message: remember ? I18n.get('TAB_DEVICE_DATA_REMEMBER_DEVICE_MESSAGE') : I18n.get('TAB_DEVICE_DATA_FORGET_DEVICE_MESSAGE')
+			})
+		} catch (error) {
+			console.log(error);
+
+			setSnackBarOps({
+				type: 'error',
+				open: true,
+				vertical: 'top',
+				horizontal: 'center',
+				autoHide: 3000,
+				message: I18n.get('TAB_DEVICE_DATA_MESSAGE_EROR')
+			})
+		}
 	};
 
-	const handleClickExpand = () => {
-		console.log(expanded);
-		setExpanded(!expanded);
+	const handleClickExpand = (index = -1) => {
+		try {
+			if (index === -1) {
+				setDevice({ ...device, expanded: !device.expanded || false })
+				return;
+			}
+
+			let _deviceList = Object.assign([], deviceList);
+			_deviceList[index].expanded = !deviceList[index].expanded;
+			setDeviceList(_deviceList);
+		} catch (error) {
+			console.log(error);
+
+			setSnackBarOps({
+				type: 'error',
+				open: true,
+				vertical: 'top',
+				horizontal: 'center',
+				autoHide: 3000,
+				message: I18n.get('TAB_DEVICE_DATA_MESSAGE_EROR')
+			})
+		}
 	}
 
 	return (
-		<div className={classes.root}>
+		<div>
 			{snackBarOps.open && (
 				<AppSnackbar ops={snackBarOps} />
 			)}
-
-			<Card variant="outlined" className={classes.card}>
-				<CardHeader
-					title={props.device.key}
-					avatar={
-						<PermDeviceInformationIcon />
-					}
-					action={
-						<div className={classes.cardHeaderAction}>
-							{(props.device.current) && (<Chip
-								label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')}
-								size="small"
-								className={classes.chipCurrentDevice}
-							/>)}
-							<IconButton
-								size="small"
-								onClick={() => handleClickExpand()}
-								className={classes.cardHeader}
-								aria-label="expand"
+			<div className={classes.divCard}>
+				<Card variant="outlined" className={classes.card}>
+					<CardHeader
+						title={device.key}
+						avatar={
+							<PermDeviceInformationIcon />
+						}
+						action={
+							<div className={classes.cardHeaderAction}>
+								{(device.current) && (<Chip
+									label={I18n.get('TAB_DEVICE_DATA_CHIP_CURRENT_LABEL')}
+									size="small"
+									className={classes.chipCurrentDevice}
+								/>)}
+								<IconButton
+									size="small"
+									onClick={() => handleClickExpand()}
+									className={classes.cardHeader}
+									aria-label="expand"
+								>
+									{device.expanded && (<ExpandLessIcon />)}
+									{!device.expanded && (<ExpandMoreIcon />)}
+								</IconButton>
+							</div>
+						}
+						className={classes.cardHeader}
+					/>
+					<Collapse in={device.expanded} timeout="auto" unmountOnExit>
+						<CardContent>
+							<form noValidate autoComplete="off">
+								<Box>
+									<TextField
+										id="textfield_status"
+										value={device.remembered ? device.status : ''}
+										inputProps={{ style: { left: 0 } }}
+										disabled
+										label={I18n.get('TAB_DEVICE_DATA_TEXTFIELD_STATUS_LABEL')}
+										className={classes.textField}
+									/>
+								</Box>
+								<Box>
+									<TextField
+										id="textfield_name"
+										value={device.remembered ? device.name : ''}
+										inputProps={{ style: { left: 0 } }}
+										disabled
+										label={I18n.get('TAB_DEVICE_DATA_TEXTFIELD_NAME_LABEL')}
+										className={classes.textField}
+									/>
+								</Box>
+								<Box>
+									<TextField
+										id="textfield_lastIP"
+										value={device.remembered ? device.lastIP : ''}
+										inputProps={{ style: { left: 0 } }}
+										disabled
+										label={I18n.get('TAB_DEVICE_DATA_TEXTFIELD_LAST_IP_LABEL')}
+										className={classes.textField}
+									/>
+								</Box>
+								<Box>
+									<TextField
+										id="textfield_lastSeen"
+										value={device.remembered ? device.lastSeen : ''}
+										inputProps={{ style: { left: 0 } }}
+										disabled
+										label={I18n.get('TAB_DEVICE_DATA_TEXTFIELD_LAST_USED_LABEL')}
+										className={classes.textField}
+									/>
+								</Box>
+								<Box>
+									<TextField
+										id="textfield_lastUpdate"
+										value={device.remembered ? device.lastUpdate : ''}
+										disabled
+										inputProps={{ style: { left: 0 } }}
+										label={I18n.get('TAB_DEVICE_DATA_TEXTFIELD_LAST_MODIFIED_LABEL')}
+										className={classes.textField}
+									/>
+								</Box>
+								<Box>
+									<TextField
+										id="textfield_created"
+										value={device.remembered ? device.created : ''}
+										inputProps={{ style: { left: 0 } }}
+										disabled
+										label={I18n.get('TAB_DEVICE_DATA_TEXTFIELD_CREATED_LABEL')}
+										className={classes.textField}
+									/>
+								</Box>
+							</form>
+						</CardContent>
+						<CardActions className={classes.cardActions}>
+							<Button
+								color="secondary"
+								variant="contained"
+								onClick={() => handleClickRemember()}
 							>
-								{expanded && (<ExpandLessIcon />)}
-								{!expanded && (<ExpandMoreIcon />)}
-							</IconButton>
-						</div>
-					}
-					className={classes.cardHeader}
-				/>
-				<Collapse in={expanded} timeout="auto" unmountOnExit>
-					<CardContent>
-						<form noValidate autoComplete="off">
-							<Box>
-								<TextField
-									id="textfield_lastIpAddress"
-									value={props.device.lastIP}
-									label="standard" //{I18n.get('TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL')}
-									className={classes.textField}
-									inputProps={{ style: { left: 0 } }}
-								/>
-							</Box>
-							<Box>
-								<TextField
-									id="textfield_status"
-									value={props.device.status}
-									inputProps={{ style: { left: 0 } }}
-									disabled
-									label={I18n.get('TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL')}
-									className={classes.textField}
-								/>
-							</Box>
-							<Box>
-								<TextField
-									id="textfield_status"
-									value={props.device.status}
-									inputProps={{ style: { left: 0 } }}
-									disabled
-									label={I18n.get('TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL')}
-									className={classes.textField}
-								/>
-							</Box>
-							<Box>
-								<TextField
-									id="textfield_lastIpAddress"
-									value={props.device.lastIP}
-									inputProps={{ style: { left: 0 } }}
-									disabled
-									label={I18n.get('TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL')}
-									className={classes.textField}
-								/>
-							</Box>
-							<Box>
-								<TextField
-									id="textfield_created"
-									value={props.device.created}
-									disabled
-									inputProps={{ style: { left: 0 } }}
-									label={I18n.get('TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL')}
-									className={classes.textField}
-								/>
-							</Box>
-							<Box>
-								<TextField
-									id="textfield_updated"
-									value={props.device.lastUpdate}
-									disabled
-									inputProps={{ style: { left: 0 } }}
-									label={I18n.get('TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL')}
-									className={classes.textField}
-								/>
-							</Box>
-							<Box>
-								<TextField
-									id="textfield_lastSeen"
-									value={props.device.lastSeen}
-									disabled
-									inputProps={{ style: { left: 0 } }}
-									label={I18n.get('TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL')}
-									className={classes.textField}
-								/>
-							</Box >
-						</form>
-					</CardContent>
-					<CardActions className={classes.cardActions}>
-						<Button
-							color="secondary"
-							variant="contained"
-							onClick={() => handleClickRemember()}
-						>
-							{I18n.get('TAB_USER_DATA_SAVE_BUTTON_LABEL')}
-						</Button>
-					</CardActions>
-				</Collapse>
-			</Card >
+								{device.remembered ? I18n.get('TAB_DEVICE_DATA_BUTTON_FORGET_DEVICE_LABEL') : I18n.get('TAB_DEVICE_DATA_BUTTON_REMEMBER_DEVICE_LABEL')}
+							</Button>
+						</CardActions>
+					</Collapse>
+				</Card >
+			</div>
+			{/*
+			* Device List -> deviceList
+			*/}
+			{ deviceList.map((item, index) => (
+				<div key={`divCard-${index}`} className={classes.divCard}>
+					<Card variant="outlined" className={classes.card}>
+						<CardHeader
+							title={item.key}
+							avatar={
+								<PermDeviceInformationIcon id={`permDeviceInformationIcon-${index}`} />
+							}
+							action={
+								<div className={classes.cardHeaderAction}>
+									<IconButton
+										size="small"
+										onClick={() => handleClickExpand(index)}
+										className={classes.cardHeader}
+										aria-label="expand"
+									>
+										{item.expanded && (<ExpandLessIcon />)}
+										{!item.expanded && (<ExpandMoreIcon />)}
+									</IconButton>
+								</div>
+							}
+							className={classes.cardHeader}
+						/>
+						<Collapse in={item.expanded} timeout="auto" unmountOnExit>
+							<CardContent>
+								<form noValidate autoComplete="off">
+									<Box>
+										<TextField
+											id={`textfield_status-${index}`}
+											value={item.status}
+											inputProps={{ style: { left: 0 } }}
+											disabled
+											label={I18n.get('TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL')}
+											className={classes.textField}
+										/>
+									</Box>
+									<Box>
+										<TextField
+											id={`textfield_name-${index}`}
+											value={item.name}
+											inputProps={{ style: { left: 0 } }}
+											disabled
+											label={I18n.get('TAB_DEVICE_DATA_TEXTFIELD_NAME_LABEL')}
+											className={classes.textField}
+										/>
+									</Box>
+									<Box>
+										<TextField
+											id={`textfield_lastIP-${index}`}
+											value={item.lastIP}
+											inputProps={{ style: { left: 0 } }}
+											disabled
+											label={I18n.get('TAB_DEVICE_DATA_TEXTFIELD_LAST_IP_LABEL')}
+											className={classes.textField}
+										/>
+									</Box>
+									<Box>
+										<TextField
+											id={`textfield_lastSeen-${index}`}
+											value={item.lastSeen}
+											inputProps={{ style: { left: 0 } }}
+											disabled
+											label={I18n.get('TAB_DEVICE_DATA_TEXTFIELD_LAST_USED_LABEL')}
+											className={classes.textField}
+										/>
+									</Box>
+									<Box>
+										<TextField
+											id={`textfield_lastUpdate-${index}`}
+											value={item.lastUpdate}
+											disabled
+											inputProps={{ style: { left: 0 } }}
+											label={I18n.get('TAB_DEVICE_DATA_TEXTFIELD_LAST_MODIFIED_LABEL')}
+											className={classes.textField}
+										/>
+									</Box>
+									<Box>
+										<TextField
+											id={`textfield_created-${index}`}
+											value={item.created}
+											inputProps={{ style: { left: 0 } }}
+											disabled
+											label={I18n.get('TAB_DEVICE_DATA_TEXTFIELD_CREATED_LABEL')}
+											className={classes.textField}
+										/>
+									</Box>
+								</form>
+							</CardContent>
+						</Collapse>
+					</Card >
+				</div>
+			))}
 		</div>
 	)
 }
