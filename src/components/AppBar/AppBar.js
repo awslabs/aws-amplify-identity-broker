@@ -62,9 +62,6 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 		marginBottom: theme.spacing(6),
 	},
-	appBar: {
-		backgroundColor: Branding.secondary,
-	},
 	menuButton: {
 		marginRight: theme.spacing(2),
 	},
@@ -105,7 +102,6 @@ const Header = (props) => {
 	const handleLangChange = (lang) => {
 		I18n.setLanguage(lang);
 		setLang(lang);
-		props.changedLang(lang);
 	};
 
 	const handleMenu = (event) => {
@@ -123,7 +119,7 @@ const Header = (props) => {
 
 	return (
 		<div className={classes.root}>
-			<AppBar position="fixed" className={classes.appBar} >
+			<AppBar position="fixed" color="secondary" >
 				<Toolbar>
 					<img alt="" src={logo} className={classes.logo} />
 
@@ -133,7 +129,13 @@ const Header = (props) => {
 						</Typography>
 					)}
 
-					<LanguageSelect lang={lang} changedLang={handleLangChange} themeShowLabel={false} themeColor={"white"} themeBackgroundColor={Branding.secondary} />
+					<LanguageSelect
+						lang={lang}
+						changedLang={handleLangChange}
+						themeShowLabel={false}
+						themeColor={Branding.white}
+						themeBackgroundColor={Branding.secondary}
+					/>
 
 					{auth && (
 						<div>
@@ -177,6 +179,7 @@ const Header = (props) => {
 					)}
 				</Toolbar>
 			</AppBar>
+
 			<div className={classes.offset} />
 		</div>
 	);

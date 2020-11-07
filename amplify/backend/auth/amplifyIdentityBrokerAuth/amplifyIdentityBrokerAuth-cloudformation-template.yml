@@ -231,6 +231,11 @@ Resources:
                   Mutable: true
                   AttributeDataType: String
 
+                - Name: newsletter
+                  Required: false
+                  Mutable: true
+                  AttributeDataType: Boolean
+
             LambdaConfig:
                 CustomMessage: !Ref functionamplifyIdentityBrokerCustomMessageArn
                 DefineAuthChallenge: !Ref functionamplifyIdentityBrokerDefineAuthChallengeArn

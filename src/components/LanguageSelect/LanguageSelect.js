@@ -108,7 +108,6 @@ const mapStateToProps = (state) => {
 
 const LanguageSelect = (props) => {
 	const classes = useStyles(props);
-	const lang = props.lang;
 
 	/*
 	 * Set new language after changed by user
@@ -116,13 +115,12 @@ const LanguageSelect = (props) => {
 	const handleChange = (event) => {
 		let selectedLang = 'en';
 
-		if (event.target.value === lang) return;
+		if (event.target.value === props.lang) return;
 
 		!event.target.value ? selectedLang = 'en' : selectedLang = event.target.value;
 
 		I18n.setLanguage(selectedLang);
 		props.setLang(selectedLang);
-		props.changedLang(selectedLang);
 	};
 
 	return (
@@ -139,7 +137,7 @@ const LanguageSelect = (props) => {
 							<Select
 								labelId="languageSelectLabel"
 								id="languageSelect"
-								value={lang}
+								value={props.lang}
 								onChange={handleChange}
 								className={classes.select}
 								inputProps={{

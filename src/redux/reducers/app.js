@@ -10,24 +10,18 @@
 import { SET_LANG, SET_AUTH } from "../actionTypes";
 const initialState = {
 	lang: "en",
-	auth: false
+	auth: false,
 };
 
 export default function (state = initialState, action) {
 	switch (action.type) {
 		case SET_LANG: {
 			const { lang } = action.payload;
-			return {
-				lang: lang,
-				auth: state.auth
-			};
+			return { ...state, lang: lang };
 		}
 		case SET_AUTH: {
 			const { auth } = action.payload;
-			return {
-				lang: state.lang,
-				auth: auth
-			};
+			return { ...state, auth: auth };
 		}
 		default:
 			return state;
