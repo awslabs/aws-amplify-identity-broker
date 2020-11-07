@@ -15,6 +15,7 @@
  */
 
 import React from 'react';
+
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import IconButton from '@material-ui/core/IconButton';
@@ -23,49 +24,48 @@ import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 
-import { makeStyles } from '@material-ui/core/styles';
-
-/*
- * Snackbar Colors
- */
-const errorColor = '#E15141';
-const warnColor = '#FC9900';
-const infoColor = '#2297F4';
-const successColor = '#4CAF50';
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-		width: '100%',
-		'& > * + *': {
-			marginTop: theme.spacing(2),
-		},
-	}
-}));
+import { Branding } from '../../branding';
 
 export default function AppSnackbar(props) {
-	const classes = useStyles();
 	const [open, setOpen] = React.useState(props.ops.open);
+	const [type, setType] = React.useState('')
+	const [color, setColor] = React.useState(Branding.accent);
+	const [vertical, setVertical] = React.useState('top');
+	const [horizontal, setHorizontal] = React.useState('center');
 
 	if (props.ops.open !== open) {
 		setOpen(props.ops.open);
-	}
+	};
 
-	function setColor() {
+	if (props.ops.type !== type) {
+		setType(props.ops.type);
+
 		switch (props.ops.type) {
 			case 'error':
-				return errorColor;
+				setColor(Branding.negative);
+				break;
 			case 'warn':
-				return warnColor;
+				setColor(Branding.warning);
+				break;
 			case 'info':
-				return infoColor;
+				setColor(Branding.info);
+				break;
 			case 'success':
-				return successColor;
+				setColor(Branding.positive);
+				break;
 			default:
-				return 'primary'
+				setColor(Branding.neutral);
+				break;
 		}
-	}
+	};
 
-	const color = setColor();
+	if (props.ops.vertical !== vertical) {
+		setVertical(props.ops.vertical);
+	};
+
+	if (props.ops.horizontal !== horizontal) {
+		setHorizontal(props.ops.horizontal);
+	};
 
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
@@ -77,58 +77,58 @@ export default function AppSnackbar(props) {
 	};
 
 	return (
-		<div className={classes.root}>
-			<Snackbar
-				style={{
-					backgroundColor: color || '',
-				}}
-				anchorOrigin={{
-					vertical: props.ops.vertical || 'bottom',
-					horizontal: props.ops.horizontal || 'center'
-				}}
-				open={open}
-				autoHideDuration={props.ops.autoHide}
-				onClose={handleClose}
-				message={props.ops.message || ''}
-				key={(props.ops.vertical + props.ops.horizontal) || ''}
-			>
-				<SnackbarContent style={{
-					backgroundColor: color || '',
-				}}
-					message={
-						<span id="client-snackbar">
-							{props.ops.type === 'error' && (
-								<IconButton size="small" aria-label="error" color="inherit" onClick={handleClose}>
-									<ErrorOutlineOutlinedIcon fontSize="small" />
-								</IconButton>
-							)}
-							{props.ops.type === 'warn' && (
-								<IconButton size="small" aria-label="error" color="inherit" onClick={handleClose}>
-									<ReportProblemOutlinedIcon fontSize="small" />
-								</IconButton>
-							)}
-							{props.ops.type === 'info' && (
-								<IconButton size="small" aria-label="error" color="inherit" onClick={handleClose}>
-									<ErrorOutlineOutlinedIcon fontSize="small" />
-								</IconButton>
-							)}
-							{props.ops.type === 'success' && (
-								<IconButton size="small" aria-label="error" color="inherit" onClick={handleClose}>
-									<CheckCircleOutlineOutlinedIcon fontSize="small" />
-								</IconButton>
-							)}
-							{props.ops.message}
-						</span>
-					}
-					action={
-						<React.Fragment>
-							<IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-								<CloseIcon fontSize="small" />
+		<Snackbar
+			style={{
+				backgroundColor: color || '',
+			}}
+			anchorOrigin={{
+				vertical: vertical,
+				horizontal: horizontal,
+			}}
+			open={open}
+			autoHideDuration={props.ops.autoHide}
+			onClose={handleClose}
+			message={props.ops.message || ''}
+			key={vertical + horizontal}
+
+		>
+			<SnackbarContent style={{
+				backgroundColor: color || '',
+
+			}}
+				message={
+					<span id="client-snackbar">
+						{props.ops.type === 'error' && (
+							<IconButton size="small" aria-label="error" color="inherit" onClick={handleClose}>
+								<ErrorOutlineOutlinedIcon fontSize="small" />
 							</IconButton>
-						</React.Fragment>
-					}
-				/>
-			</Snackbar>
-		</div >
+						)}
+						{props.ops.type === 'warn' && (
+							<IconButton size="small" aria-label="error" color="inherit" onClick={handleClose}>
+								<ReportProblemOutlinedIcon fontSize="small" />
+							</IconButton>
+						)}
+						{props.ops.type === 'info' && (
+							<IconButton size="small" aria-label="error" color="inherit" onClick={handleClose}>
+								<ErrorOutlineOutlinedIcon fontSize="small" />
+							</IconButton>
+						)}
+						{props.ops.type === 'success' && (
+							<IconButton size="small" aria-label="error" color="inherit" onClick={handleClose}>
+								<CheckCircleOutlineOutlinedIcon fontSize="small" />
+							</IconButton>
+						)}
+						{props.ops.message}
+					</span>
+				}
+				action={
+					<React.Fragment>
+						<IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+							<CloseIcon fontSize="small" />
+						</IconButton>
+					</React.Fragment>
+				}
+			/>
+		</Snackbar>
 	);
 }

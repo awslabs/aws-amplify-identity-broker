@@ -9,20 +9,36 @@
 
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setLang, setAuth } from './redux/actions';
+
 import { Auth } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 import { onAuthUIStateChange, AuthState } from '@aws-amplify/ui-components';
+
+//Branded Theme
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { theme } from './branding';
+
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 import ResponsiveLanding from './components/ResponsiveLanding/ResponsiveLanding';
-import LanguageSelect from './components/LanguageSelect/LanguageSelect';
-import { strings } from './strings';
+import Header from './components/AppBar/AppBar';
 
 // responsive utilities
 import DesktopBreakpoint from './responsive_utilities/desktop_breakpoint';
 import TabletBreakpoint from './responsive_utilities/tablet_breakpoint';
 import PhoneBreakpoint from './responsive_utilities/phone_breakpoint';
 
+import { strings } from './strings';
 I18n.putVocabularies(strings);
+
+const mapStateToProps = (state) => {
+	return {
+		lang: state.app.lang,
+		auth: state.app.auth,
+		user: state.user,
+	}
+}
 
 // See doc for customization here: https://docs.amplify.aws/ui/auth/authenticator/q/framework/react#slots
 
@@ -30,14 +46,14 @@ class App extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-
 		let lang = "en";
 		if (navigator.language === "fr" || navigator.language.startsWith("fr-")) {
 			lang = { lang: "fr" };
 		}
+		this.props.setLang(lang);
 
 		this.state = {
-			lang: lang,
+			auth: false,
 			authState: AuthState.SignIn
 		};
 
@@ -81,6 +97,8 @@ class App extends React.Component {
 
 	async handleAuthUIStateChange(authState) {
 		if (authState === AuthState.SignedIn) {
+			this.props.setAuth(true);
+
 			var redirect_uri;
 			var authorization_code;
 			var clientState;
@@ -145,19 +163,13 @@ class App extends React.Component {
 		this.setState({ authState: authState });
 	}
 
-	/**
-	 * change page language
-	 */
-	handleLanguage = (languageValue) => {
-		this.setState({ lang: languageValue });
-	};
-
 	render() {
-		console.log(Auth);
-
 		return (
-			<div>
-				<LanguageSelect lang={this.state.lang} newLang={this.handleLanguage} />
+			<MuiThemeProvider theme={theme}>
+				<Header
+					auth={this.props.auth}
+					lang={this.props.lang}
+				/>
 
 				<DesktopBreakpoint>
 					<ResponsiveLanding dynamicClassName="desktop" authState={this.state.authState} pageLang={this.state.lang} />
@@ -170,9 +182,9 @@ class App extends React.Component {
 				<PhoneBreakpoint>
 					<ResponsiveLanding dynamicClassName="mobile" authState={this.state.authState} pageLang={this.state.lang} />
 				</PhoneBreakpoint>
-			</div>
+			</MuiThemeProvider>
 		);
 	}
 }
 
-export default withRouter(App);
+export default withRouter(connect(mapStateToProps, { setLang, setAuth })(App));

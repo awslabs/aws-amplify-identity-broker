@@ -8,21 +8,35 @@
 */
 
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import { I18n } from '@aws-amplify/core';
 import { Auth } from 'aws-amplify';
-import TosContent from './content';
 
+//Branded Theme
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { theme } from '../../branding';
+
+import TosContent from './content';
 import LanguageSelect from '../../components/LanguageSelect/LanguageSelect';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 
 import { strings } from './languageStrings';
 I18n.putVocabularies(strings);
 
+const mapStateToProps = (state) => {
+	return {
+		lang: state.app.lang,
+		auth: state.app.auth,
+		user: state.user,
+	}
+}
+
 class TermsOfService extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			lang: 'en',
 			redirect: null,
 			tosResign: false,
 			tosCurrentVersion: 0,
@@ -114,12 +128,12 @@ class TermsOfService extends Component {
 			})
 			.catch(err => { console.log(err); reject(err) })
 	})
-
-	handleLangChange = (event) => {
-		this.setState({ lang: event });
-		this.checkTos(false);
-	}
-
+	/*
+		handleLangChange = (lang) => {
+			//this.setLang(lang);
+			this.checkTos(false);
+		}
+	*/
 	handleTosAccepted = async () => {
 		this.updateTosAttribute()
 			.then(async () => {
@@ -170,15 +184,17 @@ class TermsOfService extends Component {
 
 	render() {
 		return (
-			<div>
-				<LanguageSelect lang={this.state.lang} newLang={this.handleLangChange} />
+			<MuiThemeProvider theme={theme}>
+				<LanguageSelect lang={this.props.lang} />
 
 				<TosContent reSign={this.state.tosResign} tosAccept={this.handleTosAccepted} tosDecline={this.handleTosDecline} />
 
-				<AppSnackbar ops={this.state.snackBarOps} />
-			</div>
+				{this.state.snackBarOps.open && (
+					<AppSnackbar ops={this.state.snackBarOps} />
+				)}
+			</MuiThemeProvider>
 		);
 	}
 }
 
-export default TermsOfService;
+export default withRouter(connect(mapStateToProps, {})(TermsOfService));

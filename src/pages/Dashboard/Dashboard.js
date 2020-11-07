@@ -9,21 +9,64 @@
 
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { API } from 'aws-amplify';
+import { connect } from 'react-redux';
 
-import LanguageSelect from '../../components/LanguageSelect/LanguageSelect';
+import { API } from 'aws-amplify';
+import { I18n } from '@aws-amplify/core';
+
+//Branded Theme
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { theme } from '../../branding';
+
 import AppTiles from './appTiles';
-import Logout from '../../components/Logout/Logout';
+import Header from '../../components/AppBar/AppBar';
+import AppSnackbar from '../../components/Snackbar/Snackbar';
 
 import './dashboard.css';
+
+/*
+ * Localization
+ */
+const strings = {
+	en: {
+		DASHBOARD_TITLE: "Dashboard",
+		DASHBOARD_ERROR_MESSAGE: "An error has occurred",
+	},
+	fr: {
+		DASHBOARD_TITLE: "Tableau de bord",
+		DASHBOARD_ERROR_MESSAGE: "Une erreur est survenue",
+	},
+	de: {
+		DASHBOARD_TITLE: "Dashboard",
+		DASHBOARD_ERROR_MESSAGE: "Ist ein Fehler aufgetreten",
+	},
+	nl: {
+		DASHBOARD_TITLE: "Dashboard",
+		DASHBOARD_ERROR_MESSAGE: "Er is een fout opgetreden",
+	}
+}
+I18n.putVocabularies(strings);
+
+const mapStateToProps = (state) => {
+	return {
+		auth: state.app.auth,
+		lang: state.app.lang
+	}
+}
 
 class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			lang: 'en',
 			registeredClients: [],
-			isLoaded: false
+			snackBarOps: {
+				type: 'info',
+				open: false,
+				vertical: 'top',
+				horizontal: 'center',
+				autoHide: 0,
+				message: ''
+			}
 		}
 	}
 
@@ -42,38 +85,41 @@ class Dashboard extends React.Component {
 		API
 			.get(apiName, path)
 			.then(response => {
-				this.setState({
-					isLoaded: true,
-					registeredClients: response
-				});
+				this.setState({ registeredClients: response });
 			})
 			.catch(err => {
+				console.log(err);
 				this.setState({
-					isLoaded: true,
-					err
+					snackBarOps: {
+						type: 'error',
+						open: true,
+						vertical: 'top',
+						horizontal: 'center',
+						autoHide: 3000,
+						message: I18n.get("DASHBOARD_ERROR_MESSAGE")
+					}
 				});
 			});
 	}
 
-	/*
-	 * Language Change
-	 */
-	handleLangChange = (event) => {
-		this.setState({ lang: event });
-	}
-
 	render() {
 		return (
-			<div>
-				<LanguageSelect lang={this.state.lang} newLang={this.handleLangChange} />
+			<MuiThemeProvider theme={theme}>
+				{this.state.snackBarOps.open && (
+					<AppSnackbar ops={this.state.snackBarOps} />
+				)}
+
+				<Header
+					auth={this.props.auth}
+					pageTitle={I18n.get("DASHBOARD_TITLE")}
+					lang={this.props.lang}
+					routeTo={(newPath) => this.props.history.push(newPath)}
+				/>
 
 				<AppTiles appClients={this.state.registeredClients} />
-				<br />
-				<br />
-				<Logout />
-			</div>
+			</MuiThemeProvider>
 		)
 	}
 }
 
-export default withRouter(Dashboard);
+export default withRouter(connect(mapStateToProps, {})(Dashboard));

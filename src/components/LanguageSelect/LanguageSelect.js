@@ -8,6 +8,8 @@
 */
 
 import React from 'react';
+import { connect } from 'react-redux';
+import { setLang } from '../../redux/actions';
 import { I18n } from '@aws-amplify/core';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -60,10 +62,28 @@ const strings = {
 I18n.putVocabularies(strings);
 
 const useStyles = makeStyles((theme) => ({
+	gridContainer: {
+		justifyContent: 'flex-end'
+	},
+	select: props => ({
+		'&:before': {
+			borderColor: props.themeColor,
+		},
+		'&:after': {
+			borderColor: props.themeColor,
+		},
+		'&:hover:not(.Mui-disabled):before': {
+			borderBottom: '2px solid white',
+		},
+		color: props.themeColor
+	}),
+	icon: props => ({
+		fill: props.themeColor,
+	}),
 	formControl: {
 		margin: theme.spacing(1),
 		minWidth: 120,
-		textAlign: 'left'
+		textAlign: 'left',
 	},
 	inputLabel: {
 		marginLeft: 0,
@@ -71,44 +91,60 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
 	},
-	paper: {
+	paper: props => ({
 		padding: theme.spacing(1),
 		textAlign: 'right',
-		boxShadow: '0 0'
-	}
+		boxShadow: '0 0',
+		backgroundColor: props.themeBackgroundColor
+	})
 }));
 
-export default function LanguageSelect(props) {
-	const classes = useStyles();
-	const [lang, setLang] = React.useState(props.lang);
+const mapStateToProps = (state) => {
+	I18n.setLanguage(state.app.lang);
+	return {
+		lang: state.app.lang
+	}
+}
+
+const LanguageSelect = (props) => {
+	const classes = useStyles(props);
 
 	/*
 	 * Set new language after changed by user
 	 */
 	const handleChange = (event) => {
-		let _lang = 'en';
+		let selectedLang = 'en';
 
-		if (event.target.value === lang) return;
+		if (event.target.value === props.lang) return;
 
-		!event.target.value ? _lang = 'en' : _lang = event.target.value;
+		!event.target.value ? selectedLang = 'en' : selectedLang = event.target.value;
 
-		setLang(_lang);
-		I18n.setLanguage(_lang);
-		props.newLang(_lang);
+		I18n.setLanguage(selectedLang);
+		props.setLang(selectedLang);
 	};
 
 	return (
 		<div className={classes.root}>
-			<Grid container spacing={1}>
-				<Grid item xs={12}>
+			<Grid container className={classes.gridContainer}>
+				<Grid item >
 					<Paper className={classes.paper}>
 						<FormControl className={classes.formControl}>
-							<InputLabel className={classes.inputLabel} id="languageSelectInputLabel">{I18n.get("LANGUAGESELECT_SELECT_LABEL")}</InputLabel>
+							{props.showLabel && (
+								<InputLabel className={classes.inputLabel} id="languageSelectInputLabel">
+									{I18n.get("LANGUAGESELECT_SELECT_LABEL")}
+								</InputLabel>
+							)}
 							<Select
 								labelId="languageSelectLabel"
 								id="languageSelect"
-								value={lang}
+								value={props.lang}
 								onChange={handleChange}
+								className={classes.select}
+								inputProps={{
+									classes: {
+										icon: classes.icon,
+									},
+								}}
 							>
 								{languageTypes.map((item, index) =>
 									<MenuItem key={index} value={item.code}>{item.lang}</MenuItem>
@@ -120,4 +156,6 @@ export default function LanguageSelect(props) {
 			</Grid>
 		</div>
 	);
-}
+};
+
+export default connect(mapStateToProps, { setLang })(LanguageSelect)

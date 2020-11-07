@@ -8,37 +8,35 @@
 */
 
 import React from 'react';
+
 import { I18n } from '@aws-amplify/core';
+
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import Button from '@material-ui/core/Button';
 
-import useWindowDimensions from './useWindowDimensions';
+import { Branding } from '../../branding';
+import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 
 /*
  * Localization
  */
 const strings = {
 	en: {
-		DASHBOARD_TITLE: "Dashboard",
 		DASHBOARD_BTN_OPEN: "Open",
 		DASHBOARD_LOGO: "Logo"
 	},
 	fr: {
-		DASHBOARD_TITLE: "TABLEAU DE BORD",
 		DASHBOARD_BTN_OPEN: "Ouvert",
 		DASHBOARD_LOGO: "Logo"
 	},
 	de: {
-		DASHBOARD_TITLE: "Dashboard",
 		DASHBOARD_BTN_OPEN: "Öffnen",
 		DASHBOARD_LOGO: "Logo"
 	},
 	nl: {
-		DASHBOARD_TITLE: "Dashboard",
 		DASHBOARD_BTN_OPEN: "Open",
 		DASHBOARD_LOGO: "Logo"
 	}
@@ -52,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'space-around',
 		overflow: 'hidden',
 		backgroundColor: theme.palette.background.paper,
+		marginBottom: '40px',
 	},
 	gridList: {
 		width: '90%',
@@ -61,30 +60,19 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: 'center',
 		fontSize: '32px',
 		fontWeight: 'bold',
-		margin: '25px'
 	},
 	button: {
 		margin: theme.spacing(2),
-		backgroundColor: 'primary'
+		backgroundColor: Branding.positive,
 	},
 }));
 
 /*
- * check if a App-Logo exists
- * if yes -> App-Logo Image
- * if not -> use Default Image
+ * if no Client Logo available load 'default.png'
  */
-function getImage(imgSrc) {
-	var http = new XMLHttpRequest();
-
-	http.open('GET', imgSrc, false);
-	http.send();
-
-	if (http.responseText.toLocaleLowerCase().startsWith('<!doctype html>')) imgSrc = '/logos/default.png'
-
-	return imgSrc;
+function fallBackImage(e) {
+	e.target.src = 'logos/default.png';
 }
-
 export default function AppTiles(props) {
 	const classes = useStyles();
 
@@ -102,19 +90,19 @@ export default function AppTiles(props) {
 	return (
 		<div className={classes.root}>
 			<GridList cellHeight={180} spacing={20} cols={gridCols()} className={classes.gridList}>
-				<GridListTile key="Subheader" cols={gridCols()} style={{ height: 'auto' }}>
-					<ListSubheader component="div" className={classes.listSubheader}>
-						{I18n.get("DASHBOARD_TITLE")}
-					</ListSubheader>
-				</GridListTile>
 				{props.appClients.map((tile) => (
 					<GridListTile key={tile.client_id} >
-						<img src={getImage(tile.client_logo)} alt={tile.client_name + " " + I18n.get('DASHBOARD_LOGO')} />
+						<img
+							src={`logos/${tile.client_logo}`}
+							alt={tile.client_name + " " + I18n.get('DASHBOARD_LOGO')}
+							onError={(e) => fallBackImage(e)}
+						/>
+
 						<GridListTileBar
 							title={tile.client_name}
 							subtitle={tile.client_id}
 							actionIcon={
-								<Button className={classes.button} variant="contained" color="primary" href={tile.logback_uri}>
+								<Button className={classes.button} variant="contained" href={tile.logback_uri}>
 									{I18n.get("DASHBOARD_BTN_OPEN")}
 								</Button>
 							}
