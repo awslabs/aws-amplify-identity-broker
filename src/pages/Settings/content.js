@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: 'white',
 	},
 	tabs: {
-		color: Branding.secondary,
+		color: Branding.primary,
 		indicator: Branding.accent,
 	},
 	tabsIndicator: {

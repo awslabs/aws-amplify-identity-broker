@@ -119,7 +119,7 @@ const Header = (props) => {
 
 	return (
 		<div className={classes.root}>
-			<AppBar position="fixed" color="secondary" >
+			<AppBar position="fixed" color="primary" >
 				<Toolbar>
 					<img alt="" src={logo} className={classes.logo} />
 
@@ -134,7 +134,7 @@ const Header = (props) => {
 						changedLang={handleLangChange}
 						themeShowLabel={false}
 						themeColor={Branding.white}
-						themeBackgroundColor={Branding.secondary}
+						themeBackgroundColor={Branding.primary}
 					/>
 
 					{auth && (

@@ -115,8 +115,8 @@ const useStyles = makeStyles((theme) => ({
 
 	},
 	header: {
-		backgroundColor: Branding.secondary,
-		color: 'white',
+		backgroundColor: Branding.primary,
+		color: Branding.white,
 		height: '40px',
 		textAlign: 'center',
 	},
@@ -222,7 +222,7 @@ const TabSignInData = (props) => {
 	}
 
 	/*
-	 * attributes = String 
+	 * attributes = String
 	 * converted to JSON
 	 * Example: {"email": "your.name@example.com"}
 	 */

@@ -125,8 +125,8 @@ const useStyles = makeStyles((theme) => ({
 
 	},
 	header: {
-		backgroundColor: Branding.secondary,
-		color: 'white',
+		backgroundColor: Branding.primary,
+		color: Branding.white,
 		height: '40px',
 		textAlign: 'center',
 	},
@@ -149,14 +149,10 @@ const useStyles = makeStyles((theme) => ({
 	checkBox: {
 		marginLeft: theme.spacing(2),
 	},
-	formControlLabel: {
-		color: Branding.secondary
-	},
 	buttonChange: {
-		marginTop: '8px',
-		marginLeft: '8px',
+		marginBottom: '8px',
 		background: Branding.secondary,
-		color: 'white',
+		color: Branding.white,
 	},
 	buttonCancel: {
 		marginTop: '8px',
@@ -198,7 +194,7 @@ const TabUserData = (props) => {
 	});
 
 	/*
-	 * attributes = String 
+	 * attributes = String
 	 * converted to JSON
 	 * Example: {"given_name": "John", "family_name": "Doo"}
 	 */
@@ -312,7 +308,7 @@ const TabUserData = (props) => {
 		if (props.birthdate)
 			attrList += `"birthdate": "${props.birthdate}", `;
 
-		//If no gender selected send O to update the current value	
+		//If no gender selected send O to update the current value
 		if (props.gender) {
 			attrList += `"gender": "${props.gender}", `;
 		} else {
@@ -443,12 +439,11 @@ const TabUserData = (props) => {
 									checked={props.custom_newsletter}
 									onChange={(event) => handleAttributeChange('custom_newsletter', event.target.checked)}
 									name="checkbox_custom_newsletter"
-									color="secondary"
+									color="primary"
 									className={classes.checkBox}
 								/>
 							}
 							label={I18n.get('TAB_USER_DATA_TEXTFIELD_CUSTOM_NEWSLETTER_LABEL')}
-							className={classes.formControlLabel}
 							disabled={!editAttributes}
 						/>
 					</FormGroup>
