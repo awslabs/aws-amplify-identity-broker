@@ -25,9 +25,13 @@ import { Branding } from '../../branding';
 import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 
 import TabSignInData from './tabSignInData';
-import TabUserData from './tabUserData';
-import TabDeviceData from './tabDeviceData';
 import TabMfaData from './tabMfaData';
+import TabUserData from './tabUserData';
+/*
+ * Device Management not supported from AWS Amplify SDK for JS - see './tabDeviceData.js'
+*/
+//import TabDeviceData from './tabDeviceData';
+
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -146,9 +150,15 @@ export default function Content(props) {
 							classes={{ indicator: classes.tabsIndicator }}
 						>
 							<Tab label={I18n.get('TAB_SIGNIN_LABEL')} {...a11yProps(0)} className={classes.tab} />
-							<Tab label={I18n.get('TAB_USER_DATA_LABEL')}  {...a11yProps(1)} className={classes.tab} />
-							<Tab label={I18n.get('TAB_DEVICE_DATA_LABEL')}  {...a11yProps(2)} className={classes.tab} />
-							<Tab label={I18n.get('TAB_MFA_DATA_LABEL')}  {...a11yProps(3)} className={classes.tab} />
+							<Tab label={I18n.get('TAB_MFA_DATA_LABEL')}  {...a11yProps(1)} className={classes.tab} />
+							<Tab label={I18n.get('TAB_USER_DATA_LABEL')}  {...a11yProps(2)} className={classes.tab} />
+							{
+								/*
+								* Device Management not supported from AWS Amplify SDK for JS - see './tabDeviceData.js'
+								*/
+								//<Tab label={I18n.get('TAB_DEVICE_DATA_LABEL')}  {...a11yProps(3)} className={classes.tab} />
+							}
+
 						</Tabs>
 					</AppBar>
 					<TabPanel value={value} index={0}>
@@ -158,19 +168,26 @@ export default function Content(props) {
 					</TabPanel>
 					<TabPanel value={value} index={1}>
 						<Box className={classes.tabPanelBox}>
-							<TabUserData reloadUserData={props.reloadUserData} />
+							<TabMfaData />
 						</Box>
 					</TabPanel>
 					<TabPanel value={value} index={2}>
 						<Box className={classes.tabPanelBox}>
-							<TabDeviceData />
+							<TabUserData reloadUserData={props.reloadUserData} />
 						</Box>
 					</TabPanel>
-					<TabPanel value={value} index={3}>
-						<Box className={classes.tabPanelBox}>
-							<TabMfaData />
-						</Box>
-					</TabPanel>
+					{
+						/*
+						* Device Management not supported from AWS Amplify SDK for JS - see './tabDeviceData.js'
+						*/
+						/*
+						<TabPanel value={value} index={3}>
+							<Box className={classes.tabPanelBox}>
+								<TabDeviceData />
+							</Box>
+						</TabPanel>
+						*/
+					}
 				</Box>
 			</Grid>
 		</div >

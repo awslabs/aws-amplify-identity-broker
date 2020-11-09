@@ -17,15 +17,24 @@ import { connect } from 'react-redux';
 
 import { Auth } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
-import QRCode from 'qrcode.react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 import { Branding } from '../../branding';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
+import MfaTotpConfigDialog from '../../components/MfaTotpConfigDialog/MfaTotpConfigDialog';
+
 
 /*
  * Localization
@@ -33,43 +42,113 @@ import AppSnackbar from '../../components/Snackbar/Snackbar';
 const strings = {
 	en: {
 		TAB_MFA_DATA_LABEL: 'MFA',
+		TAB_MFA_DATA_SELECT_MFA_TYPE: 'Configure your preferred MFA Type',
+		TAB_MFA_DATA_SELECT_TOTP: "TOTP",
+		TAB_MFA_DATA_SELECT_SMS: "SMS",
+		TAB_MFA_DATA_SELECT_SMS_NOT_VERIFIED: "SMS (please verify your Phonenumber first)",
+		TAB_MFA_DATA_SELECT_NO_MFA: "No MFA",
+		TAB_MFA_DATA_CHANGE_BUTTON_LABEL: "Change",
+		TAB_MFA_DATA_SAVE_BUTTON_LABEL: "Save",
+		TAB_MFA_DATA_CANCEL_BUTTON_LABEL: "Cancel",
 		TAB_MFA_DATA_MESSAGE_EROR: "An error has occurred",
 		TAB_MFA_DATA_MESSAGE_SET_MFATYPE_SUCCESS: "Set MFA Type was successful",
-		TAB_MFA_DATA_MESSAGE_VERIFY_TOTP_TOKEN_SUCCESS: "Token verification successful",
+		TAB_MFA_DATA_MESSAGE_VERIFY_TOTP_TOKEN_SUCCESS: "Configuration of TOTP was successful",
 	},
 	fr: {
 		TAB_MFA_DATA_LABEL: 'MFA',
+		TAB_MFA_DATA_SELECT_MFA_TYPE: "Configurez votre type MFA préféré",
+		TAB_MFA_DATA_SELECT_TOTP: "TOTP",
+		TAB_MFA_DATA_SELECT_SMS: "SMS",
+		TAB_MFA_DATA_SELECT_SMS_NOT_VERIFIED: "SMS (veuillez d'abord vérifier votre numéro de téléphone)",
+		TAB_MFA_DATA_SELECT_NO_MFA: "Non MFA",
+		TAB_MFA_DATA_CHANGE_BUTTON_LABEL: "Changer",
+		TAB_MFA_DATA_SAVE_BUTTON_LABEL: "Sauver",
+		TAB_MFA_DATA_CANCEL_BUTTON_LABEL: "Avorter",
 		TAB_MFA_DATA_MESSAGE_EROR: "Une erreur est survenue",
+		TAB_MFA_DATA_MESSAGE_SET_MFATYPE_SUCCESS: "La définition du type MFA a réussi",
+		TAB_MFA_DATA_MESSAGE_VERIFY_TOTP_TOKEN_SUCCESS: "La configuration TOTP a réussi",
 	},
 	de: {
 		TAB_MFA_DATA_LABEL: 'MFA',
+		TAB_MFA_DATA_SELECT_MFA_TYPE: "Konfigurieren Sie Ihren bevorzugten MFA Typen",
+		TAB_MFA_DATA_SELECT_TOTP: "TOTP",
+		TAB_MFA_DATA_SELECT_SMS: "SMS",
+		TAB_MFA_DATA_SELECT_SMS_NOT_VERIFIED: "SMS (bitt verifizieren Sie Ihre Telefonnummer zu erst)",
+		TAB_MFA_DATA_SELECT_NO_MFA: "Kein MFA",
+		TAB_MFA_DATA_CHANGE_BUTTON_LABEL: "Veranderen",
+		TAB_MFA_DATA_SAVE_BUTTON_LABEL: "Opslaan",
+		TAB_MFA_DATA_CANCEL_BUTTON_LABEL: "Afbreken",
 		TAB_MFA_DATA_MESSAGE_EROR: "Ist ein Fehler aufgetreten",
+		TAB_MFA_DATA_MESSAGE_SET_MFATYPE_SUCCESS: "Der MFA Type wurde erfolgreich gesetzt",
+		TAB_MFA_DATA_MESSAGE_VERIFY_TOTP_TOKEN_SUCCESS: "Die TOTP Einrichtung war erfolgreich",
 	},
 	nl: {
 		TAB_MFA_DATA_LABEL: 'MFA',
+		TAB_MFA_DATA_SELECT_MFA_TYPE: "",
+		TAB_MFA_DATA_SELECT_TOTP: "TOTP",
+		TAB_MFA_DATA_SELECT_SMS: "SMS",
+		TAB_MFA_DATA_SELECT_SMS_NOT_VERIFIED: "SMS (Verifieer eerst uw telefoonnummer)",
+		TAB_MFA_DATA_SELECT_NO_MFA: "Nee MFA",
+		TAB_MFA_DATA_CHANGE_BUTTON_LABEL: "Change",
+		TAB_MFA_DATA_SAVE_BUTTON_LABEL: "Save",
+		TAB_MFA_DATA_CANCEL_BUTTON_LABEL: "Cancel",
 		TAB_MFA_DATA_MESSAGE_EROR: "Er is een fout opgetreden",
+		TAB_MFA_DATA_MESSAGE_SET_MFATYPE_SUCCESS: "Definitie van MFA-type is geslaagdl",
+		TAB_MFA_DATA_MESSAGE_VERIFY_TOTP_TOKEN_SUCCESS: "De TOTP-installatie is gelukt",
 	},
 }
 I18n.putVocabularies(strings);
 
 const useStyles = makeStyles((theme) => ({
+	root: {
 
+	},
+	card: {
+		minWidth: 400,
+	},
+	cardHeader: {
+		backgroundColor: Branding.primary,
+		color: Branding.white,
+		height: 50,
+		textAlign: 'center',
+	},
+	cardContent: {
+		textAlign: 'center',
+		padding: theme.spacing(1),
+	},
+	cardActions: {
+		justifyContent: 'center',
+	},
+	buttonChange: {
+		marginTop: theme.spacing(1),
+		marginLeft: theme.spacing(1),
+		background: Branding.secondary,
+		color: Branding.white,
+	},
+	buttonCancel: {
+		marginTop: theme.spacing(1),
+		marginLeft: theme.spacing(1),
+		color: Branding.negative,
+	},
+	buttonSave: {
+		marginTop: theme.spacing(1),
+		marginLeft: theme.spacing(1),
+		color: Branding.positive,
+	},
 }));
 
 const mapStateToProps = (state) => {
 	return {
 		lang: state.app.lang,
+		phone_number_verified: state.user.attributes.phone_number_verified || false,
 	}
 };
 
 function TabMfaData(props) {
 	const classes = useStyles();
-	const [qrCode, setQrCode] = React.useState({
-		show: false,
-		str: '',
-	})
-	const [totpToken, setTotpToken] = React.useState('');
+	const [editMode, setEditMode] = React.useState(false)
 	const [mfaType, setMfaType] = React.useState('');
+	const [totpDialog, setTotpDialog] = React.useState(false);
 	const [snackBarOps, setSnackBarOps] = React.useState({
 		type: 'info',
 		open: false,
@@ -88,9 +167,8 @@ function TabMfaData(props) {
 					bypassCache: false
 				})
 					.then((data) => {
-						setMfaType(data);
-
-						console.log('Current preferred MFA type is: ' + data);
+						// set preferred MFA Type
+						setMfaType(data)
 					})
 					.catch(err => {
 						console.log(err);
@@ -120,6 +198,13 @@ function TabMfaData(props) {
 	};
 
 	/*
+	 * get the current preferred MFA and setMfaType
+	*/
+	if (mfaType === '') {
+		getPreferredMFA();
+	}
+
+	/*
 	* mfaType: SMS || TOTP || NOMFA
 	*/
 	const setPreferredMFA = (mfaType) => {
@@ -127,7 +212,7 @@ function TabMfaData(props) {
 			.then(CognitoUser => {
 				Auth.setPreferredMFA(CognitoUser, mfaType)
 					.then((data) => {
-						if (data === 'SUCCESS')
+						if (data === "SUCCESS")
 							setSnackBarOps({
 								type: 'success',
 								open: true,
@@ -164,131 +249,137 @@ function TabMfaData(props) {
 					message: I18n.get('TAB_MFA_DATA_MESSAGE_EROR')
 				})
 			})
-	}
-
-
-	const setupTOTP = () => {
-		Auth.currentAuthenticatedUser()
-			.then(CognitoUser => {
-				Auth.setupTOTP(CognitoUser)
-					.then((code) => {
-						console.log(code);
-						console.log(CognitoUser.username);
-						setQrCode({
-							show: true,
-							str: `otpauth://totp/AWSCognito:${CognitoUser.username}?secret=${code}&issuer=TestApp`
-						});
-					})
-					.catch(err => {
-						console.log(err);
-
-						setSnackBarOps({
-							type: 'error',
-							open: true,
-							vertical: 'top',
-							horizontal: 'center',
-							autoHide: 3000,
-							message: I18n.get('TAB_MFA_DATA_MESSAGE_EROR')
-						})
-					})
-			})
-			.catch(err => {
-				console.log(err);
-
-				setSnackBarOps({
-					type: 'error',
-					open: true,
-					vertical: 'top',
-					horizontal: 'center',
-					autoHide: 3000,
-					message: I18n.get('TAB_MFA_DATA_MESSAGE_EROR')
-				})
-			})
 	};
 
-	const verifyTotpToken = (challengeAnswer) => {
-		Auth.currentAuthenticatedUser()
-			.then(CognitoUser => {
-				Auth.verifyTotpToken(CognitoUser, challengeAnswer)
-					.then(() => {
-						setQrCode({ show: false, str: '' });
-						setSnackBarOps({
-							type: 'success',
-							open: true,
-							vertical: 'top',
-							horizontal: 'center',
-							autoHide: 3000,
-							message: I18n.get('TAB_MFA_DATA_MESSAGE_VERIFY_TOTP_TOKEN_SUCCESS')
-						})
+	const handleChangeClick = () => {
+		setEditMode(true);
+	};
 
-						// don't forget to set TOTP as the preferred MFA method
-						setPreferredMFA('TOTP');
-					})
-					.catch(err => {
-						console.log(err);
+	const handleCancelClick = () => {
+		setEditMode(false);
+		getPreferredMFA();
+	};
 
-						setSnackBarOps({
-							type: 'error',
-							open: true,
-							vertical: 'top',
-							horizontal: 'center',
-							autoHide: 3000,
-							message: I18n.get('TAB_MFA_DATA_MESSAGE_EROR')
-						})
-					})
+	const handleSaveClick = () => {
+		setEditMode(false);
+
+		switch (mfaType) {
+			case 'SOFTWARE_TOKEN_MFA':
+				setTotpDialog(true);
+				break;
+			case 'SMS_MFA':
+				setPreferredMFA('SMS');
+				break;
+			default:
+				setPreferredMFA('NOMFA');
+				break;
+		}
+	};
+
+	const handleTotpDialogClose = (successful = false) => {
+		setTotpDialog(false);
+
+		if (successful) {
+			setSnackBarOps({
+				type: 'success',
+				open: true,
+				vertical: 'top',
+				horizontal: 'center',
+				autoHide: 3000,
+				message: I18n.get('TAB_MFA_DATA_MESSAGE_VERIFY_TOTP_TOKEN_SUCCESS')
 			})
-			.catch(err => {
-				console.log(err);
 
-				setSnackBarOps({
-					type: 'error',
-					open: true,
-					vertical: 'top',
-					horizontal: 'center',
-					autoHide: 3000,
-					message: I18n.get('TAB_MFA_DATA_MESSAGE_EROR')
-				})
-			})
+			setPreferredMFA('TOTP');
+		}
+
+		getPreferredMFA();
+	}
+
+	const handleMfaTypeChange = (value) => {
+		setMfaType(value);
 	};
 
 	return (
-		<div>
+		<div className={classes.root}>
 			{snackBarOps.open && (
 				<AppSnackbar ops={snackBarOps} />
 			)}
 
+			{totpDialog && (<MfaTotpConfigDialog open={totpDialog} close={(successful) => handleTotpDialogClose(successful)} />)}
 
-
-			<Box>
-				MFA Type: {mfaType}
-				<Button variant="contained" color="secondary" onClick={() => getPreferredMFA()}>Get preferred MFA Type</Button>
-			</Box>
-			<Box>
-				<Button variant="contained" color="secondary" onClick={() => setPreferredMFA('TOTP')}>set TOTP</Button>
-				<Button variant="contained" color="secondary" onClick={() => setPreferredMFA('SMS')}>set SMS</Button>
-				<Button variant="contained" color="secondary" onClick={() => setPreferredMFA('NOMFA')}>set NOMFA</Button>
-			</Box>
-			<Box>
-				<Button variant="contained" color="secondary" onClick={() => setupTOTP()}>QR</Button>
-				<Box>
-					{qrCode.show && (<QRCode
-						//https://www.npmjs.com/package/qrcode.react
-						value={qrCode.str}
-					/>)}
-				</Box>
-			</Box>
-			<Box>
-
-
-				<TextField
-					id="textfield_verify_token"
-					value={totpToken}
-					label='verify Token' //{I18n.get('TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL')}
-					onChange={(event) => setTotpToken(event.target.value)}
-					inputProps={{ style: { left: 0 } }}
+			<Card variant="outlined" className={classes.card}>
+				<CardHeader
+					className={classes.cardHeader}
+					title={I18n.get('TAB_MFA_DATA_LABEL')}
 				/>
-				<Button variant="contained" color="secondary" onClick={() => verifyTotpToken(totpToken)}>verify</Button>
-			</Box>
+				<CardContent className={classes.cardContent}>
+					<Card variant="outlined">
+						<CardContent className={classes.cardContent}>
+							<FormControl component="fieldset">
+								<FormLabel component="legend">
+									{I18n.get('TAB_MFA_DATA_SELECT_MFA_TYPE')}
+								</FormLabel>
+								<RadioGroup
+									name="mfaType"
+									value={mfaType}
+									onChange={(event) => handleMfaTypeChange(event.target.value)}
+									aria-label="mfaType"
+								>
+									<FormControlLabel
+										value="SOFTWARE_TOKEN_MFA"
+										disabled={!editMode}
+										control={<Radio />}
+										label={I18n.get('TAB_MFA_DATA_SELECT_TOTP')}
+									/>
+									<FormControlLabel
+										value="SMS_MFA"
+										disabled={!editMode || !props.phone_number_verified}
+										control={<Radio />}
+										label={props.phone_number_verified ? I18n.get('TAB_MFA_DATA_SELECT_SMS') : I18n.get('TAB_MFA_DATA_SELECT_SMS_NOT_VERIFIED')}
+									/>
+									<FormControlLabel
+										value="NOMFA"
+										disabled={!editMode}
+										control={<Radio />}
+										label={I18n.get('TAB_MFA_DATA_SELECT_NO_MFA')}
+									/>
+								</RadioGroup>
+							</FormControl>
+						</CardContent >
+						<CardActions className={classes.cardActions}>
+							{!editMode && (
+								<Button
+									variant="contained"
+									color="secondary"
+									onClick={() => handleChangeClick()}
+								>
+									{I18n.get('TAB_MFA_DATA_CHANGE_BUTTON_LABEL')}
+								</Button>
+							)}
+
+							{editMode && (
+								<Button
+									variant="outlined"
+									onClick={() => handleSaveClick()}
+									className={classes.buttonSave}
+								>
+									{I18n.get('TAB_MFA_DATA_SAVE_BUTTON_LABEL')}
+								</Button>
+							)}
+
+							{editMode && (
+								<Button
+									variant="outlined"
+									onClick={() => handleCancelClick()}
+									className={classes.buttonCancel}
+								>
+									{I18n.get('TAB_MFA_DATA_CANCEL_BUTTON_LABEL')}
+								</Button>
+							)}
+						</CardActions>
+					</Card >
+				</CardContent >
+			</Card >
 		</div>
 	)
 }
