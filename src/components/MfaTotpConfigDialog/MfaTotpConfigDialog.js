@@ -30,7 +30,6 @@ import Typography from '@material-ui/core/Typography';
 import QRCode from 'qrcode.react';
 
 import { Branding } from '../../branding';
-import logo from '../../assets/Logos/logo.png';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 
 /*
@@ -325,7 +324,7 @@ function MfaTotpConfigDialog(props) {
 									includeMargin={true}
 									renderAs={"svg"}
 									imageSettings={{
-										src: logo,
+										src: "logos/qrImage.png",
 										x: null,
 										y: null,
 										height: 48,
