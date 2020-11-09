@@ -104,7 +104,6 @@ const ChangePasswordDialog = (props) => {
 	});
 
 	const changePassword = (oldPassword, newPassword) => {
-		console.log(oldPassword + ' - ' + newPassword)
 		if (!oldPassword || !newPassword) {
 			setSnackBarOps({
 				type: 'error',
@@ -219,6 +218,8 @@ const ChangePasswordDialog = (props) => {
 									</InputAdornment>
 								}
 								className={classes.input}
+								autoFocus
+								inputProps={{ style: { left: 0 } }}
 							/>
 						</FormControl>
 					</Box>
@@ -250,6 +251,7 @@ const ChangePasswordDialog = (props) => {
 									</InputAdornment>
 								}
 								className={classes.input}
+								inputProps={{ style: { left: 0 } }}
 							/>
 						</FormControl>
 					</Box>
