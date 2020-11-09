@@ -19,4 +19,23 @@ const i18nStrings = {
 	nl: nl,
 }
 
+export const LanguageTypes = [
+	{
+		"code": "en",
+		"lang": "English"
+	},
+	{
+		"code": "fr",
+		"lang": "French"
+	},
+	{
+		"code": "de",
+		"lang": "Deutsch"
+	},
+	{
+		"code": "nl",
+		"lang": "Nederlands"
+	}
+];
+
 export default i18nStrings;

@@ -8,30 +8,15 @@
   */
 
 import React from 'react';
+
+import { I18n } from '@aws-amplify/core';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-import { I18n } from '@aws-amplify/core';
-
 import { Branding } from '../../branding.js';
-
-const strings = {
-	en: {
-		LOGOUT_BUTTON_LABEL: "Logout"
-	},
-	fr: {
-		LOGOUT_BUTTON_LABEL: "Se déconnecter"
-	},
-	de: {
-		LOGOUT_BUTTON_LABEL: "Abmelden"
-	},
-	nl: {
-		LOGOUT_BUTTON_LABEL: "Uitloggen"
-	}
-};
-I18n.putVocabularies(strings);
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -44,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 		boxShadow: '0 0'
 	},
 	button: {
-		width: '200px',
+		width: 200,
 		backgroundColor: Branding.negative,
 		color: 'white',
 		fontWeight: 'bold'

@@ -32,79 +32,6 @@ import QRCode from 'qrcode.react';
 import { Branding } from '../../branding';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 
-/*
- * Localization
- */
-const strings = {
-	en: {
-		MFA_TOTP_CONFIG_DIALOG_TITLE: "TOTP Configuration",
-		MFA_TOTP_CONFIG_DIALOG_DESCRIPTION: "Multi-Factor Authentication (MFA) enhances security by adding another authentication method rather than relying solely on username and password.",
-		MFA_TOTP_CONFIG_DIALOG_STEP1_LABEL: "TOTP Request Token",
-		MFA_TOTP_CONFIG_DIALOG_STEP1_DESCRIPTION: "You can use time-based one-time passwords (TOTP) as second factors when your users log in.",
-		MFA_TOTP_CONFIG_DIALOG_STEP1_BUTTON_TOKEN_REQUEST_LABEL: "Request TOTP Token",
-		MFA_TOTP_CONFIG_DIALOG_STEP2_LABEL: "TOTP Device Setup",
-		MFA_TOTP_CONFIG_DIALOG_STEP2_DESCRIPTION: "Scan the QR-Code with your Device",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_LABEL: "TOTP Device Activate",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_DESCRIPTION: "Activate your Device by entering the One-Time-Password and click 'Activate'",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_TEXTFIELD_VERIFY_CODE_LABEL: "One-Time-Password",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_BUTTON_ACTIVATE_TOTP_LABEL: "Activate",
-		MFA_TOTP_CONFIG_DIALOG_BUTTON_NEXT_LABEL: "Next",
-		MFA_TOTP_CONFIG_DIALOG_BUTTON_BACK_LABEL: "Back",
-		MFA_TOTP_CONFIG_DIALOG_BUTTON_CLOSE_LABEL: "Close",
-		MFA_TOTP_CONFIG_DIALOG_MESSAGE_EROR: "An error has occurred",
-	},
-	fr: {
-		MFA_TOTP_CONFIG_DIALOG_TITLE: "Configuration TOTP",
-		MFA_TOTP_CONFIG_DIALOG_DESCRIPTION: "L'authentification multifacteur (MFA) améliore la sécurité en ajoutant une autre méthode d'authentification plutôt que de se fier uniquement au nom d'utilisateur et au mot de passe.",
-		MFA_TOTP_CONFIG_DIALOG_STEP1_LABEL: "Jeton de demande TOTP",
-		MFA_TOTP_CONFIG_DIALOG_STEP1_DESCRIPTION: "Vous pouvez utiliser des mots de passe à usage unique basés sur le temps (TOTP) comme deuxième facteur lorsque vos utilisateurs se connectent.",
-		MFA_TOTP_CONFIG_DIALOG_STEP1_BUTTON_TOKEN_REQUEST_LABEL: "Demander un jeton TOTP",
-		MFA_TOTP_CONFIG_DIALOG_STEP2_LABEL: "Configuration de l'appareil TOTP",
-		MFA_TOTP_CONFIG_DIALOG_STEP2_DESCRIPTION: "Scannez le QR-Code avec votre appareil",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_LABEL: "Activation du périphérique TOTP",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_DESCRIPTION: "Activez votre appareil en entrant le mot de passe à usage unique et cliquez sur 'Activer'",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_TEXTFIELD_VERIFY_CODE_LABEL: "Passe à usage unique",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_BUTTON_ACTIVATE_TOTP_LABEL: "Activer",
-		MFA_TOTP_CONFIG_DIALOG_BUTTON_NEXT_LABEL: "Suivant",
-		MFA_TOTP_CONFIG_DIALOG_BUTTON_BACK_LABEL: "Retour",
-		MFA_TOTP_CONFIG_DIALOG_BUTTON_CLOSE_LABEL: "Proche",
-		MFA_TOTP_CONFIG_DIALOG_MESSAGE_EROR: "Une erreur est survenue",
-	},
-	de: {
-		MFA_TOTP_CONFIG_DIALOG_TITLE: "TOTP Konfigurieren",
-		MFA_TOTP_CONFIG_DIALOG_DESCRIPTION: "Die Multi-Faktor-Authentifizierung (MFA) erhöht die Sicherheit, indem eine weitere Authentifizierungsmethode hinzufügt wird und diese sich nicht nur auf Benutzername und Passwort stützt.",
-		MFA_TOTP_CONFIG_DIALOG_STEP1_LABEL: "TOTP Token abrufen",
-		MFA_TOTP_CONFIG_DIALOG_STEP1_DESCRIPTION: "Sie können zeitbasierte Einmal-Passwörter (TOTP) als zweite Faktoren bei der Anmeldung Ihrer Benutzer verwenden.",
-		MFA_TOTP_CONFIG_DIALOG_STEP1_BUTTON_TOKEN_REQUEST_LABEL: "TOTP Token abrufen",
-		MFA_TOTP_CONFIG_DIALOG_STEP2_LABEL: "TOTP Gerät einrichten",
-		MFA_TOTP_CONFIG_DIALOG_STEP2_DESCRIPTION: "Scannen Sie den QR-Code mit Ihrem Gerät",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_LABEL: "TOTP Gerät aktivieren",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_DESCRIPTION: "Aktivieren Sie Ihr Gerät in dem Sie das Einmal-Password eingeben und 'Aktivieren' klicken",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_TEXTFIELD_VERIFY_CODE_LABEL: "Einmal-Password",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_BUTTON_ACTIVATE_TOTP_LABEL: "Aktivieren",
-		MFA_TOTP_CONFIG_DIALOG_BUTTON_NEXT_LABEL: "Nächster",
-		MFA_TOTP_CONFIG_DIALOG_BUTTON_BACK_LABEL: "Zurück",
-		MFA_TOTP_CONFIG_DIALOG_BUTTON_CLOSE_LABEL: "Schließen",
-		MFA_TOTP_CONFIG_DIALOG_MESSAGE_EROR: "Es ist ein Fehler aufgetreten",
-	},
-	nl: {
-		MFA_TOTP_CONFIG_DIALOG_TITLE: "TOTP-configuratie",
-		MFA_TOTP_CONFIG_DIALOG_DESCRIPTION: "Multi-Factor Authentication (MFA) verbetert de beveiliging door een andere authenticatiemethode toe te voegen in plaats van alleen te vertrouwen op gebruikersnaam en wachtwoord.",
-		MFA_TOTP_CONFIG_DIALOG_STEP1_LABEL: "TOTP-aanvraagtoken",
-		MFA_TOTP_CONFIG_DIALOG_STEP1_DESCRIPTION: "U kunt op tijd gebaseerde eenmalige wachtwoorden (TOTP) gebruiken als tweede factor wanneer uw gebruikers inloggen.",
-		MFA_TOTP_CONFIG_DIALOG_STEP1_BUTTON_TOKEN_REQUEST_LABEL: "TOTP-token aanvragen",
-		MFA_TOTP_CONFIG_DIALOG_STEP2_LABEL: "TOTP-apparaat instellen",
-		MFA_TOTP_CONFIG_DIALOG_STEP2_DESCRIPTION: "Scan de QR-code met uw apparaat",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_LABEL: "TOTP-apparaat activeren",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_DESCRIPTION: "Activeer uw apparaat door het On-Time-wachtwoord in te voeren en klik op 'Activeren'",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_TEXTFIELD_VERIFY_CODE_LABEL: "On-Time-wachtwoord",
-		MFA_TOTP_CONFIG_DIALOG_STEP3_BUTTON_ACTIVATE_TOTP_LABEL: "Activeren",
-		MFA_TOTP_CONFIG_DIALOG_BUTTON_NEXT_LABEL: "Naast",
-		MFA_TOTP_CONFIG_DIALOG_BUTTON_BACK_LABEL: "Terug",
-		MFA_TOTP_CONFIG_DIALOG_BUTTON_CLOSE_LABEL: "Dichtbij",
-		MFA_TOTP_CONFIG_DIALOG_MESSAGE_EROR: "Er is een fout opgetreden",
-	},
-}
 const useStyles = makeStyles((theme) => ({
 	root: {
 
@@ -131,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
 		color: Branding.negative,
 	},
 }));
-I18n.putVocabularies(strings);
 
 function getSteps() {
 	return [

@@ -64,4 +64,151 @@ export const i18nStrings = {
 	"An account with the given email already exists.": "Er bestaat al een account met dit e-mailadres.",
 	"User is disabled.": "De gebruiker is gedeactiveerd.",
 	"Access Token has been revoked": "Het toegangstoken is ingetrokken.",
+
+	// ./pages/Dashboard/Dashboard.js
+	DASHBOARD_TITLE: "Dashboard",
+	DASHBOARD_ERROR_MESSAGE: "Er is een fout opgetreden",
+
+	// ./pages/Dashboard/appTiles.js
+	DASHBOARD_APPTILES_BTN_OPEN: "Open",
+	DASHBOARD_APPTILES_LOGO: "Logo",
+
+	// ./pages/ErrorPage/ErrorPage.js
+	ERROR_PAGE_MESSAGE: "Oeps - Pagina niet gevonden",
+
+	// ./pages/Settings/Settings.js
+	SETTINGS_TITLE: "Profiel",
+
+	// ./pages/Settings/content.js
+	SETTINGS_CONTENT_TAB_SIGNIN_LABEL: "INLOGGEGEVENS",
+	SETTINGS_CONTENT_TAB_USER_DATA_LABEL: "GEBRUKERSGEGEVENS",
+	SETTINGS_CONTENT_TAB_DEVICE_DATA_LABEL: "APPARAATGEGEVENS",
+	SETTINGS_CONTENT_TAB_MFA_DATA_LABEL: "MFA GEGEVENS",
+
+	// ./pages/Settings/tabDeviceData.js
+	TAB_DEVICE_DATA_LABEL: "APPARAATGEGEVENS",
+	TAB_DEVICE_DATA_CHIP_CURRENT_LABEL: "Deze",
+	TAB_DEVICE_DATA_TEXTFIELD_STATUS_LABEL: "Toestand",
+	TAB_DEVICE_DATA_TEXTFIELD_NAME_LABEL: "Naam",
+	TAB_DEVICE_DATA_TEXTFIELD_LAST_IP_LABEL: "Laatst gebruikte IP-adres",
+	TAB_DEVICE_DATA_TEXTFIELD_LAST_USED_LABEL: "Apparaat laatst gebruikt om",
+	TAB_DEVICE_DATA_TEXTFIELD_LAST_MODIFIED_LABEL: "Apparaat laatst gewijzigd om",
+	TAB_DEVICE_DATA_TEXTFIELD_CREATED_LABEL: "Apparaatingang gemaakt op",
+	TAB_DEVICE_DATA_BUTTON_REMEMBER_DEVICE_LABEL: "Onthoud apparaat",
+	TAB_DEVICE_DATA_BUTTON_FORGET_DEVICE_LABEL: "Vergeet het apparaat",
+	TAB_DEVICE_DATA_REMEMBER_DEVICE_MESSAGE: "Apparaat succesvol onthouden",
+	TAB_DEVICE_DATA_FORGET_DEVICE_MESSAGE: "Apparaat succesvol vergeten",
+	TAB_DEVICE_DATA_MESSAGE_EROR: "Er is een fout opgetreden",
+
+	// ./pages/Settings/tabMfaData.js
+	TAB_MFA_DATA_LABEL: 'MFA',
+	TAB_MFA_DATA_SELECT_MFA_TYPE: "Configureer uw favoriete MFA-type",
+	TAB_MFA_DATA_SELECT_TOTP: "TOTP",
+	TAB_MFA_DATA_SELECT_SMS: "SMS",
+	TAB_MFA_DATA_SELECT_SMS_NOT_VERIFIED: "SMS (Verifieer eerst uw telefoonnummer)",
+	TAB_MFA_DATA_SELECT_NO_MFA: "Nee MFA",
+	TAB_MFA_DATA_CHANGE_BUTTON_LABEL: "Verandering",
+	TAB_MFA_DATA_SAVE_BUTTON_LABEL: "Opslaan",
+	TAB_MFA_DATA_CANCEL_BUTTON_LABEL: "Afbreken",
+	TAB_MFA_DATA_MESSAGE_EROR: "Er is een fout opgetreden",
+	TAB_MFA_DATA_MESSAGE_SET_MFATYPE_SUCCESS: "Definitie van MFA-type is geslaagdl",
+	TAB_MFA_DATA_MESSAGE_VERIFY_TOTP_TOKEN_SUCCESS: "De TOTP-installatie is gelukt",
+
+	// ./pages/Settings/tabSignInData.js
+	TAB_SIGNIN_DATA_LABEL: "INLOGGEGEVENS",
+	TAB_SIGNIN_DATA_USERNAME_INPUT_LABEL: "Gebruikersnaam",
+	TAB_SIGNIN_DATA_EMAIL_INPUT_LABEL: "E-mail",
+	TAB_SIGNIN_DATA_PHONENUMBER_INPUT_LABEL: "Telefoonnummer",
+	TAB_SIGNIN_DATA_PASSWORD_INPUT_LABEL: "Wachtwoord",
+	TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL: 'geverifieerd',
+	TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'niet geverifieerd',
+	TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Veranderen",
+	TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL: "Afbreken",
+	TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL: "Opslaan",
+	TAB_SIGNIN_DATA_MESSAGE_EROR: "Er is een fout opgetreden",
+	TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "De update is gelukt",
+	TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Controleer uw wijzigingen",
+	TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "Voer uw huidige en nieuwe wachtwoord in",
+	TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "De verificatie is gelukt",
+
+	// ./pages/Settings/tabUserData.js
+	TAB_USER_DATA_LABEL: "GEBRUKERSGEGEVENS",
+	TAB_USER_DATA_TEXTFIELD_GIVEN_NAME_LABEL: "Voornaam",
+	TAB_USER_DATA_TEXTFIELD_FAMILY_NAME_LABEL: "Achternaam",
+	TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL: "Adres",
+	TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL: "Geboortedatum",
+	TAB_USER_DATA_TEXTFIELD_GENDER_LABEL: "Geslacht",
+	TAB_USER_DATA_TEXTFIELD_CUSTOM_NEWSLETTER_LABEL: "Nieuwsbrief",
+	TAB_USER_DATA_SELECT_GENDER_0: "<Selecteer alstublieft>",
+	TAB_USER_DATA_SELECT_GENDER_1: "Mannetje",
+	TAB_USER_DATA_SELECT_GENDER_2: "Vrouw",
+	TAB_USER_DATA_SELECT_GENDER_3: "X-geslacht",
+	TAB_USER_DATA_TEXTFIELD_LANGUAGE_LABEL: "Voorkeurstaal",
+	TAB_USER_DATA_CHANGE_BUTTON_LABEL: "Veranderen",
+	TAB_USER_DATA_CANCEL_BUTTON_LABEL: "Afbreken",
+	TAB_USER_DATA_SAVE_BUTTON_LABEL: "Opslaan",
+	TAB_USER_DATA_MESSAGE_EROR: "Er is een fout opgetreden",
+	TAB_USER_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "De update is gelukt",
+
+	// ./pages/TermsOfService/TermsOfService.js
+	TERMS_OF_SERVICE_VERSION_ID: 1,
+	TERMS_OF_SERVICE_MESSAGE_RESIGN: "Lees en accepteer de Servicevoorwaarden",
+	TERMS_OF_SERVICE_MESSAGE_ACCEPTED: "De Servicevoorwaarden zijn geaccepteerd.",
+	TERMS_OF_SERVICE_MESSAGE_ERROR: "Er is een fout opgetreden, probeer het opnieuw",
+	TERMS_OF_SERVICE_MESSAGE_DECLINE: "De gebruiksvoorwaarden moeten worden geaccepteerd.",
+
+	// ./pages/TermsOfService/content.js
+	TERMS_OF_SERVICE_CONTENT_VERSION_LABEL: "Versie: 1.0.0",
+	TERMS_OF_SERVICE_CONTENT_TITLE: "Servicevoorwaarden",
+	TERMS_OF_SERVICE_CONTENT_P1: "1. Algemene voorschriften",
+	TERMS_OF_SERVICE_CONTENT_P2: "2. Diensten van het platform",
+	TERMS_OF_SERVICE_CONTENT_LOREM_IPSUM: "NL - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+	TERMS_OF_SERVICE_CONTENT_BUTTON_ACCEPT_LABEL: "Aanvaarden",
+	TERMS_OF_SERVICE_CONTENT_BUTTON_DECLINE_LABEL: "Afwijzen",
+
+	// ./components/AppBar/AppBar.js
+	HEADER_MENU_ITEM_PROFILE: "Profiel",
+	HEADER_MENU_ITEM_DASHBOARD: "Dashboard",
+	HEADER_MENU_ITEM_LOGOUT: "Uitloggen",
+
+	// ./components/ChangePasswordDialog/ChangePasswordDialog.js
+	CHANGE_PASSWORD_TITLE: "Verander wachtwoord",
+	CHANGE_PASSWORD_DESCRIPTION: "Voer uw huidige en nieuwe wachtwoord in",
+	CHANGE_PASSWORD_OLDPASSWORD_INPUT_LABEL: "Huidig ​​wachtwoord",
+	CHANGE_PASSWORD_NEWPASSWORD_INPUT_LABEL: "nieuw paswoord",
+	CHANGE_PASSWORD_SAVE_BUTTON_LABEL: "Opslaan",
+	CHANGE_PASSWORD_CLOSE_BUTTON_LABEL: "Dichtbij",
+	CHANGE_PASSWORD_MESSAGE_EROR: "Er is een fout opgetreden",
+
+	// ./components/LangeuageSelect/LanguageSelect.js
+	LANGUAGESELECT_SELECT_LABEL: "Taal",
+
+	// ./components/LogoutButton/LogoutButton.js
+	LOGOUT_BUTTON_LABEL: "Uitloggen",
+
+	// ./components/MfaTotpConfigDialog/MfaTotpConfigDialog.js
+	MFA_TOTP_CONFIG_DIALOG_TITLE: "TOTP-configuratie",
+	MFA_TOTP_CONFIG_DIALOG_DESCRIPTION: "Multi-Factor Authentication (MFA) verbetert de beveiliging door een andere authenticatiemethode toe te voegen in plaats van alleen te vertrouwen op gebruikersnaam en wachtwoord.",
+	MFA_TOTP_CONFIG_DIALOG_STEP1_LABEL: "TOTP-aanvraagtoken",
+	MFA_TOTP_CONFIG_DIALOG_STEP1_DESCRIPTION: "U kunt op tijd gebaseerde eenmalige wachtwoorden (TOTP) gebruiken als tweede factor wanneer uw gebruikers inloggen.",
+	MFA_TOTP_CONFIG_DIALOG_STEP1_BUTTON_TOKEN_REQUEST_LABEL: "TOTP-token aanvragen",
+	MFA_TOTP_CONFIG_DIALOG_STEP2_LABEL: "TOTP-apparaat instellen",
+	MFA_TOTP_CONFIG_DIALOG_STEP2_DESCRIPTION: "Scan de QR-code met uw apparaat",
+	MFA_TOTP_CONFIG_DIALOG_STEP3_LABEL: "TOTP-apparaat activeren",
+	MFA_TOTP_CONFIG_DIALOG_STEP3_DESCRIPTION: "Activeer uw apparaat door het On-Time-wachtwoord in te voeren en klik op 'Activeren'",
+	MFA_TOTP_CONFIG_DIALOG_STEP3_TEXTFIELD_VERIFY_CODE_LABEL: "On-Time-wachtwoord",
+	MFA_TOTP_CONFIG_DIALOG_STEP3_BUTTON_ACTIVATE_TOTP_LABEL: "Activeren",
+	MFA_TOTP_CONFIG_DIALOG_BUTTON_NEXT_LABEL: "Naast",
+	MFA_TOTP_CONFIG_DIALOG_BUTTON_BACK_LABEL: "Terug",
+	MFA_TOTP_CONFIG_DIALOG_BUTTON_CLOSE_LABEL: "Dichtbij",
+	MFA_TOTP_CONFIG_DIALOG_MESSAGE_EROR: "Er is een fout opgetreden",
+
+	// ./components/VerifyAttributeDialog/VerifyAttributeDialog.js
+	VERIFY_DIALOG_TITLE: "Verify",
+	VERIFY_DIALOG_DESCRIPTION: "Please enter the code:",
+	VERIFY_DIALOG_INPUT_LABEL: "Code",
+	VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verify",
+	VERIFY_DIALOG_CLOSE_BUTTON_LABEL: "Close",
+	VERIFY_DIALOG_MESSAGE_EROR: "Er is een fout opgetreden",
+
 }

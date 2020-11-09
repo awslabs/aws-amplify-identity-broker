@@ -17,8 +17,6 @@ import { Redirect } from 'react-router-dom'
 import { Auth } from 'aws-amplify';
 
 import { I18n } from '@aws-amplify/core';
-import { strings } from '../../pages/TermsOfService/languageStrings';
-I18n.putVocabularies(strings);
 
 class ProtectedRoute extends React.Component {
 	constructor(props) {
@@ -55,10 +53,10 @@ class ProtectedRoute extends React.Component {
 
 						/*
 							* Check if the user need to "Sign" or "Resign" the ToS
-							* For reasons of simplicity we load the current ToS version from 'languageString - VERSION_ID'
+							* For reasons of simplicity we load the current ToS version from 'i18n - VERSION_ID'
 							*/
 						const tosSignedVersionInt = parseInt(tosSignedVersion) || 0;
-						const tosCurrentVersionInt = I18n.get('VERSION_ID') || 0
+						const tosCurrentVersionInt = I18n.get('TERMS_OF_SERVICE_VERSION_ID') || 0
 
 						/*
 							* If the current ToS are newer or the actual ToS are not sigened we redirect the user to '/tos'

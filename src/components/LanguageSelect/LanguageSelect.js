@@ -9,8 +9,9 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { setLang } from '../../redux/actions';
+
 import { I18n } from '@aws-amplify/core';
+
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -19,47 +20,10 @@ import Select from '@material-ui/core/Select';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
-/*
- * Language-Types
- * for each Language Type you need also the Loaclization
- */
-const languageTypes = [
-	{
-		"code": "en",
-		"lang": "English"
-	},
-	{
-		"code": "fr",
-		"lang": "French"
-	},
-	{
-		"code": "de",
-		"lang": "Deutsch"
-	},
-	{
-		"code": "nl",
-		"lang": "Nederlands"
-	}
-]
+import { setLang } from '../../redux/actions';
+import { LanguageTypes } from '../../i18n/i18n';
 
-/*
- * Localizations
- */
-const strings = {
-	en: {
-		LANGUAGESELECT_SELECT_LABEL: "Language"
-	},
-	fr: {
-		LANGUAGESELECT_SELECT_LABEL: "Langue"
-	},
-	de: {
-		LANGUAGESELECT_SELECT_LABEL: "Sprache"
-	},
-	nl: {
-		LANGUAGESELECT_SELECT_LABEL: "Taal"
-	}
-}
-I18n.putVocabularies(strings);
+const languageTypes = LanguageTypes;
 
 const useStyles = makeStyles((theme) => ({
 	gridContainer: {
