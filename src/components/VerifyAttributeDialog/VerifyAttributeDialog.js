@@ -150,6 +150,8 @@ const VerifyAttributeDialog = (props) => {
 						label={I18n.get('VERIFY_DIALOG_INPUT_LABEL')}
 						fullWidth
 						className={classes.TextField}
+						inputProps={{ style: { left: 0 } }}
+						autoFocus
 					/>
 				</DialogContent>
 				<DialogActions className={classes.dialogActions}>
