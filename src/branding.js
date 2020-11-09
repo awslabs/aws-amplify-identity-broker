@@ -13,24 +13,31 @@
  * WARNING: Do not use this method in production.
  * Generates a theme that reduces the amount of warnings inside React.StrictMode like Warning: findDOMNode is deprecated in StrictMode.
  */
+import { blueGrey, blue, green, orange, red } from '@material-ui/core/colors';
+
 import { unstable_createMuiStrictModeTheme } from '@material-ui/core/styles';
 //import { createMuiTheme } from '@material-ui/core/styles';
 
 export const Branding = {
 	appName: "Amplify Identity Broker",
 
-	primary: "#272727",
-	secondary: "#747474",
-	accent: "#E1A338",
+	primary: blueGrey[900], 					// #263238,
+	secondary: blueGrey[300], 					// #90a4ae,
+	accent: orange[500],						// #ff9800
 
-	neutral: "#E0E1E2",
-	positive: "#9ACD32",
-	negative: "#C10015",
-	info: "#31CCEC",
-	warning: "#F2C037",
+	neutral: blueGrey[50], 						// #eceff1
+	positive: green[700], 						// #689f38
+	negative: red[700], 						// #d32f2f
+	info: blue[700],							// #1976d2
+	warning: orange[700],						// #f57c00
 
-	white: '#fff',
-	black: '#000',
+	cardHeaderColorPrimary: blueGrey[100],		// #cfd8dc
+	cardHeaderColorAccent: orange[500],			// #ff9800
+
+	white: '#fff',								// #fff
+	black: '#000',								// #000
+
+
 }
 
 export const theme = unstable_createMuiStrictModeTheme({

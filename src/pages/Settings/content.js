@@ -101,10 +101,10 @@ const useStyles = makeStyles((theme) => ({
 		maxWidth: '650px',
 	},
 	appBar: {
-		backgroundColor: 'white',
+		backgroundColor: Branding.white,
 	},
 	tabs: {
-		color: Branding.secondary,
+		color: Branding.primary,
 		indicator: Branding.accent,
 	},
 	tabsIndicator: {

@@ -115,9 +115,9 @@ const useStyles = makeStyles((theme) => ({
 
 	},
 	header: {
-		backgroundColor: Branding.secondary,
-		color: 'white',
-		height: '40px',
+		backgroundColor: Branding.primary,
+		color: Branding.white,
+		height: 50,
 		textAlign: 'center',
 	},
 	title: {
@@ -125,12 +125,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	cardContent: {
 		textAlign: 'left',
+		paddingBottom: 0,
 	},
 	cardActions: {
 		justifyContent: 'center',
-	},
-	buttonAccountDelete: {
-		color: Branding.negative
 	},
 	boxInputField: {
 		margin: theme.spacing(2),
@@ -142,34 +140,37 @@ const useStyles = makeStyles((theme) => ({
 
 	},
 	input: {
-		minWidth: '300px',
+		minWidth: 300,
 	},
 	chipVerified: {
-		marginTop: '-50px',
+		marginTop: -50,
 		backgroundColor: Branding.positive,
-		color: 'white',
+		color: Branding.white,
 	},
 	chipUnverified: {
-		marginTop: '-50px',
+		marginTop: -50,
 		backgroundColor: Branding.negative,
-		color: 'white',
+		color: Branding.white,
 	},
 	buttonChange: {
-		marginTop: '8px',
-		marginLeft: '8px',
+		marginTop: theme.spacing(1),
+		marginLeft: theme.spacing(1),
 		background: Branding.secondary,
-		color: 'white',
+		color: Branding.white,
 	},
 	buttonCancel: {
-		marginTop: '8px',
-		marginLeft: '8px',
+		marginTop: theme.spacing(1),
+		marginLeft: theme.spacing(1),
 		color: Branding.negative,
 	},
 	buttonSave: {
-		marginTop: '8px',
-		marginLeft: '8px',
+		marginTop: theme.spacing(1),
+		marginLeft: theme.spacing(1),
 		color: Branding.positive,
-	}
+	},
+	buttonAccountDelete: {
+		color: Branding.negative
+	},
 }));
 
 const mapStateToProps = (state) => {
@@ -222,7 +223,7 @@ const TabSignInData = (props) => {
 	}
 
 	/*
-	 * attributes = String 
+	 * attributes = String
 	 * converted to JSON
 	 * Example: {"email": "your.name@example.com"}
 	 */
@@ -415,6 +416,7 @@ const TabSignInData = (props) => {
 									</InputAdornment>
 								}
 								className={classes.input}
+								inputProps={{ style: { left: 0 } }}
 							/>
 						</FormControl>
 					</Box >
@@ -448,6 +450,7 @@ const TabSignInData = (props) => {
 										</InputAdornment>
 									)}
 								className={classes.input}
+								inputProps={{ style: { left: 0 } }}
 							/>
 						</FormControl>
 						{!editEmail && (
@@ -496,6 +499,7 @@ const TabSignInData = (props) => {
 										</InputAdornment>
 									)}
 								className={classes.input}
+								inputProps={{ style: { left: 0 } }}
 							/>
 						</FormControl>
 						{!editPhoneNumber && (
@@ -533,6 +537,7 @@ const TabSignInData = (props) => {
 									</InputAdornment>
 								}
 								className={classes.input}
+								inputProps={{ style: { left: 0 } }}
 							/>
 						</FormControl>
 						<Button variant="contained" onClick={() => handleAttributeChange('password')} className={classes.buttonChange}>

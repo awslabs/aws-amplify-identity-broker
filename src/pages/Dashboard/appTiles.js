@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
 		flexWrap: 'wrap',
 		justifyContent: 'space-around',
 		overflow: 'hidden',
-		backgroundColor: theme.palette.background.paper,
 		marginBottom: '40px',
 	},
 	gridList: {
@@ -63,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	button: {
 		margin: theme.spacing(2),
-		backgroundColor: Branding.positive,
+		backgroundColor: Branding.accent,
 	},
 }));
 
