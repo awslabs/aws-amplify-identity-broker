@@ -87,9 +87,6 @@ class Dashboard extends React.Component {
 				)}
 
 				<Header
-					auth={this.props.auth}
-					pageTitle={I18n.get("DASHBOARD_TITLE")}
-					lang={this.props.lang}
 					routeTo={(newPath) => this.props.history.push(newPath)}
 				/>
 

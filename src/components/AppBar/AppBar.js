@@ -9,9 +9,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { setAuth } from '../../redux/actions';
+import { setLang, setAuth } from '../../redux/actions';
 
-import { Auth } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -53,22 +52,15 @@ const useStyles = makeStyles((theme) => ({
 
 const mapStateToProps = (state) => {
 	return {
-		auth: state.app.auth
+		lang: state.app.lang,
+		auth: state.app.auth,
 	}
 }
 
 const Header = (props) => {
 	const classes = useStyles();
-	const [lang, setLang] = React.useState(props.lang || "en");
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
-
-	const checkSignIn = () => {
-		Auth.currentAuthenticatedUser()
-			.then(() => { props.setAuth(true) })
-			.catch((err) => { props.setAuth(false) })
-	}
-	const auth = props.auth || checkSignIn() || false;
 
 	const { width } = useWindowDimensions();
 
@@ -103,14 +95,14 @@ const Header = (props) => {
 					)}
 
 					<LanguageSelect
-						lang={lang}
+						lang={props.lang}
 						changedLang={handleLangChange}
 						themeShowLabel={false}
 						themeColor={Branding.white}
 						themeBackgroundColor={Branding.primary}
 					/>
 
-					{auth && (
+					{props.auth && (
 						<div>
 							<IconButton
 								aria-label="account of current user"
@@ -158,4 +150,4 @@ const Header = (props) => {
 	);
 }
 
-export default connect(mapStateToProps, { setAuth })(Header)
+export default connect(mapStateToProps, { setLang, setAuth })(Header)

@@ -12,7 +12,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { Auth } from 'aws-amplify';
-import { I18n } from '@aws-amplify/core';
 
 //Branded Theme
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -34,7 +33,7 @@ class Settings extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {}
-	}
+	};
 
 	componentDidMount() {
 		this.loadUserAttributes();
@@ -42,21 +41,25 @@ class Settings extends React.Component {
 
 	loadUserAttributes = () => {
 		Auth.currentUserInfo()
-			.then((data) => {
-				this.props.setUser(data);
+			.then((user) => {
+				this.props.setUser(user);
+
+				/*
+				 * If the user locale different to i18n language,
+				 * set i18n language to user locale
+				 */
+				if (user.attributes.locale && (user.attributes.locale !== this.props.lang))
+					this.props.setLang(user.attributes.locale);
 			})
 			.catch(err => {
 				console.log(err);
 			});
-	}
+	};
 
 	render() {
 		return (
 			<MuiThemeProvider theme={theme}>
 				<Header
-					auth={this.props.auth}
-					pageTitle={I18n.get("SETTINGS_TITLE")}
-					lang={this.props.lang}
 					routeTo={(newPath) => this.props.history.push(newPath)}
 				/>
 

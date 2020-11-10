@@ -22,7 +22,9 @@ import { theme } from './branding';
 
 import { eraseCookie, storeTokens, setTokenCookie, setRefreshTokenCookie } from './helpers'
 import ResponsiveLanding from './components/ResponsiveLanding/ResponsiveLanding';
-import Header from './components/AppBar/AppBar';
+
+import LanguageSelect from './components/LanguageSelect/LanguageSelect';
+//import Header from './components/AppBar/AppBar';
 
 // responsive utilities
 import DesktopBreakpoint from './responsive_utilities/desktop_breakpoint';
@@ -166,10 +168,7 @@ class App extends React.Component {
 	render() {
 		return (
 			<MuiThemeProvider theme={theme}>
-				<Header
-					auth={this.props.auth}
-					lang={this.props.lang}
-				/>
+				<LanguageSelect lang={this.props.lang} />
 
 				<DesktopBreakpoint>
 					<ResponsiveLanding dynamicClassName="desktop" authState={this.state.authState} pageLang={this.state.lang} />

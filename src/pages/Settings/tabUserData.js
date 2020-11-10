@@ -162,6 +162,12 @@ const TabUserData = (props) => {
 
 	const handleAttributeChange = (attr, value) => {
 		try {
+			/*
+			 * If you change the Language change the i18n language too
+			 */
+			if (attr === "locale" && props.lang !== value)
+				props.setLang(value);
+
 			let attributes = props.attributes;
 			attributes[attr] = value;
 			props.setUser({ ...props.user, attributes: attributes });
