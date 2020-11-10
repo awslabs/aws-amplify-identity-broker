@@ -76,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
 const mapStateToProps = (state) => {
 	return {
 		lang: state.app.lang,
+
 		phone_number_verified: state.user.attributes.phone_number_verified || false,
 	}
 };

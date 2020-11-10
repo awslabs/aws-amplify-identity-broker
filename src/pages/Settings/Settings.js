@@ -41,64 +41,13 @@ class Settings extends React.Component {
 	};
 
 	loadUserAttributes = () => {
-		Auth.currentAuthenticatedUser()
-			.then(CognitoUser => {
-				Auth.userAttributes(CognitoUser).then(CognitoUserAttributes => {
-					let _userAttributes = []
-
-					CognitoUserAttributes.forEach(Attribute => {
-						switch (Attribute.Name) {
-							case "username":
-								_userAttributes.username = Attribute.Value;
-								break;
-							case "email":
-								_userAttributes.email = Attribute.Value;
-								break;
-							case "email_verified":
-								_userAttributes.email_verified = Attribute.Value === "true";
-								break;
-							case "phone_number":
-								_userAttributes.phone_number = Attribute.Value;
-								break;
-							case "phone_number_verified":
-								_userAttributes.phone_number_verified = Attribute.Value === "true";
-								break;
-							case "given_name":
-								_userAttributes.given_name = Attribute.Value;
-								break;
-							case "family_name":
-								_userAttributes.family_name = Attribute.Value;
-								break;
-							case "address":
-								_userAttributes.address = Attribute.Value;
-								break;
-							case "birthdate":
-								_userAttributes.birthdate = Attribute.Value;
-								break;
-							case "gender":
-								_userAttributes.gender = Attribute.Value;
-								break;
-							case "picture":
-								_userAttributes.picture = Attribute.Value;
-								break;
-							case "locale":
-								_userAttributes.locale = Attribute.Value;
-								if (_userAttributes.locale !== this.props.lang)
-									this.props.setLang(_userAttributes.locale)
-								break;
-							case "custom:newsletter":
-								_userAttributes.custom_newsletter = (Attribute.Value === 'true');
-								break;
-							default:
-								break;
-						}
-					});
-					this.props.setUser(_userAttributes);
-				})
-					.catch(err => {
-						console.log(err);
-					})
+		Auth.currentUserInfo()
+			.then((data) => {
+				this.props.setUser(data);
 			})
+			.catch(err => {
+				console.log(err);
+			});
 	}
 
 	render() {

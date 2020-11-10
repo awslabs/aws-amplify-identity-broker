@@ -67,8 +67,6 @@ const useStyles = makeStyles((theme) => ({
 
 const mapStateToProps = (state) => {
 	return {
-		...state,
-
 		lang: state.app.lang,
 
 		/*

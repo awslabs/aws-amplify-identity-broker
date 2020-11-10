@@ -81,16 +81,21 @@ const useStyles = makeStyles((theme) => ({
 
 const mapStateToProps = (state) => {
 	return {
-		...state,
-		user: state.user.attributes || [],
+		lang: state.app.lang,
+
+		attributes: state.user.attributes || [],
 		given_name: state.user.attributes.given_name || '',
 		family_name: state.user.attributes.family_name || '',
 		address: state.user.attributes.address || '',
 		birthdate: state.user.attributes.birthdate || '',
 		gender: state.user.attributes.gender || '0',
 		picture: state.user.attributes.picture || '',
-		custom_newsletter: state.user.attributes.custom_newsletter || false,
 		locale: state.user.attributes.locale || 'en',
+		/*
+		 * Cognito response Custom Attributes 'Boolean' values as String
+		 * To be compatible with we use use this also as Strings
+		*/
+		custom_newsletter: state.user.attributes['custom:newsletter'] || "false",
 	}
 }
 
@@ -107,15 +112,14 @@ const TabUserData = (props) => {
 	});
 
 	/*
-	 * attributes = String
-	 * converted to JSON
+	 * attributes = JSON
 	 * Example: {"given_name": "John", "family_name": "Doo"}
 	 */
 	const updateUserAttributes = (attributes) => {
-		let jsonAttributes = JSON.parse(attributes)
 		Auth.currentAuthenticatedUser()
 			.then(CognitoUser => {
-				Auth.updateUserAttributes(CognitoUser, jsonAttributes)
+				console.log()
+				Auth.updateUserAttributes(CognitoUser, attributes)
 					.then(() => {
 						setSnackBarOps({
 							type: 'success',
@@ -157,31 +161,21 @@ const TabUserData = (props) => {
 	};
 
 	const handleAttributeChange = (attr, value) => {
-		switch (attr) {
-			case 'given_name':
-				props.setUser({ ...props.user, given_name: value })
-				break;
-			case 'family_name':
-				props.setUser({ ...props.user, family_name: value })
-				break;
-			case 'address':
-				props.setUser({ ...props.user, address: value })
-				break;
-			case 'birthdate':
-				props.setUser({ ...props.user, birthdate: value })
-				break;
-			case 'gender':
-				props.setUser({ ...props.user, gender: value })
-				break;
-			case 'locale':
-				props.setUser({ ...props.user, locale: value })
-				props.setLang(value);
-				break;
-			case 'custom_newsletter':
-				props.setUser({ ...props.user, custom_newsletter: !props.custom_newsletter })
-				break;
-			default:
-				break;
+		try {
+			let attributes = props.attributes;
+			attributes[attr] = value;
+			props.setUser({ ...props.user, attributes: attributes });
+		} catch (error) {
+			console.log(error);
+
+			setSnackBarOps({
+				type: 'error',
+				open: true,
+				vertical: 'top',
+				horizontal: 'center',
+				autoHide: 3000,
+				message: I18n.get('TAB_USER_DATA_MESSAGE_EROR')
+			})
 		}
 	}
 
@@ -195,54 +189,15 @@ const TabUserData = (props) => {
 	};
 
 	const handleClickSave = () => {
-		const jsonEscape = (str) => {
-			return str
-				.replace(", }", "}")
-				.replace(/[\\]/g, '\\\\')
-				.replace(/[\b]/g, '\\b')
-				.replace(/[\f]/g, '\\f')
-				.replace(/[\n]/g, '\\n')
-				.replace(/[\r]/g, '\\r')
-				.replace(/[\t]/g, '\\t');
-		};
+		const attributes = props.attributes;
 
-		let attrList = "{";
+		// Convert Array to JSON String
+		const strAttributes = JSON.stringify(attributes);
+		// Convert JSON String to JSON
+		const jsonAttributes = JSON.parse(strAttributes);
 
-		if (props.given_name)
-			attrList += `"given_name": "${props.given_name}",`;
-
-		if (props.family_name)
-			attrList += `"family_name": "${props.family_name}", `;
-
-		if (props.address)
-			attrList += `"address": "${props.address}", `;
-
-		if (props.birthdate)
-			attrList += `"birthdate": "${props.birthdate}", `;
-
-		//If no gender selected send O to update the current value
-		if (props.gender) {
-			attrList += `"gender": "${props.gender}", `;
-		} else {
-			attrList += `"gender": "0", `;
-		}
-
-		if (props.locale) {
-			attrList += `"locale": "${props.locale}", `;
-		}
-
-		if (props.custom_newsletter)
-			attrList += `"custom:newsletter": "true", `;
-		else
-			attrList += `"custom:newsletter": "false", `;
-
-		attrList += "}"
-		attrList = jsonEscape(attrList);
-
-		updateUserAttributes(attrList);
+		updateUserAttributes(jsonAttributes);
 	};
-
-
 
 	return (
 		<div className={classes.root}>
@@ -317,13 +272,13 @@ const TabUserData = (props) => {
 									id="textfield_gender_select"
 									value={props.gender}
 									disabled={!editAttributes}
-									onChange={(event) => handleAttributeChange('gender', event.target.value)}
+									onChange={(event) => handleAttributeChange('gender', event.target.value.toString())}
 									className={classes.textField}
 								>
 									<MenuItem value={0}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_0')}</MenuItem>
 									<MenuItem value={1}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_1')}</MenuItem>
 									<MenuItem value={2}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_2')}</MenuItem>
-									<MenuItem value={2}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_3')}</MenuItem>
+									<MenuItem value={3}>{I18n.get('TAB_USER_DATA_SELECT_GENDER_3')}</MenuItem>
 								</Select>
 							</FormControl>
 						</Box>
@@ -351,8 +306,8 @@ const TabUserData = (props) => {
 							<FormControlLabel
 								control={
 									<Checkbox
-										checked={props.custom_newsletter}
-										onChange={(event) => handleAttributeChange('custom_newsletter', event.target.checked)}
+										checked={props.custom_newsletter === "true"}
+										onChange={(event) => handleAttributeChange('custom:newsletter', event.target.checked.toString())}
 										name="checkbox_custom_newsletter"
 										color="primary"
 										className={classes.checkBox}

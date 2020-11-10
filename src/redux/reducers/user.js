@@ -9,36 +9,28 @@
 
 import { SET_USER, SET_USER_EMAIL, SET_USER_PHONENUMBER } from "../actionTypes";
 
-const initAttributes = () => {
-	let attributes = [];
+const initState = () => {
+	const attributes = [];
 
-	attributes.username = '';
-	attributes.email = '';
-	attributes.email_verified = false;
-	attributes.phone_number = '';
-	attributes.phone_number_verified = false;
-	attributes.given_name = '';
-	attributes.family_name = '';
-	attributes.address = '';
-	attributes.birthdate = '';
-	attributes.gender = 0;
-	attributes.picture = '';
-	attributes.locale = 'en';
+	const user = {
+		id: '',
+		username: '',
+		attributes: attributes,
+	};
 
-	attributes.custom_newsletter = false;
-
-	return attributes
-}
-const initialState = {
-	attributes: initAttributes()
+	return user;
 };
 
-export default function (state = initialState, action) {
+export default function (state = initState(), action) {
 	switch (action.type) {
 		case SET_USER: {
 			const { user } = action.payload;
 
-			return { attributes: user }
+			if (!user) {
+				return { user: initState() }
+			}
+
+			return { id: user.id, username: user.username, attributes: user.attributes }
 		}
 		case SET_USER_EMAIL: {
 			const { email } = action.payload;

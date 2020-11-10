@@ -100,12 +100,13 @@ const useStyles = makeStyles((theme) => ({
 
 const mapStateToProps = (state) => {
 	return {
-		...state,
-		username: state.user.attributes.username || '',
+		lang: state.app.lang,
+
+		username: state.user.username || '',
 		email: state.user.attributes.email || '',
 		email_verified: state.user.attributes.email_verified || false,
 		phone_number: state.user.attributes.phone_number || '',
-		phone_number_verified: state.user.attributes.phone_number_verified,
+		phone_number_verified: state.user.attributes.phone_number_verified || false,
 	}
 }
 
