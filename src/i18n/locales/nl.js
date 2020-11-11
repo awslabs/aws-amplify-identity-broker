@@ -11,6 +11,7 @@
 import { Translations } from "@aws-amplify/ui-components";
 
 export const i18nStrings = {
+	// Amplify UI
 	[Translations.NO_ACCOUNT_TEXT]: "Nog geen account??",
 	[Translations.RESET_YOUR_PASSWORD]: "Wachtwoord opnieuw instellen",
 	[Translations.NEW_PASSWORD_LABEL]: "Nieuw paswoord",
@@ -42,28 +43,30 @@ export const i18nStrings = {
 	[Translations.CONFIRM_SIGN_UP_RESEND_CODE]: "Stuur de code opnieuw",
 	[Translations.CONFIRM_SIGN_UP_SUBMIT_BUTTON_TEXT]: "Bevestigen",
 	[Translations.SIGN_OUT]: "Afmelden",
-	AWSSSO: "Aanmelden met AWS SSO (SAML)",
-	OIDCIdentityProvider: "Aanmelden met Demo OIDC (oauth2)",
-	AMAZON_SIGNIN: "Aanmelden met Amazon",
-	GOOGLE_SIGNIN: "Aanmelden met Google",
-	FACEBOOK_SIGNIN: "Aanmelden met Facebook",
-	OR: "OF",
-	WAIT_REDIRECTION: "Je bent succesvol ingelogd, je wordt nu doorgestuurd...",
-	VERIFY_EMAIL: "U heeft uw account succesvol aangemaakt. Controleer uw e-mails om uw registratie te bevestigen...",
-	LOGO: "Logo",
-	YOUR_APPLICATIONS: "Uw applicaties",
-	LOGOUT: "Afmelden",
-	LOGIN_TO: "Aanmelden",
-	USER_ATTRIBUTES: "Gebruikers informatie",
-	// Temporary: see https://github.com/aws-amplify/amplify-js/issues/5623
-	"Custom auth lambda trigger is not configured for the user pool.": "Het wachtwoord mag niet leeg zijn.",
-	// This may change in the future: see https://github.com/aws-amplify/amplify-js/issues/6898
-	"1 validation error detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6": "Uw wachtwoord moet minimaal 6 tekens lang zijn.",
+
+	// Translate Amplify Messages
 	"Username cannot be empty": "De gebruikersnaam moet worden ingevoerd",
 	"User does not exist.": "De gebruiker bestaat niet",
 	"An account with the given email already exists.": "Er bestaat al een account met dit e-mailadres.",
 	"User is disabled.": "De gebruiker is gedeactiveerd.",
 	"Access Token has been revoked": "Het toegangstoken is ingetrokken.",
+	// ### Temporary: see https://github.com/aws-amplify/amplify-js/issues/5623
+	"Custom auth lambda trigger is not configured for the user pool.": "Het wachtwoord mag niet leeg zijn.",
+	// ### This may change in the future: see https://github.com/aws-amplify/amplify-js/issues/6898
+	"1 validation error detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6": "Uw wachtwoord moet minimaal 6 tekens lang zijn.",
+
+	// ./components/LandingPage/LandingPage.js
+	LANDING_PAGE_BUTTON_IDP_AWSSSO_LABEL: "Aanmelden met AWS SSO (SAML)",
+	LANDING_PAGE_BUTTON_IDP_OIDCIdentityProvider_LABEL: "Aanmelden met Demo OIDC (oauth2)",
+	LANDING_PAGE_BUTTON_IDP_AMAZON_SIGNIN_LABEL: "Aanmelden met Amazon",
+	LANDING_PAGE_BUTTON_IDP_GOOGLE_SIGNIN_LABEL: "Aanmelden met Google",
+	LANDING_PAGE_BUTTON_IDP_FACEBOOK_SIGNIN_LABEL: "Aanmelden met Facebook",
+	LANDING_PAGE_CHIP_EXPAND_MORE_LABEL: "meer",
+	LANDING_PAGE_CHIP_EXPAND_LESS_LABEL: "minder",
+	LANDING_PAGE_WAIT_REDIRECTION: "Je bent succesvol ingelogd, je wordt nu doorgestuurd...",
+
+	// ./components/RegisterConfirm/RegisterConfirm.js
+	REGISTER_CONFIRM_EMAIL_LABEL: "U heeft uw account succesvol aangemaakt. Controleer uw e-mails om uw registratie te bevestigen...",
 
 	// ./pages/Dashboard/Dashboard.js
 	DASHBOARD_TITLE: "Dashboard",

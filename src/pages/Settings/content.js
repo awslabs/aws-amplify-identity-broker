@@ -66,25 +66,6 @@ function a11yProps(index) {
 	};
 };
 
-/*
- * Localization
- */
-const strings = {
-	en: {
-
-	},
-	fr: {
-	},
-	de: {
-
-	},
-	nl: {
-
-	}
-}
-I18n.putVocabularies(strings);
-
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,

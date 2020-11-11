@@ -11,24 +11,26 @@
 import { Translations } from "@aws-amplify/ui-components";
 
 export const i18nStrings = {
+	// Amplify UI
 	[Translations.SIGN_UP_EMAIL_PLACEHOLDER]: "your.adress@example.com",
 	[Translations.PHONE_PLACEHOLDER]: "(555) 555-1234",
-	AWSSSO: "Sign In with AWS SSO (SAML)",
-	OIDCIdentityProvider: "Sign In with Demo OIDC (oauth2)",
-	AMAZON_SIGNIN: "Sign In with Amazon",
-	GOOGLE_SIGNIN: "Sign In with Google",
-	FACEBOOK_SIGNIN: "Sign In with Facebook",
-	OR: "OR",
-	WAIT_REDIRECTION: "You have successfully logged in, please wait while redirecting...",
-	VERIFY_EMAIL: "You have successfully created an account. Please check your email to confirm your registration...",
-	"Custom auth lambda trigger is not configured for the user pool.": "Password cannot be empty.", // Temporary: see https://github.com/aws-amplify/amplify-js/issues/5623
-	LOGO: "Logo",
-	YOUR_APPLICATIONS: "Your Applications",
-	LOGOUT: "Logout",
-	LOGIN_TO: "Login to",
-	USER_ATTRIBUTES: "User Attributes",
-	EMAIL_ADDRESS: "Email Address",
-	PASSWORD: "Password",
+
+	// Translate Amplify Messages
+	// ### Temporary: see https://github.com/aws-amplify/amplify-js/issues/5623
+	"Custom auth lambda trigger is not configured for the user pool.": "Password cannot be empty.",
+
+	// ./components/LandingPage/LandingPage.js
+	LANDING_PAGE_BUTTON_IDP_AWSSSO_LABEL: "Sign In with AWS SSO (SAML)",
+	LANDING_PAGE_BUTTON_IDP_OIDCIdentityProvider_LABEL: "Sign In with Demo OIDC (oauth2)",
+	LANDING_PAGE_BUTTON_IDP_AMAZON_SIGNIN_LABEL: "Sign In with Amazon",
+	LANDING_PAGE_BUTTON_IDP_GOOGLE_SIGNIN_LABEL: "Sign In with Google",
+	LANDING_PAGE_BUTTON_IDP_FACEBOOK_SIGNIN_LABEL: "Sign In with Facebook",
+	LANDING_PAGE_CHIP_EXPAND_MORE_LABEL: "more",
+	LANDING_PAGE_CHIP_EXPAND_LESS_LABEL: "less",
+	LANDING_PAGE_WAIT_REDIRECTION: "You have successfully logged in, please wait while redirecting...",
+
+	// ./components/RegisterConfirm/RegisterConfirm.js
+	REGISTER_CONFIRM_EMAIL_LABEL: "You have successfully created an account. Please check your email to confirm your registration...",
 
 	// ./pages/Dashboard/Dashboard.js
 	DASHBOARD_TITLE: "Dashboard",

@@ -185,7 +185,7 @@ class TermsOfService extends Component {
 	render() {
 		return (
 			<MuiThemeProvider theme={theme}>
-				<LanguageSelect lang={this.props.lang} />
+				<LanguageSelect />
 
 				<TosContent reSign={this.state.tosResign} tosAccept={this.handleTosAccepted} tosDecline={this.handleTosDecline} />
 
