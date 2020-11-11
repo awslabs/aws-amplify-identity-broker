@@ -20,36 +20,13 @@ import Button from '@material-ui/core/Button';
 import { Branding } from '../../branding';
 import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 
-/*
- * Localization
- */
-const strings = {
-	en: {
-		DASHBOARD_BTN_OPEN: "Open",
-		DASHBOARD_LOGO: "Logo"
-	},
-	fr: {
-		DASHBOARD_BTN_OPEN: "Ouvert",
-		DASHBOARD_LOGO: "Logo"
-	},
-	de: {
-		DASHBOARD_BTN_OPEN: "Öffnen",
-		DASHBOARD_LOGO: "Logo"
-	},
-	nl: {
-		DASHBOARD_BTN_OPEN: "Open",
-		DASHBOARD_LOGO: "Logo"
-	}
-}
-I18n.putVocabularies(strings);
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'space-around',
 		overflow: 'hidden',
-		marginBottom: '40px',
+		marginBottom: 40,
 	},
 	gridList: {
 		width: '90%',
@@ -57,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	listSubheader: {
 		textAlign: 'center',
-		fontSize: '32px',
+		fontSize: 32,
 		fontWeight: 'bold',
 	},
 	button: {
@@ -93,7 +70,7 @@ export default function AppTiles(props) {
 					<GridListTile key={tile.client_id} >
 						<img
 							src={`logos/${tile.client_logo}`}
-							alt={tile.client_name + " " + I18n.get('DASHBOARD_LOGO')}
+							alt={tile.client_name + " " + I18n.get('DASHBOARD_APPTILES_LOGO')}
 							onError={(e) => fallBackImage(e)}
 						/>
 
@@ -102,7 +79,7 @@ export default function AppTiles(props) {
 							subtitle={tile.client_id}
 							actionIcon={
 								<Button className={classes.button} variant="contained" href={tile.logback_uri}>
-									{I18n.get("DASHBOARD_BTN_OPEN")}
+									{I18n.get("DASHBOARD_APPTILES_BTN_OPEN")}
 								</Button>
 							}
 						/>

@@ -35,81 +35,6 @@ import ChangePasswordDialog from '../../components/ChangePasswordDialog/ChangePa
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 import { setUser, setUserEmail, setUserPhonenumber } from '../../redux/actions';
 
-/*
- * Localization
- */
-const strings = {
-	en: {
-		TAB_SIGNIN_DATA_LABEL: "SIGN IN INFORMATION",
-		TAB_SIGNIN_DATA_USERNAME_INPUT_LABEL: "Username",
-		TAB_SIGNIN_DATA_EMAIL_INPUT_LABEL: "E-Mail",
-		TAB_SIGNIN_DATA_PHONENUMBER_INPUT_LABEL: "Phonenumber",
-		TAB_SIGNIN_DATA_PASSWORD_INPUT_LABEL: "Password",
-		TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL: 'verified',
-		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'unverified',
-		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Change",
-		TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL: "Cancel",
-		TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL: "Save",
-		TAB_SIGNIN_DATA_MESSAGE_EROR: "An error has occurred",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "The update was successful",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Please verify your changes",
-		TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "The password was successful set",
-		TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "The verification was successful",
-	},
-	fr: {
-		TAB_SIGNIN_DATA_LABEL: "INFORMATIONS DE CONNEXION",
-		TAB_SIGNIN_DATA_USERNAME_INPUT_LABEL: "Nom d'utilisateur",
-		TAB_SIGNIN_DATA_EMAIL_INPUT_LABEL: "Email",
-		TAB_SIGNIN_DATA_PHONENUMBER_INPUT_LABEL: "Numéro de téléphone",
-		TAB_SIGNIN_DATA_PASSWORD_INPUT_LABEL: "Mot de passe",
-		TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL: 'vérifié',
-		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'non vérifié',
-		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Changer",
-		TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL: "Avorter",
-		TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL: "Sauver",
-		TAB_SIGNIN_DATA_MESSAGE_EROR: "Une erreur est survenue",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "La mise à jour a réussi",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Veuillez vérifier vos modifications",
-		TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "Veuillez saisir votre nouveau mot de passe actuel",
-		TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "La vérification a réussi",
-	},
-	de: {
-		TAB_SIGNIN_DATA_LABEL: "ANMELDEINFORMATIONEN",
-		TAB_SIGNIN_DATA_USERNAME_INPUT_LABEL: "Benutzername",
-		TAB_SIGNIN_DATA_EMAIL_INPUT_LABEL: "E-Mail",
-		TAB_SIGNIN_DATA_PHONENUMBER_INPUT_LABEL: "Telefonnummer",
-		TAB_SIGNIN_DATA_PASSWORD_INPUT_LABEL: "Passwort",
-		TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL: 'verifiziert',
-		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'nicht verifiziert',
-		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Ändern",
-		TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL: "Abbrechen",
-		TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL: "Speichern",
-		TAB_SIGNIN_DATA_MESSAGE_EROR: "Ist ein Fehler aufgetreten",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "Das Update war erflogreich",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Bitte verifizieren Sie Ihre Änderungen",
-		TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "Das Passwort wurde erfolgreich gesetzt",
-		TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "Die Verifizierung war erfolgreich",
-	},
-	nl: {
-		TAB_SIGNIN_DATA_LABEL: "INLOGGEGEVENS",
-		TAB_SIGNIN_DATA_USERNAME_INPUT_LABEL: "Gebruikersnaam",
-		TAB_SIGNIN_DATA_EMAIL_INPUT_LABEL: "E-mail",
-		TAB_SIGNIN_DATA_PHONENUMBER_INPUT_LABEL: "Telefoonnummer",
-		TAB_SIGNIN_DATA_PASSWORD_INPUT_LABEL: "Wachtwoord",
-		TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL: 'geverifieerd',
-		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'niet geverifieerd',
-		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Veranderen",
-		TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL: "Afbreken",
-		TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL: "Opslaan",
-		TAB_SIGNIN_DATA_MESSAGE_EROR: "Er is een fout opgetreden",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "De update is gelukt",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Controleer uw wijzigingen",
-		TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "Voer uw huidige en nieuwe wachtwoord in",
-		TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "De verificatie is gelukt",
-	}
-}
-I18n.putVocabularies(strings);
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 
@@ -395,7 +320,7 @@ const TabSignInData = (props) => {
 			<Card className={classes.root} variant="outlined">
 				<CardHeader
 					className={classes.header}
-					title={I18n.get('TAB_SIGNIN_LABEL')}
+					title={I18n.get('TAB_SIGNIN_DATA_LABEL')}
 				/>
 				<CardContent className={classes.cardContent}>
 					{/*

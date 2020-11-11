@@ -29,8 +29,8 @@ import DesktopBreakpoint from './responsive_utilities/desktop_breakpoint';
 import TabletBreakpoint from './responsive_utilities/tablet_breakpoint';
 import PhoneBreakpoint from './responsive_utilities/phone_breakpoint';
 
-import { strings } from './strings';
-I18n.putVocabularies(strings);
+import i18nStrings from './i18n/i18n';
+I18n.putVocabularies(i18nStrings);
 
 const mapStateToProps = (state) => {
 	return {

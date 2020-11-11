@@ -22,25 +22,6 @@ import Header from '../../components/AppBar/AppBar';
 import Content from './content';
 import { setUser, setLang } from '../../redux/actions';
 
-/*
- * Localization
- */
-const strings = {
-	en: {
-		SETTINGS_TITLE: "Profile",
-	},
-	fr: {
-		SETTINGS_TITLE: "Profil",
-	},
-	de: {
-		SETTINGS_TITLE: "Profil",
-	},
-	nl: {
-		SETTINGS_TITLE: "Profiel",
-	}
-}
-I18n.putVocabularies(strings);
-
 const mapStateToProps = (state) => {
 	return {
 		lang: state.app.lang,

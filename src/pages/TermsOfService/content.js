@@ -14,9 +14,6 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-import { strings } from './languageStrings';
-I18n.putVocabularies(strings);
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -90,19 +87,19 @@ export default function TosContent(props) {
 				<Grid item xs={1} />
 				<Grid item xs={10}>
 					<Paper className={classes.title}>
-						{I18n.get("TITLE")}
+						{I18n.get("TERMS_OF_SERVICE_CONTENT_TITLE")}
 					</Paper>
 					<Paper className={classes.contentHead}>
-						{I18n.get("P1")}
+						{I18n.get("TERMS_OF_SERVICE_CONTENT_P1")}
 					</Paper>
 					<Paper className={classes.contentText}>
-						{I18n.get("LOREM_IPSUM")}
+						{I18n.get("TERMS_OF_SERVICE_CONTENT_LOREM_IPSUM")}
 					</Paper>
 					<Paper className={classes.contentHead}>
-						{I18n.get("P2")}
+						{I18n.get("TERMS_OF_SERVICE_CONTENT_P2")}
 					</Paper>
 					<Paper className={classes.contentText}>
-						{I18n.get("LOREM_IPSUM")}
+						{I18n.get("TERMS_OF_SERVICE_CONTENT_LOREM_IPSUM")}
 					</Paper>
 					<Paper className={classes.title}>
 						...
@@ -110,16 +107,16 @@ export default function TosContent(props) {
 					{showActions && (
 						<Paper className={classes.gridRowActions}>
 							<Button className={classes.btnYes} variant="outlined" color="primary" onClick={acceptToS}>
-								{I18n.get("BTN_ACCEPT_LABEL")}
+								{I18n.get("TERMS_OF_SERVICE_CONTENT_BUTTON_ACCEPT_LABEL")}
 							</Button>
 							<Button className={classes.btnNo} variant="outlined" color="primary" onClick={declineToS}>
-								{I18n.get("BTN_DECLINE_LABEL")}
+								{I18n.get("TERMS_OF_SERVICE_CONTENT_BUTTON_DECLINE_LABEL")}
 							</Button>
 						</Paper>
 					)}
 					<Paper className={classes.contentFooter}>
 						<hr />
-						{I18n.get("VERSION_LABEL")}
+						{I18n.get("TERMS_OF_SERVICE_CONTENT_VERSION_LABEL")}
 					</Paper>
 				</Grid>
 				<Grid item xs={1} />

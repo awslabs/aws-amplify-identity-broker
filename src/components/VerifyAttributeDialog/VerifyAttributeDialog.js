@@ -15,48 +15,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { Branding } from '../../branding';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 
-const strings = {
-	en: {
-		VERIFY_DIALOG_TITLE: "Verify",
-		VERIFY_DIALOG_DESCRIPTION: "Please enter the code:",
-		VERIFY_DIALOG_INPUT_LABEL: "Code",
-		VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verify",
-		VERIFY_DIALOG_CLOSE_BUTTON_LABEL: "Close",
-		VERIFY_DIALOG_MESSAGE_EROR: "An error has occurred",
-	},
-	fr: {
-		VERIFY_DIALOG_TITLE: "Verify",
-		VERIFY_DIALOG_DESCRIPTION: "Please enter the code:",
-		VERIFY_DIALOG_INPUT_LABEL: "Code",
-		VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verify",
-		VERIFY_DIALOG_CLOSE_BUTTON_LABEL: "Close",
-		VERIFY_DIALOG_MESSAGE_EROR: "Une erreur est survenue",
-	},
-	de: {
-		VERIFY_DIALOG_TITLE: "Verifizieren",
-		VERIFY_DIALOG_DESCRIPTION: "Bitte geben Sie den Code:",
-		VERIFY_DIALOG_INPUT_LABEL: "Code",
-		VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verifizieren",
-		VERIFY_DIALOG_CLOSE_BUTTON_LABEL: "Schließen",
-		VERIFY_DIALOG_MESSAGE_EROR: "Ist ein Fehler aufgetreten",
-	},
-	nl: {
-		VERIFY_DIALOG_TITLE: "Verify",
-		VERIFY_DIALOG_DESCRIPTION: "Please enter the code:",
-		VERIFY_DIALOG_INPUT_LABEL: "Code",
-		VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verify",
-		VERIFY_DIALOG_CLOSE_BUTTON_LABEL: "Close",
-		VERIFY_DIALOG_MESSAGE_EROR: "Er is een fout opgetreden",
-	}
-}
-I18n.putVocabularies(strings);
-
 const useStyles = makeStyles(() => ({
 	dialogTitle: {
-		minWidth: '400px'
+		minWidth: 400,
 	},
 	dialogActions: {
-		paddingRight: '22px'
+		paddingRight: 22,
 	},
 	buttonVerify: {
 		color: Branding.positive

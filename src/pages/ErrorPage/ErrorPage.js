@@ -9,6 +9,8 @@
 
 import React from 'react';
 
+import { I18n } from '@aws-amplify/core';
+
 class ErrorPage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -17,7 +19,9 @@ class ErrorPage extends React.Component {
 
 	render() {
 		return (
-			<h1>Oops! Page not found!</h1>
+			<h1>
+				{I18n.get('ERROR_PAGE_MESSAGE')}
+			</h1>
 		)
 	}
 }

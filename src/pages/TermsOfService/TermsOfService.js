@@ -22,9 +22,6 @@ import TosContent from './content';
 import LanguageSelect from '../../components/LanguageSelect/LanguageSelect';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 
-import { strings } from './languageStrings';
-I18n.putVocabularies(strings);
-
 const mapStateToProps = (state) => {
 	return {
 		lang: state.app.lang,
@@ -55,7 +52,7 @@ class TermsOfService extends Component {
 		let redirect = new URLSearchParams(window.location.search).get("redirect") || null;
 		if (redirect) this.setState({ redirect: redirect });
 
-		this.setState({ tosCurrentVersion: I18n.get("VERSION_ID") || 0 })
+		this.setState({ tosCurrentVersion: I18n.get("TERMS_OF_SERVICE_VERSION_ID") || 0 })
 		this.checkTos();
 	}
 
@@ -111,7 +108,7 @@ class TermsOfService extends Component {
 					vertical: 'top',
 					horizontal: 'center',
 					autoHide: null,
-					message: I18n.get("MSG_TOS_RESIGN")
+					message: I18n.get("TERMS_OF_SERVICE_MESSAGE_RESIGN")
 				}
 			})
 		}
@@ -147,7 +144,7 @@ class TermsOfService extends Component {
 						vertical: 'top',
 						horizontal: 'center',
 						autoHide: 5000,
-						message: I18n.get('MSG_TOS_ACCEPTED')
+						message: I18n.get('TERMS_OF_SERVICE_MESSAGE_ACCEPTED')
 					}
 				});
 
@@ -163,7 +160,7 @@ class TermsOfService extends Component {
 						vertical: 'top',
 						horizontal: 'center',
 						autoHide: 5000,
-						message: I18n.get('MSG_TOS_ACCEPTED_ERROR')
+						message: I18n.get('TERMS_OF_SERVICE_MESSAGE_ERROR')
 					}
 				});
 			})
@@ -177,7 +174,7 @@ class TermsOfService extends Component {
 				vertical: 'top',
 				horizontal: 'center',
 				autoHide: null,
-				message: I18n.get('MSG_TOS_DECLINE')
+				message: I18n.get('TERMS_OF_SERVICE_MESSAGE_DECLINE')
 			}
 		})
 	}

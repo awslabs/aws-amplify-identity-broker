@@ -30,33 +30,6 @@ import logo from '../../assets/Logos/logoDark.png';
 import LanguageSelect from '../LanguageSelect/LanguageSelect';
 import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 
-/*
- * Localization
- */
-const strings = {
-	en: {
-		HEADER_MENU_ITEM_PROFILE: "Profile",
-		HEADER_MENU_ITEM_DASHBOARD: "Dashboard",
-		HEADER_MENU_ITEM_LOGOUT: "Logout",
-	},
-	fr: {
-		HEADER_MENU_ITEM_PROFILE: "Profile",
-		HEADER_MENU_ITEM_DASHBOARD: "Tableau de bord",
-		HEADER_MENU_ITEM_LOGOUT: "Se déconnecter",
-	},
-	de: {
-		HEADER_MENU_ITEM_PROFILE: "Profil",
-		HEADER_MENU_ITEM_DASHBOARD: "Dashboard",
-		HEADER_MENU_ITEM_LOGOUT: "Abmelden",
-	},
-	nl: {
-		HEADER_MENU_ITEM_PROFILE: "Profiel",
-		HEADER_MENU_ITEM_DASHBOARD: "Dashboard",
-		HEADER_MENU_ITEM_LOGOUT: "Uitloggen",
-	}
-}
-I18n.putVocabularies(strings);
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -72,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 	},
 	logo: {
-		width: '70px',
+		width: 70,
 		marginRight: theme.spacing(2),
 	},
 	offset: theme.mixins.toolbar,
