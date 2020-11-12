@@ -173,6 +173,7 @@ const LandingPage = ({ authState }) => {
 							/*
 							 * workaround -> '.auth-container' => 'min-height: var(--container-height);' => '--container-height: 100vh;'
 							 * class '.auth-container' needs 'min-heigt: 0px' => responsive things are not needed here
+							 * https://docs.amplify.aws/ui/customization/customizing-css/q/framework/react
 							 */
 							style={{ height: authState === AuthState.SignUp ? 508 : 440 }}
 						>
