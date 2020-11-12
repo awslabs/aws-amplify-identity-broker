@@ -64,18 +64,24 @@ const useStyles = makeStyles((theme) => ({
 	},
 	buttonChange: {
 		marginBottom: theme.spacing(1),
-		background: Branding.secondary,
-		color: Branding.white,
 	},
 	buttonCancel: {
 		marginTop: theme.spacing(1),
 		marginLeft: theme.spacing(1),
 		color: Branding.negative,
+		'&:hover': {
+			color: Branding.negative,
+			opacity: Branding.opacityHover,
+		},
 	},
 	buttonSave: {
 		marginTop: theme.spacing(1),
 		marginLeft: theme.spacing(1),
 		color: Branding.positive,
+		'&:hover': {
+			color: Branding.positive,
+			opacity: Branding.opacityHover,
+		},
 	},
 }));
 
@@ -327,16 +333,29 @@ const TabUserData = (props) => {
 				</CardContent >
 				<CardActions className={classes.cardActions}>
 					{!editAttributes && (
-						<Button variant="contained" onClick={() => handleClickChange()} className={classes.buttonChange}>
+						<Button
+							variant="contained"
+							color="secondary"
+							onClick={() => handleClickChange()}
+							className={classes.buttonChange}
+						>
 							{I18n.get('TAB_USER_DATA_CHANGE_BUTTON_LABEL')}
 						</Button>
 					)}
 					{editAttributes && (
 						<div>
-							<Button variant="outlined" onClick={() => handleClickSave()} className={classes.buttonSave}>
+							<Button
+								variant="outlined"
+								onClick={() => handleClickSave()}
+								className={classes.buttonSave}
+							>
 								{I18n.get('TAB_USER_DATA_SAVE_BUTTON_LABEL')}
 							</Button>
-							<Button variant="outlined" onClick={() => handleClickCancel()} className={classes.buttonCancel}>
+							<Button
+								variant="outlined"
+								onClick={() => handleClickCancel()}
+								className={classes.buttonCancel}
+							>
 								{I18n.get('TAB_USER_DATA_CANCEL_BUTTON_LABEL')}
 							</Button>
 						</div>

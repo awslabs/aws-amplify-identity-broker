@@ -22,8 +22,6 @@ import AppTiles from './appTiles';
 import Header from '../../components/AppBar/AppBar';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 
-import './dashboard.css';
-
 const mapStateToProps = (state) => {
 	return {
 		auth: state.app.auth,

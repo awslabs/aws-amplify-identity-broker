@@ -14,6 +14,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
+import { Branding } from '../../branding';
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -46,25 +48,19 @@ const useStyles = makeStyles((theme) => ({
 	},
 	btnYes: {
 		margin: theme.spacing(1),
-		color: 'green',
-		border: '2px solid green',
-		fontWeight: 'bold',
-		minWidth: 120,
+		color: Branding.positive,
 		'&:hover': {
-			color: 'white',
-			backgroundColor: 'green'
-		}
+			color: Branding.positive,
+			opacity: Branding.opacityHover,
+		},
 	},
 	btnNo: {
 		margin: theme.spacing(1),
-		color: 'red',
-		border: '2px solid red',
-		fontWeight: 'bold',
-		minWidth: 120,
+		color: Branding.negative,
 		'&:hover': {
-			color: 'white',
-			backgroundColor: 'red'
-		}
+			color: Branding.negative,
+			opacity: Branding.opacityHover,
+		},
 	}
 }));
 
@@ -106,10 +102,18 @@ export default function TosContent(props) {
 					</Paper>
 					{showActions && (
 						<Paper className={classes.gridRowActions}>
-							<Button className={classes.btnYes} variant="outlined" color="primary" onClick={acceptToS}>
+							<Button
+								variant="outlined"
+								onClick={acceptToS}
+								className={classes.btnYes}
+							>
 								{I18n.get("TERMS_OF_SERVICE_CONTENT_BUTTON_ACCEPT_LABEL")}
 							</Button>
-							<Button className={classes.btnNo} variant="outlined" color="primary" onClick={declineToS}>
+							<Button
+								variant="outlined"
+								onClick={declineToS}
+								className={classes.btnNo}
+							>
 								{I18n.get("TERMS_OF_SERVICE_CONTENT_BUTTON_DECLINE_LABEL")}
 							</Button>
 						</Paper>

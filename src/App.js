@@ -223,6 +223,7 @@ class App extends React.Component {
 
 		/*
 		 * store currenct authState and set to loaded
+		 * TODO: Warning: Can't perform a React state update on an unmounted component.
 		 */
 		this.setState({ authState: authState, loaded: true });
 	}

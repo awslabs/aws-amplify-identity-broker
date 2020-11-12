@@ -32,7 +32,11 @@ const useStyles = makeStyles((theme) => ({
 		width: 200,
 		backgroundColor: Branding.negative,
 		color: 'white',
-		fontWeight: 'bold'
+		fontWeight: 'bold',
+		'&:hover': {
+			backgroundColor: Branding.negative,
+			opacity: Branding.opacityHover,
+		}
 	}
 }));
 
@@ -45,7 +49,11 @@ export default function LogoutButton() {
 			<Grid container>
 				<Grid item xs={12}>
 					<Paper className={classes.paper}>
-						<Button className={classes.button} variant="contained" href={logoutPath} >
+						<Button
+							href={logoutPath}
+							variant="contained"
+							className={classes.button}
+						>
 							{I18n.get("LOGOUT_BUTTON_LABEL")}
 						</Button>
 					</Paper>

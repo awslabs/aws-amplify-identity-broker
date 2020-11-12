@@ -55,21 +55,23 @@ const useStyles = makeStyles((theme) => ({
 	cardActions: {
 		justifyContent: 'center',
 	},
-	buttonChange: {
-		marginTop: theme.spacing(1),
-		marginLeft: theme.spacing(1),
-		background: Branding.secondary,
-		color: Branding.white,
-	},
 	buttonCancel: {
 		marginTop: theme.spacing(1),
 		marginLeft: theme.spacing(1),
 		color: Branding.negative,
+		'&:hover': {
+			color: Branding.negative,
+			opacity: Branding.opacityHover,
+		},
 	},
 	buttonSave: {
 		marginTop: theme.spacing(1),
 		marginLeft: theme.spacing(1),
 		color: Branding.positive,
+		'&:hover': {
+			color: Branding.positive,
+			opacity: Branding.opacityHover,
+		},
 	},
 }));
 

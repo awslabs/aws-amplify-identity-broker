@@ -41,6 +41,8 @@ export const Branding = {
 
 	white: '#fff',								// #fff
 	black: '#000',								// #000
+
+	opacityHover: 0.85,
 }
 
 export const theme = unstable_createMuiStrictModeTheme({

@@ -17,7 +17,6 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Button from '@material-ui/core/Button';
 
-import { Branding } from '../../branding';
 import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	button: {
 		margin: theme.spacing(2),
-		backgroundColor: Branding.accent,
 	},
 }));
 
@@ -78,7 +76,12 @@ export default function AppTiles(props) {
 							title={tile.client_name}
 							subtitle={tile.client_id}
 							actionIcon={
-								<Button className={classes.button} variant="contained" href={tile.logback_uri}>
+								<Button
+									variant="contained"
+									href={tile.logback_uri}
+									color="secondary"
+									className={classes.button}
+								>
 									{I18n.get("DASHBOARD_APPTILES_BTN_OPEN")}
 								</Button>
 							}

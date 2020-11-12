@@ -11,7 +11,7 @@ import React from 'react';
 
 import { Auth } from 'aws-amplify';
 import { AmplifyAuthenticator, AmplifyContainer, AmplifySignOut } from '@aws-amplify/ui-react';
-import { AuthState } from '@aws-amplify/ui-components';
+import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { I18n } from '@aws-amplify/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -35,6 +35,8 @@ import LanguageSelect from '../LanguageSelect/LanguageSelect';
 import DividerWithText from '../DividerWithText/DividerWithText';
 import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 import { Branding } from '../../branding';
+
+var Config = require("Config");
 
 const useStyles = makeStyles((theme) => ({
 	gridLogo: {
@@ -67,6 +69,10 @@ const useStyles = makeStyles((theme) => ({
 	chipExpand: {
 		backgroundColor: Branding.secondary,
 		color: Branding.white,
+		'&:hover': {
+			backgroundColor: Branding.secondary,
+			opacity: Branding.opacityHover,
+		},
 	},
 	expandIcon: {
 		color: Branding.white,
@@ -76,10 +82,25 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-var Config = require("Config");
 
-const LandingPage = ({ authState }) => {
+
+const LandingPage = (props) => {
+	alert(props);
 	const classes = useStyles();
+
+	const [authState, setAuthState] = React.useState(props.authState);
+	const [user2, setUser] = React.useState();
+	React.useEffect(() => {
+		return onAuthUIStateChange((nextAuthState, authData) => {
+			setAuthState(nextAuthState);
+			setUser(authData)
+		});
+	}, []);
+
+	if (authState) {
+		console.log(authState)
+		console.log(user2);
+	}
 
 	/*
 	 * You can make this selection of IdP different between clients
