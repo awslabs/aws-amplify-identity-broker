@@ -10,7 +10,7 @@
 import React from 'react';
 
 import { Auth } from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { AmplifyAuthenticator, AmplifyContainer, AmplifySignOut } from '@aws-amplify/ui-react';
 import { AuthState } from '@aws-amplify/ui-components';
 import { I18n } from '@aws-amplify/core';
 
@@ -32,10 +32,14 @@ import Register from '../Register/Register';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import RegisterConfirm from '../RegisterConfirm/RegisterConfirm';
 import LanguageSelect from '../LanguageSelect/LanguageSelect';
+import DividerWithText from '../DividerWithText/DividerWithText';
 import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 import { Branding } from '../../branding';
 
 const useStyles = makeStyles((theme) => ({
+	gridLogo: {
+		paddingBottom: theme.spacing(3),
+	},
 	grid: {
 		justifyContent: 'center',
 	},
@@ -59,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	boxExpandIdp: {
 		textAlign: 'center',
-		paddingBottom: theme.spacing(2)
 	},
 	chipExpand: {
 		backgroundColor: Branding.secondary,
@@ -67,7 +70,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	expandIcon: {
 		color: Branding.white,
-	}
+	},
+	divider: {
+		marginBottom: theme.spacing(2)
+	},
 }));
 
 var Config = require("Config");
@@ -108,7 +114,6 @@ const LandingPage = ({ authState }) => {
 	const [expandIdp, setExpandIdp] = React.useState(allwaysExpanded || false);
 	const { width } = useWindowDimensions();
 
-
 	const handleIdPLogin = (identity_provider) => {
 		// Store redirect_uri/authorization_code in local storage to be used to later
 		let queryStringParams = new URLSearchParams(window.location.search);
@@ -142,7 +147,7 @@ const LandingPage = ({ authState }) => {
 				direction="column"
 				alignItems="center"
 				justify="center"
-				style={{ paddingBottom: 24 }}
+				className={classes.gridLogo}
 			>
 				<CardMedia
 					className={classes.cardMedia}
@@ -160,6 +165,37 @@ const LandingPage = ({ authState }) => {
 			<Grid container className={classes.grid}>
 				<Card variant="outlined" className={classes.card}>
 					<CardContent className={classes.cardContent}>
+
+						{/*
+						  * AmplifyAuthenticator Container
+						  */}
+						<AmplifyContainer
+							/*
+							 * workaround -> '.auth-container' => 'min-height: var(--container-height);' => '--container-height: 100vh;'
+							 * class '.auth-container' needs 'min-heigt: 0px' => responsive things are not needed here
+							 */
+							style={{ height: authState === AuthState.SignUp ? 508 : 440 }}
+						>
+							<AmplifyAuthenticator usernameAlias="email" >
+								<ForgotPassword />
+								<Login />
+								<Register />
+								<RegisterConfirm />
+								<div>
+									{I18n.get("LANDING_PAGE_WAIT_REDIRECTION")}
+									<AmplifySignOut />
+								</div>
+							</AmplifyAuthenticator>
+						</AmplifyContainer>
+
+						{/*
+						  * Divider between AmplifyAuthenticator and IdP Logins
+						  */}
+						{authState === AuthState.SignIn && (
+							<DividerWithText>
+								{I18n.get("LANDING_PAGE_DIVIDER_TEXT")}
+							</DividerWithText>
+						)}
 
 						{/*
 						  * Login with Amazon
@@ -250,19 +286,6 @@ const LandingPage = ({ authState }) => {
 								/>
 							</Box>
 						)}
-
-						<AmplifyAuthenticator usernameAlias="email" >
-
-							<ForgotPassword />
-							<Login />
-							<Register />
-							<RegisterConfirm />
-
-							<div>
-								{I18n.get("LANDING_PAGE_WAIT_REDIRECTION")}
-								<AmplifySignOut />
-							</div>
-						</AmplifyAuthenticator>
 					</CardContent>
 				</Card >
 			</Grid>

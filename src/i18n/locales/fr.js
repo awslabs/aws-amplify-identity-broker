@@ -61,6 +61,7 @@ export const i18nStrings = {
 	LANDING_PAGE_BUTTON_IDP_AMAZON_SIGNIN_LABEL: "Connectez-vous avec Amazon",
 	LANDING_PAGE_BUTTON_IDP_GOOGLE_SIGNIN_LABEL: "Connectez-vous avec Google",
 	LANDING_PAGE_BUTTON_IDP_FACEBOOK_SIGNIN_LABEL: "Connectez-vous avec Facebook",
+	LANDING_PAGE_DIVIDER_TEXT: "ou",
 	LANDING_PAGE_CHIP_EXPAND_MORE_LABEL: "plus",
 	LANDING_PAGE_CHIP_EXPAND_LESS_LABEL: "moins",
 	LANDING_PAGE_WAIT_REDIRECTION: "Vous vous êtes connecté avec succès, attendez d'être redirigé...",

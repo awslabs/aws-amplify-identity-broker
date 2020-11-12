@@ -25,6 +25,7 @@ export const i18nStrings = {
 	LANDING_PAGE_BUTTON_IDP_AMAZON_SIGNIN_LABEL: "Sign In with Amazon",
 	LANDING_PAGE_BUTTON_IDP_GOOGLE_SIGNIN_LABEL: "Sign In with Google",
 	LANDING_PAGE_BUTTON_IDP_FACEBOOK_SIGNIN_LABEL: "Sign In with Facebook",
+	LANDING_PAGE_DIVIDER_TEXT: "or",
 	LANDING_PAGE_CHIP_EXPAND_MORE_LABEL: "more",
 	LANDING_PAGE_CHIP_EXPAND_LESS_LABEL: "less",
 	LANDING_PAGE_WAIT_REDIRECTION: "You have successfully logged in, please wait while redirecting...",

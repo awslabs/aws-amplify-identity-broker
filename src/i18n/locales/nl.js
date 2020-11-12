@@ -61,6 +61,7 @@ export const i18nStrings = {
 	LANDING_PAGE_BUTTON_IDP_AMAZON_SIGNIN_LABEL: "Aanmelden met Amazon",
 	LANDING_PAGE_BUTTON_IDP_GOOGLE_SIGNIN_LABEL: "Aanmelden met Google",
 	LANDING_PAGE_BUTTON_IDP_FACEBOOK_SIGNIN_LABEL: "Aanmelden met Facebook",
+	LANDING_PAGE_DIVIDER_TEXT: "of",
 	LANDING_PAGE_CHIP_EXPAND_MORE_LABEL: "meer",
 	LANDING_PAGE_CHIP_EXPAND_LESS_LABEL: "minder",
 	LANDING_PAGE_WAIT_REDIRECTION: "Je bent succesvol ingelogd, je wordt nu doorgestuurd...",
