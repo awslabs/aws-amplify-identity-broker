@@ -170,6 +170,9 @@ export const i18nStrings = {
 	TERMS_OF_SERVICE_CONTENT_BUTTON_ACCEPT_LABEL: "Aanvaarden",
 	TERMS_OF_SERVICE_CONTENT_BUTTON_DECLINE_LABEL: "Afwijzen",
 
+	// ./pages/xxx/xxx.js
+	IMPRINT_TITLE: "Colofon",
+
 	// ./components/AppBar/AppBar.js
 	HEADER_MENU_ITEM_PROFILE: "Profiel",
 	HEADER_MENU_ITEM_DASHBOARD: "Dashboard",

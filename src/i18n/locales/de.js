@@ -171,6 +171,9 @@ export const i18nStrings = {
 	TERMS_OF_SERVICE_CONTENT_BUTTON_ACCEPT_LABEL: "Akzeptieren",
 	TERMS_OF_SERVICE_CONTENT_BUTTON_DECLINE_LABEL: "Ablehnen",
 
+	// ./pages/xxx/xxx.js
+	IMPRINT_TITLE: "Impressum",
+
 	// ./components/AppBar/AppBar.js
 	HEADER_MENU_ITEM_PROFILE: "Profil",
 	HEADER_MENU_ITEM_DASHBOARD: "Dashboard",

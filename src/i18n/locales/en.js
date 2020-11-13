@@ -129,6 +129,9 @@ export const i18nStrings = {
 	TERMS_OF_SERVICE_MESSAGE_ERROR: "An error occurred, please try again",
 	TERMS_OF_SERVICE_MESSAGE_DECLINE: "The Terms of Service must be accepted.",
 
+	// ./pages/xxx/xxx.js
+	IMPRINT_TITLE: "Imprint",
+
 	// ./pages/TermsOfService/content.js
 	TERMS_OF_SERVICE_CONTENT_VERSION_LABEL: "Version: 1.0.0",
 	TERMS_OF_SERVICE_CONTENT_TITLE: "Terms of Service",

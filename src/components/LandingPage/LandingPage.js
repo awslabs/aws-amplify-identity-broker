@@ -22,6 +22,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Chip from '@material-ui/core/Chip';
 import Collapse from '@material-ui/core/Collapse';
 import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -62,6 +63,9 @@ const useStyles = makeStyles((theme) => ({
 	cardContent: {
 		justifyContent: 'center',
 		textAlign: 'center',
+		"&:last-child": {
+			paddingBottom: theme.spacing(1)
+		}
 	},
 	boxExpandIdp: {
 		textAlign: 'center',
@@ -80,6 +84,30 @@ const useStyles = makeStyles((theme) => ({
 	divider: {
 		marginBottom: theme.spacing(2)
 	},
+	typoToS: {
+		paddingTop: theme.spacing(3),
+
+	},
+	linkTos: {
+		fontSize: 14,
+		'&:hover': {
+			color: Branding.accent,
+			opacity: Branding.opacityHover,
+		},
+	},
+	midBul: {
+		paddingLeft: theme.spacing(1),
+		paddingRight: theme.spacing(1),
+		color: Branding.secondary,
+	},
+	linkImprint: {
+		fontSize: 14,
+		'&:hover': {
+			cursor: 'pointer',
+			color: Branding.accent,
+			opacity: Branding.opacityHover,
+		},
+	}
 }));
 
 
@@ -284,6 +312,29 @@ const LandingPage = ({ authState }) => {
 								<AmplifySignOut />
 							</div>
 						</AmplifyAuthenticator>
+
+						<Typography className={classes.typoToS}>
+							<Link
+								href="/tos"
+								target="_blank"
+								color="secondary"
+								underline="none"
+								className={classes.linkTos}
+							>
+								{I18n.get("TERMS_OF_SERVICE_CONTENT_TITLE")}
+							</Link>
+
+							<span className={classes.midBul}>&bull;</span>
+
+							<Link
+								//href="#"
+								color="secondary"
+								underline="none"
+								className={classes.linkImprint}
+							>
+								{I18n.get("IMPRINT_TITLE")}
+							</Link>
+						</Typography>
 					</CardContent>
 				</Card >
 			</Grid>
