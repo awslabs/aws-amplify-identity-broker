@@ -36,7 +36,8 @@ class Settings extends React.Component {
 	};
 
 	componentDidMount() {
-		this.loadUserAttributes();
+		if (this.props.auth)
+			this.loadUserAttributes();
 	};
 
 	loadUserAttributes = () => {
