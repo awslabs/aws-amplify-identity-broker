@@ -10,8 +10,8 @@
 import React from 'react';
 
 import { Auth } from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifyContainer, AmplifySignOut } from '@aws-amplify/ui-react';
-import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
+import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { AuthState } from '@aws-amplify/ui-components';
 import { I18n } from '@aws-amplify/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -84,23 +84,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const LandingPage = (props) => {
-	alert(props);
+const LandingPage = ({ authState }) => {
 	const classes = useStyles();
-
-	const [authState, setAuthState] = React.useState(props.authState);
-	const [user2, setUser] = React.useState();
-	React.useEffect(() => {
-		return onAuthUIStateChange((nextAuthState, authData) => {
-			setAuthState(nextAuthState);
-			setUser(authData)
-		});
-	}, []);
-
-	if (authState) {
-		console.log(authState)
-		console.log(user2);
-	}
 
 	/*
 	 * You can make this selection of IdP different between clients
@@ -186,38 +171,6 @@ const LandingPage = (props) => {
 			<Grid container className={classes.grid}>
 				<Card variant="outlined" className={classes.card}>
 					<CardContent className={classes.cardContent}>
-
-						{/*
-						  * AmplifyAuthenticator Container
-						  */}
-						<AmplifyContainer
-							/*
-							 * workaround -> '.auth-container' => 'min-height: var(--container-height);' => '--container-height: 100vh;'
-							 * class '.auth-container' needs 'min-heigt: 0px' => responsive things are not needed here
-							 * https://docs.amplify.aws/ui/customization/customizing-css/q/framework/react
-							 */
-							style={{ height: authState === AuthState.SignUp ? 508 : 440 }}
-						>
-							<AmplifyAuthenticator usernameAlias="email" >
-								<ForgotPassword />
-								<Login />
-								<Register />
-								<RegisterConfirm />
-								<div>
-									{I18n.get("LANDING_PAGE_WAIT_REDIRECTION")}
-									<AmplifySignOut />
-								</div>
-							</AmplifyAuthenticator>
-						</AmplifyContainer>
-
-						{/*
-						  * Divider between AmplifyAuthenticator and IdP Logins
-						  */}
-						{authState === AuthState.SignIn && (
-							<DividerWithText>
-								{I18n.get("LANDING_PAGE_DIVIDER_TEXT")}
-							</DividerWithText>
-						)}
 
 						{/*
 						  * Login with Amazon
@@ -308,6 +261,29 @@ const LandingPage = (props) => {
 								/>
 							</Box>
 						)}
+
+						{/*
+						  * Divider between AmplifyAuthenticator and IdP Logins
+						  */}
+						{authState === AuthState.SignIn && (
+							<DividerWithText>
+								{I18n.get("LANDING_PAGE_DIVIDER_TEXT")}
+							</DividerWithText>
+						)}
+
+						{/*
+						  * AmplifyAuthenticator Container
+						  */}
+						<AmplifyAuthenticator usernameAlias="email" >
+							<ForgotPassword />
+							<Login />
+							<Register />
+							<RegisterConfirm />
+							<div>
+								{I18n.get("LANDING_PAGE_WAIT_REDIRECTION")}
+								<AmplifySignOut />
+							</div>
+						</AmplifyAuthenticator>
 					</CardContent>
 				</Card >
 			</Grid>
