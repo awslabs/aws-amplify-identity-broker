@@ -38,7 +38,7 @@ export default function (state = initState(), action) {
 			const _user = state;
 			_user.attributes.email = email;
 
-			return { attributes: _user.attributes };
+			return { id: _user.id, username: _user.username, attributes: _user.attributes };
 		}
 		case SET_USER_PHONENUMBER: {
 			const { phoneNumber } = action.payload;
@@ -46,7 +46,7 @@ export default function (state = initState(), action) {
 			const _user = state;
 			_user.attributes.phone_number = phoneNumber;
 
-			return { attributes: _user.attributes };
+			return { id: _user.id, username: _user.username, attributes: _user.attributes };
 		}
 		default:
 			return state;
