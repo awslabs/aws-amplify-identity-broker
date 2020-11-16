@@ -32,6 +32,7 @@ import Select from '@material-ui/core/Select';
 import { Branding } from '../../branding';
 import { setUser, setLang } from '../../redux/actions';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
+import { LanguageTypes } from '../../i18n/i18n';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -300,10 +301,9 @@ const TabUserData = (props) => {
 									onChange={(event) => handleAttributeChange('locale', event.target.value)}
 									className={classes.textField}
 								>
-									<MenuItem value={'de'}>{"Deutsch"}</MenuItem>
-									<MenuItem value={'en'}>{"English"}</MenuItem>
-									<MenuItem value={'fr'}>{"French"}</MenuItem>
-									<MenuItem value={'nl'}>{"Nederlands"}</MenuItem>
+									{LanguageTypes.map((item) => (
+										<MenuItem key={`${item.code}-menuItem`} value={item.code}>{item.lang}</MenuItem>
+									))}
 								</Select>
 							</FormControl>
 						</Box>
