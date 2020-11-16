@@ -26,7 +26,7 @@ export const LanguageTypes = [
 	},
 	{
 		"code": "fr",
-		"lang": "French"
+		"lang": "Français"
 	},
 	{
 		"code": "de",
