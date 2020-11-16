@@ -54,8 +54,12 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: theme.spacing(1),
 		marginBottom: theme.spacing(1),
 	},
-	buttonSave: {
+	buttonClose: {
 		color: Branding.negative,
+		'&:hover': {
+			color: Branding.negative,
+			opacity: Branding.opacityHover,
+		},
 	},
 }));
 
@@ -262,7 +266,7 @@ function MfaTotpConfigDialog(props) {
 								<div className={classes.actionsContainer}>
 									<Button
 										variant="contained"
-										color="primary"
+										color="secondary"
 										onClick={handleNext}
 										className={classes.button}
 									>
@@ -302,7 +306,7 @@ function MfaTotpConfigDialog(props) {
 								<div className={classes.actionsContainer}>
 									<Button
 										variant="contained"
-										color="primary"
+										color="secondary"
 										onClick={handleClickActivate}
 										className={classes.button}
 									>

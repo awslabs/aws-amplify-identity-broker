@@ -11,6 +11,7 @@
 import { Translations } from "@aws-amplify/ui-components";
 
 export const i18nStrings = {
+	// Amplify UI
 	[Translations.NO_ACCOUNT_TEXT]: "Pas encore de compte ?",
 	[Translations.RESET_YOUR_PASSWORD]: "Réinitialiser votre mot de passe",
 	[Translations.NEW_PASSWORD_LABEL]: "Nouveau mot de passe",
@@ -42,29 +43,31 @@ export const i18nStrings = {
 	[Translations.CONFIRM_SIGN_UP_RESEND_CODE]: 'Renvoyer le code',
 	[Translations.CONFIRM_SIGN_UP_SUBMIT_BUTTON_TEXT]: 'Confirmer',
 	[Translations.SIGN_OUT]: 'Déconnexion',
-	AWSSSO: "Connectez-vous avec AWS SSO (SAML)",
-	OIDCIdentityProvider: "Connectez-vous avec Demo OIDC (oauth2)",
-	AMAZON_SIGNIN: "Connectez-vous avec Amazon",
-	GOOGLE_SIGNIN: "Connectez-vous avec Google",
-	FACEBOOK_SIGNIN: "Connectez-vous avec Facebook",
-	OR: "OU",
-	WAIT_REDIRECTION: "Vous vous êtes connecté avec succès, attendez d'être redirigé...",
-	VERIFY_EMAIL: "Vous avez créé un compte avec succès. Veuillez vérifier votre email pour confirmer votre inscription...",
-	"Custom auth lambda trigger is not configured for the user pool.": "Veuillez renseigner le mot de passe.",
-	// This may change in the future: see https://github.com/aws-amplify/amplify-js/issues/6898
-	"1 validation error detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6": "Le mot de passe doit faire au moins 6 caractères.",
+
+	// Translate Amplify Messages
 	"Username cannot be empty": "Le nom d'utilisateur doit être renseigné",
 	"User does not exist.": "L'utilisateur n'existe pas.",
 	"An account with the given email already exists.": "Un compte avec cette adresse couriel existe déjà.",
 	"User is disabled.": "L'utilisateur est désactivé.",
 	"Access Token has been revoked": "Le jeton d'accès a été révoqué",
-	LOGO: "Logo",
-	YOUR_APPLICATIONS: "Vos Applications",
-	LOGOUT: "Se Deconnecter",
-	LOGIN_TO: "Se connecter à",
-	USER_ATTRIBUTES: "Attributs d'utilisateur",
-	EMAIL_ADDRESS: "Addresse Email",
-	PASSWORD: "Mot de passe",
+	// ### Temporary: see https://github.com/aws-amplify/amplify-js/issues/5623
+	"Custom auth lambda trigger is not configured for the user pool.": "Veuillez renseigner le mot de passe.",
+	// ### This may change in the future: see https://github.com/aws-amplify/amplify-js/issues/6898
+	"1 validation error detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6": "Le mot de passe doit faire au moins 6 caractères.",
+
+	// ./components/LandingPage/LandingPage.js
+	LANDING_PAGE_BUTTON_IDP_AWSSSO_LABEL: "Connectez-vous avec AWS SSO (SAML)",
+	LANDING_PAGE_BUTTON_IDP_OIDCIdentityProvider_LABEL: "Connectez-vous avec Demo OIDC (oauth2)",
+	LANDING_PAGE_BUTTON_IDP_AMAZON_SIGNIN_LABEL: "Connectez-vous avec Amazon",
+	LANDING_PAGE_BUTTON_IDP_GOOGLE_SIGNIN_LABEL: "Connectez-vous avec Google",
+	LANDING_PAGE_BUTTON_IDP_FACEBOOK_SIGNIN_LABEL: "Connectez-vous avec Facebook",
+	LANDING_PAGE_DIVIDER_TEXT: "ou",
+	LANDING_PAGE_CHIP_EXPAND_MORE_LABEL: "plus",
+	LANDING_PAGE_CHIP_EXPAND_LESS_LABEL: "moins",
+	LANDING_PAGE_WAIT_REDIRECTION: "Vous vous êtes connecté avec succès, attendez d'être redirigé...",
+
+	// ./components/RegisterConfirm/RegisterConfirm.js
+	REGISTER_CONFIRM_EMAIL_LABEL: "Vous avez créé un compte avec succès. Veuillez vérifier votre email pour confirmer votre inscription...",
 
 	// ./pages/Dashboard/Dashboard.js
 	DASHBOARD_TITLE: "Tableau de bord",
@@ -166,6 +169,9 @@ export const i18nStrings = {
 	TERMS_OF_SERVICE_CONTENT_LOREM_IPSUM: "FR - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 	TERMS_OF_SERVICE_CONTENT_BUTTON_ACCEPT_LABEL: "Accepter",
 	TERMS_OF_SERVICE_CONTENT_BUTTON_DECLINE_LABEL: "Décliner",
+
+	// ./pages/xxx/xxx.js
+	IMPRINT_TITLE: "Imprimer",
 
 	// ./components/AppBar/AppBar.js
 	HEADER_MENU_ITEM_PROFILE: "Profile",

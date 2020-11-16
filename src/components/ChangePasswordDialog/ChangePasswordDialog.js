@@ -1,3 +1,12 @@
+/*
+  * Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
+  * SPDX-License-Identifier: MIT
+  *
+  * Licensed under the MIT License. See the LICENSE accompanying this file
+  * for the specific language governing permissions and limitations under
+  * the License.
+  */
+
 import React from 'react';
 
 import { Auth } from 'aws-amplify';
@@ -217,10 +226,18 @@ const ChangePasswordDialog = (props) => {
 					</Box>
 				</DialogContent>
 				<DialogActions className={classes.dialogActions}>
-					<Button onClick={handleClickSave} variant="outlined" className={classes.buttonSave}>
+					<Button
+						variant="outlined"
+						onClick={handleClickSave}
+						className={classes.buttonSave}
+					>
 						{I18n.get('CHANGE_PASSWORD_SAVE_BUTTON_LABEL')}
 					</Button>
-					<Button onClick={handleClose} variant="outlined" className={classes.buttonClose}>
+					<Button
+						variant="outlined"
+						onClick={handleClose}
+						className={classes.buttonClose}
+					>
 						{I18n.get('CHANGE_PASSWORD_CLOSE_BUTTON_LABEL')}
 					</Button>
 				</DialogActions>

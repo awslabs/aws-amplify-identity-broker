@@ -1,3 +1,12 @@
+/*
+  * Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
+  * SPDX-License-Identifier: MIT
+  *
+  * Licensed under the MIT License. See the LICENSE accompanying this file
+  * for the specific language governing permissions and limitations under
+  * the License.
+  */
+
 import React from 'react';
 
 import { Auth } from 'aws-amplify';
@@ -23,10 +32,18 @@ const useStyles = makeStyles(() => ({
 		paddingRight: 22,
 	},
 	buttonVerify: {
-		color: Branding.positive
+		color: Branding.positive,
+		'&:hover': {
+			color: Branding.positive,
+			opacity: Branding.opacityHover,
+		},
 	},
 	buttonClose: {
-		color: Branding.negative
+		color: Branding.negative,
+		'&:hover': {
+			color: Branding.negative,
+			opacity: Branding.opacityHover,
+		},
 	}
 }));
 
@@ -119,10 +136,18 @@ const VerifyAttributeDialog = (props) => {
 					/>
 				</DialogContent>
 				<DialogActions className={classes.dialogActions}>
-					<Button onClick={handleClickVerify} variant="outlined" className={classes.buttonVerify}>
+					<Button
+						variant="outlined"
+						onClick={handleClickVerify}
+						className={classes.buttonVerify}
+					>
 						{I18n.get('VERIFY_DIALOG_VERIFY_BUTTON_LABEL')}
 					</Button>
-					<Button onClick={handleClose} variant="outlined" className={classes.buttonClose}>
+					<Button
+						variant="outlined"
+						onClick={handleClose}
+						className={classes.buttonClose}
+					>
 						{I18n.get('VERIFY_DIALOG_CLOSE_BUTTON_LABEL')}
 					</Button>
 				</DialogActions>

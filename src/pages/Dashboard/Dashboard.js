@@ -22,8 +22,6 @@ import AppTiles from './appTiles';
 import Header from '../../components/AppBar/AppBar';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 
-import './dashboard.css';
-
 const mapStateToProps = (state) => {
 	return {
 		auth: state.app.auth,
@@ -87,9 +85,6 @@ class Dashboard extends React.Component {
 				)}
 
 				<Header
-					auth={this.props.auth}
-					pageTitle={I18n.get("DASHBOARD_TITLE")}
-					lang={this.props.lang}
 					routeTo={(newPath) => this.props.history.push(newPath)}
 				/>
 

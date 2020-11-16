@@ -8,6 +8,11 @@
 */
 
 /*
+ * DO NOT FOREGET TO UPDATE './index.js' for the Amplify ColorSet
+ */
+
+
+/*
  * https://material-ui.com/customization/theming/
  * unstable_createMuiStrictModeTheme(options, ...args) => theme
  * WARNING: Do not use this method in production.
@@ -37,7 +42,7 @@ export const Branding = {
 	white: '#fff',								// #fff
 	black: '#000',								// #000
 
-
+	opacityHover: 0.85,
 }
 
 export const theme = unstable_createMuiStrictModeTheme({

@@ -9,33 +9,13 @@
 
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-
-export function setCookie(name, value, expiry) {
-	var expires = "";
-	if (expiry) {
-		var date = new Date(expiry * 1000);
-		expires = "; expires=" + date.toUTCString();
-	}
-	document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
-
-export function getCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for (var i = 0; i < ca.length; i++) {
-		var c = ca[i];
-		while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-		if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-	}
-	return null;
-}
-
-export function eraseCookie(name) {
-	document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-}
+import { setCookie } from './cookieHelper';
 
 export async function storeTokens(authorization_code, idToken, accessToken, refreshToken) {
-	var response = await axios.post( // Call storage endpoint to store tokens in dynamoDB
+	/*
+	 * Call storage endpoint to store tokens in DynamoDB
+	 */
+	var response = await axios.post(
 		'/storage',
 		{
 			authorization_code: authorization_code,

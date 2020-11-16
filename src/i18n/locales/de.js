@@ -11,6 +11,7 @@
 import { Translations } from "@aws-amplify/ui-components";
 
 export const i18nStrings = {
+	// Amplify UI
 	[Translations.NO_ACCOUNT_TEXT]: "Noch keinen Konto?",
 	[Translations.RESET_YOUR_PASSWORD]: "Passwort zurücksetzen",
 	[Translations.NEW_PASSWORD_LABEL]: "Neues Passwort",
@@ -21,7 +22,7 @@ export const i18nStrings = {
 	[Translations.SIGN_IN_ACTION]: "ANMELDEN",
 	[Translations.SIGN_IN_HEADER_TEXT]: "Am Konto anmelden",
 	[Translations.SIGN_IN_TEXT]: "Anmelden",
-	[Translations.SIGN_UP_EMAIL_PLACEHOLDER]: "ihre.email@exemple.de",
+	[Translations.SIGN_UP_EMAIL_PLACEHOLDER]: "ihre.email@example.de",
 	[Translations.SIGN_UP_HAVE_ACCOUNT_TEXT]: "Hast Du noch kein Konto?",
 	[Translations.SIGN_UP_HEADER_TEXT]: "Ein Konto erstellen",
 	[Translations.SIGN_UP_PASSWORD_PLACEHOLDER]: "Passwort",
@@ -42,28 +43,32 @@ export const i18nStrings = {
 	[Translations.CONFIRM_SIGN_UP_RESEND_CODE]: "Code erneut senden",
 	[Translations.CONFIRM_SIGN_UP_SUBMIT_BUTTON_TEXT]: "Bestätigen",
 	[Translations.SIGN_OUT]: "Abmelden",
-	AWSSSO: "Anmelden mit AWS SSO (SAML)",
-	OIDCIdentityProvider: "Anmelden mit Demo OIDC (oauth2)",
-	AMAZON_SIGNIN: "Anmelden mit Amazon",
-	GOOGLE_SIGNIN: "Anmelden mit Google",
-	FACEBOOK_SIGNIN: "Anmelden mit Facebook",
-	OR: "ODER",
-	WAIT_REDIRECTION: "Du hast Dich erfolgreich angemeldet, Du wirst nun weitergeleitet...",
-	VERIFY_EMAIL: "Du hast Dein Konto erfolgreich angelegt. Bitte prüfe Deine E-Mails umd die Registrierung zu bestätigen...",
-	LOGO: "Logo",
-	YOUR_APPLICATIONS: "Deine Anwendungen",
-	LOGOUT: "Abmelden",
-	LOGIN_TO: "Anmelden an",
-	USER_ATTRIBUTES: "Benutzerinformationen",
-	// Temporary: see https://github.com/aws-amplify/amplify-js/issues/5623
-	"Custom auth lambda trigger is not configured for the user pool.": "Das Passwort darf nicht leer sein.",
-	// This may change in the future: see https://github.com/aws-amplify/amplify-js/issues/6898
-	"1 validation error detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6": "Dein Passwort muss mindestens 6 Zeichen lang sein.",
+
+	// Translate Amplify Messages
 	"Username cannot be empty": "Der Benutzername muss eingegeben werden",
 	"User does not exist.": "Der Benutzer existiert nicht",
 	"An account with the given email already exists.": "Ein Konto mit dieser E-Mail-Adresse ist bereits vorhanden.",
 	"User is disabled.": "Der Benutzer ist deaktiviert.",
 	"Access Token has been revoked": "Der Zugriffstoken wurde widerrufen",
+	// ### Temporary: see https://github.com/aws-amplify/amplify-js/issues/5623
+	"Custom auth lambda trigger is not configured for the user pool.": "Das Passwort darf nicht leer sein.",
+	// ### This may change in the future: see https://github.com/aws-amplify/amplify-js/issues/6898
+	"1 validation error detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6": "Dein Passwort muss mindestens 6 Zeichen lang sein.",
+
+	// ./components/LandingPage/LandingPage.js
+	LANDING_PAGE_BUTTON_IDP_AWSSSO_LABEL: "Anmelden mit AWS SSO (SAML)",
+	LANDING_PAGE_BUTTON_IDP_OIDCIdentityProvider_LABEL: "Anmelden mit Demo OIDC (OAuth2)",
+	LANDING_PAGE_BUTTON_IDP_AMAZON_SIGNIN_LABEL: "Anmelden mit Amazon",
+	LANDING_PAGE_BUTTON_IDP_GOOGLE_SIGNIN_LABEL: "Anmelden mit Google",
+	LANDING_PAGE_BUTTON_IDP_FACEBOOK_SIGNIN_LABEL: "Anmelden mit Facebook",
+	LANDING_PAGE_DIVIDER_TEXT: "oder",
+	LANDING_PAGE_CHIP_EXPAND_MORE_LABEL: "mehr",
+	LANDING_PAGE_CHIP_EXPAND_LESS_LABEL: "weniger",
+	LANDING_PAGE_WAIT_REDIRECTION: "Du hast Dich erfolgreich angemeldet, Du wirst nun weitergeleitet...",
+
+	// ./components/RegisterConfirm/RegisterConfirm.js
+	REGISTER_CONFIRM_EMAIL_LABEL: "Du hast Dein Konto erfolgreich angelegt. Bitte prüfe Deine E-Mails umd die Registrierung zu bestätigen...",
+
 
 	// ./pages/Dashboard/Dashboard.js
 	DASHBOARD_TITLE: "Dashboard",
@@ -165,6 +170,9 @@ export const i18nStrings = {
 	TERMS_OF_SERVICE_CONTENT_LOREM_IPSUM: "DE - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 	TERMS_OF_SERVICE_CONTENT_BUTTON_ACCEPT_LABEL: "Akzeptieren",
 	TERMS_OF_SERVICE_CONTENT_BUTTON_DECLINE_LABEL: "Ablehnen",
+
+	// ./pages/xxx/xxx.js
+	IMPRINT_TITLE: "Impressum",
 
 	// ./components/AppBar/AppBar.js
 	HEADER_MENU_ITEM_PROFILE: "Profil",

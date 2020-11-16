@@ -65,47 +65,59 @@ const useStyles = makeStyles((theme) => ({
 
 	},
 	input: {
-		minWidth: 300,
+		minWidth: 375,
 	},
 	chipVerified: {
 		marginTop: -50,
 		backgroundColor: Branding.positive,
 		color: Branding.white,
+		'&:hover': {
+			backgroundColor: Branding.positive,
+			opacity: Branding.opacityHover,
+		},
 	},
 	chipUnverified: {
 		marginTop: -50,
 		backgroundColor: Branding.negative,
 		color: Branding.white,
+		'&:hover': {
+			backgroundColor: Branding.negative,
+			opacity: Branding.opacityHover,
+		},
 	},
 	buttonChange: {
 		marginTop: theme.spacing(1),
 		marginLeft: theme.spacing(1),
-		background: Branding.secondary,
-		color: Branding.white,
 	},
 	buttonCancel: {
 		marginTop: theme.spacing(1),
 		marginLeft: theme.spacing(1),
 		color: Branding.negative,
+		'&:hover': {
+			color: Branding.negative,
+			opacity: Branding.opacityHover,
+		},
 	},
 	buttonSave: {
 		marginTop: theme.spacing(1),
 		marginLeft: theme.spacing(1),
 		color: Branding.positive,
-	},
-	buttonAccountDelete: {
-		color: Branding.negative
+		'&:hover': {
+			color: Branding.positive,
+			opacity: Branding.opacityHover,
+		},
 	},
 }));
 
 const mapStateToProps = (state) => {
 	return {
-		...state,
-		username: state.user.attributes.username || '',
+		lang: state.app.lang,
+
+		username: state.user.username || '',
 		email: state.user.attributes.email || '',
 		email_verified: state.user.attributes.email_verified || false,
 		phone_number: state.user.attributes.phone_number || '',
-		phone_number_verified: state.user.attributes.phone_number_verified,
+		phone_number_verified: state.user.attributes.phone_number_verified || false,
 	}
 }
 
@@ -367,10 +379,17 @@ const TabSignInData = (props) => {
 									!editEmail && (
 										<InputAdornment position="end">
 											{(props.email && props.email_verified) && (
-												<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')} size="small" className={classes.chipVerified} />
+												<Chip
+													size="small"
+													label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')}
+													className={classes.chipVerified} />
 											)}
 											{(props.email && !props.email_verified) && (
-												<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')} size="small" className={classes.chipUnverified} onClick={() => verifyCurrentUserAttribute('email')} />
+												<Chip
+													size="small"
+													label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')}
+													onClick={() => verifyCurrentUserAttribute('email')}
+													className={classes.chipUnverified} />
 											)}
 										</InputAdornment>
 									)}
@@ -379,16 +398,29 @@ const TabSignInData = (props) => {
 							/>
 						</FormControl>
 						{!editEmail && (
-							<Button variant="contained" onClick={() => handleAttributeChange('email')} className={classes.buttonChange}>
+							<Button
+								variant="contained"
+								color="secondary"
+								onClick={() => handleAttributeChange('email')}
+								className={classes.buttonChange}
+							>
 								{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
 							</Button>
 						)}
 						{editEmail && (
 							<div>
-								<Button variant="outlined" onClick={() => handleAttributeSave('email')} className={classes.buttonSave}>
+								<Button
+									variant="outlined"
+									onClick={() => handleAttributeSave('email')}
+									className={classes.buttonSave}
+								>
 									{I18n.get('TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL')}
 								</Button>
-								<Button variant="outlined" onClick={() => handleAttributeCancel('email')} className={classes.buttonCancel}>
+								<Button
+									variant="outlined"
+									onClick={() => handleAttributeCancel('email')}
+									className={classes.buttonCancel}
+								>
 									{I18n.get('TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL')}
 								</Button>
 							</div>
@@ -416,10 +448,19 @@ const TabSignInData = (props) => {
 									!editPhoneNumber && (
 										<InputAdornment position="end">
 											{(props.phone_number && props.phone_number_verified) && (
-												<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')} size="small" className={classes.chipVerified} />
+												<Chip
+													size="small"
+													label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')}
+													className={classes.chipVerified}
+												/>
 											)}
 											{(props.phone_number && !props.phone_number_verified) && (
-												<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')} size="small" onClick={() => verifyCurrentUserAttribute('phone_number')} className={classes.chipUnverified} />
+												<Chip
+													size="small"
+													label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')}
+													onClick={() => verifyCurrentUserAttribute('phone_number')}
+													className={classes.chipUnverified}
+												/>
 											)}
 										</InputAdornment>
 									)}
@@ -428,16 +469,29 @@ const TabSignInData = (props) => {
 							/>
 						</FormControl>
 						{!editPhoneNumber && (
-							<Button variant="contained" onClick={() => handleAttributeChange('phone_number')} className={classes.buttonChange}>
+							<Button
+								variant="contained"
+								color="secondary"
+								onClick={() => handleAttributeChange('phone_number')}
+								className={classes.buttonChange}
+							>
 								{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
 							</Button>
 						)}
 						{editPhoneNumber && (
 							<div>
-								<Button variant="outlined" onClick={() => handleAttributeSave('phone_number')} className={classes.buttonSave}>
+								<Button
+									variant="outlined"
+									onClick={() => handleAttributeSave('phone_number')}
+									className={classes.buttonSave}
+								>
 									{I18n.get('TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL')}
 								</Button>
-								<Button variant="outlined" onClick={() => handleAttributeCancel('phone_number')} className={classes.buttonCancel}>
+								<Button
+									variant="outlined"
+									onClick={() => handleAttributeCancel('phone_number')}
+									className={classes.buttonCancel}
+								>
 									{I18n.get('TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL')}
 								</Button>
 							</div>
@@ -465,7 +519,12 @@ const TabSignInData = (props) => {
 								inputProps={{ style: { left: 0 } }}
 							/>
 						</FormControl>
-						<Button variant="contained" onClick={() => handleAttributeChange('password')} className={classes.buttonChange}>
+						<Button
+							variant="contained"
+							color="secondary"
+							onClick={() => handleAttributeChange('password')}
+							className={classes.buttonChange}
+						>
 							{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
 						</Button>
 					</Box >
