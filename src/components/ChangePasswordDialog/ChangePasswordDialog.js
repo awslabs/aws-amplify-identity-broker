@@ -48,7 +48,7 @@ const useStyles = makeStyles(() => ({
 	buttonSave: {
 		color: Branding.positive
 	},
-	buttonClose: {
+	buttonCancel: {
 		color: Branding.negative
 	}
 }));
@@ -89,7 +89,7 @@ const ChangePasswordDialog = (props) => {
 			.then(CognitoUser => {
 				Auth.changePassword(CognitoUser, oldPassword, newPassword)
 					.then((data) => {
-						handleClose(data === 'SUCCESS');
+						handleCancel(data === 'SUCCESS');
 					})
 					.catch((err) => {
 						console.log(err);
@@ -134,7 +134,7 @@ const ChangePasswordDialog = (props) => {
 		changePassword(oldPassword.password, newPassword.password)
 	};
 
-	const handleClose = (succesful = false) => {
+	const handleCancel = (succesful = false) => {
 		setOldPassword({ ...oldPassword, password: '' });
 		setNewPassword({ ...newPassword, password: '' });
 		props.close(succesful);
@@ -148,7 +148,7 @@ const ChangePasswordDialog = (props) => {
 
 			<Dialog
 				open={props.open}
-				onClose={handleClose}
+				onClose={handleCancel}
 				disableBackdropClick
 				aria-labelledby="change-password-dialog"
 			>
@@ -235,10 +235,10 @@ const ChangePasswordDialog = (props) => {
 					</Button>
 					<Button
 						variant="outlined"
-						onClick={handleClose}
-						className={classes.buttonClose}
+						onClick={handleCancel}
+						className={classes.buttonCancel}
 					>
-						{I18n.get('CHANGE_PASSWORD_CLOSE_BUTTON_LABEL')}
+						{I18n.get('CHANGE_PASSWORD_CANCEL_BUTTON_LABEL')}
 					</Button>
 				</DialogActions>
 			</Dialog>

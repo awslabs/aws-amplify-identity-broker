@@ -26,7 +26,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-import { AccountBox, MailOutline, VpnKey, Smartphone } from '@material-ui/icons';
+import { AccountBox, MailOutline, Smartphone } from '@material-ui/icons';
 
 import { Branding } from '../../branding';
 import LogOutButton from '../../components/LogoutButton/LogoutButton';
@@ -107,6 +107,10 @@ const useStyles = makeStyles((theme) => ({
 			opacity: Branding.opacityHover,
 		},
 	},
+	buttonPasswordChange: {
+		margin: theme.spacing(1),
+		width: '-webkit-fill-available',
+	}
 }));
 
 const mapStateToProps = (state) => {
@@ -223,12 +227,14 @@ const TabSignInData = (props) => {
 	const handleEmailChange = (value) => {
 		if (!value) return;
 
+		setEditEmail(true);
 		props.setUserEmail(value);
 	};
 
 	const handlePhoneNumberChange = (value) => {
 		if (!value) return;
 
+		setEditPhoneNumber(true);
 		props.setUserPhonenumber(value);
 	};
 
@@ -368,7 +374,6 @@ const TabSignInData = (props) => {
 							<Input
 								value={props.email}
 								id="inputEmail"
-								disabled={!editEmail}
 								onChange={(event) => handleEmailChange(event.target.value)}
 								startAdornment={
 									<InputAdornment position="start">
@@ -397,16 +402,6 @@ const TabSignInData = (props) => {
 								inputProps={{ style: { left: 0 } }}
 							/>
 						</FormControl>
-						{!editEmail && (
-							<Button
-								variant="contained"
-								color="secondary"
-								onClick={() => handleAttributeChange('email')}
-								className={classes.buttonChange}
-							>
-								{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
-							</Button>
-						)}
 						{editEmail && (
 							<div>
 								<Button
@@ -438,7 +433,6 @@ const TabSignInData = (props) => {
 								value={props.phone_number}
 								onChange={(event) => handlePhoneNumberChange(event.target.value)}
 								id="inputPhoneNumber"
-								disabled={!editPhoneNumber}
 								startAdornment={
 									<InputAdornment position="start">
 										<Smartphone className={classes.textFieldIcon} />
@@ -468,16 +462,6 @@ const TabSignInData = (props) => {
 								inputProps={{ style: { left: 0 } }}
 							/>
 						</FormControl>
-						{!editPhoneNumber && (
-							<Button
-								variant="contained"
-								color="secondary"
-								onClick={() => handleAttributeChange('phone_number')}
-								className={classes.buttonChange}
-							>
-								{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
-							</Button>
-						)}
 						{editPhoneNumber && (
 							<div>
 								<Button
@@ -502,30 +486,13 @@ const TabSignInData = (props) => {
 					* Password
 					*/}
 					< Box className={classes.boxInputField} >
-						<FormControl className={classes.formControl}>
-							<InputLabel htmlFor="inputPassword">
-								{I18n.get('TAB_SIGNIN_DATA_PASSWORD_INPUT_LABEL')}
-							</InputLabel>
-							<Input
-								value="******"
-								id="inputPassword"
-								disabled
-								startAdornment={
-									<InputAdornment position="start">
-										<VpnKey className={classes.textFieldIcon} />
-									</InputAdornment>
-								}
-								className={classes.input}
-								inputProps={{ style: { left: 0 } }}
-							/>
-						</FormControl>
 						<Button
 							variant="contained"
 							color="secondary"
 							onClick={() => handleAttributeChange('password')}
-							className={classes.buttonChange}
+							className={classes.buttonPasswordChange}
 						>
-							{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
+							{I18n.get('TAB_SIGNIN_DATA_CHANGE_PASSWORD_LABEL')}
 						</Button>
 					</Box >
 

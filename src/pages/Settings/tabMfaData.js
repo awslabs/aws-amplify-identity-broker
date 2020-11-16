@@ -151,6 +151,8 @@ function TabMfaData(props) {
 			.then(CognitoUser => {
 				Auth.setPreferredMFA(CognitoUser, mfaType)
 					.then((data) => {
+						setEditMode(false);
+
 						if (data === "SUCCESS")
 							setSnackBarOps({
 								type: 'success',
@@ -190,18 +192,12 @@ function TabMfaData(props) {
 			})
 	};
 
-	const handleChangeClick = () => {
-		setEditMode(true);
-	};
-
 	const handleCancelClick = () => {
 		setEditMode(false);
 		getPreferredMFA();
 	};
 
 	const handleSaveClick = () => {
-		setEditMode(false);
-
 		switch (mfaType) {
 			case 'SOFTWARE_TOKEN_MFA':
 				setTotpDialog(true);
@@ -229,12 +225,13 @@ function TabMfaData(props) {
 			})
 
 			setPreferredMFA('TOTP');
-		}
 
-		getPreferredMFA();
+			getPreferredMFA();
+		}
 	}
 
 	const handleMfaTypeChange = (value) => {
+		setEditMode(true);
 		setMfaType(value);
 	};
 
@@ -266,19 +263,17 @@ function TabMfaData(props) {
 								>
 									<FormControlLabel
 										value="SOFTWARE_TOKEN_MFA"
-										disabled={!editMode}
 										control={<Radio />}
 										label={I18n.get('TAB_MFA_DATA_SELECT_TOTP')}
 									/>
 									<FormControlLabel
 										value="SMS_MFA"
-										disabled={!editMode || !props.phone_number_verified}
+										disabled={!props.phone_number_verified}
 										control={<Radio />}
 										label={props.phone_number_verified ? I18n.get('TAB_MFA_DATA_SELECT_SMS') : I18n.get('TAB_MFA_DATA_SELECT_SMS_NOT_VERIFIED')}
 									/>
 									<FormControlLabel
 										value="NOMFA"
-										disabled={!editMode}
 										control={<Radio />}
 										label={I18n.get('TAB_MFA_DATA_SELECT_NO_MFA')}
 									/>
@@ -286,16 +281,6 @@ function TabMfaData(props) {
 							</FormControl>
 						</CardContent >
 						<CardActions className={classes.cardActions}>
-							{!editMode && (
-								<Button
-									variant="contained"
-									color="secondary"
-									onClick={() => handleChangeClick()}
-								>
-									{I18n.get('TAB_MFA_DATA_CHANGE_BUTTON_LABEL')}
-								</Button>
-							)}
-
 							{editMode && (
 								<Button
 									variant="outlined"

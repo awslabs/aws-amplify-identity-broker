@@ -89,6 +89,7 @@ const mapStateToProps = (state) => {
 	return {
 		lang: state.app.lang,
 
+		user: state.user || { id: '', username: '', attributes: [] },
 		attributes: state.user.attributes || [],
 		given_name: state.user.attributes.given_name || '',
 		family_name: state.user.attributes.family_name || '',
@@ -167,6 +168,8 @@ const TabUserData = (props) => {
 	};
 
 	const handleAttributeChange = (attr, value) => {
+		setEditAttributes(true);
+
 		try {
 			/*
 			 * If you change the Language change the i18n language too
@@ -190,10 +193,6 @@ const TabUserData = (props) => {
 			})
 		}
 	}
-
-	const handleClickChange = () => {
-		setEditAttributes(true);
-	};
 
 	const handleClickCancel = () => {
 		setEditAttributes(false);
@@ -228,7 +227,6 @@ const TabUserData = (props) => {
 							<TextField
 								id="textfield_given_name"
 								value={props.given_name}
-								disabled={!editAttributes}
 								label={I18n.get('TAB_USER_DATA_TEXTFIELD_GIVEN_NAME_LABEL')}
 								className={classes.textField}
 								onChange={(event) => handleAttributeChange('given_name', event.target.value)}
@@ -239,7 +237,6 @@ const TabUserData = (props) => {
 							<TextField
 								id="textfield_family_name"
 								value={props.family_name}
-								disabled={!editAttributes}
 								label={I18n.get('TAB_USER_DATA_TEXTFIELD_FAMILY_NAME_LABEL')}
 								className={classes.textField}
 								onChange={(event) => handleAttributeChange('family_name', event.target.value)}
@@ -252,7 +249,6 @@ const TabUserData = (props) => {
 								value={props.address}
 								multiline
 								rows={3}
-								disabled={!editAttributes}
 								label={I18n.get('TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL')}
 								className={classes.textField}
 								onChange={(event) => handleAttributeChange('address', event.target.value)}
@@ -263,7 +259,6 @@ const TabUserData = (props) => {
 							<TextField
 								id="textfield_birthday_date"
 								value={props.birthdate}
-								disabled={!editAttributes}
 								label={I18n.get('TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL')}
 								type="date"
 								onChange={(event) => handleAttributeChange('birthdate', event.target.value)}
@@ -283,7 +278,6 @@ const TabUserData = (props) => {
 									labelId="textfield_gender_select-label"
 									id="textfield_gender_select"
 									value={props.gender}
-									disabled={!editAttributes}
 									onChange={(event) => handleAttributeChange('gender', event.target.value.toString())}
 									className={classes.textField}
 								>
@@ -303,7 +297,6 @@ const TabUserData = (props) => {
 									labelId="textfield_language_select-label"
 									id="textfield_language_select"
 									value={props.locale}
-									disabled={!editAttributes}
 									onChange={(event) => handleAttributeChange('locale', event.target.value)}
 									className={classes.textField}
 								>
@@ -326,22 +319,11 @@ const TabUserData = (props) => {
 									/>
 								}
 								label={I18n.get('TAB_USER_DATA_TEXTFIELD_CUSTOM_NEWSLETTER_LABEL')}
-								disabled={!editAttributes}
 							/>
 						</FormGroup>
 					</form>
 				</CardContent >
 				<CardActions className={classes.cardActions}>
-					{!editAttributes && (
-						<Button
-							variant="contained"
-							color="secondary"
-							onClick={() => handleClickChange()}
-							className={classes.buttonChange}
-						>
-							{I18n.get('TAB_USER_DATA_CHANGE_BUTTON_LABEL')}
-						</Button>
-					)}
 					{editAttributes && (
 						<div>
 							<Button
