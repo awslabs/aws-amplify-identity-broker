@@ -1,3 +1,12 @@
+/*
+  * Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
+  * SPDX-License-Identifier: MIT
+  *
+  * Licensed under the MIT License. See the LICENSE accompanying this file
+  * for the specific language governing permissions and limitations under
+  * the License.
+  */
+
 import React from 'react';
 
 import { Auth } from 'aws-amplify';
@@ -15,54 +24,26 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { Branding } from '../../branding';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 
-const strings = {
-	en: {
-		VERIFY_DIALOG_TITLE: "Verify",
-		VERIFY_DIALOG_DESCRIPTION: "Please enter the code:",
-		VERIFY_DIALOG_INPUT_LABEL: "Code",
-		VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verify",
-		VERIFY_DIALOG_CLOSE_BUTTON_LABEL: "Close",
-		VERIFY_DIALOG_MESSAGE_EROR: "An error has occurred",
-	},
-	fr: {
-		VERIFY_DIALOG_TITLE: "Verify",
-		VERIFY_DIALOG_DESCRIPTION: "Please enter the code:",
-		VERIFY_DIALOG_INPUT_LABEL: "Code",
-		VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verify",
-		VERIFY_DIALOG_CLOSE_BUTTON_LABEL: "Close",
-		VERIFY_DIALOG_MESSAGE_EROR: "Une erreur est survenue",
-	},
-	de: {
-		VERIFY_DIALOG_TITLE: "Verifizieren",
-		VERIFY_DIALOG_DESCRIPTION: "Bitte geben Sie den Code:",
-		VERIFY_DIALOG_INPUT_LABEL: "Code",
-		VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verifizieren",
-		VERIFY_DIALOG_CLOSE_BUTTON_LABEL: "Schließen",
-		VERIFY_DIALOG_MESSAGE_EROR: "Ist ein Fehler aufgetreten",
-	},
-	nl: {
-		VERIFY_DIALOG_TITLE: "Verify",
-		VERIFY_DIALOG_DESCRIPTION: "Please enter the code:",
-		VERIFY_DIALOG_INPUT_LABEL: "Code",
-		VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verify",
-		VERIFY_DIALOG_CLOSE_BUTTON_LABEL: "Close",
-		VERIFY_DIALOG_MESSAGE_EROR: "Er is een fout opgetreden",
-	}
-}
-I18n.putVocabularies(strings);
-
 const useStyles = makeStyles(() => ({
 	dialogTitle: {
-		minWidth: '400px'
+		minWidth: 400,
 	},
 	dialogActions: {
-		paddingRight: '22px'
+		paddingRight: 22,
 	},
 	buttonVerify: {
-		color: Branding.positive
+		color: Branding.positive,
+		'&:hover': {
+			color: Branding.positive,
+			opacity: Branding.opacityHover,
+		},
 	},
 	buttonClose: {
-		color: Branding.negative
+		color: Branding.negative,
+		'&:hover': {
+			color: Branding.negative,
+			opacity: Branding.opacityHover,
+		},
 	}
 }));
 
@@ -150,13 +131,23 @@ const VerifyAttributeDialog = (props) => {
 						label={I18n.get('VERIFY_DIALOG_INPUT_LABEL')}
 						fullWidth
 						className={classes.TextField}
+						inputProps={{ style: { left: 0 } }}
+						autoFocus
 					/>
 				</DialogContent>
 				<DialogActions className={classes.dialogActions}>
-					<Button onClick={handleClickVerify} variant="outlined" className={classes.buttonVerify}>
+					<Button
+						variant="outlined"
+						onClick={handleClickVerify}
+						className={classes.buttonVerify}
+					>
 						{I18n.get('VERIFY_DIALOG_VERIFY_BUTTON_LABEL')}
 					</Button>
-					<Button onClick={handleClose} variant="outlined" className={classes.buttonClose}>
+					<Button
+						variant="outlined"
+						onClick={handleClose}
+						className={classes.buttonClose}
+					>
 						{I18n.get('VERIFY_DIALOG_CLOSE_BUTTON_LABEL')}
 					</Button>
 				</DialogActions>

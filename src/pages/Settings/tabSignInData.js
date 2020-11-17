@@ -26,7 +26,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-import { AccountBox, MailOutline, VpnKey, Smartphone } from '@material-ui/icons';
+import { AccountBox, MailOutline, Smartphone } from '@material-ui/icons';
 
 import { Branding } from '../../branding';
 import LogOutButton from '../../components/LogoutButton/LogoutButton';
@@ -35,89 +35,14 @@ import ChangePasswordDialog from '../../components/ChangePasswordDialog/ChangePa
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 import { setUser, setUserEmail, setUserPhonenumber } from '../../redux/actions';
 
-/*
- * Localization
- */
-const strings = {
-	en: {
-		TAB_SIGNIN_DATA_LABEL: "SIGN IN INFORMATION",
-		TAB_SIGNIN_DATA_USERNAME_INPUT_LABEL: "Username",
-		TAB_SIGNIN_DATA_EMAIL_INPUT_LABEL: "E-Mail",
-		TAB_SIGNIN_DATA_PHONENUMBER_INPUT_LABEL: "Phonenumber",
-		TAB_SIGNIN_DATA_PASSWORD_INPUT_LABEL: "Password",
-		TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL: 'verified',
-		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'unverified',
-		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Change",
-		TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL: "Cancel",
-		TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL: "Save",
-		TAB_SIGNIN_DATA_MESSAGE_EROR: "An error has occurred",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "The update was successful",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Please verify your changes",
-		TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "The password was successful set",
-		TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "The verification was successful",
-	},
-	fr: {
-		TAB_SIGNIN_DATA_LABEL: "INFORMATIONS DE CONNEXION",
-		TAB_SIGNIN_DATA_USERNAME_INPUT_LABEL: "Nom d'utilisateur",
-		TAB_SIGNIN_DATA_EMAIL_INPUT_LABEL: "Email",
-		TAB_SIGNIN_DATA_PHONENUMBER_INPUT_LABEL: "Numéro de téléphone",
-		TAB_SIGNIN_DATA_PASSWORD_INPUT_LABEL: "Mot de passe",
-		TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL: 'vérifié',
-		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'non vérifié',
-		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Changer",
-		TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL: "Avorter",
-		TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL: "Sauver",
-		TAB_SIGNIN_DATA_MESSAGE_EROR: "Une erreur est survenue",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "La mise à jour a réussi",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Veuillez vérifier vos modifications",
-		TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "Veuillez saisir votre nouveau mot de passe actuel",
-		TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "La vérification a réussi",
-	},
-	de: {
-		TAB_SIGNIN_DATA_LABEL: "ANMELDEINFORMATIONEN",
-		TAB_SIGNIN_DATA_USERNAME_INPUT_LABEL: "Benutzername",
-		TAB_SIGNIN_DATA_EMAIL_INPUT_LABEL: "E-Mail",
-		TAB_SIGNIN_DATA_PHONENUMBER_INPUT_LABEL: "Telefonnummer",
-		TAB_SIGNIN_DATA_PASSWORD_INPUT_LABEL: "Passwort",
-		TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL: 'verifiziert',
-		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'nicht verifiziert',
-		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Ändern",
-		TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL: "Abbrechen",
-		TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL: "Speichern",
-		TAB_SIGNIN_DATA_MESSAGE_EROR: "Ist ein Fehler aufgetreten",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "Das Update war erflogreich",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Bitte verifizieren Sie Ihre Änderungen",
-		TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "Das Passwort wurde erfolgreich gesetzt",
-		TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "Die Verifizierung war erfolgreich",
-	},
-	nl: {
-		TAB_SIGNIN_DATA_LABEL: "INLOGGEGEVENS",
-		TAB_SIGNIN_DATA_USERNAME_INPUT_LABEL: "Gebruikersnaam",
-		TAB_SIGNIN_DATA_EMAIL_INPUT_LABEL: "E-mail",
-		TAB_SIGNIN_DATA_PHONENUMBER_INPUT_LABEL: "Telefoonnummer",
-		TAB_SIGNIN_DATA_PASSWORD_INPUT_LABEL: "Wachtwoord",
-		TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL: 'geverifieerd',
-		TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL: 'niet geverifieerd',
-		TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL: "Veranderen",
-		TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL: "Afbreken",
-		TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL: "Opslaan",
-		TAB_SIGNIN_DATA_MESSAGE_EROR: "Er is een fout opgetreden",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "De update is gelukt",
-		TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Controleer uw wijzigingen",
-		TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "Voer uw huidige en nieuwe wachtwoord in",
-		TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "De verificatie is gelukt",
-	}
-}
-I18n.putVocabularies(strings);
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 
 	},
 	header: {
-		backgroundColor: Branding.secondary,
-		color: 'white',
-		height: '40px',
+		backgroundColor: Branding.primary,
+		color: Branding.white,
+		height: 50,
 		textAlign: 'center',
 	},
 	title: {
@@ -125,12 +50,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	cardContent: {
 		textAlign: 'left',
+		paddingBottom: 0,
 	},
 	cardActions: {
 		justifyContent: 'center',
-	},
-	buttonAccountDelete: {
-		color: Branding.negative
 	},
 	boxInputField: {
 		margin: theme.spacing(2),
@@ -142,44 +65,63 @@ const useStyles = makeStyles((theme) => ({
 
 	},
 	input: {
-		minWidth: '300px',
+		minWidth: 375,
 	},
 	chipVerified: {
-		marginTop: '-50px',
+		marginTop: -50,
 		backgroundColor: Branding.positive,
-		color: 'white',
+		color: Branding.white,
+		'&:hover': {
+			backgroundColor: Branding.positive,
+			opacity: Branding.opacityHover,
+		},
 	},
 	chipUnverified: {
-		marginTop: '-50px',
+		marginTop: -50,
 		backgroundColor: Branding.negative,
-		color: 'white',
+		color: Branding.white,
+		'&:hover': {
+			backgroundColor: Branding.negative,
+			opacity: Branding.opacityHover,
+		},
 	},
 	buttonChange: {
-		marginTop: '8px',
-		marginLeft: '8px',
-		background: Branding.secondary,
-		color: 'white',
+		marginTop: theme.spacing(1),
+		marginLeft: theme.spacing(1),
 	},
 	buttonCancel: {
-		marginTop: '8px',
-		marginLeft: '8px',
+		marginTop: theme.spacing(1),
+		marginLeft: theme.spacing(1),
 		color: Branding.negative,
+		'&:hover': {
+			color: Branding.negative,
+			opacity: Branding.opacityHover,
+		},
 	},
 	buttonSave: {
-		marginTop: '8px',
-		marginLeft: '8px',
+		marginTop: theme.spacing(1),
+		marginLeft: theme.spacing(1),
 		color: Branding.positive,
+		'&:hover': {
+			color: Branding.positive,
+			opacity: Branding.opacityHover,
+		},
+	},
+	buttonPasswordChange: {
+		margin: theme.spacing(1),
+		width: '-webkit-fill-available',
 	}
 }));
 
 const mapStateToProps = (state) => {
 	return {
-		...state,
-		username: state.user.attributes.username || '',
+		lang: state.app.lang,
+
+		username: state.user.username || '',
 		email: state.user.attributes.email || '',
 		email_verified: state.user.attributes.email_verified || false,
 		phone_number: state.user.attributes.phone_number || '',
-		phone_number_verified: state.user.attributes.phone_number_verified,
+		phone_number_verified: state.user.attributes.phone_number_verified || false,
 	}
 }
 
@@ -222,7 +164,7 @@ const TabSignInData = (props) => {
 	}
 
 	/*
-	 * attributes = String 
+	 * attributes = String
 	 * converted to JSON
 	 * Example: {"email": "your.name@example.com"}
 	 */
@@ -285,12 +227,14 @@ const TabSignInData = (props) => {
 	const handleEmailChange = (value) => {
 		if (!value) return;
 
+		setEditEmail(true);
 		props.setUserEmail(value);
 	};
 
 	const handlePhoneNumberChange = (value) => {
 		if (!value) return;
 
+		setEditPhoneNumber(true);
 		props.setUserPhonenumber(value);
 	};
 
@@ -394,7 +338,7 @@ const TabSignInData = (props) => {
 			<Card className={classes.root} variant="outlined">
 				<CardHeader
 					className={classes.header}
-					title={I18n.get('TAB_SIGNIN_LABEL')}
+					title={I18n.get('TAB_SIGNIN_DATA_LABEL')}
 				/>
 				<CardContent className={classes.cardContent}>
 					{/*
@@ -415,6 +359,7 @@ const TabSignInData = (props) => {
 									</InputAdornment>
 								}
 								className={classes.input}
+								inputProps={{ style: { left: 0 } }}
 							/>
 						</FormControl>
 					</Box >
@@ -429,7 +374,6 @@ const TabSignInData = (props) => {
 							<Input
 								value={props.email}
 								id="inputEmail"
-								disabled={!editEmail}
 								onChange={(event) => handleEmailChange(event.target.value)}
 								startAdornment={
 									<InputAdornment position="start">
@@ -440,27 +384,38 @@ const TabSignInData = (props) => {
 									!editEmail && (
 										<InputAdornment position="end">
 											{(props.email && props.email_verified) && (
-												<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')} size="small" className={classes.chipVerified} />
+												<Chip
+													size="small"
+													label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')}
+													className={classes.chipVerified} />
 											)}
 											{(props.email && !props.email_verified) && (
-												<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')} size="small" className={classes.chipUnverified} onClick={() => verifyCurrentUserAttribute('email')} />
+												<Chip
+													size="small"
+													label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')}
+													onClick={() => verifyCurrentUserAttribute('email')}
+													className={classes.chipUnverified} />
 											)}
 										</InputAdornment>
 									)}
 								className={classes.input}
+								inputProps={{ style: { left: 0 } }}
 							/>
 						</FormControl>
-						{!editEmail && (
-							<Button variant="contained" onClick={() => handleAttributeChange('email')} className={classes.buttonChange}>
-								{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
-							</Button>
-						)}
 						{editEmail && (
 							<div>
-								<Button variant="outlined" onClick={() => handleAttributeSave('email')} className={classes.buttonSave}>
+								<Button
+									variant="outlined"
+									onClick={() => handleAttributeSave('email')}
+									className={classes.buttonSave}
+								>
 									{I18n.get('TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL')}
 								</Button>
-								<Button variant="outlined" onClick={() => handleAttributeCancel('email')} className={classes.buttonCancel}>
+								<Button
+									variant="outlined"
+									onClick={() => handleAttributeCancel('email')}
+									className={classes.buttonCancel}
+								>
 									{I18n.get('TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL')}
 								</Button>
 							</div>
@@ -478,7 +433,6 @@ const TabSignInData = (props) => {
 								value={props.phone_number}
 								onChange={(event) => handlePhoneNumberChange(event.target.value)}
 								id="inputPhoneNumber"
-								disabled={!editPhoneNumber}
 								startAdornment={
 									<InputAdornment position="start">
 										<Smartphone className={classes.textFieldIcon} />
@@ -488,27 +442,40 @@ const TabSignInData = (props) => {
 									!editPhoneNumber && (
 										<InputAdornment position="end">
 											{(props.phone_number && props.phone_number_verified) && (
-												<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')} size="small" className={classes.chipVerified} />
+												<Chip
+													size="small"
+													label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')}
+													className={classes.chipVerified}
+												/>
 											)}
 											{(props.phone_number && !props.phone_number_verified) && (
-												<Chip label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')} size="small" onClick={() => verifyCurrentUserAttribute('phone_number')} className={classes.chipUnverified} />
+												<Chip
+													size="small"
+													label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')}
+													onClick={() => verifyCurrentUserAttribute('phone_number')}
+													className={classes.chipUnverified}
+												/>
 											)}
 										</InputAdornment>
 									)}
 								className={classes.input}
+								inputProps={{ style: { left: 0 } }}
 							/>
 						</FormControl>
-						{!editPhoneNumber && (
-							<Button variant="contained" onClick={() => handleAttributeChange('phone_number')} className={classes.buttonChange}>
-								{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
-							</Button>
-						)}
 						{editPhoneNumber && (
 							<div>
-								<Button variant="outlined" onClick={() => handleAttributeSave('phone_number')} className={classes.buttonSave}>
+								<Button
+									variant="outlined"
+									onClick={() => handleAttributeSave('phone_number')}
+									className={classes.buttonSave}
+								>
 									{I18n.get('TAB_SIGNIN_DATA_SAVE_BUTTON_LABEL')}
 								</Button>
-								<Button variant="outlined" onClick={() => handleAttributeCancel('phone_number')} className={classes.buttonCancel}>
+								<Button
+									variant="outlined"
+									onClick={() => handleAttributeCancel('phone_number')}
+									className={classes.buttonCancel}
+								>
 									{I18n.get('TAB_SIGNIN_DATA_CANCEL_BUTTON_LABEL')}
 								</Button>
 							</div>
@@ -519,24 +486,13 @@ const TabSignInData = (props) => {
 					* Password
 					*/}
 					< Box className={classes.boxInputField} >
-						<FormControl className={classes.formControl}>
-							<InputLabel htmlFor="inputPassword">
-								{I18n.get('TAB_SIGNIN_DATA_PASSWORD_INPUT_LABEL')}
-							</InputLabel>
-							<Input
-								value="******"
-								id="inputPassword"
-								disabled
-								startAdornment={
-									<InputAdornment position="start">
-										<VpnKey className={classes.textFieldIcon} />
-									</InputAdornment>
-								}
-								className={classes.input}
-							/>
-						</FormControl>
-						<Button variant="contained" onClick={() => handleAttributeChange('password')} className={classes.buttonChange}>
-							{I18n.get('TAB_SIGNIN_DATA_CHANGE_BUTTON_LABEL')}
+						<Button
+							variant="contained"
+							color="secondary"
+							onClick={() => handleAttributeChange('password')}
+							className={classes.buttonPasswordChange}
+						>
+							{I18n.get('TAB_SIGNIN_DATA_CHANGE_PASSWORD_LABEL')}
 						</Button>
 					</Box >
 

@@ -25,8 +25,13 @@ import { Branding } from '../../branding';
 import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 
 import TabSignInData from './tabSignInData';
+import TabMfaData from './tabMfaData';
 import TabUserData from './tabUserData';
-import TabDeviceData from './tabDeviceData';
+/*
+ * Device Management not supported from AWS Amplify SDK for JS - see './tabDeviceData.js'
+*/
+//import TabDeviceData from './tabDeviceData';
+
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -61,34 +66,6 @@ function a11yProps(index) {
 	};
 };
 
-/*
- * Localization
- */
-const strings = {
-	en: {
-		TAB_SIGNIN_LABEL: "SIGN IN INFORMATION",
-		TAB_USER_DATA_LABEL: "USER DATA",
-		TAB_DEVICE_DATA_LABEL: "DEVICE DATA",
-	},
-	fr: {
-		TAB_SIGNIN_LABEL: "INFORMATIONS DE CONNEXION",
-		TAB_USER_DATA_LABEL: "DONNÉES D'UTILISATEUR",
-		TAB_DEVICE_DATA_LABEL: "DONNEES DE L'APPAREIL",
-	},
-	de: {
-		TAB_SIGNIN_LABEL: "ANMELDEINFORMATIONEN",
-		TAB_USER_DATA_LABEL: "BENUTZERINFORMATIONEN",
-		TAB_DEVICE_DATA_LABEL: "GERÄTEINFORMATIONEN",
-	},
-	nl: {
-		TAB_SIGNIN_LABEL: "INLOGGEGEVENS",
-		TAB_USER_DATA_LABEL: "GEBRUKERSGEGEVENS",
-		TAB_DEVICE_DATA_LABEL: "APPARAATGEGEVENS",
-	}
-}
-I18n.putVocabularies(strings);
-
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -98,13 +75,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 	box: {
 		width: '90%',
-		maxWidth: '650px',
+		maxWidth: 650,
 	},
 	appBar: {
-		backgroundColor: 'white',
+		backgroundColor: Branding.white,
 	},
 	tabs: {
-		color: Branding.secondary,
+		color: Branding.primary,
 		indicator: Branding.accent,
 	},
 	tabsIndicator: {
@@ -140,9 +117,16 @@ export default function Content(props) {
 							className={classes.tabs}
 							classes={{ indicator: classes.tabsIndicator }}
 						>
-							<Tab label={I18n.get('TAB_SIGNIN_LABEL')} {...a11yProps(0)} className={classes.tab} />
-							<Tab label={I18n.get('TAB_USER_DATA_LABEL')}  {...a11yProps(1)} className={classes.tab} />
-							<Tab label={I18n.get('TAB_DEVICE_DATA_LABEL')}  {...a11yProps(2)} className={classes.tab} />
+							<Tab label={I18n.get('SETTINGS_CONTENT_TAB_SIGNIN_LABEL')} {...a11yProps(0)} className={classes.tab} />
+							<Tab label={I18n.get('SETTINGS_CONTENT_TAB_MFA_DATA_LABEL')}  {...a11yProps(1)} className={classes.tab} />
+							<Tab label={I18n.get('SETTINGS_CONTENT_TAB_USER_DATA_LABEL')}  {...a11yProps(2)} className={classes.tab} />
+							{
+								/*
+								* Device Management not supported from AWS Amplify SDK for JS - see './tabDeviceData.js'
+								*/
+								//<Tab label={I18n.get('SETTINGS_CONTENT_TAB_DEVICE_DATA_LABEL')}  {...a11yProps(3)} className={classes.tab} />
+							}
+
 						</Tabs>
 					</AppBar>
 					<TabPanel value={value} index={0}>
@@ -152,14 +136,26 @@ export default function Content(props) {
 					</TabPanel>
 					<TabPanel value={value} index={1}>
 						<Box className={classes.tabPanelBox}>
-							<TabUserData reloadUserData={props.reloadUserData} />
+							<TabMfaData />
 						</Box>
 					</TabPanel>
 					<TabPanel value={value} index={2}>
 						<Box className={classes.tabPanelBox}>
-							<TabDeviceData />
+							<TabUserData reloadUserData={props.reloadUserData} />
 						</Box>
 					</TabPanel>
+					{
+						/*
+						* Device Management not supported from AWS Amplify SDK for JS - see './tabDeviceData.js'
+						*/
+						/*
+						<TabPanel value={value} index={3}>
+							<Box className={classes.tabPanelBox}>
+								<TabDeviceData />
+							</Box>
+						</TabPanel>
+						*/
+					}
 				</Box>
 			</Grid>
 		</div >

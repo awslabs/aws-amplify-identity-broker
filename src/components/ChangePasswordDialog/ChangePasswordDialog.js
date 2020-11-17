@@ -1,3 +1,12 @@
+/*
+  * Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
+  * SPDX-License-Identifier: MIT
+  *
+  * Licensed under the MIT License. See the LICENSE accompanying this file
+  * for the specific language governing permissions and limitations under
+  * the License.
+  */
+
 import React from 'react';
 
 import { Auth } from 'aws-amplify';
@@ -22,56 +31,16 @@ import { Branding } from '../../branding';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 import { Box } from '@material-ui/core';
 
-const strings = {
-	en: {
-		CHANGE_PASSWORD_TITLE: "Change Password",
-		CHANGE_PASSWORD_DESCRIPTION: "Please enter your current and new password",
-		CHANGE_PASSWORD_OLDPASSWORD_INPUT_LABEL: "Old Password",
-		CHANGE_PASSWORD_NEWPASSWORD_INPUT_LABEL: "New Password",
-		CHANGE_PASSWORD_SAVE_BUTTON_LABEL: "Save",
-		CHANGE_PASSWORD_CLOSE_BUTTON_LABEL: "Close",
-		CHANGE_PASSWORD_MESSAGE_EROR: "An error has occurred",
-	},
-	fr: {
-		CHANGE_PASSWORD_TITLE: "Changer le mot de passe",
-		CHANGE_PASSWORD_DESCRIPTION: "Veuillez saisir votre nouveau mot de passe actuel",
-		CHANGE_PASSWORD_OLDPASSWORD_INPUT_LABEL: "Mot de passe actuel",
-		CHANGE_PASSWORD_NEWPASSWORD_INPUT_LABEL: "Nouveau mot de passe",
-		CHANGE_PASSWORD_SAVE_BUTTON_LABEL: "Sauvegarder",
-		CHANGE_PASSWORD_CLOSE_BUTTON_LABEL: "Close",
-		CHANGE_PASSWORD_MESSAGE_EROR: "Une erreur est survenue",
-	},
-	de: {
-		CHANGE_PASSWORD_TITLE: "Passwort ändern",
-		CHANGE_PASSWORD_DESCRIPTION: "Bitte geben Sie ihr aktuelles und neues Passwort ein",
-		CHANGE_PASSWORD_OLDPASSWORD_INPUT_LABEL: "Aktuelles Password",
-		CHANGE_PASSWORD_NEWPASSWORD_INPUT_LABEL: "Neues Password",
-		CHANGE_PASSWORD_SAVE_BUTTON_LABEL: "Speichern",
-		CHANGE_PASSWORD_CLOSE_BUTTON_LABEL: "Schließen",
-		CHANGE_PASSWORD_MESSAGE_EROR: "Ist ein Fehler aufgetreten",
-	},
-	nl: {
-		CHANGE_PASSWORD_TITLE: "Verander wachtwoord",
-		CHANGE_PASSWORD_DESCRIPTION: "Voer uw huidige en nieuwe wachtwoord in",
-		CHANGE_PASSWORD_OLDPASSWORD_INPUT_LABEL: "Huidig ​​wachtwoord",
-		CHANGE_PASSWORD_NEWPASSWORD_INPUT_LABEL: "nieuw paswoord",
-		CHANGE_PASSWORD_SAVE_BUTTON_LABEL: "Opslaan",
-		CHANGE_PASSWORD_CLOSE_BUTTON_LABEL: "Dichtbij",
-		CHANGE_PASSWORD_MESSAGE_EROR: "Er is een fout opgetreden",
-	}
-}
-I18n.putVocabularies(strings);
-
 const useStyles = makeStyles(() => ({
 	dialogActions: {
-		paddingRight: '22px'
+		paddingRight: 22,
 	},
 	box: {
 		textAlign: 'center',
-		marginBottom: '20px',
+		marginBottom: 20,
 	},
 	input: {
-		minWidth: '300px',
+		minWidth: 300,
 	},
 	textFieldIcon: {
 		color: Branding.secondary,
@@ -79,7 +48,7 @@ const useStyles = makeStyles(() => ({
 	buttonSave: {
 		color: Branding.positive
 	},
-	buttonClose: {
+	buttonCancel: {
 		color: Branding.negative
 	}
 }));
@@ -104,7 +73,6 @@ const ChangePasswordDialog = (props) => {
 	});
 
 	const changePassword = (oldPassword, newPassword) => {
-		console.log(oldPassword + ' - ' + newPassword)
 		if (!oldPassword || !newPassword) {
 			setSnackBarOps({
 				type: 'error',
@@ -121,7 +89,7 @@ const ChangePasswordDialog = (props) => {
 			.then(CognitoUser => {
 				Auth.changePassword(CognitoUser, oldPassword, newPassword)
 					.then((data) => {
-						handleClose(data === 'SUCCESS');
+						handleCancel(data === 'SUCCESS');
 					})
 					.catch((err) => {
 						console.log(err);
@@ -166,7 +134,7 @@ const ChangePasswordDialog = (props) => {
 		changePassword(oldPassword.password, newPassword.password)
 	};
 
-	const handleClose = (succesful = false) => {
+	const handleCancel = (succesful = false) => {
 		setOldPassword({ ...oldPassword, password: '' });
 		setNewPassword({ ...newPassword, password: '' });
 		props.close(succesful);
@@ -180,7 +148,7 @@ const ChangePasswordDialog = (props) => {
 
 			<Dialog
 				open={props.open}
-				onClose={handleClose}
+				onClose={handleCancel}
 				disableBackdropClick
 				aria-labelledby="change-password-dialog"
 			>
@@ -219,6 +187,8 @@ const ChangePasswordDialog = (props) => {
 									</InputAdornment>
 								}
 								className={classes.input}
+								autoFocus
+								inputProps={{ style: { left: 0 } }}
 							/>
 						</FormControl>
 					</Box>
@@ -250,16 +220,25 @@ const ChangePasswordDialog = (props) => {
 									</InputAdornment>
 								}
 								className={classes.input}
+								inputProps={{ style: { left: 0 } }}
 							/>
 						</FormControl>
 					</Box>
 				</DialogContent>
 				<DialogActions className={classes.dialogActions}>
-					<Button onClick={handleClickSave} variant="outlined" className={classes.buttonSave}>
+					<Button
+						variant="outlined"
+						onClick={handleClickSave}
+						className={classes.buttonSave}
+					>
 						{I18n.get('CHANGE_PASSWORD_SAVE_BUTTON_LABEL')}
 					</Button>
-					<Button onClick={handleClose} variant="outlined" className={classes.buttonClose}>
-						{I18n.get('CHANGE_PASSWORD_CLOSE_BUTTON_LABEL')}
+					<Button
+						variant="outlined"
+						onClick={handleCancel}
+						className={classes.buttonCancel}
+					>
+						{I18n.get('CHANGE_PASSWORD_CANCEL_BUTTON_LABEL')}
 					</Button>
 				</DialogActions>
 			</Dialog>

@@ -9,9 +9,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { setAuth } from '../../redux/actions';
+import { setLang, setAuth } from '../../redux/actions';
 
-import { Auth } from 'aws-amplify';
 import { I18n } from '@aws-amplify/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,33 +29,6 @@ import logo from '../../assets/Logos/logoDark.png';
 import LanguageSelect from '../LanguageSelect/LanguageSelect';
 import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 
-/*
- * Localization
- */
-const strings = {
-	en: {
-		HEADER_MENU_ITEM_PROFILE: "Profile",
-		HEADER_MENU_ITEM_DASHBOARD: "Dashboard",
-		HEADER_MENU_ITEM_LOGOUT: "Logout",
-	},
-	fr: {
-		HEADER_MENU_ITEM_PROFILE: "Profile",
-		HEADER_MENU_ITEM_DASHBOARD: "Tableau de bord",
-		HEADER_MENU_ITEM_LOGOUT: "Se déconnecter",
-	},
-	de: {
-		HEADER_MENU_ITEM_PROFILE: "Profil",
-		HEADER_MENU_ITEM_DASHBOARD: "Dashboard",
-		HEADER_MENU_ITEM_LOGOUT: "Abmelden",
-	},
-	nl: {
-		HEADER_MENU_ITEM_PROFILE: "Profiel",
-		HEADER_MENU_ITEM_DASHBOARD: "Dashboard",
-		HEADER_MENU_ITEM_LOGOUT: "Uitloggen",
-	}
-}
-I18n.putVocabularies(strings);
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -72,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 	},
 	logo: {
-		width: '70px',
+		width: 70,
 		marginRight: theme.spacing(2),
 	},
 	offset: theme.mixins.toolbar,
@@ -80,22 +52,15 @@ const useStyles = makeStyles((theme) => ({
 
 const mapStateToProps = (state) => {
 	return {
-		auth: state.app.auth
+		lang: state.app.lang,
+		auth: state.app.auth,
 	}
 }
 
 const Header = (props) => {
 	const classes = useStyles();
-	const [lang, setLang] = React.useState(props.lang || "en");
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
-
-	const checkSignIn = () => {
-		Auth.currentAuthenticatedUser()
-			.then(() => { props.setAuth(true) })
-			.catch((err) => { props.setAuth(false) })
-	}
-	const auth = props.auth || checkSignIn() || false;
 
 	const { width } = useWindowDimensions();
 
@@ -119,7 +84,7 @@ const Header = (props) => {
 
 	return (
 		<div className={classes.root}>
-			<AppBar position="fixed" color="secondary" >
+			<AppBar position="fixed" color="primary" >
 				<Toolbar>
 					<img alt="" src={logo} className={classes.logo} />
 
@@ -130,14 +95,14 @@ const Header = (props) => {
 					)}
 
 					<LanguageSelect
-						lang={lang}
+						lang={props.lang}
 						changedLang={handleLangChange}
 						themeShowLabel={false}
 						themeColor={Branding.white}
-						themeBackgroundColor={Branding.secondary}
+						themeBackgroundColor={Branding.primary}
 					/>
 
-					{auth && (
+					{props.auth && (
 						<div>
 							<IconButton
 								aria-label="account of current user"
@@ -185,4 +150,4 @@ const Header = (props) => {
 	);
 }
 
-export default connect(mapStateToProps, { setAuth })(Header)
+export default connect(mapStateToProps, { setLang, setAuth })(Header)

@@ -22,31 +22,6 @@ import AppTiles from './appTiles';
 import Header from '../../components/AppBar/AppBar';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 
-import './dashboard.css';
-
-/*
- * Localization
- */
-const strings = {
-	en: {
-		DASHBOARD_TITLE: "Dashboard",
-		DASHBOARD_ERROR_MESSAGE: "An error has occurred",
-	},
-	fr: {
-		DASHBOARD_TITLE: "Tableau de bord",
-		DASHBOARD_ERROR_MESSAGE: "Une erreur est survenue",
-	},
-	de: {
-		DASHBOARD_TITLE: "Dashboard",
-		DASHBOARD_ERROR_MESSAGE: "Ist ein Fehler aufgetreten",
-	},
-	nl: {
-		DASHBOARD_TITLE: "Dashboard",
-		DASHBOARD_ERROR_MESSAGE: "Er is een fout opgetreden",
-	}
-}
-I18n.putVocabularies(strings);
-
 const mapStateToProps = (state) => {
 	return {
 		auth: state.app.auth,
@@ -110,9 +85,6 @@ class Dashboard extends React.Component {
 				)}
 
 				<Header
-					auth={this.props.auth}
-					pageTitle={I18n.get("DASHBOARD_TITLE")}
-					lang={this.props.lang}
 					routeTo={(newPath) => this.props.history.push(newPath)}
 				/>
 

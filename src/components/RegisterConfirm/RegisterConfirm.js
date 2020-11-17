@@ -21,7 +21,7 @@ const RegisterConfirm = () => {
 				{
 					type: "email",
 					required: false,
-					label: I18n.get("VERIFY_EMAIL"),
+					label: I18n.get("REGISTER_CONFIRM_EMAIL_LABEL"),
 					inputProps: {
 						type: 'hidden',
 					}

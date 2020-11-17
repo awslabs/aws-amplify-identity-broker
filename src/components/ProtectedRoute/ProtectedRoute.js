@@ -13,12 +13,18 @@
 
 import React from 'react'
 import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
 
 import { Auth } from 'aws-amplify';
-
 import { I18n } from '@aws-amplify/core';
-import { strings } from '../../pages/TermsOfService/languageStrings';
-I18n.putVocabularies(strings);
+
+import { setLang, setAuth, setUser } from '../../redux/actions';
+
+const mapStateToProps = (state) => {
+	return {
+		user: state.user,
+	}
+}
 
 class ProtectedRoute extends React.Component {
 	constructor(props) {
@@ -31,45 +37,45 @@ class ProtectedRoute extends React.Component {
 
 	componentDidMount() {
 		Auth.currentAuthenticatedUser()
-			.then(CognitoUser => {
-				Auth.userAttributes(CognitoUser)
-					.then(CognitoUserAttributes => {
-						let tosSigned = false;
-						let tosSignedVersion = '';
+			.then(() => {
+				this.setState({ isAuthenticated: true });
+				this.props.setAuth(true);
+
+				Auth.currentUserInfo()
+					.then((user) => {
+						this.props.setUser(user);
+						this.props.setLang(user.attributes.locale);
 
 						/*
-							* Load the "Custom Attributes" ToS for the current user
-							*/
-						CognitoUserAttributes.forEach(item => {
-							switch (item.Name) {
-								case 'custom:tos_signed':
-									tosSigned = (item.Value === 'true');
-									break;
-								case 'custom:tos_version':
-									tosSignedVersion = item.Value;
-									break;
-								default:
-									break;
-							};
-						})
+						 * Check if the user need to "Sign" or "Resign" the ToS
+						 * For reasons of simplicity we load the current ToS version from 'i18n - VERSION_ID'
+						 */
+						const tosSigned = (user.attributes['custom:tos_signed'] === "true") || false;
+						const tosSignedVersionInt = parseInt(user.attributes['custom:tos_version']) || 0;
+						const tosCurrentVersionInt = I18n.get('TERMS_OF_SERVICE_VERSION_ID') || 0
 
 						/*
-							* Check if the user need to "Sign" or "Resign" the ToS
-							* For reasons of simplicity we load the current ToS version from 'languageString - VERSION_ID'
-							*/
-						const tosSignedVersionInt = parseInt(tosSignedVersion) || 0;
-						const tosCurrentVersionInt = I18n.get('VERSION_ID') || 0
-
-						/*
-							* If the current ToS are newer or the actual ToS are not sigened we redirect the user to '/tos'
-							* To redirect the user back to '/settings' after sign the ToS we add Query Param 'redirect'
-							*/
+						 * If the current ToS are newer or the actual ToS are not sigened we redirect the user to '/tos'
+						 * To redirect the user back to '/settings' after sign the ToS we add Query Param 'redirect'
+						 */
 						if ((tosCurrentVersionInt > tosSignedVersionInt) || !tosSigned)
 							this.setState({ resignToS: true })
 					})
-					.catch(() => this.setState({ resignToS: false }))
+					.catch(err => {
+						console.log(err);
+
+						this.setState({ isAuthenticated: false })
+						this.props.setAuth(false);
+						this.props.setUser(null);
+					});
 			})
-			.catch(() => this.setState({ isAuthenticated: false }))
+			.catch(err => {
+				if (err !== "not authenticated") console.log(err)
+
+				this.setState({ isAuthenticated: false })
+				this.props.setAuth(false);
+				this.props.setUser(null);
+			});
 	}
 
 	render() {
@@ -102,4 +108,4 @@ class ProtectedRoute extends React.Component {
 	}
 }
 
-export default ProtectedRoute;
+export default connect(mapStateToProps, { setAuth, setUser, setLang })(ProtectedRoute);

@@ -22,8 +22,7 @@ import TosContent from './content';
 import LanguageSelect from '../../components/LanguageSelect/LanguageSelect';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 
-import { strings } from './languageStrings';
-I18n.putVocabularies(strings);
+import { setLang, setAuth, setUser } from '../../redux/actions';
 
 const mapStateToProps = (state) => {
 	return {
@@ -38,8 +37,10 @@ class TermsOfService extends Component {
 		super(props);
 		this.state = {
 			redirect: null,
+
 			tosResign: false,
 			tosCurrentVersion: 0,
+
 			snackBarOps: {
 				type: 'info',
 				open: false,
@@ -55,40 +56,42 @@ class TermsOfService extends Component {
 		let redirect = new URLSearchParams(window.location.search).get("redirect") || null;
 		if (redirect) this.setState({ redirect: redirect });
 
-		this.setState({ tosCurrentVersion: I18n.get("VERSION_ID") || 0 })
+		this.setState({ tosCurrentVersion: I18n.get("TERMS_OF_SERVICE_VERSION_ID") || 0 })
 		this.checkTos();
 	}
 
 	getTosInfo = () => new Promise((resolve, reject) => {
 		Auth.currentAuthenticatedUser()
-			.then(CognitoUser => {
-				Auth.userAttributes(CognitoUser)
-					.then(CognitoUserAttributes => {
-						let tosSigned = false;
-						let tosSignedVersion = '';
-						CognitoUserAttributes.forEach(item => {
-							switch (item.Name) {
-								case 'custom:tos_signed':
-									tosSigned = (item.Value === 'true');
-									break;
-								case 'custom:tos_version':
-									tosSignedVersion = item.Value;
-									break;
-								default:
-									break;
-							};
-						})
+			.then(() => {
+				this.props.setAuth(true);
 
-						const tosSignedVersionInt = parseInt(tosSignedVersion) || 0;
+				Auth.currentUserInfo()
+					.then((user) => {
+						this.props.setUser(user);
+						this.props.setLang(user.attributes.locale);
 
-						if (this.state.tosCurrentVersion > tosSignedVersionInt) this.setState({ tosResign: true });
+						/*
+						 * Check if the user need to "Sign" or "Resign" the ToS
+						 * For reasons of simplicity we load the current ToS version from 'i18n - VERSION_ID'
+						 */
+						const tosSigned = (user.attributes['custom:tos_signed'] === "true") || false;
+						const tosSignedVersionInt = parseInt(user.attributes['custom:tos_version']) || 0;
+						const tosCurrentVersionInt = I18n.get('TERMS_OF_SERVICE_VERSION_ID') || 0
 
-						if (!tosSigned) this.setState({ tosResign: true });
+						/*
+						 * If the current ToS are newer or the actual ToS are not sigened we redirect the user to '/tos'
+						 * To redirect the user back to '/settings' after sign the ToS we add Query Param 'redirect'
+						 */
+						if ((tosCurrentVersionInt > tosSignedVersionInt) || !tosSigned)
+							this.setState({ tosResign: true })
 
-						resolve()
+						resolve();
 					})
 					.catch(err => {
 						console.log(err);
+
+						this.props.setAuth(false);
+						this.props.setUser(null);
 						reject(err)
 					});
 			})
@@ -96,6 +99,8 @@ class TermsOfService extends Component {
 				if (err !== 'not authenticated')
 					console.log(err);
 
+				this.props.setAuth(false);
+				this.props.setUser(null);
 				reject(err);
 			});
 	})
@@ -111,7 +116,7 @@ class TermsOfService extends Component {
 					vertical: 'top',
 					horizontal: 'center',
 					autoHide: null,
-					message: I18n.get("MSG_TOS_RESIGN")
+					message: I18n.get("TERMS_OF_SERVICE_MESSAGE_RESIGN")
 				}
 			})
 		}
@@ -128,12 +133,7 @@ class TermsOfService extends Component {
 			})
 			.catch(err => { console.log(err); reject(err) })
 	})
-	/*
-		handleLangChange = (lang) => {
-			//this.setLang(lang);
-			this.checkTos(false);
-		}
-	*/
+
 	handleTosAccepted = async () => {
 		this.updateTosAttribute()
 			.then(async () => {
@@ -147,7 +147,7 @@ class TermsOfService extends Component {
 						vertical: 'top',
 						horizontal: 'center',
 						autoHide: 5000,
-						message: I18n.get('MSG_TOS_ACCEPTED')
+						message: I18n.get('TERMS_OF_SERVICE_MESSAGE_ACCEPTED')
 					}
 				});
 
@@ -163,7 +163,7 @@ class TermsOfService extends Component {
 						vertical: 'top',
 						horizontal: 'center',
 						autoHide: 5000,
-						message: I18n.get('MSG_TOS_ACCEPTED_ERROR')
+						message: I18n.get('TERMS_OF_SERVICE_MESSAGE_ERROR')
 					}
 				});
 			})
@@ -177,7 +177,7 @@ class TermsOfService extends Component {
 				vertical: 'top',
 				horizontal: 'center',
 				autoHide: null,
-				message: I18n.get('MSG_TOS_DECLINE')
+				message: I18n.get('TERMS_OF_SERVICE_MESSAGE_DECLINE')
 			}
 		})
 	}
@@ -185,7 +185,7 @@ class TermsOfService extends Component {
 	render() {
 		return (
 			<MuiThemeProvider theme={theme}>
-				<LanguageSelect lang={this.props.lang} />
+				<LanguageSelect />
 
 				<TosContent reSign={this.state.tosResign} tosAccept={this.handleTosAccepted} tosDecline={this.handleTosDecline} />
 
@@ -197,4 +197,4 @@ class TermsOfService extends Component {
 	}
 }
 
-export default withRouter(connect(mapStateToProps, {})(TermsOfService));
+export default withRouter(connect(mapStateToProps, { setLang, setAuth, setUser })(TermsOfService));
