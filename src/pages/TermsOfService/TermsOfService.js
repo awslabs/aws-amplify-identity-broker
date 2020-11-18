@@ -151,7 +151,7 @@ class TermsOfService extends Component {
 					}
 				});
 
-				if (this.state.redirect) window.location.href = this.state.redirect;
+				if (this.state.redirect) this.props.history.push(this.state.redirect);
 			})
 			.catch((err) => {
 				console.log(err);

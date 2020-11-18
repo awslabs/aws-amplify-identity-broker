@@ -80,26 +80,26 @@ class ProtectedRoute extends React.Component {
 
 	render() {
 		/*
-			* Route SingIn Page (loginPath) and Terms of Service (tosPath)
-			*/
+		 * Route SingIn Page (loginPath) and Terms of Service (tosPath)
+		 */
 		const loginPath = '/';
 		let tosPath = 'tos';
 
 		/*
-			* "path" of the requesting component to redirect back
-			*/
+		 * "path" of the requesting component to redirect back
+		 */
 		const redirectTo = this.props.path.replace('/', '') || null;
 
 		/*
-			* Target component
-			*/
+		 * Target component
+		 */
 		const Component = this.props.component;
 
 		/*
-			* If user NOT signed in redirect to "loginPath" - add QueryParam redirectTo
-			* If user NOT accepted the Terms of Service redirect to "tosPath" - add QueryParam redirectTo
-			* Otherwise route to target component
-			* */
+		 * If user NOT signed in redirect to "loginPath" - add QueryParam redirectTo
+		 * If user NOT accepted the Terms of Service redirect to "tosPath" - add QueryParam redirectTo
+		 * Otherwise route to target component
+		 */
 		return !this.state.isAuthenticated
 			? (<Redirect to={{ pathname: loginPath, search: `redirect=${redirectTo}` }} push={true} />)
 			: this.state.resignToS

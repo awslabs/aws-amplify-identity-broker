@@ -7,6 +7,8 @@
   * the License.
   */
 
+import i18nStrings from '../../i18n/i18n';
+
 import { SET_LANG, SET_AUTH } from "../actionTypes";
 const initialState = {
 	lang: "en",
@@ -17,7 +19,11 @@ export default function (state = initialState, action) {
 	switch (action.type) {
 		case SET_LANG: {
 			const { lang } = action.payload;
-			return { ...state, lang: lang };
+
+			if (lang && i18nStrings.hasOwnProperty(lang))
+				return { ...state, lang: lang };
+
+			return { ...state, lang: initialState.lang }
 		}
 		case SET_AUTH: {
 			const { auth } = action.payload;
