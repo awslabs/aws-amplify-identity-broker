@@ -8,10 +8,16 @@
 */
 
 import React from 'react';
+import { connect } from 'react-redux';
 import { AmplifySignUp } from '@aws-amplify/ui-react';
 
-const Register = ({ pageLang }) => {
+const mapStateToProps = (state) => {
+	return {
+		lang: state.app.lang,
+	}
+};
 
+const Register = (props) => {
 	return (
 		<AmplifySignUp className="register"
 			usernameAlias="email"
@@ -31,11 +37,11 @@ const Register = ({ pageLang }) => {
 				},
 				{
 					type: "locale",
-					value: pageLang,
+					value: props.lang,
 					inputProps: {
 						type: 'hidden',
 					}
-				}
+				},
 				/**  Here an example of a custom attribute insertion:
 				 *
 				 * This assume that the custom field customer-type
@@ -58,4 +64,4 @@ const Register = ({ pageLang }) => {
 	);
 }
 
-export default Register;
+export default connect(mapStateToProps, {})(Register);

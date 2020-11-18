@@ -44,6 +44,17 @@ const LandingPage = (props) => {
 
 			setAuthState(nextAuthState);
 
+			if (nextAuthState === AuthState.ConfirmSignUp) {
+				if (authData && authData.username && authData.signUpAttrs.attributes) {
+					let user = {
+						id: '',
+						username: authData.username,
+						attributes: authData.signUpAttrs.attributes
+					}
+					propSetUser(user);
+				}
+			}
+
 			if (nextAuthState === AuthState.SignedIn) {
 				propSetAuth(true);
 

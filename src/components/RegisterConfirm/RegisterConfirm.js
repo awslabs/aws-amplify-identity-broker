@@ -8,10 +8,22 @@
 */
 
 import React from 'react';
-import { AmplifyConfirmSignUp } from '@aws-amplify/ui-react';
+import { connect } from 'react-redux';
+
+import { AmplifyConfirmSignUp, } from '@aws-amplify/ui-react';
 import { I18n } from '@aws-amplify/core';
 
-const RegisterConfirm = () => {
+const mapStateToProps = (state) => {
+	return {
+		email: state.user.attributes.email || '',
+	}
+};
+
+const RegisterConfirm = (props) => {
+
+	const handleSubmitEvent = () => {
+		//do nothing
+	}
 
 	return (
 		<AmplifyConfirmSignUp className="register-confirm"
@@ -21,14 +33,16 @@ const RegisterConfirm = () => {
 				{
 					type: "email",
 					required: false,
+					value: props.email,
 					label: I18n.get("REGISTER_CONFIRM_EMAIL_LABEL"),
 					inputProps: {
 						type: 'hidden',
 					}
 				}
-			]}>
-		</AmplifyConfirmSignUp>
+			]}
+			handleSubmit={() => handleSubmitEvent()}
+		/>
 	);
 }
 
-export default RegisterConfirm;
+export default connect(mapStateToProps, {})(RegisterConfirm);
