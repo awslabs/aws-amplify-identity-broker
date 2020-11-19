@@ -67,7 +67,7 @@ export default function AppTiles(props) {
 				{props.appClients.map((tile) => (
 					<GridListTile key={tile.client_id} >
 						<img
-							src={`logos/${tile.client_logo}`}
+							src={tile.client_logo}
 							alt={tile.client_name + " " + I18n.get('DASHBOARD_APPTILES_LOGO')}
 							onError={(e) => fallBackImage(e)}
 						/>

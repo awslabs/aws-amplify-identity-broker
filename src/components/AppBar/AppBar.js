@@ -25,7 +25,7 @@ import Divider from '@material-ui/core/Divider';
 
 import { Branding } from '../../branding';
 import avatar from '../../assets/Avatar/avatar.png';
-import logo from '../../assets/Logos/logoDark.png';
+import logoDark from '../../assets/Logos/logo-dark.png';
 import LanguageSelect from '../LanguageSelect/LanguageSelect';
 import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 
@@ -44,8 +44,9 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 	},
 	logo: {
-		width: 70,
+		width: 50,
 		marginRight: theme.spacing(2),
+
 	},
 	offset: theme.mixins.toolbar,
 }));
@@ -86,7 +87,7 @@ const Header = (props) => {
 		<div className={classes.root}>
 			<AppBar position="fixed" color="primary" >
 				<Toolbar>
-					<img alt="" src={logo} className={classes.logo} />
+					<img alt="" src={logoDark} className={classes.logo} />
 
 					{(width > 610) && (
 						<Typography variant="h5" className={classes.title}>

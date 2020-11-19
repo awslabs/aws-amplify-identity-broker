@@ -29,6 +29,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import logoLight from '../../assets/Logos/logo-light.png';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
@@ -37,6 +38,8 @@ import LanguageSelect from '../LanguageSelect/LanguageSelect';
 import DividerWithText from '../DividerWithText/DividerWithText';
 import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 import { Branding } from '../../branding';
+
+
 
 var Config = require("Config");
 
@@ -57,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
 	cardMedia: {
 		width: 300,
 		height: 200,
+		backgroundSize: 'contain',
 	},
 	cardHeader: {
 		paddingBottom: 0
@@ -193,7 +197,7 @@ const SignInContainer = ({ authState, loaded }) => {
 				>
 					<CardMedia
 						className={classes.cardMedia}
-						image="/logos/logo.png"
+						image={logoLight}
 						title={Branding.appName}
 					/>
 					<Typography

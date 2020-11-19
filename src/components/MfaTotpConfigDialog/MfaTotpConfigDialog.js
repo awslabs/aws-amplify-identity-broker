@@ -254,11 +254,11 @@ function MfaTotpConfigDialog(props) {
 									includeMargin={true}
 									renderAs={"svg"}
 									imageSettings={{
-										src: "logos/qrImage.png",
+										src: "logos/logo-light.png",
 										x: null,
 										y: null,
-										height: 48,
-										width: 64,
+										height: 50,
+										width: 50,
 										excavate: true,
 									}}
 								/>
