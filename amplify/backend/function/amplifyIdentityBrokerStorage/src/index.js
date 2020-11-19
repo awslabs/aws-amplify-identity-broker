@@ -87,7 +87,7 @@ exports.handler = async (event) => {
 		console.error(error);
 		return {
 			statusCode: 400,
-			body: error,
+			body: JSON.stringify('Invalid authorization_code')
 		};
 	}
 
