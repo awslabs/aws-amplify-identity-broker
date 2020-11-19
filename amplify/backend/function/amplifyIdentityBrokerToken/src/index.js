@@ -155,6 +155,14 @@ exports.handler = async (event) => {
 				body: JSON.stringify('Could not decrypt tokens'),
 			};
 		}
+
+		// Delete the record in DynamoDB: codes are valid only once
+		try {
+			await docClient.delete(params).promise();
+		} catch (error) {
+			console.error('Token deletion error', error); // This error doesn't need to be propagated to the user
+		}
+
 		return {
 			statusCode: 200,
 			headers: {
