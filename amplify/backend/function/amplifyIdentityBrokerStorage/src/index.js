@@ -73,6 +73,7 @@ exports.handler = async (event) => {
 			authorization_code: authorization_code
 		},
 		UpdateExpression: "SET id_token = :idt, access_token = :at, refresh_token = :rt",
+		ConditionExpression: "attribute_exists(authorization_code)",
 		ExpressionAttributeValues: {
 			":idt": encrypted_id_token,
 			":at": encrypted_access_token,
