@@ -27,7 +27,7 @@ __Note that even if your users login in with a 3rd party IdP they will have a un
 In term of UI customization because you are in control of the source code and the deployment infrastructure you can make any change you like.
 The same applies for flow customization where all the front end part are customizable using the broker and backend flows can be customized using [Amazon Cognito Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html). The broker already leverage some of these triggers to introduce special feature like i18n (internationalization).
 
-Finally the broker is a living open source project and your contributions are welcome if you see a missing feature that can be useful to all the broker users. Please see the  [CONTRIBUTING guide](../../CONTRIBUTING.md) and the [Developer Documentation](./DeveloperDocumentation.md) if you are interested by contributing.
+Finally the broker is a living open source project and your contributions are welcome if you see a missing feature that can be useful to all the broker users. Please see the  [CONTRIBUTING guide](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/CONTRIBUTING.md) and the [Developer Documentation](./DeveloperDocumentation.md) if you are interested by contributing.
 
 ### Choose your flow
 
