@@ -94,7 +94,7 @@
 			]
 		}
 	],
-	"hostedUIDomainName": "nbaedev-amplifyidbroker",
+	"hostedUIDomainName": "amplifyidbroker",
 	"authProvidersUserPool": [
 		"Facebook",
 		"Google",
