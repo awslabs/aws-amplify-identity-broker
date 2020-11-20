@@ -6,12 +6,6 @@ documentation, we greatly value feedback and contributions from our community.
 Please read through this document before submitting any issues or pull requests to ensure we have all the necessary
 information to effectively respond to your bug report or contribution.
 
-## Ideas for contributions
-
-You can find on [this page](https://github.com/awslabs/aws-amplify-identity-broker/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) ideas for PR.
-The label __help wanted__ indicates that we are looking for contribution on this.
-The label __good first issue__ will highlight the one that are not too complex.
-
 ## Reporting Bugs/Feature Requests
 
 We welcome you to use the GitHub issue tracker to report bugs or suggest features.
@@ -46,8 +40,7 @@ GitHub provides additional document on [forking a repository](https://help.githu
 
 
 ## Finding contributions to work on
-Looking at the existing issues is a great way to find something to contribute on. As our projects, by default, use the default GitHub issue labels (enhancement/bug/duplicate/help wanted/invalid/question/wontfix), looking at any 'help wanted' issues is a great place to start.
-
+Looking at the existing issues is a great way to find something to contribute on. As our projects, by default, use the default GitHub issue labels (enhancement/bug/duplicate/help wanted/invalid/question/wontfix), looking at any ['help wanted' issues](https://github.com/awslabs/aws-amplify-identity-broker/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) is a great place to start.
 
 ## Code of Conduct
 This project has adopted the [Amazon Open Source Code of Conduct](https://aws.github.io/code-of-conduct).
