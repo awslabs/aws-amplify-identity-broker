@@ -1,10 +1,13 @@
+[User Documentation](UserDocumentation.md) / [Client Developer Documentation](ClientDeveloperDocumentation.md) / __[Developer Documentation](DeveloperDocumentation.md)__
+
 # Developer Documentation
 
 This document is for contributors of the project.
+Contribution are welcome see [CONTRIBUTING](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/CONTRIBUTING.md) for information and rules of contribution
 
 ## Create your own dev environment
 
-Follow the [deployment instructions from the user documentation](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/Documentation/UserDocumentation.md#deployment-instructions).
+Follow the [deployment instructions from the user documentation](UserDocumentation.md#deployment-instructions).
 
 If you need a client, you can use the [demo client project](https://github.com/awslabs/aws-amplify-identity-broker-client). But you should play with your browser and Postman for easier test of the flows.
 
