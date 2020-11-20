@@ -114,12 +114,14 @@ Now, if after a first successfull login, the same user come from another client 
 This is the flow followed during this swap (here when coming from a PKCE client):
 
   ![Token Swap PKCE flow](Images/TokenClienIdSwap.png "Token Swap PKCE flow")
+  
+__Note:__ _It could have ben possible to reduce the complexity of this flow by relying on the Amazon Cognito hosted UI to swap the tokens. In fact the hosted UI will do the token SWAP if a user browser come back with an existing valid token in a cookie. We chose not relying on that because if for any reason the cookie is not there (on the hosted UI domain) the user will be presented the Amazon Cognito hosted UI which we want to absolutely prevent._
 
 ## Contribute
 
 PR are welcome. Any fixes or improvements. For new features, please open an issue to discuss it.
 
-See [CONTRIBUTING](../..CONTRIBUTING.md) for more rules and information.
+See [CONTRIBUTING](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/CONTRIBUTING.md) for more rules and information.
 
 _Please do not update team-provider-info.json in your Pull-Requests._
 
