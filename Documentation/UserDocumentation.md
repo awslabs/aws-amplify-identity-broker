@@ -124,6 +124,8 @@ __4. Set your User Pool's Federated Social Identity Providers__
 
 To set the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the `authProvidersUserPool` array. By default Facebook, Google, and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with. _If you add them again after deployment you'll just have to redo the step 6, 7 and 8._
 
+If you don't want any social provider just make the array empty.
+
 When initializing your environment in Step 6 you will be prompted for a Client ID and Client secret for each social provider you included. You can get these by completing Step 1 of the provided instructions for each social provider found [here](https://github.com/awslabs/aws-amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#social-providers)
 
 
@@ -142,7 +144,9 @@ _You need to have the AWS cli and AWS credentials in place before running this_
 ```
 amplify init
 ```
-You will be prompted for a name for your environment and a Client ID and Client secret for each social provider you included in Step 4
+You will be prompted for a name for your environment.
+
+If you defined any at step 4, you will be also be asked for a Client ID and Client secret for each social provider you included (If you don't have this information yet, you can enter "123456" for each value and edit later see [section Identity Providers](./UserDocumentation.md#identity-providers) for details)
 
 __7. Configure config-overrides.js__
 
@@ -158,7 +162,7 @@ If you do not need to federate just let the list empty:
 
 ```
 case "<your-amplify-environment-name>": localConfig = {
-            "providers": ["<a-corporate-SSO>", "Facebook", "LoginWithAmazon", "Google"]
+            "providers": []
 };
 ```
 
