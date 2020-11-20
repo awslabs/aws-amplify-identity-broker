@@ -122,9 +122,9 @@ __WARNING:__ _The Cognito domain name has to be __unique among all AWS customers
 
 __4. Set your User Pool's Federated Social Identity Providers__
 
-To set the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit the `authProvidersUserPool` array. By default Facebook, Google, and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with. _If you add them again after deployment you'll just have to redo the step 6, 7 and 8._
+To set the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit `authProvidersUserPool` and `hostedUIProviderMeta` arrays. By default Facebook, Google, and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with. _If you add them again after deployment you'll just have to redo the step 6, 7 and 8._
 
-If you don't want any social provider just make the array empty.
+If you don't want any social provider just make the arrays `authProvidersUserPool` and `hostedUIProviderMeta` empty.
 
 When initializing your environment in Step 6 you will be prompted for a Client ID and Client secret for each social provider you included. You can get these by completing Step 1 of the provided instructions for each social provider found [here](https://github.com/awslabs/aws-amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#social-providers)
 
