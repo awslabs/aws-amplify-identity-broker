@@ -95,6 +95,10 @@ The project architecture is the following:
 
 See __[Developer Documentation](Documentation/DeveloperDocumentation.md)__ to see more detailed information on every component. 
 
+## Contributing
+
+Your contribution is welcome, see [CONTRIBUTING](CONTRIBUTING.md) for ideas of PR and for contribution guidelines.
+
 ## Security
 
 See [Security Issue Notifications](CONTRIBUTING.md#security-issue-notifications) for more information.
