@@ -57,7 +57,7 @@ module.exports = function override(config, env) {
 	console.log("Build env is " + env);
 	let localConfig = {};
 	switch (AMPLIFY_ENV) {
-		case "vpprod": localConfig = {
+		case "devxrndev": localConfig = {
 			"providers": []
 		};
 			break;
@@ -71,7 +71,7 @@ module.exports = function override(config, env) {
 			break;
 		default:
 			localConfig = {
-				"providers": ["AWSSSO", "OIDCIdentityProvider", "LoginWithAmazon", "Facebook", "Google"],
+				"providers": [],
 			};
 	}
 
