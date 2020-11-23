@@ -22,10 +22,14 @@
 	"userpoolClientGenerateSecret": true,
 	"userpoolClientRefreshTokenValidity": 30,
 	"userpoolClientWriteAttributes": [
-		"email"
+		"email",
+		"locale",
+		"phone_number"
 	],
 	"userpoolClientReadAttributes": [
-		"email"
+		"email",
+		"locale",
+		"phone_number"
 	],
 	"userpoolClientLambdaRole": "brokeraue6c0c3e3_userpoolclient_lambda_role",
 	"userpoolClientSetAttributes": false,
