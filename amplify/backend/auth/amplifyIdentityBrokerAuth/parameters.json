@@ -36,6 +36,7 @@
 	],
 	"userpoolClientReadAttributes": [
 		"email",
+		"email_verified",
 		"locale",
 		"phone_number",
 		"custom:tos_signed",
