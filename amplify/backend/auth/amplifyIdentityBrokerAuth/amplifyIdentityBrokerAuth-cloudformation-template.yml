@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Authentication resources for the AWS Amplify Identity Broker
+Description: Auth resources for the AWS Amplify Identity Broker
 Parameters:
     env:
         Type: String

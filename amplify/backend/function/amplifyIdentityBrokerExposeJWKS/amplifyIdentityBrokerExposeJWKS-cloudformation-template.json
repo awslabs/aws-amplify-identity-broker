@@ -75,7 +75,7 @@
         "Layers": [],
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-amplify-identity-broker-devxrndev-162347-deployment",
+          "S3Bucket": "amplify-amplify-identity-broker-prod-111206-deployment",
           "S3Key": "amplify-builds/amplifyIdentityBrokerExposeJWKS-43646e52376650796e55-build.zip"
         }
       }

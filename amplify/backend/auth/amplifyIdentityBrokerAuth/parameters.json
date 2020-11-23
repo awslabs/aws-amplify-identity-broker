@@ -24,12 +24,18 @@
 	"userpoolClientWriteAttributes": [
 		"email",
 		"locale",
-		"phone_number"
+		"phone_number",
+		"custom:tos_signed",
+		"custom:tos_version",
+		"custom:newsletter"
 	],
 	"userpoolClientReadAttributes": [
 		"email",
 		"locale",
-		"phone_number"
+		"phone_number",
+		"custom:tos_signed",
+		"custom:tos_version",
+		"custom:newsletter"
 	],
 	"userpoolClientLambdaRole": "brokeraue6c0c3e3_userpoolclient_lambda_role",
 	"userpoolClientSetAttributes": false,
