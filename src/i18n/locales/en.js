@@ -13,6 +13,7 @@ import { Translations } from "@aws-amplify/ui-components";
 export const i18nStrings = {
 	// Amplify UI
 	[Translations.SIGN_UP_EMAIL_PLACEHOLDER]: "your.adress@example.com",
+	[Translations.PHONE_LABEL]: "Phone Number",
 	[Translations.PHONE_PLACEHOLDER]: "(555) 555-1234",
 
 	// Translate Amplify Messages

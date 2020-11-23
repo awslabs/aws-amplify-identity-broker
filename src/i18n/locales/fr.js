@@ -34,7 +34,7 @@ export const i18nStrings = {
 	[Translations.EMAIL_PLACEHOLDER]: "votre.email@exemple.com",
 	[Translations.PASSWORD_LABEL]: "Mot de passe *",
 	[Translations.PASSWORD_PLACEHOLDER]: "Entrez votre mot de passe",
-	[Translations.PHONE_LABEL]: "Numéro de téléphone *",
+	[Translations.PHONE_LABEL]: "Numéro de téléphone",
 	[Translations.PHONE_PLACEHOLDER]: "(555) 555-1234",
 	[Translations.CONFIRM_SIGN_UP_CODE_LABEL]: 'Code de confirmation',
 	[Translations.CONFIRM_SIGN_UP_CODE_PLACEHOLDER]: 'entrez votre code',

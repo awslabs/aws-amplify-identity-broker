@@ -34,7 +34,7 @@ export const i18nStrings = {
 	[Translations.EMAIL_PLACEHOLDER]: "jouw.email@exemple.nl",
 	[Translations.PASSWORD_LABEL]: "Wachtwoord *",
 	[Translations.PASSWORD_PLACEHOLDER]: "Voer uw wachtwoord in",
-	[Translations.PHONE_LABEL]: "Telefoonnummer *",
+	[Translations.PHONE_LABEL]: "Telefoonnummer",
 	[Translations.PHONE_PLACEHOLDER]: "(555) 555-1234",
 	[Translations.CONFIRM_SIGN_UP_CODE_LABEL]: "Verificatie code",
 	[Translations.CONFIRM_SIGN_UP_CODE_PLACEHOLDER]: "Voer uw code in",
