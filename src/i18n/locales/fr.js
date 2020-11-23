@@ -74,7 +74,7 @@ export const i18nStrings = {
 	DASHBOARD_ERROR_MESSAGE: "Une erreur est survenue",
 
 	// ./pages/Dashboard/appTiles.js
-	DASHBOARD_APPTILES_BTN_OPEN: "Ouvert",
+	DASHBOARD_APPTILES_BTN_OPEN: "Ouvrir",
 	DASHBOARD_APPTILES_LOGO: "Logo",
 
 	// ./pages/ErrorPage/ErrorPage.js
@@ -143,12 +143,12 @@ export const i18nStrings = {
 	TAB_USER_DATA_TEXTFIELD_GENDER_LABEL: "Le genre",
 	TAB_USER_DATA_TEXTFIELD_CUSTOM_NEWSLETTER_LABEL: "Bulletin",
 	TAB_USER_DATA_SELECT_GENDER_0: "<Veuillez sélectionner>",
-	TAB_USER_DATA_SELECT_GENDER_1: "Mâle",
-	TAB_USER_DATA_SELECT_GENDER_2: "Femelle",
-	TAB_USER_DATA_SELECT_GENDER_3: "Divers",
+	TAB_USER_DATA_SELECT_GENDER_1: "Homme",
+	TAB_USER_DATA_SELECT_GENDER_2: "Femme",
+	TAB_USER_DATA_SELECT_GENDER_3: "Autre",
 	TAB_USER_DATA_TEXTFIELD_LANGUAGE_LABEL: "Langue préférée",
 	TAB_USER_DATA_CHANGE_BUTTON_LABEL: "Changer",
-	TAB_USER_DATA_CANCEL_BUTTON_LABEL: "Avorter",
+	TAB_USER_DATA_CANCEL_BUTTON_LABEL: "Abandonner",
 	TAB_USER_DATA_SAVE_BUTTON_LABEL: "Sauver",
 	TAB_USER_DATA_MESSAGE_EROR: "Une erreur est survenue",
 	TAB_USER_DATA_MESSAGE_UPDATE_ATTRIBUTE_SUCCESS: "La mise à jour a réussi",
@@ -173,7 +173,7 @@ export const i18nStrings = {
 	IMPRINT_TITLE: "Imprimer",
 
 	// ./components/AppBar/AppBar.js
-	HEADER_MENU_ITEM_PROFILE: "Profile",
+	HEADER_MENU_ITEM_PROFILE: "Profil",
 	HEADER_MENU_ITEM_DASHBOARD: "Tableau de bord",
 	HEADER_MENU_ITEM_LOGOUT: "Se déconnecter",
 
@@ -196,7 +196,7 @@ export const i18nStrings = {
 	MFA_TOTP_CONFIG_DIALOG_TITLE: "Configuration TOTP",
 	MFA_TOTP_CONFIG_DIALOG_DESCRIPTION: "L'authentification multifacteur (MFA) améliore la sécurité en ajoutant une autre méthode d'authentification plutôt que de se fier uniquement au nom d'utilisateur et au mot de passe.",
 	MFA_TOTP_CONFIG_DIALOG_STEP1_LABEL: "Jeton de demande TOTP",
-	MFA_TOTP_CONFIG_DIALOG_STEP1_DESCRIPTION: "Vous pouvez utiliser des mots de passe à usage unique basés sur le temps (TOTP) comme deuxième facteur lorsque vos utilisateurs se connectent.",
+	MFA_TOTP_CONFIG_DIALOG_STEP1_DESCRIPTION: "Vous pouvez utiliser des mots de passe à usage unique basés sur le temps (TOTP) comme second facteur lorsque vos utilisateurs se connectent.",
 	MFA_TOTP_CONFIG_DIALOG_STEP1_BUTTON_TOKEN_REQUEST_LABEL: "Demander un jeton TOTP",
 	MFA_TOTP_CONFIG_DIALOG_STEP2_LABEL: "Configuration de l'appareil TOTP",
 	MFA_TOTP_CONFIG_DIALOG_STEP2_DESCRIPTION: "Scannez le QR-Code avec votre appareil",
@@ -206,14 +206,14 @@ export const i18nStrings = {
 	MFA_TOTP_CONFIG_DIALOG_STEP3_BUTTON_ACTIVATE_TOTP_LABEL: "Activer",
 	MFA_TOTP_CONFIG_DIALOG_BUTTON_NEXT_LABEL: "Suivant",
 	MFA_TOTP_CONFIG_DIALOG_BUTTON_BACK_LABEL: "Retour",
-	MFA_TOTP_CONFIG_DIALOG_BUTTON_CLOSE_LABEL: "Proche",
+	MFA_TOTP_CONFIG_DIALOG_BUTTON_CLOSE_LABEL: "Fermer",
 	MFA_TOTP_CONFIG_DIALOG_MESSAGE_EROR: "Une erreur est survenue",
 
 	// ./components/VerifyAttributeDialog/VerifyAttributeDialog.js
-	VERIFY_DIALOG_TITLE: "Verify",
-	VERIFY_DIALOG_DESCRIPTION: "Please enter the code:",
+	VERIFY_DIALOG_TITLE: "Verification",
+	VERIFY_DIALOG_DESCRIPTION: "Entrez le code s'il vous plaît:",
 	VERIFY_DIALOG_INPUT_LABEL: "Code",
-	VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verify",
+	VERIFY_DIALOG_VERIFY_BUTTON_LABEL: "Verifier",
 	VERIFY_DIALOG_CLOSE_BUTTON_LABEL: "Close",
 	VERIFY_DIALOG_MESSAGE_EROR: "Une erreur est survenue",
 
