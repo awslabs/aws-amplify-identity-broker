@@ -4,20 +4,17 @@ This project demonstrates how to build a login application to authenticate sever
 
 __Current features are:__
 
-* login, forgot password ...
-* is a standard OIDC Identity Provider
-* style customization
+* login flows: sign-in, sign-up, forgot password, reset-password ...
+* is a __standard OIDC Identity Provider__
+* 100% UI customizable
 * i18n : _languages in this demo: English and French_
 * PKCE and Implicit Oauth2 flows : _for secured web and mobile application login_
-* deep customization of flows and UIs
+* deep customization of flows
 * Social login federation: _Facebook, Twitter, Amazon, Google logins_
 * Corporate federation: _SAML_ and _OIDC (JWT token)_
 * Migration helper
-* account setting page
+* account setting page with various customer attributes
 * SSO dashboard (listing apps)
-
-__Coming soon features:__
-
 * MFA : _SMS, OTP_
 * consent approbation
 
