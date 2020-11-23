@@ -12,7 +12,7 @@ __Current features are:__
 * deep customization of flows
 * Social login federation: _Facebook, Twitter, Amazon, Google logins_
 * Corporate federation: _SAML_ and _OIDC (JWT token)_
-* Migration helper
+* Migration helper (transparent migration from an existing user base to this project)
 * account setting page with various customer attributes
 * SSO dashboard (listing apps)
 * MFA : _SMS, OTP_
