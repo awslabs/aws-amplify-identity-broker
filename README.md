@@ -1,35 +1,36 @@
 # AWS Amplify Identity Broker
 
-This project demonstrates how to build a login application to authenticate several websites and mobile apps.
+This project demonstrates how to build a login application to authenticate several websites and mobile apps. It is based on [AWS Amplify](https://aws.amazon.com/amplify/) and [Amazon Cognito](https://aws.amazon.com/cognito/). Authentication is based on standard JWT token and can be integrated with any application supporting Oauth2/OIDC.
+
+![Short Demo](Documentation/Images/broker-demo.gif "Short Demo")
 
 __Current features are:__
 
 * login flows: sign-in, sign-up, forgot password, reset-password ...
+* central SSO
 * is a __standard OIDC Identity Provider__
-* 100% UI customizable
+* 100% UI customizable (fork the project)
 * i18n : _languages in this demo: English and French_
-* PKCE and Implicit Oauth2 flows : _for secured web and mobile application login_
-* deep customization of flows
 * Social login federation: _Facebook, Twitter, Amazon, Google logins_
 * Corporate federation: _SAML_ and _OIDC (JWT token)_
+* MFA : _SMS, OTP_
+* PKCE and Implicit Oauth2 flows : _for secured web and mobile application login_
+* deep customization of flows
 * Migration helper (transparent migration from an existing user base to this project)
 * account setting page with various customer attributes
 * SSO dashboard (listing apps)
-* MFA : _SMS, OTP_
 * consent approbation
 
 This is a simplified view of the scope of the project (what this repository is about):
 
 ![Projet Scope Image](Documentation/Images/SimplifiedProjectScope.png "Simplified Project Scope")
 
-The project is based on [AWS Amplify](https://aws.amazon.com/amplify/) and [Amazon Cognito](https://aws.amazon.com/cognito/). Authentication is based on standard JWT token.
-
 ## Live demo
 
 You can sign-up, sign-in, try SSO from any of these two client application demos:
 
 * Website 1 : https://master.dv7odw7xb73ou.amplifyapp.com _(this could be __myapp1.yourcompany.com__)_
-* Website 2 :  https://master.dgt79y8acfq6b.amplifyapp.com _(this could be __www.yoursubsidiary.com__ or __myapp2.yourcompany.com__)_
+* Website 2 : https://master.dgt79y8acfq6b.amplifyapp.com _(this could be __www.yoursubsidiary.com__ or __myapp2.yourcompany.com__)_
 
 In a real use case, your user will only go to the broker from a client website or app, but for reference the Broker demo url itself is:
 
