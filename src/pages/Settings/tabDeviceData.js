@@ -41,8 +41,7 @@ const useStyles = makeStyles((theme) => ({
 		paddingBottom: theme.spacing(2),
 	},
 	card: {
-		minWidth: 450,
-		//paddingBottom: 0,
+
 	},
 	cardHeader: {
 		backgroundColor: Branding.primary,
