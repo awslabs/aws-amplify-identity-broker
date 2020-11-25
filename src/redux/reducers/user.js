@@ -21,6 +21,7 @@ const initState = () => {
 	return user;
 };
 
+/* eslint import/no-anonymous-default-export: [2, {"allowAnonymousFunction": true}] */
 export default function (state = initState(), action) {
 	switch (action.type) {
 		case SET_USER: {
