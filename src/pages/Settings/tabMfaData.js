@@ -34,13 +34,14 @@ import FormLabel from '@material-ui/core/FormLabel';
 import { Branding } from '../../branding';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
 import MfaTotpConfigDialog from '../../components/MfaTotpConfigDialog/MfaTotpConfigDialog';
+import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 
 	},
 	card: {
-		minWidth: 400,
+
 	},
 	cardHeader: {
 		backgroundColor: Branding.primary,
@@ -54,6 +55,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 	cardActions: {
 		justifyContent: 'center',
+	},
+	radioGroup: {
+		marginTop: theme.spacing(1),
+		marginLeft: theme.spacing(1),
+		marginRight: theme.spacing(2),
 	},
 	buttonCancel: {
 		marginTop: theme.spacing(1),
@@ -85,6 +91,7 @@ const mapStateToProps = (state) => {
 
 function TabMfaData(props) {
 	const classes = useStyles();
+	const { width } = useWindowDimensions();
 	const [editMode, setEditMode] = React.useState(false)
 	const [mfaType, setMfaType] = React.useState('');
 	const [totpDialog, setTotpDialog] = React.useState(false);
@@ -247,6 +254,8 @@ function TabMfaData(props) {
 				<CardHeader
 					className={classes.cardHeader}
 					title={I18n.get('TAB_MFA_DATA_LABEL')}
+					disableTypography={width >= 375 ? false : true}
+					titleTypographyProps={{}}
 				/>
 				<CardContent className={classes.cardContent}>
 					<Card variant="outlined">
@@ -260,6 +269,7 @@ function TabMfaData(props) {
 									value={mfaType}
 									onChange={(event) => handleMfaTypeChange(event.target.value)}
 									aria-label="mfaType"
+									className={classes.radioGroup}
 								>
 									<FormControlLabel
 										value="SOFTWARE_TOKEN_MFA"

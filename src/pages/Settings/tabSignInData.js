@@ -33,6 +33,7 @@ import LogOutButton from '../../components/LogoutButton/LogoutButton';
 import VerifyAttributeDialog from '../../components/VerifyAttributeDialog/VerifyAttributeDialog';
 import ChangePasswordDialog from '../../components/ChangePasswordDialog/ChangePasswordDialog';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
+import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 import { setUser, setUserEmail, setUserPhonenumber } from '../../redux/actions';
 
 const useStyles = makeStyles((theme) => ({
@@ -62,10 +63,10 @@ const useStyles = makeStyles((theme) => ({
 		color: Branding.secondary,
 	},
 	formControl: {
-
+		width: "-webkit-fill-available"
 	},
 	input: {
-		minWidth: 375,
+
 	},
 	chipVerified: {
 		marginTop: -50,
@@ -80,6 +81,26 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: -50,
 		backgroundColor: Branding.negative,
 		color: Branding.white,
+		'&:hover': {
+			backgroundColor: Branding.negative,
+			opacity: Branding.opacityHover,
+		},
+	},
+	chipVerifiedMobile: {
+		marginTop: theme.spacing(1),
+		backgroundColor: Branding.positive,
+		color: Branding.white,
+		width: 'fit-content',
+		'&:hover': {
+			backgroundColor: Branding.positive,
+			opacity: Branding.opacityHover,
+		},
+	},
+	chipUnverifiedMobile: {
+		marginTop: theme.spacing(1),
+		backgroundColor: Branding.negative,
+		color: Branding.white,
+		width: 'fit-content',
 		'&:hover': {
 			backgroundColor: Branding.negative,
 			opacity: Branding.opacityHover,
@@ -127,6 +148,7 @@ const mapStateToProps = (state) => {
 
 const TabSignInData = (props) => {
 	const classes = useStyles();
+	const { width } = useWindowDimensions();
 	const [editEmail, setEditEmail] = React.useState(false);
 	const [editPhoneNumber, setEditPhoneNumber] = React.useState(false);
 	const [passwordChange, setPasswordChange] = React.useState(false);
@@ -339,6 +361,8 @@ const TabSignInData = (props) => {
 				<CardHeader
 					className={classes.header}
 					title={I18n.get('TAB_SIGNIN_DATA_LABEL')}
+					disableTypography={width >= 375 ? false : true}
+					titleTypographyProps={{}}
 				/>
 				<CardContent className={classes.cardContent}>
 					{/*
@@ -381,7 +405,7 @@ const TabSignInData = (props) => {
 									</InputAdornment>
 								}
 								endAdornment={
-									!editEmail && (
+									(width >= 375) && !editEmail && (
 										<InputAdornment position="end">
 											{(props.email && props.email_verified) && (
 												<Chip
@@ -401,6 +425,21 @@ const TabSignInData = (props) => {
 								className={classes.input}
 								inputProps={{ style: { left: 0 } }}
 							/>
+							{(width < 375) && !editEmail && props.email && props.email_verified && (
+								<Chip
+									size="small"
+									label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')}
+									className={classes.chipVerifiedMobile}
+								/>
+							)}
+							{(width < 375) && !editEmail && props.email && !props.email_verified && (
+								<Chip
+									size="small"
+									label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')}
+									onClick={() => verifyCurrentUserAttribute('email')}
+									className={classes.chipUnverifiedMobile}
+								/>
+							)}
 						</FormControl>
 						{editEmail && (
 							<div>
@@ -439,7 +478,7 @@ const TabSignInData = (props) => {
 									</InputAdornment>
 								}
 								endAdornment={
-									!editPhoneNumber && (
+									(width >= 375) && !editPhoneNumber && (
 										<InputAdornment position="end">
 											{(props.phone_number && props.phone_number_verified) && (
 												<Chip
@@ -461,6 +500,21 @@ const TabSignInData = (props) => {
 								className={classes.input}
 								inputProps={{ style: { left: 0 } }}
 							/>
+							{(width < 375) && !editPhoneNumber && props.phone_number && props.phone_number_verified && (
+								<Chip
+									size="small"
+									label={I18n.get('TAB_SIGNIN_DATA_CHIP_VERIFIED_LABEL')}
+									className={classes.chipVerifiedMobile}
+								/>
+							)}
+							{(width < 375) && !editPhoneNumber && props.phone_number && !props.phone_number_verified && (
+								<Chip
+									size="small"
+									label={I18n.get('TAB_SIGNIN_DATA_CHIP_UNVERIFIED_LABEL')}
+									onClick={() => verifyCurrentUserAttribute('phone_number')}
+									className={classes.chipUnverifiedMobile}
+								/>
+							)}
 						</FormControl>
 						{editPhoneNumber && (
 							<div>

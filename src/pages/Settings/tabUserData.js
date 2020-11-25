@@ -32,6 +32,7 @@ import Select from '@material-ui/core/Select';
 import { Branding } from '../../branding';
 import { setUser, setLang } from '../../redux/actions';
 import AppSnackbar from '../../components/Snackbar/Snackbar';
+import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 import { LanguageTypes } from '../../i18n/i18n';
 
 const useStyles = makeStyles((theme) => ({
@@ -55,7 +56,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 	textField: {
 		margin: theme.spacing(1),
-		minWidth: 300,
+	},
+	formControl: {
+		width: '-webkit-fill-available',
 	},
 	inputLableGender: {
 		marginLeft: theme.spacing(2),
@@ -109,6 +112,7 @@ const mapStateToProps = (state) => {
 
 const TabUserData = (props) => {
 	const classes = useStyles();
+	const { width } = useWindowDimensions();
 	const [editAttributes, setEditAttributes] = React.useState(false);
 	const [snackBarOps, setSnackBarOps] = React.useState({
 		type: 'info',
@@ -221,54 +225,64 @@ const TabUserData = (props) => {
 				<CardHeader
 					className={classes.header}
 					title={I18n.get('TAB_USER_DATA_LABEL')}
+					disableTypography={width >= 375 ? false : true}
+					titleTypographyProps={{}}
 				/>
 				<CardContent className={classes.cardContent}>
 					<form noValidate autoComplete="off">
 						<Box>
-							<TextField
-								id="textfield_given_name"
-								value={props.given_name}
-								label={I18n.get('TAB_USER_DATA_TEXTFIELD_GIVEN_NAME_LABEL')}
-								className={classes.textField}
-								onChange={(event) => handleAttributeChange('given_name', event.target.value)}
-								inputProps={{ style: { left: 0 } }}
-							/>
+							<FormControl className={classes.formControl}>
+								<TextField
+									id="textfield_given_name"
+									value={props.given_name}
+									label={I18n.get('TAB_USER_DATA_TEXTFIELD_GIVEN_NAME_LABEL')}
+									className={classes.textField}
+									onChange={(event) => handleAttributeChange('given_name', event.target.value)}
+									inputProps={{ style: { left: 0 } }}
+								/>
+							</FormControl>
 						</Box>
 						<Box>
-							<TextField
-								id="textfield_family_name"
-								value={props.family_name}
-								label={I18n.get('TAB_USER_DATA_TEXTFIELD_FAMILY_NAME_LABEL')}
-								className={classes.textField}
-								onChange={(event) => handleAttributeChange('family_name', event.target.value)}
-								inputProps={{ style: { left: 0 } }}
-							/>
+							<FormControl className={classes.formControl}>
+								<TextField
+									id="textfield_family_name"
+									value={props.family_name}
+									label={I18n.get('TAB_USER_DATA_TEXTFIELD_FAMILY_NAME_LABEL')}
+									className={classes.textField}
+									onChange={(event) => handleAttributeChange('family_name', event.target.value)}
+									inputProps={{ style: { left: 0 } }}
+								/>
+							</FormControl>
 						</Box>
 						<Box>
-							<TextField
-								id="textfield_address"
-								value={props.address}
-								multiline
-								rows={3}
-								label={I18n.get('TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL')}
-								className={classes.textField}
-								onChange={(event) => handleAttributeChange('address', event.target.value)}
-								inputProps={{ style: { left: 0 } }}
-							/>
+							<FormControl className={classes.formControl}>
+								<TextField
+									id="textfield_address"
+									value={props.address}
+									multiline
+									rows={3}
+									label={I18n.get('TAB_USER_DATA_TEXTFIELD_ADDRESS_LABEL')}
+									className={classes.textField}
+									onChange={(event) => handleAttributeChange('address', event.target.value)}
+									inputProps={{ style: { left: 0 } }}
+								/>
+							</FormControl>
 						</Box>
 						<Box>
-							<TextField
-								id="textfield_birthday_date"
-								value={props.birthdate}
-								label={I18n.get('TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL')}
-								type="date"
-								onChange={(event) => handleAttributeChange('birthdate', event.target.value)}
-								className={classes.textField}
-								InputLabelProps={{
-									shrink: true,
-								}}
-								inputProps={{ style: { left: 0 } }}
-							/>
+							<FormControl className={classes.formControl}>
+								<TextField
+									id="textfield_birthday_date"
+									value={props.birthdate}
+									label={I18n.get('TAB_USER_DATA_TEXTFIELD_BIRTHDATE_LABEL')}
+									type="date"
+									onChange={(event) => handleAttributeChange('birthdate', event.target.value)}
+									className={classes.textField}
+									InputLabelProps={{
+										shrink: true,
+									}}
+									inputProps={{ style: { left: 0 } }}
+								/>
+							</FormControl>
 						</Box>
 						<Box>
 							<FormControl className={classes.formControl}>

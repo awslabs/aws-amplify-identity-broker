@@ -111,7 +111,7 @@ export default function Content(props) {
 						<Tabs
 							value={value}
 							onChange={handleChange}
-							centered
+							centered={width >= 550 ? true : false}
 							variant={width < 550 ? "scrollable" : "standard"}
 							aria-label="user data tabs"
 							className={classes.tabs}
