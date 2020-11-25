@@ -292,23 +292,22 @@ function TabMfaData(props) {
 						</CardContent >
 						<CardActions className={classes.cardActions}>
 							{editMode && (
-								<Button
-									variant="outlined"
-									onClick={() => handleSaveClick()}
-									className={classes.buttonSave}
-								>
-									{I18n.get('TAB_MFA_DATA_SAVE_BUTTON_LABEL')}
-								</Button>
-							)}
-
-							{editMode && (
-								<Button
-									variant="outlined"
-									onClick={() => handleCancelClick()}
-									className={classes.buttonCancel}
-								>
-									{I18n.get('TAB_MFA_DATA_CANCEL_BUTTON_LABEL')}
-								</Button>
+								<div>
+									<Button
+										variant="outlined"
+										onClick={() => handleSaveClick()}
+										className={classes.buttonSave}
+									>
+										{I18n.get('TAB_MFA_DATA_SAVE_BUTTON_LABEL')}
+									</Button>
+									<Button
+										variant="outlined"
+										onClick={() => handleCancelClick()}
+										className={classes.buttonCancel}
+									>
+										{I18n.get('TAB_MFA_DATA_CANCEL_BUTTON_LABEL')}
+									</Button>
+								</div>
 							)}
 						</CardActions>
 					</Card >
