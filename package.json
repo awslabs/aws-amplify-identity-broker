@@ -3,7 +3,6 @@
 	"version": "1.0.0",
 	"license": "MIT License",
 	"repository": "github:awslabs/aws-amplify-identity-broker",
-	"homepage": ".",
 	"private": true,
 	"description": "AWS Amplify Identity Broker is a login federation solution supporting OIDC, SAML and social federation",
 	"dependencies": {
