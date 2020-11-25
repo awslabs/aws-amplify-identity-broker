@@ -49,10 +49,12 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: 14,
 	},
 	cardContent: {
-		textAlign: 'center',
+		padding: theme.spacing(1),
 	},
 	cardActions: {
 		justifyContent: 'center',
+		textAlign: 'center',
+		padding: theme.spacing(1),
 	},
 	textField: {
 		margin: theme.spacing(1),
@@ -61,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
 		width: '-webkit-fill-available',
 	},
 	inputLableGender: {
-		marginLeft: theme.spacing(2),
+		marginLeft: theme.spacing(1),
 	},
 	checkBox: {
 		marginLeft: theme.spacing(2),
@@ -357,6 +359,7 @@ const TabUserData = (props) => {
 						</div>
 					)}
 				</CardActions>
+
 			</Card >
 		</div>
 	)
