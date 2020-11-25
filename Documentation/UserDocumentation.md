@@ -43,33 +43,33 @@ Expand the section below to see the detailed flows:
 
 <details>
   <summary>Implicit flow</summary>
-  
+
   Flow entities are:
   * __User__: the user and his browser
   * __Client Application__: (like the one from our [client demo project](https://github.com/awslabs/aws-amplify-identity-broker-client))
   * __Identity Broker__ : the main project
   * __DynamoDB__: the broker storage layer
   * __Cognito__: The Amazon Cognito service and endpoints
-  
+
   __Implicit flow__
-  
+
   ![Implicit flow](Images/ImplicitFlow.png "Implicit flow")
-  
+
   _Note: Accordingly to the [what the Oauth2 BCP recommend](https://tools.ietf.org/html/draft-ietf-oauth-security-topics-09#section-2.1.2) we do not return the access_token in that flow but only the id_token._
 </details>
 
 <details>
   <summary>PKCE flow</summary>
-  
+
   Flow entities are:
   * __User__: the user and his browser
   * __Client Application__: (like the one from our [client demo project](https://github.com/awslabs/aws-amplify-identity-broker-client))
   * __Identity Broker__ : the main project
   * __DynamoDB__: the broker storage layer
   * __Cognito__: The Amazon Cognito service and endpoints
-  
+
   ![PKCE flow](Images/PKCEFlow.png "PKCE flow")
-  
+
 </details>
 
 See [Client Developer Documentation](./ClientDeveloperDocumentation.md) to see how to implement a client using these flows.
@@ -110,13 +110,13 @@ __Note__: _If you want to save your modification and settings under Git your sho
 __2. Install all the dependencies__
 
 ```
-cd amplify-identity-broker
+cd aws-amplify-identity-broker
 npm install
 ```
 
 __3. Set your Hosted UI Domain Name__
 
-To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the `hostedUIDomainName` property. Be default it is "amplifyidbroker". When created, the Hosted UI domain name will take the form `https://{hostedUIDomainName}-{environment}.auth.{region}.amazoncognito.com` 
+To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the `hostedUIDomainName` property. Be default it is "amplifyidbroker". When created, the Hosted UI domain name will take the form `https://{hostedUIDomainName}-{environment}.auth.{region}.amazoncognito.com`
 
 __WARNING:__ _The Cognito domain name has to be __unique among all AWS customers__ in your selected region. Conflicting domain name is a cause of deployment failure_
 
@@ -237,18 +237,18 @@ __Note:__ This variable requirement is a temporary workaround that may disappear
 
 Once the environment is created you'll need to add the necessary redirect rules manually. On the AWS console, go to _AWS Amplify_, select your app, on the left menu click on _Rewrites and redirects_ and clic _Edit_ to input the following values:
 
-| First Header  | Second Header | Type |
-| ------------- | ------------- | ---- |
-| /oauth2/<*>  | ...api-gateway-url.../oauth2/<*>  | 200 |
-| /storage  | ...api-gateway-url.../storage  | 200 |
-| /.well-known/jwks.json  | ...api-gateway-url.../.well-known/jwks.json  | 200 |
-| /verifyClient  | ...api-gateway-url.../verifyClient  | 200 |
-| /clients  | ...api-gateway-url.../clients  | 200 |
-| /accountConfirmation  | ...api-gateway-url.../accountConfirmation  | 200 |
-| /dashboard  | /index.html  | 200 |
-| /settings  | /index.html  | 200 |
-| /logout  | /index.html  | 200 |
-| /<*>  | /index.html  | 404 |
+| First Header           | Second Header                               | Type |
+| ---------------------- | ------------------------------------------- | ---- |
+| /oauth2/<*>            | ...api-gateway-url.../oauth2/<*>            | 200  |
+| /storage               | ...api-gateway-url.../storage               | 200  |
+| /.well-known/jwks.json | ...api-gateway-url.../.well-known/jwks.json | 200  |
+| /verifyClient          | ...api-gateway-url.../verifyClient          | 200  |
+| /clients               | ...api-gateway-url.../clients               | 200  |
+| /accountConfirmation   | ...api-gateway-url.../accountConfirmation   | 200  |
+| /dashboard             | /index.html                                 | 200  |
+| /settings              | /index.html                                 | 200  |
+| /logout                | /index.html                                 | 200  |
+| /<*>                   | /index.html                                 | 404  |
 
 __Note:__ The `...api-gateway-url...` needs to be replaced by the entry point url of the API Gateway associated with your broker. You can find the value by going to the Amazon API Gateway service or by looking at the AWS CloudFormation service and reading at the output parameter `RootUrl` of the template `amplify-amplify-identity-broker-<env>-xxxxxx-apiamplifyIdentityBrokerApi-XXXXXXXXXXX`.
 
