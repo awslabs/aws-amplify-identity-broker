@@ -247,14 +247,14 @@ const TabSignInData = (props) => {
 	};
 
 	const handleEmailChange = (value) => {
-		if (!value) return;
+		//if (!value) return;
 
 		setEditEmail(true);
 		props.setUserEmail(value);
 	};
 
 	const handlePhoneNumberChange = (value) => {
-		if (!value) return;
+		//if (!value) return;
 
 		setEditPhoneNumber(true);
 		props.setUserPhonenumber(value);
@@ -294,12 +294,34 @@ const TabSignInData = (props) => {
 	const handleAttributeSave = (attr) => {
 		switch (attr) {
 			case 'email':
-				updateUserAttributes(`{"${attr}": "${props.email}"}`, attr)
-				setEditEmail(false);
+				if (validateEmailAddress(props.email)) {
+					updateUserAttributes(`{"${attr}": "${props.email}"}`, attr)
+					setEditEmail(false);
+				} else {
+					setSnackBarOps({
+						type: 'error',
+						open: true,
+						vertical: 'top',
+						horizontal: 'center',
+						autoHide: 3000,
+						message: I18n.get('TAB_SIGNIN_DATA_MESSAGE_EMAIL_VALIDATION_ERROR')
+					});
+				}
 				break;
 			case 'phone_number':
-				updateUserAttributes(`{"${attr}": "${props.phone_number}"}`, attr)
-				setEditPhoneNumber(false);
+				if (validatePhoneNumber(props.phone_number)) {
+					updateUserAttributes(`{"${attr}": "${props.phone_number}"}`, attr)
+					setEditPhoneNumber(false);
+				} else {
+					setSnackBarOps({
+						type: 'error',
+						open: true,
+						vertical: 'top',
+						horizontal: 'center',
+						autoHide: 3000,
+						message: I18n.get('TAB_SIGNIN_DATA_MESSAGE_PHONE_NUMBER_VALIDATION_ERROR')
+					});
+				}
 				break;
 			default:
 				break;
@@ -334,6 +356,18 @@ const TabSignInData = (props) => {
 		};
 
 		setPasswordChange(false);
+	}
+
+	const validateEmailAddress = (emailAddress = "") => {
+		var reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/;
+
+		return emailAddress === "" ? true : reg.test(emailAddress) ? true : false;
+	}
+
+	const validatePhoneNumber = (phonenumber = "") => {
+		var reg = /^\+[0-9]{3,}$/;
+
+		return phonenumber === "" ? true : reg.test(phonenumber) ? true : false;
 	}
 
 	return (

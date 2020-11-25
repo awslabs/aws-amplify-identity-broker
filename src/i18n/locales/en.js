@@ -98,6 +98,8 @@ export const i18nStrings = {
 	TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Please verify your changes",
 	TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "The password was successful set",
 	TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "The verification was successful",
+	TAB_SIGNIN_DATA_MESSAGE_EMAIL_VALIDATION_ERROR: "Invalid E-Mail Address",
+	TAB_SIGNIN_DATA_MESSAGE_PHONE_NUMBER_VALIDATION_ERROR: "Invalid Phone number. A phone number can only contain the + sign and digits",
 
 	// ./pages/Settings/tabUserData.js
 	TAB_USER_DATA_LABEL: "USER DATA",

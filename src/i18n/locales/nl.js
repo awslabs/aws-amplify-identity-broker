@@ -133,6 +133,8 @@ export const i18nStrings = {
 	TAB_SIGNIN_DATA_MESSAGE_UPDATE_ATTRIBUTE_VERIFYCATION_REQUEST: "Controleer uw wijzigingen",
 	TAB_SIGNIN_DATA_MESSAGE_PASSWORD_CHANGE_SUCCESS: "Voer uw huidige en nieuwe wachtwoord in",
 	TAB_SIGNIN_DATA_MESSAGE_VERIFY_ATTRIBUTE_MESSAGE_SUCCESS: "De verificatie is gelukt",
+	TAB_SIGNIN_DATA_MESSAGE_EMAIL_VALIDATION_ERROR: "Ongeldig e-mailadres",
+	TAB_SIGNIN_DATA_MESSAGE_PHONE_NUMBER_VALIDATION_ERROR: "Ongeldig telefoonnummer. Een telefoonnummer kan alleen het teken en de cijfers bevatten",
 
 	// ./pages/Settings/tabUserData.js
 	TAB_USER_DATA_LABEL: "GEBRUKERSGEGEVENS",
