@@ -1,0 +1,84 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+
+  # React FE
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+
+  # Lambda Functions
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/amplifyIdentityBrokerAccountConfirmation/src/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/amplifyIdentityBrokerAuthorize/src"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/amplifyIdentityBrokerClients/src/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/amplifyIdentityBrokerCreateAuthChallenge/src/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/amplifyIdentityBrokerCustomMessage/src/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/amplifyIdentityBrokerDefineAuthChallenge/src/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/amplifyIdentityBrokerExposeJWKS/src/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/amplifyIdentityBrokerMigration/src/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/amplifyIdentityBrokerPostDeployment/src/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/amplifyIdentityBrokerStorage/src/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/amplifyIdentityBrokerToken/src/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/amplifyIdentityBrokerUserInfo/src/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/amplifyIdentityBrokerVerifyAuthChallenge/src/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/amplifyIdentityBrokerVerifyClient/src/"
+    schedule:
+      interval: "daily"
