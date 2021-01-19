@@ -1,4 +1,6 @@
-# AWS Amplify Identity Broker
+# AWS Amplify Identity Broker: code sample
+
+__DISCLAIMER:__ _This project is a code sample provided as an illustration of how to achieve and identity broker and SSO on top of Amazon Cognito. Doing this provides extra flexibility at the price of more responsibility on customer side (see section "Comparison with the Amazon Cognito Hosted UI" for a visual comparison of the responsibility shift). Most customers should use the  [Amazon Cognito hosted UI](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-app-integration.html) as a production ready solution. If you decide to use this project in production make sure you have engineering resources to maintain it as well as expertise to keep it secure._
 
 This project demonstrates how to build a login application to authenticate several websites and mobile apps. It is based on [AWS Amplify](https://aws.amazon.com/amplify/) and [Amazon Cognito](https://aws.amazon.com/cognito/). Authentication is based on standard JWT token and can be integrated with any application supporting Oauth2/OIDC.
 
