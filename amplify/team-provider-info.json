@@ -94,7 +94,11 @@
         "amplifyIdentityBrokerUserInfo": {},
         "amplifyIdentityBrokerExposeJWKS": {},
         "amplifyIdentityBrokerVerifyClient": {},
-        "amplifyIdentityBrokerAccountConfirmation": {}
+        "amplifyIdentityBrokerAccountConfirmation": {},
+        "amplifyIdentityBrokerClients": {},
+        "amplifyIdentityBrokerDefineAuthChallenge": {},
+        "amplifyIdentityBrokerVerifyAuthChallenge": {},
+        "amplifyIdentityBrokerCreateAuthChallenge": {}
       }
     }
   },
