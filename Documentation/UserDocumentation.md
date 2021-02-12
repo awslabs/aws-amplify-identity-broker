@@ -1,6 +1,33 @@
 __[User Documentation](UserDocumentation.md)__ / [Client Developer Documentation](ClientDeveloperDocumentation.md) / [Developer Documentation](DeveloperDocumentation.md)
 
-# User Documentation
+# User Documentation <!-- omit in toc -->
+
+- [Presentation](#presentation)
+  - [Choose your flow](#choose-your-flow)
+  - [Difference with the OIDC standard](#difference-with-the-oidc-standard)
+- [Deployment](#deployment)
+  - [Architecture](#architecture)
+  - [Deployment Instructions](#deployment-instructions)
+- [Deploying with the AWS Amplify console](#deploying-with-the-aws-amplify-console)
+  - [Step 1: Environment Variables|](#step-1-environment-variables)
+  - [Step 2: Redirect rules](#step-2-redirect-rules)
+  - [Step 3: Configure domain (mandatory)](#step-3-configure-domain-mandatory)
+- [Register a client](#register-a-client)
+- [CSS & UI components customization instruction](#css--ui-components-customization-instruction)
+- [Identity Providers](#identity-providers)
+  - [OIDC Provider (oauth2)](#oidc-provider-oauth2)
+  - [SAML Provider](#saml-provider)
+  - [Social Providers](#social-providers)
+  - [Step 1: Register with Facebook to get a App ID and App Secret](#step-1-register-with-facebook-to-get-a-app-id-and-app-secret)
+  - [Step 2: Finish registering with Facebook](#step-2-finish-registering-with-facebook)
+  - [Step 1: Register with Google to get a OAuth client ID and client secret](#step-1-register-with-google-to-get-a-oauth-client-id-and-client-secret)
+  - [Step 2: Finish registering with Google](#step-2-finish-registering-with-google)
+  - [Step 1: Register with Amazon to get a Client ID and Client Secret](#step-1-register-with-amazon-to-get-a-client-id-and-client-secret)
+  - [Step 2: Finish registering with Amazon](#step-2-finish-registering-with-amazon)
+- [Migration instructions](#migration-instructions)
+- [Uninstall](#uninstall)
+  - [Step 1 : stack deletion](#step-1--stack-deletion)
+  - [Step 2 : delete the user pool](#step-2--delete-the-user-pool)
 
 This document explains how to use the broker:
 
@@ -96,8 +123,8 @@ __COST__ The project architecture is Serverless, you only pay when there is user
 
 __Prerequisites :__ In order to deploy the solution you need:
 * an AWS account
-* the AWS CLI installed with administrator credentials (instruction-link)
-* the AWS Amplify CLI (instruction-link)
+* the AWS CLI installed with administrator credentials ([installation-link](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html))
+* the AWS Amplify CLI ([installation link](https://docs.amplify.aws/cli/start/install)), install and configure.
 
 __1. Clone the project or fork it__
 
@@ -118,7 +145,7 @@ __3. Set your Hosted UI Domain Name__
 
 To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the `hostedUIDomainName` property. Be default it is "amplifyidbroker". When created, the Hosted UI domain name will take the form `https://{hostedUIDomainName}-{environment}.auth.{region}.amazoncognito.com`
 
-__WARNING:__ _The Cognito domain name has to be __unique among all AWS customers__ in your selected region. Conflicting domain name is a cause of deployment failure_
+__WARNING:__ _The Cognito domain name has to be __unique among all AWS customers__ in your selected region. Conflicting domain name is a cause of deployment failure._
 
 __4. Set your User Pool's Federated Social Identity Providers__
 

@@ -1,6 +1,17 @@
 [User Documentation](UserDocumentation.md) / [Client Developer Documentation](ClientDeveloperDocumentation.md) / __[Developer Documentation](DeveloperDocumentation.md)__
 
-# Developer Documentation
+# Developer Documentation <!-- omit in toc -->
+
+- [Create your own dev environment](#create-your-own-dev-environment)
+- [Architecture](#architecture)
+- [Source code structure](#source-code-structure)
+  - [Coding conventions](#coding-conventions)
+  - [Lambda functions](#lambda-functions)
+  - [Implemented auth flows](#implemented-auth-flows)
+- [SSO Token Swap](#sso-token-swap)
+- [Contribute](#contribute)
+- [Pipelines](#pipelines)
+
 
 This document is for contributors of the project.
 Contribution are welcome see [CONTRIBUTING](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/CONTRIBUTING.md) for information and rules of contribution
