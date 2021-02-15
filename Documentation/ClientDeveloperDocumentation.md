@@ -1,6 +1,24 @@
 [User Documentation](UserDocumentation.md) / __[Client Developer Documentation](ClientDeveloperDocumentation.md)__ / [Developer Documentation](DeveloperDocumentation.md)
 
-# Client Developer Documentation
+# Client Developer Documentation <!-- omit in toc -->
+
+- [Instruction for an AWS Amplify client](#instruction-for-an-aws-amplify-client)
+- [Instruction for any other client (not using AWS Amplify)](#instruction-for-any-other-client-not-using-aws-amplify)
+  - [Choose your flow (Implicit, PKCE)](#choose-your-flow-implicit-pkce)
+    - [Implicit flow](#implicit-flow)
+    - [PKCE flow](#pkce-flow)
+  - [How to create a login button/link](#how-to-create-a-login-buttonlink)
+  - [How to redirect from authenticated page when no JWT token provided](#how-to-redirect-from-authenticated-page-when-no-jwt-token-provided)
+  - [How to create a logout link](#how-to-create-a-logout-link)
+  - [How to create a switch user](#how-to-create-a-switch-user)
+  - [How to create a signup link](#how-to-create-a-signup-link)
+  - [How to direct to the account settings page](#how-to-direct-to-the-account-settings-page)
+  - [How to direct to the account security settings page](#how-to-direct-to-the-account-security-settings-page)
+  - [How to direct to the SSO dashboard](#how-to-direct-to-the-sso-dashboard)
+  - [How to verify a JWT token](#how-to-verify-a-jwt-token)
+  - [How to refresh the tokens](#how-to-refresh-the-tokens)
+  - [Migration instructions](#migration-instructions)
+  - [If you use a standard OIDC client](#if-you-use-a-standard-oidc-client)
 
 This document explains how to use the broker as a login solution for your websites and mobile application.
 

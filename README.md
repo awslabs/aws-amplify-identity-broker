@@ -1,4 +1,15 @@
-# AWS Amplify Identity Broker: code sample
+# AWS Amplify Identity Broker: code sample <!-- omit in toc -->
+
+- [Live demo](#live-demo)
+- [Documentation](#documentation)
+  - [User Documentation](#user-documentation)
+  - [Client Developer Documentation](#client-developer-documentation)
+  - [Developer Documentation](#developer-documentation)
+  - [Comparison with the Amazon Cognito Hosted UI](#comparison-with-the-amazon-cognito-hosted-ui)
+- [Architecture](#architecture)
+- [Contributing](#contributing)
+- [Security](#security)
+- [License](#license)
 
 __DISCLAIMER:__ _This project is a code sample provided as an illustration of how to achieve and identity broker and SSO on top of Amazon Cognito. Doing this provides extra flexibility at the price of more responsibility on customer side (see section "Comparison with the Amazon Cognito Hosted UI" for a visual comparison of the responsibility shift). Most customers should use the  [Amazon Cognito hosted UI](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-app-integration.html) as a production ready solution. If you decide to use this project in production make sure you have engineering resources to maintain it as well as expertise to keep it secure._
 
@@ -49,9 +60,14 @@ See [client demo code repository](https://github.com/awslabs/aws-amplify-identit
 
 ## Documentation
 
-- __[User Documentation](Documentation/UserDocumentation.md)__ : Explains, how to deploy, how to customize the broker, how to migrate from your existing user pool system.
-- __[Client Developer Documentation](Documentation/ClientDeveloperDocumentation.md)__ : Explains how to integrate the broker in your website or mobile application.
-- __[Developer Documentation](Documentation/DeveloperDocumentation.md)__ : Documentation for the contributor of this project: _PR are welcome !_
+### User Documentation
+- Explains, how to deploy, how to customize the broker, how to migrate from your existing user pool system. Click [here](Documentation/UserDocumentation.md) for details.
+
+### Client Developer Documentation
+- Explains how to integrate the broker in your website or mobile application. Click [here](Documentation/ClientDeveloperDocumentation.md) for details.
+
+### Developer Documentation
+- Documentation for the contributor of this project, can be found [here](Documentation/DeveloperDocumentation.md) : _PRs are welcome!_
 
 ### Comparison with the Amazon Cognito Hosted UI
 
