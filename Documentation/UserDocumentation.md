@@ -153,7 +153,8 @@ To set the social IdPs included in your user pool go to [/amplify/backend/auth/a
 
 If you don't want any social provider just make the arrays `authProvidersUserPool` and `hostedUIProviderMeta` empty.
 
-When initializing your environment in Step 6 you will be prompted for a Client ID and Client secret for each social provider you included. You can get these by completing Step 1 of the provided instructions for each social provider found [here](https://github.com/awslabs/aws-amplify-identity-broker/blob/Instructions/Documentation/UserDocumentation.md#social-providers)
+When initializing your environment in Step 6 you will be prompted for a Client ID and Client secret for each social provider you included. You can get these by completing Step 1 of the provided instructions for each social provider found [here](#social-providers)
+
 
 
 __5. Delete the AWS demo environment file__
@@ -322,7 +323,7 @@ After a change on the _hostingDomain_ in _amplify/team-provider-info.json_, if y
 amplify push --force
 ```
 
-_To verify if the change have been propagated you can open one of the AWS Lambda within teh AWS console and look at the value of the environment variable `HOSTING_DOMAIN`_
+_To verify if the change have been propagated you can open one of the AWS Lambda within the AWS console and look at the value of the environment variable `HOSTING_DOMAIN`_
 
 ## Register a client
 
