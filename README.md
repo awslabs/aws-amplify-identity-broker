@@ -38,26 +38,6 @@ This is a simplified view of the scope of the project (what this repository is a
 
 ![Projet Scope Image](Documentation/Images/SimplifiedProjectScope.png "Simplified Project Scope")
 
-## Live demo
-
-You can sign-up, sign-in, try SSO from any of these two client application demos:
-
-* Website 1 : https://master.dv7odw7xb73ou.amplifyapp.com _(this could be __myapp1.yourcompany.com__)_
-* Website 2 : https://master.dgt79y8acfq6b.amplifyapp.com _(this could be __www.yoursubsidiary.com__ or __myapp2.yourcompany.com__)_
-
-In a real use case, your user will only go to the broker from a client website or app, but for reference the Broker demo url itself is:
-
-* https://master.dw8p5s05jola3.amplifyapp.com _(this could be __login.yourcompany.com__)_
-
-> __Demo Credentials__
-> 
-> For the main app you can sign-up to create your own account (_we don't use emails and phone numbers for anything else than the demo_)
-> - AWS SSO SAML Demo User Credentials: __Username:__ demouser __Password:__ &7P4X^rd5fJVfd&h5h
-> - OIDC Demo User Credentials: __Username:__ demo __Password:__ P@ssw0rd
-> - Social login: use an account of your own
-
-See [client demo code repository](https://github.com/awslabs/aws-amplify-identity-broker-client)
-
 ## Documentation
 
 ### User Documentation
