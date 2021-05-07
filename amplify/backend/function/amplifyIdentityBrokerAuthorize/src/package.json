@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "MIT License",
   "dependencies": {
-    "amazon-cognito-identity-js": "^4.6.0",
+    "amazon-cognito-identity-js": "^4.6.1",
     "jwt-decode": "^3.1.2",
     "uuid": "^8.3.2"
   }
