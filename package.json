@@ -22,7 +22,7 @@
 	},
 	"devDependencies": {
 		"@testing-library/jest-dom": "^5.11.10",
-		"@testing-library/react": "^11.2.5",
+		"@testing-library/react": "^11.2.6",
 		"@testing-library/user-event": "^13.0.16",
 		"react-app-rewired": "^2.1.6",
 		"react-scripts": "4.0.3"
