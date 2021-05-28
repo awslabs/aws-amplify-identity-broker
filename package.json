@@ -24,8 +24,8 @@
 		"@testing-library/jest-dom": "^5.11.10",
 		"@testing-library/react": "^11.2.7",
 		"@testing-library/user-event": "^13.1.9",
-		"react-app-rewired": "^1.6.2",
-		"react-scripts": "^1.1.5"
+		"react-app-rewired": "^2.1.8",
+		"react-scripts": "^4.0.3"
 	},
 	"scripts": {
 		"start": "react-app-rewired start",
