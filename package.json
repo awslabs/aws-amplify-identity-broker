@@ -7,21 +7,21 @@
 	"description": "AWS Amplify Identity Broker is a login federation solution supporting OIDC, SAML and social federation",
 	"dependencies": {
 		"@aws-amplify/ui-react": "^1.2.1",
-		"@material-ui/core": "^4.11.3",
-		"@material-ui/icons": "^4.9.1",
-		"aws-amplify": "^3.4.3",
+		"@material-ui/core": "^4.11.4",
+		"@material-ui/icons": "^4.11.2",
+		"aws-amplify": "^4.0.3",
 		"axios": "^0.21.1",
 		"jwt-decode": "^3.1.2",
 		"qrcode.react": "^1.0.1",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
-		"react-redux": "^7.2.3",
-		"react-responsive": "^8.1.1",
+		"react-redux": "^7.2.4",
+		"react-responsive": "^8.2.0",
 		"react-router-dom": "^5.2.0",
-		"redux": "^4.0.5"
+		"redux": "^4.1.0"
 	},
 	"devDependencies": {
-		"@testing-library/jest-dom": "^5.11.10",
+		"@testing-library/jest-dom": "^5.12.0",
 		"@testing-library/react": "^11.2.7",
 		"@testing-library/user-event": "^13.1.9",
 		"react-app-rewired": "^2.1.8",
