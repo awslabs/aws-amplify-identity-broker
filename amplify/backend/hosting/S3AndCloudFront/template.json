@@ -37,6 +37,9 @@
             }
           ]
         },
+        "VersioningConfiguration": {
+          "Status": "Enabled"
+        },
         "BucketName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
