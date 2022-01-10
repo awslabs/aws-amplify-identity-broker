@@ -117,11 +117,12 @@ __Utils functions__
 
 ## SSO Token Swap
 
-Every client application will get a token associated to the client_id he owns. Doing this make sure that the token are distributed to the right OIDC Audience, and also allow users to customize the scope and list of IdP they want to activate for a given client.
+Every client application will get a token associated to the client_id he owns. Doing this makes sure that the tokens are distributed to the right OIDC Audience, and also allow users to customize the scope and list of IdP they want to activate for a given client.
 
-When a login happen in the broker it is always done with a given client_id. This client_id maybe one from the client application the user came from, or the one of the broker if the user navigate directly to the brokjer domain. Once a user login, the broker store the tokens (ID, access, refresh) in localstorage and in a cookie on the broker domain.
+When a login happens in the broker it is always done with a given client_id. This client_id maybe one from the client application the user came from, or the one of the broker if the user navigate directly to the broker domain. Once a user logs in, the broker stores the tokens (ID, access, refresh) in localstorage and in a cookie on the broker domain.
 
-Now, if after a first successfull login, the same user come from another client application. Because of SSO he will be considered logged in but we cannot give him the current token since it is not a token matching with the client_id of the client application. Thanks to Amazon Cognito triggers and custom auth flow exchanging a token from one client_id to another is possible.
+Now, if after a first successful login, the same user comes from another client application. Because of SSO he will be considered logged in but we cannot give him the current token since it is not a token matching with the client_id of the client application. Thanks to Amazon Cognito triggers and a custom auth flow; exchanging a token from one client_id to another this is possible.
+
 This is the flow followed during this swap (here when coming from a PKCE client):
 
   ![Token Swap PKCE flow](Images/TokenClienIdSwap.png "Token Swap PKCE flow")
