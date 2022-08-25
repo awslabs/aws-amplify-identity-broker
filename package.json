@@ -12,7 +12,7 @@
 		"aws-amplify": "^4.3.0",
 		"axios": "^0.27.2",
 		"jwt-decode": "^3.1.2",
-		"qrcode.react": "^1.0.1",
+		"qrcode.react": "^3.1.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"react-redux": "^7.2.5",
