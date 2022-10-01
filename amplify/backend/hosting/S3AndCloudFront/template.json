@@ -145,7 +145,7 @@
               "DomainName": {
                 "Fn::GetAtt": [
                   "S3Bucket",
-                  "DomainName"
+                  "RegionalDomainName"
                 ]
               },
               "Id": "hostingS3Bucket",
