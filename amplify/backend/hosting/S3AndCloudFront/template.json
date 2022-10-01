@@ -31,8 +31,7 @@
           "ServerSideEncryptionConfiguration": [
             {
               "ServerSideEncryptionByDefault": {
-                "SSEAlgorithm": "aws:kms",
-                "KMSMasterKeyID": "KMS-KEY-ARN"
+                "SSEAlgorithm": "AES256"
               }
             }
           ]
