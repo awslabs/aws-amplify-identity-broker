@@ -16,7 +16,7 @@ exports.handler = async (event) => {
 	};
 	var userInfo = await cognitoidentityserviceprovider.getUser(params).promise();
 
-	if (userInfo.Username === event.username) {
+	if (userInfo.Username === event.userName) {
 		event.response.answerCorrect = true;
 	} else {
 		// Someone tried to get a token of someone else
