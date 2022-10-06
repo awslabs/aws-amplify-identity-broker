@@ -879,6 +879,14 @@ Resources:
                                         ],
                                     ],
                                 ]
+                - PolicyName: brokeraue6c0c3e3_sns_pass_role_policy
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - "iam:PassRole"
+                            Resource: !GetAtt SNSRole.Arn
     MFALambda:
         # Lambda which sets MFA config values
         # Depends on MFALambdaRole for role ARN

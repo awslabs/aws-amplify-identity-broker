@@ -31,8 +31,7 @@
           "ServerSideEncryptionConfiguration": [
             {
               "ServerSideEncryptionByDefault": {
-                "SSEAlgorithm": "aws:kms",
-                "KMSMasterKeyID": "KMS-KEY-ARN"
+                "SSEAlgorithm": "AES256"
               }
             }
           ]
@@ -141,12 +140,13 @@
       ],
       "Properties": {
         "DistributionConfig": {
+          "HttpVersion": "http2",
           "Origins": [
             {
               "DomainName": {
                 "Fn::GetAtt": [
                   "S3Bucket",
-                  "DomainName"
+                  "RegionalDomainName"
                 ]
               },
               "Id": "hostingS3Bucket",
