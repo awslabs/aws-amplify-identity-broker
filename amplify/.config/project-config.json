@@ -3,7 +3,7 @@
     "awscloudformation"
   ],
   "projectName": "amplify-identity-broker",
-  "version": "3.0",
+  "version": "3.1",
   "frontend": "javascript",
   "javascript": {
     "framework": "react",

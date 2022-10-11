@@ -1,111 +1,103 @@
 {
-    "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "Client table for the AWS Amplify Identity Broker",
-    "Parameters": {
-        "partitionKeyName": {
-            "Type": "String"
-        },
-        "partitionKeyType": {
-            "Type": "String"
-        },
-        "env": {
-            "Type": "String"
-        },
-        
-        "tableName": {
-            "Type": "String"
-        }
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.0.0\",\"stackType\":\"storage-DynamoDB\",\"metadata\":{}}",
+  "Parameters": {
+    "partitionKeyName": {
+      "Type": "String"
     },
-    "Conditions": {
-        "ShouldNotCreateEnvResources": {
-            "Fn::Equals": [
-                {
-                    "Ref": "env"
-                },
-                "NONE"
-            ]
-        }
+    "partitionKeyType": {
+      "Type": "String"
     },
-    "Resources": {
-        "DynamoDBTable": {
-            "Type": "AWS::DynamoDB::Table",
-            "Properties": {
-                "AttributeDefinitions": [
-                  
-                  {
-                      "AttributeName": "client_id",
-                      "AttributeType": "S"
-                  } 
-                  
-                ],
-                "KeySchema": [
-                  
-                  {
-                    "AttributeName": "client_id",
-                    "KeyType": "HASH"
-                  } 
-                  
-                ],
-                "ProvisionedThroughput": {
-                    "ReadCapacityUnits": "5",
-                    "WriteCapacityUnits": "5"
-                },
-                "TableName": {
-                    "Fn::If": [
-                        "ShouldNotCreateEnvResources",
-                        {
-                           "Ref": "tableName"
-                        }, 
-                        {
-
-                            "Fn::Join": [
-                                "",
-                                [
-                                  {
-                                    "Ref": "tableName"
-                                  },
-                                  "-",
-                                  {
-                                    "Ref": "env"
-                                  }
-                                ]
-                            ]
-                        }
-                    ]
-                }
-                
-            }
-        }
+    "env": {
+      "Type": "String"
     },
-    "Outputs": {
-        "Name": {
-            "Value": {
-                "Ref": "DynamoDBTable"
-            }
-        },
-        "Arn": {
-            "Value": {
-                "Fn::GetAtt": [
-                    "DynamoDBTable",
-                    "Arn"
-                ]
-            }
-        },
-        "PartitionKeyName": {
-            "Value": {
-                "Ref": "partitionKeyName"
-            }
-        },
-        "PartitionKeyType": {
-            "Value": {
-                "Ref": "partitionKeyType"
-            }
-        },
-        
-        "Region": {
-            "Value": {
-                "Ref": "AWS::Region"
-            }
-        }
+    "tableName": {
+      "Type": "String"
     }
+  },
+  "Conditions": {
+    "ShouldNotCreateEnvResources": {
+      "Fn::Equals": [
+        {
+          "Ref": "env"
+        },
+        "NONE"
+      ]
+    }
+  },
+  "Resources": {
+    "DynamoDBTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "client_id",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "client_id",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "5",
+          "WriteCapacityUnits": "5"
+        },
+        "TableName": {
+          "Fn::If": [
+            "ShouldNotCreateEnvResources",
+            {
+              "Ref": "tableName"
+            },
+            {
+              "Fn::Join": [
+                "",
+                [
+                  {
+                    "Ref": "tableName"
+                  },
+                  "-",
+                  {
+                    "Ref": "env"
+                  }
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "Name": {
+      "Value": {
+        "Ref": "DynamoDBTable"
+      }
+    },
+    "Arn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "DynamoDBTable",
+          "Arn"
+        ]
+      }
+    },
+    "PartitionKeyName": {
+      "Value": {
+        "Ref": "partitionKeyName"
+      }
+    },
+    "PartitionKeyType": {
+      "Value": {
+        "Ref": "partitionKeyType"
+      }
+    },
+    "Region": {
+      "Value": {
+        "Ref": "AWS::Region"
+      }
+    }
+  }
 }

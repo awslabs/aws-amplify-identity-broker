@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Hosting resource for the AWS Amplify Identity Broker",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.0.0\",\"stackType\":\"hosting-S3AndCloudFront\",\"metadata\":{}}",
   "Parameters": {
     "env": {
       "Type": "String"
