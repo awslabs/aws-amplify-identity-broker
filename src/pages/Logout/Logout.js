@@ -83,8 +83,10 @@ class Logout extends React.Component {
 			// We remove the client-id used for last login
 			localStorage.removeItem('client-id');
 
-			Auth.signOut(); // Sign the user out
-			window.location.reload(); // Reload the page to handle the client redirect
+			// Sign the user out
+			Auth.signOut().then(() => {
+				window.location.reload(); // Reload the page to handle the client redirect
+			});
 		}
 	}
 
