@@ -2,10 +2,10 @@
 
 - [Live demo](#live-demo)
 - [Documentation](#documentation)
-  - [User Documentation](#user-documentation)
-  - [Client Developer Documentation](#client-developer-documentation)
-  - [Developer Documentation](#developer-documentation)
-  - [Comparison with the Amazon Cognito Hosted UI](#comparison-with-the-amazon-cognito-hosted-ui)
+	- [User Documentation](#user-documentation)
+	- [Client Developer Documentation](#client-developer-documentation)
+	- [Developer Documentation](#developer-documentation)
+	- [Comparison with the Amazon Cognito Hosted UI](#comparison-with-the-amazon-cognito-hosted-ui)
 - [Architecture](#architecture)
 - [Contributing](#contributing)
 - [Security](#security)
@@ -32,11 +32,27 @@ __Current features are:__
 * Migration helper (transparent migration from an existing user base to this project)
 * account setting page with various customer attributes
 * SSO dashboard (listing apps)
-* consent approbation
+* consent approbationo
 
 This is a simplified view of the scope of the project (what this repository is about):
 
 ![Projet Scope Image](Documentation/Images/SimplifiedProjectScope.png "Simplified Project Scope")
+
+## Live demo
+
+You can sign-up, sign-in, try SSO from any of these two client application demos:
+
+* Website 1 : https://main.d3865c3iw67420.amplifyapp.com _(this could be __myapp1.yourcompany.com__)_
+* Website 2 : https://main.dannbzwwbj1rp.amplifyapp.com _(this could be __www.yoursubsidiary.com__ or __myapp2.yourcompany.com__)_
+
+In a real use case, your user will only go to the broker from a client website or app, but for reference the Broker demo url itself is:
+
+* https://master.d2i2y50c8btsz.amplifyapp.com _(this could be __login.yourcompany.com__)_
+
+> __Demo Credentials__
+> For the main app you can sign-up to create your own account (_we don't use emails and phone numbers for anything else than the demo_)
+
+See [client demo code repository](https://github.com/awslabs/aws-amplify-identity-broker-client)
 
 ## Documentation
 
@@ -53,7 +69,7 @@ This is a simplified view of the scope of the project (what this repository is a
 
 <details>
   <summary>Click to expand!</summary>
-  
+
   This project is similar to the [Amazon Cognito hosted UI](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-app-integration.html) by many aspects. Here is the list of similarities and differences.
 
   __Similarities__
@@ -89,7 +105,7 @@ The project architecture is the following:
 
 ![Projet Architecture Image](Documentation/Images/DeployedArchitecture.png "Projet Architecture")
 
-See __[Developer Documentation](Documentation/DeveloperDocumentation.md)__ to see more detailed information on every component. 
+See __[Developer Documentation](Documentation/DeveloperDocumentation.md)__ to see more detailed information on every component.
 
 ## Contributing
 
