@@ -20,10 +20,16 @@ const Login = () => {
 				{
 					type: "email",
 					required: true,
+					inputProps: {
+						'data-test': 'sign-in-email-input',
+					},
 				},
 				{
 					type: "password",
 					required: true,
+					inputProps: {
+						'data-test': 'sign-in-password-input',
+					},
 				}
 			]}>
 			<div slot="federated-buttons"></div>
