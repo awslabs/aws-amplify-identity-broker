@@ -145,7 +145,9 @@ __3. Set your Hosted UI Domain Name__
 
 To set the Hosted UI domain name go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L70) and edit the `hostedUIDomainName` property. Be default it is "amplifyidbroker". When created, the Hosted UI domain name will take the form `https://{hostedUIDomainName}-{environment}.auth.{region}.amazoncognito.com`
 
-__WARNING:__ _The Cognito domain name has to be __unique among all AWS customers__ in your selected region. Conflicting domain name is a cause of deployment failure._
+__WARNINGS:__ 
+ * _The Cognito domain name has to be __unique among all AWS customers__ in your selected region. Conflicting domain name is a cause of deployment failure._
+ * _"Cognito" is a keyword. The domain name must not contain the word "cognito" in it._
 
 __4. Set your User Pool's Federated Social Identity Providers__
 
