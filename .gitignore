@@ -39,3 +39,7 @@ amplifyconfiguration.json
 amplify-build-config.json
 amplify-gradle-config.json
 amplifyxc.config
+
+# Cypress
+cypress/videos
+cypress/screenshots
