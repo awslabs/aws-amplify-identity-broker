@@ -23,7 +23,7 @@
 	"devDependencies": {
 		"@testing-library/jest-dom": "^5.14.1",
 		"@testing-library/react": "^12.1.5",
-		"@testing-library/user-event": "^13.2.1",
+		"@testing-library/user-event": "^14.4.3",
 		"cypress": "^6.3.0",
 		"mocha": "^10.1.0",
 		"mochawesome": "^4.1.0",
