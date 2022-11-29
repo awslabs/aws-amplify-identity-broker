@@ -4,7 +4,6 @@ __[User Documentation](UserDocumentation.md)__ / [Client Developer Documentation
 
 - [Presentation](#presentation)
 	- [Choose your flow](#choose-your-flow)
-	- [Difference with the OIDC standard](#difference-with-the-oidc-standard)
 - [Deployment](#deployment)
 	- [Architecture](#architecture)
 	- [Deployment Instructions](#deployment-instructions)
@@ -14,7 +13,7 @@ __[User Documentation](UserDocumentation.md)__ / [Client Developer Documentation
 	- [Step 3: Configure domain (mandatory)](#step-3-configure-domain-mandatory)
 	- [Step 4: E2E Test (Optional)](#step-4-e2e-test-optional)
 - [Register a client](#register-a-client)
-- [CSS & UI components customization instruction](#css--ui-components-customization-instruction)
+- [CSS \& UI components customization instruction](#css--ui-components-customization-instruction)
 - [Identity Providers](#identity-providers)
 	- [OIDC Provider (oauth2)](#oidc-provider-oauth2)
 	- [SAML Provider](#saml-provider)
@@ -101,12 +100,6 @@ Expand the section below to see the detailed flows:
 </details>
 
 See [Client Developer Documentation](./ClientDeveloperDocumentation.md) to see how to implement a client using these flows.
-
-### Difference with the OIDC standard
-
-The AWS Amplify identity broker follows the [OpenID Connect 1.0 standard](https://openid.net/specs/openid-connect-core-1_0.html) with one exception:
-
-__/oauth2/userinfo__: The Oauth2 standard [stipulate](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo) that the UserInfo endpoint MUST accept Access Tokens as OAuth 2.0 Bearer Token Usage. The broker do not use that but instead is expecting the token to be provided inside a HTTP header named __access_token__. If this is a bloker for you, you can use the [UserInfo endpoint that Amazon Cognito expose](https://docs.aws.amazon.com/cognito/latest/developerguide/userinfo-endpoint.html) directly.
 
 ## Deployment
 
