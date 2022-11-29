@@ -3,31 +3,32 @@ __[User Documentation](UserDocumentation.md)__ / [Client Developer Documentation
 # User Documentation <!-- omit in toc -->
 
 - [Presentation](#presentation)
-  - [Choose your flow](#choose-your-flow)
-  - [Difference with the OIDC standard](#difference-with-the-oidc-standard)
+	- [Choose your flow](#choose-your-flow)
+	- [Difference with the OIDC standard](#difference-with-the-oidc-standard)
 - [Deployment](#deployment)
-  - [Architecture](#architecture)
-  - [Deployment Instructions](#deployment-instructions)
+	- [Architecture](#architecture)
+	- [Deployment Instructions](#deployment-instructions)
 - [Deploying with the AWS Amplify console](#deploying-with-the-aws-amplify-console)
-  - [Step 1: Environment Variables|](#step-1-environment-variables)
-  - [Step 2: Redirect rules](#step-2-redirect-rules)
-  - [Step 3: Configure domain (mandatory)](#step-3-configure-domain-mandatory)
+	- [Step 1: Environment Variables|](#step-1-environment-variables)
+	- [Step 2: Redirect rules](#step-2-redirect-rules)
+	- [Step 3: Configure domain (mandatory)](#step-3-configure-domain-mandatory)
+	- [Step 4: E2E Test (Optional)](#step-4-e2e-test-optional)
 - [Register a client](#register-a-client)
 - [CSS & UI components customization instruction](#css--ui-components-customization-instruction)
 - [Identity Providers](#identity-providers)
-  - [OIDC Provider (oauth2)](#oidc-provider-oauth2)
-  - [SAML Provider](#saml-provider)
-  - [Social Providers](#social-providers)
-  - [Step 1: Register with Facebook to get a App ID and App Secret](#step-1-register-with-facebook-to-get-a-app-id-and-app-secret)
-  - [Step 2: Finish registering with Facebook](#step-2-finish-registering-with-facebook)
-  - [Step 1: Register with Google to get a OAuth client ID and client secret](#step-1-register-with-google-to-get-a-oauth-client-id-and-client-secret)
-  - [Step 2: Finish registering with Google](#step-2-finish-registering-with-google)
-  - [Step 1: Register with Amazon to get a Client ID and Client Secret](#step-1-register-with-amazon-to-get-a-client-id-and-client-secret)
-  - [Step 2: Finish registering with Amazon](#step-2-finish-registering-with-amazon)
+	- [OIDC Provider (oauth2)](#oidc-provider-oauth2)
+	- [SAML Provider](#saml-provider)
+	- [Social Providers](#social-providers)
+	- [Step 1: Register with Facebook to get a App ID and App Secret](#step-1-register-with-facebook-to-get-a-app-id-and-app-secret)
+	- [Step 2: Finish registering with Facebook](#step-2-finish-registering-with-facebook)
+	- [Step 1: Register with Google to get a OAuth client ID and client secret](#step-1-register-with-google-to-get-a-oauth-client-id-and-client-secret)
+	- [Step 2: Finish registering with Google](#step-2-finish-registering-with-google)
+	- [Step 1: Register with Amazon to get a Client ID and Client Secret](#step-1-register-with-amazon-to-get-a-client-id-and-client-secret)
+	- [Step 2: Finish registering with Amazon](#step-2-finish-registering-with-amazon)
 - [Migration instructions](#migration-instructions)
 - [Uninstall](#uninstall)
-  - [Step 1 : stack deletion](#step-1--stack-deletion)
-  - [Step 2 : delete the user pool](#step-2--delete-the-user-pool)
+	- [Step 1 : stack deletion](#step-1--stack-deletion)
+	- [Step 2 : delete the user pool](#step-2--delete-the-user-pool)
 
 This document explains how to use the broker:
 
@@ -324,6 +325,24 @@ amplify push --force
 ```
 
 _To verify if the change have been propagated you can open one of the AWS Lambda within the AWS console and look at the value of the environment variable `HOSTING_DOMAIN`_
+
+### Step 4: E2E Test (Optional)
+
+This project is setup with End-to-end Testing with [Cypress](https://docs.aws.amazon.com/amplify/latest/userguide/running-tests.html).
+
+If you use Amplify CICD Integration, you must either setup necessary step for testing or disable testing. You may only run test on specific branch.
+
+__Option 1: Setup Testing__
+
+1. Visit Cognito Console.
+2. Create a test user.
+3. Login with the test user and set the password.
+4. Add the test user email and password as `CYPRESS_EMAIL` and `CYPRESS_PASSWORD` in Amplify Environment Variable.
+5. When test locally, run `npx cypress run --env EMAIL=<email>,PASSWORD=<password>`
+
+__Option 2: Disable Testing__
+
+1. Set Amplify Environment Variable `USER_DISABLE_TESTS` to `true` on branch. Visit [Amplify Documentation](https://docs.aws.amazon.com/amplify/latest/userguide/running-tests.html#disabling-tests) for more detail.
 
 ## Register a client
 

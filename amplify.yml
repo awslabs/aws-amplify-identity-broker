@@ -1,22 +1,40 @@
 version: 1
 backend:
-  phases:
-    build:
-      commands:
-        - '# Execute Amplify CLI with the helper script'
-        - amplifyPush --simple
+    phases:
+        build:
+            commands:
+                - "# Execute Amplify CLI with the helper script"
+                - amplifyPush --simple
 frontend:
-  phases:
-    preBuild:
-      commands:
-        - npm ci
-    build:
-      commands:
-        - npm run build
-  artifacts:
-    baseDirectory: build
-    files:
-      - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
+    phases:
+        preBuild:
+            commands:
+                - npm ci
+        build:
+            commands:
+                - npm run build
+    artifacts:
+        baseDirectory: build
+        files:
+            - "**/*"
+    cache:
+        paths:
+            - node_modules/**/*
+test:
+    artifacts:
+        baseDirectory: cypress
+        configFilePath: "**/mochawesome.json"
+        files:
+            - "**/*.png"
+            - "**/*.mp4"
+    phases:
+        preTest:
+            commands:
+                - yarn install
+                - yarn add mocha mochawesome mochawesome-merge mochawesome-report-generator
+        test:
+            commands:
+                - npx start-test 'yarn start' 3000 'npx cypress run --reporter mochawesome --reporter-options "reportDir=cypress/report/mochawesome-report,overwrite=false,html=false,json=true,timestamp=mmddyyyy_HHMMss"'
+        postTest:
+            commands:
+                - npx mochawesome-merge cypress/report/mochawesome-report/mochawesome*.json > cypress/report/mochawesome.json
