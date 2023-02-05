@@ -329,5 +329,4 @@ You may already have an existing application that is a OIDC standard client.
 
 If this is the case you can integrate your application with the broker but keep in mind that:
 * not all the flows and endpoint are implemented
-* the broker is not 100% standard see the [differences with the OIDC standard](./UserDocumentation.md#differences-with-the-oidc-standard) section.
 
