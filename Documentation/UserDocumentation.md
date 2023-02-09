@@ -119,7 +119,38 @@ __Prerequisites :__ In order to deploy the solution you need:
 * an AWS account
 * the AWS CLI installed with administrator credentials ([installation-link](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html))
 * the AWS Amplify CLI ([installation link](https://docs.amplify.aws/cli/start/install)), install and configure.
+* this project will need some permissions in addition to what you get from ```AdministratorAccess-Amplify``` policy. Add the following permissions to an inline policy.
 
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kms:CreateKey",
+                "kms:CreateAlias",
+                "kms:CreateGrant",
+                "kms:Decrypt",
+                "kms:DescribeKey",
+                "kms:EnableKeyRotation",
+                "kms:Encrypt",
+                "kms:PutKeyPolicy",
+                "kms:TagResource",
+                "kms:ScheduleKeyDeletion",
+                "kms:DeleteAlias",
+                "dynamodb:DescribeContributorInsights",
+                "dynamodb:DescribeKinesisStreamingDestination",
+                "lambda:GetFunctionCodeSigningConfig",
+                "s3:GetBucketPolicy",
+                "cloudfront:ListCloudFrontOriginAccessIdentities",
+                "sts:GetCallerIdentity"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
 __1. Clone the project or fork it__
 
 ```
