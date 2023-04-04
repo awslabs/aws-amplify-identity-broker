@@ -8,10 +8,11 @@ __[User Documentation](UserDocumentation.md)__ / [Client Developer Documentation
 	- [Architecture](#architecture)
 	- [Deployment Instructions](#deployment-instructions)
 - [Deploying with the AWS Amplify console](#deploying-with-the-aws-amplify-console)
-	- [Step 1: Environment Variables|](#step-1-environment-variables)
+	- [Step 1: Environment Variables](#step-1-environment-variables)
 	- [Step 2: Redirect rules](#step-2-redirect-rules)
 	- [Step 3: Configure domain (mandatory)](#step-3-configure-domain-mandatory)
 	- [Step 4: E2E Test (Optional)](#step-4-e2e-test-optional)
+- [Deploying with Existing UserPool](#deploying-with-existing-userpool)
 - [Register a client](#register-a-client)
 - [CSS \& UI components customization instruction](#css--ui-components-customization-instruction)
 - [Identity Providers](#identity-providers)
@@ -176,7 +177,12 @@ __4. Set your User Pool's Federated Social Identity Providers__
 
 To set the social IdPs included in your user pool go to [/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json](https://github.com/awslabs/aws-amplify-identity-broker/blob/master/amplify/backend/auth/amplifyIdentityBrokerAuth/parameters.json#L71) and edit `authProvidersUserPool` and `hostedUIProviderMeta` arrays. By default Facebook, Google, and LoginWithAmazon are configured but each can be removed based on which providers you want to allow users to sign in with. _If you add them again after deployment you'll just have to redo the step 6, 7 and 8._
 
-If you don't want any social provider just make the arrays `authProvidersUserPool` and `hostedUIProviderMeta` empty.
+If you don't want any social provider just make the arrays `authProvidersUserPool` and `hostedUIProviderMeta` empty. For example:
+
+```
+"authProvidersUserPool": [],
+"hostedUIProviderMeta": "[]",
+```
 
 When initializing your environment in Step 6 you will be prompted for a Client ID and Client secret for each social provider you included. You can get these by completing Step 1 of the provided instructions for each social provider found [here](#social-providers)
 
@@ -268,7 +274,7 @@ _To verify if the change have been propagated you can open one of the AWS Lambda
 
 ## Deploying with the AWS Amplify console
 
-### Step 1: Environment Variables|
+### Step 1: Environment Variables
 
 If you want to use the AWS Amplify console as your CI/CD pipeline to automate the deployment of the solution, you will need to set the following environment variable inside your AWS Amplify console app: (You would need to add only the variables corresponding to the social platforms you have configured during the Auth CLI setup):
 
@@ -367,6 +373,31 @@ __Option 1: Setup Testing__
 __Option 2: Disable Testing__
 
 1. Set Amplify Environment Variable `USER_DISABLE_TESTS` to `true` on branch. Visit [Amplify Documentation](https://docs.aws.amazon.com/amplify/latest/userguide/running-tests.html#disabling-tests) for more detail.
+
+
+## Deploying with Existing UserPool
+
+You may also choose to deploy this application with existing UserPool.
+
+> __Important Note:__ Some immutable setting of Existing UserPool may not align with this application. For example, Custom Attributes cannot be modified or deleted once created. Test it carefully with equivalent setting in development environment.
+>
+
+To deploy this application with existing UserPool follow the procedure below instead of normal deployment.
+
+1. Deploy AmplifyIdentityBroker without Cognito
+    1. Create Cognito Client in existing Cognito
+    2. Delete `amplify/team-provider-info.json`
+    3. Update `amplify/backend/backend-config.json`
+        1. Add property `"serviceType": "imported"` to `amplifyIdentityBrokerAuth`
+    4. Delete `amplify/backend/auth/amplifyIdentityBrokerAuth/amplifyIdentityBrokerAuth-cloudformation-template.yml`
+    5. Run `amplify init`
+    6. Run `amplify push`
+2. Add required setting to existing Cognito following settings in `amplify/backend/auth/amplifyIdentityBrokerAuth/amplifyIdentityBrokerAuth-cloudformation-template.yml` (**This step may affect existing application. Test it carefully with development environment**)
+    1. Add Custom Attributes (Boolean attributes cannot be created with console, so use SDK or CLI)
+    2. Associate Lambda Triggers
+    3. Check other settings are set correctly (i.e. MFA, CognitoDomain, callback URLs, ...)
+
+
 
 ## Register a client
 
