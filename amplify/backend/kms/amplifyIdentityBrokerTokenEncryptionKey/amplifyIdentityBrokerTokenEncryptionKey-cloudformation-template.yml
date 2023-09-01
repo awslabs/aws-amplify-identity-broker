@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: >-
-  {"createdOn":"Mac","createdBy":"Amplify","createdWith":"10.0.0","stackType":"kms-KMS","metadata":{}}
+  {"createdOn":"Mac","createdBy":"Amplify","createdWith":"12.1.1","stackType":"kms-KMS","metadata":{}}
 Parameters:
   env:
     Type: String
